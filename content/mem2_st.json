@@ -1,0 +1,204 @@
+{
+ "items": [
+  {
+   "id": "m-s6-8",
+   "skill": "s6",
+   "kind": "number",
+   "ask": "Give the first three bending frequencies of a uniform cantilever.",
+   "answer": "ω_n = (β_nL)²√(EI/(mL⁴)) with β₁L = 1.875, β₂L = 4.694, β₃L = 7.855, roots of cos βL cosh βL = −1. Frequency ratios 1 : 6.27 : 17.5.",
+   "cue": "1.875 squared is 3.52, the classic cantilever constant; each later root sits near (n − ½)π."
+  },
+  {
+   "id": "m-s6-9",
+   "skill": "s6",
+   "kind": "convention",
+   "ask": "State the boundary conditions of a cantilever wing as physical statements, for bending and torsion.",
+   "answer": "Root clamp: deflection w = 0, slope w′ = 0, twist θ = 0. Free tip: moment EIw″ = 0, shear (EIw″)′ = 0, torque GJθ′ = 0. Kinematic conditions at the root, force conditions at the tip.",
+   "cue": "Root holds what moves (w, w′, θ); the tip releases what pushes (M, V, T)."
+  },
+  {
+   "id": "m-s6-10",
+   "skill": "s6",
+   "kind": "trend",
+   "ask": "Which load excites which wing vibration mode?",
+   "answer": "A load drives a mode in proportion to the work it does on that mode shape. Lift through the elastic axis drives bending, a pitching moment about the elastic axis drives torsion, and antisymmetric lift (roll) drives antisymmetric modes.",
+   "cue": "Generalised force = ∫ load × mode shape: match the shape of the load to the shape of the mode."
+  },
+  {
+   "id": "m-s7-10",
+   "skill": "s7",
+   "kind": "formula",
+   "ask": "Give the torsion constant and shear stress of a thin circular tube with mean radius r and wall t.",
+   "answer": "J = 2πr³t. τ = T/(2πr²t) = T/(2At) with A = πr², the Bredt result. Twist rate θ′ = T/(GJ).",
+   "cue": "Bredt: q = T/(2A); a circle has A = πr², so 2πr²t sits under T."
+  },
+  {
+   "id": "m-s7-11",
+   "skill": "s7",
+   "kind": "definition",
+   "ask": "How do torsion segments along a span combine, and what does a touch point (stop) do?",
+   "answer": "Segments carry the same torque, so twists add: 1/k = ΣLᵢ/(GJᵢ), springs in series. A stop adds a parallel path to ground at its node; a rigid stop holds that node, so the tip stiffness becomes that of the outboard segments alone.",
+   "cue": "Same torque: series, add compliances. A stop is parallel at its node and shorts out everything inboard."
+  },
+  {
+   "id": "m-s7-12",
+   "skill": "s7",
+   "kind": "formula",
+   "ask": "Give the twist rate and torsion constant of a single closed thin-walled cell.",
+   "answer": "q = T/(2A). θ′ = (q/(2AG))∮ds/t = T∮(ds/t)/(4A²G), so J = 4A²/∮(ds/t), with A the area enclosed by the wall midline.",
+   "cue": "Four A squared over the loop integral of ds/t gives J for any single cell."
+  },
+  {
+   "id": "m-s7-13",
+   "skill": "s7",
+   "kind": "formula",
+   "ask": "Give the torsion constant and peak shear stress of a thin open section made of straight walls.",
+   "answer": "J = Σbᵢtᵢ³/3 over the walls. τ_max = T t_max/J, at the surface of the thickest wall.",
+   "cue": "Open walls act as separate thin strips, each one third b t cubed."
+  },
+  {
+   "id": "m-s8-10",
+   "skill": "s8",
+   "kind": "definition",
+   "ask": "State Betti's theorem and Maxwell's reciprocal theorem.",
+   "answer": "Betti: the work of load set 1 through the displacements of set 2 equals the work of set 2 through the displacements of set 1. Maxwell: deflection at i from a unit load at j equals deflection at j from a unit load at i; flexibility matrices are symmetric.",
+   "cue": "Swap cause and effect: δᵢⱼ = δⱼᵢ, a symmetric flexibility matrix."
+  },
+  {
+   "id": "m-s8-11",
+   "skill": "s8",
+   "kind": "trend",
+   "ask": "Which way do approximate TSTP (assumed displacements) and TMTP (assumed equilibrium forces) solutions err?",
+   "answer": "Assumed compatible displacements make the model too stiff: deflections at or below exact. Assumed equilibrium forces give complementary energy and deflections at or above exact. The two bracket the true answer.",
+   "cue": "Displacement guess: stiff and low. Force guess: flexible and high. The exact answer sits between."
+  },
+  {
+   "id": "m-s8-12",
+   "skill": "s8",
+   "kind": "sequence",
+   "ask": "List the steps of the TSTP (total potential) method for a truss joint displacement.",
+   "answer": "1) Joint displacements as unknowns. 2) Member elongations from geometry (compatibility). 3) Π = Σ½(EA/L)e² − ΣPu. 4) ∂Π/∂u = 0, which is joint equilibrium. 5) Solve u, then N = EAe/L.",
+   "cue": "Geometry in, equilibrium out: each derivative of Π is a joint force balance."
+  },
+  {
+   "id": "m-s8-13",
+   "skill": "s8",
+   "kind": "definition",
+   "ask": "State the reduction theorem used with the unit load method on indeterminate structures.",
+   "answer": "The virtual unit load system only needs equilibrium, so it may sit on any released, determinate version of the structure, while the real forces N come from the full indeterminate solution: δ = ΣNnL/(EA).",
+   "cue": "Real forces: full and compatible. Virtual forces: any equilibrium set, so pick the easy determinate one."
+  },
+  {
+   "id": "m-s9-16",
+   "skill": "s9",
+   "kind": "number",
+   "ask": "Three rigid bars of length L in a chain, pinned ends, lateral springs k at both inner joints, axial load P: give the critical loads and modes.",
+   "answer": "Antisymmetric S shape (inner joints move opposite): P = kL/3, the critical load. Symmetric bow (inner joints move together): P = kL.",
+   "cue": "The S shape shortens the span three times as much per unit spring energy, so it buckles at one third."
+  },
+  {
+   "id": "m-s9-17",
+   "skill": "s9",
+   "kind": "definition",
+   "ask": "State the energy criterion for a suddenly applied (step) dead load on a conservative system.",
+   "answer": "Starting from rest at q₀, the motion turns back where Π(q_max) = Π(q₀), with the full load in Π. The dynamic buckling load is the lowest load at which the energy barrier (the unstable equilibrium) drops to Π(q₀).",
+   "cue": "Kinetic energy is zero at the start and at the peak, so Π matches at both ends."
+  },
+  {
+   "id": "m-s9-18",
+   "skill": "s9",
+   "kind": "formula",
+   "ask": "Two rigid bars of length H/2, base spring C₁, mid-hinge spring C₂, top guided on the vertical: give P_cr.",
+   "answer": "The upper bar mirrors the lower one (angles θ and −θ), so C₂ turns 2θ. Π = ½(C₁ + 4C₂)θ² − PHθ²/2, giving P_cr = (C₁ + 4C₂)/H.",
+   "cue": "Mirrored bars double the mid-hinge angle, and spring energy goes with its square: 4C₂."
+  },
+  {
+   "id": "m-s9-19",
+   "skill": "s9",
+   "kind": "convention",
+   "ask": "How is the potential of a vertical dead load written in a rigid-bar spring model?",
+   "answer": "Π_load = −P times the distance the load point moves along the load, from exact geometry: for a bar of length L, −PL(1 − cos θ) ≈ −PL(θ²/2 − θ⁴/24).",
+   "cue": "The load drops, so its potential drops: minus P times the drop."
+  },
+  {
+   "id": "m-s10-8",
+   "skill": "s10",
+   "kind": "formula",
+   "ask": "Give the degree of static indeterminacy of a plane pin-jointed truss.",
+   "answer": "Degree = m + r − 2j, with m members, r reaction components and j joints. A stable truss with degree 1 has one redundant.",
+   "cue": "Unknowns (member forces plus reactions) minus equations (two per joint)."
+  },
+  {
+   "id": "m-s10-9",
+   "skill": "s10",
+   "kind": "sequence",
+   "ask": "List the steps to solve a once-redundant truss by the unit load method.",
+   "answer": "1) Cut one redundant member. 2) Forces N₀ from the real load. 3) Forces n₁ from a unit tension pair at the cut. 4) δ₁₀ = ΣN₀n₁L/(EA), δ₁₁ = Σn₁²L/(EA). 5) X = −δ₁₀/δ₁₁. 6) N = N₀ + Xn₁.",
+   "cue": "Cut, load, unit pair, gap, close: δ₁₀ + Xδ₁₁ = 0."
+  },
+  {
+   "id": "m-s10-10",
+   "skill": "s10",
+   "kind": "formula",
+   "ask": "How does a lack of fit or a temperature change enter the force method for a redundant truss?",
+   "answer": "It adds a free gap Δ at the cut: δ₁₀ + Δ + Xδ₁₁ = 0, with Δ = Σn₁αΔT L for heated members, or the misfit of the cut member, measured in the sense of the unit pair.",
+   "cue": "A misfit is a gap the redundant force must close, even with zero external load."
+  },
+  {
+   "id": "m-s10-11",
+   "skill": "s10",
+   "kind": "trend",
+   "ask": "In a cross-braced bay with tension-only diagonals, what happens under a horizontal shear load?",
+   "answer": "The diagonal that would shorten goes slack, the other diagonal carries the shear in tension, and the bay becomes determinate and more flexible.",
+   "cue": "Wires only pull: one diagonal works while its partner rests."
+  },
+  {
+   "id": "m-s11-8",
+   "skill": "s11",
+   "kind": "trend",
+   "ask": "For two materials in one bar, which arrangement gives the Voigt bound and which the Reuss bound?",
+   "answer": "Side by side (same strain): parallel, E = ΣfᵢEᵢ, the upper (Voigt) bound. End to end (same stress): series, 1/E = Σfᵢ/Eᵢ, the lower (Reuss) bound.",
+   "cue": "Parallel rows share strain and sum stiffness: Voigt on top. Series segments share force and sum compliance."
+  },
+  {
+   "id": "m-s11-9",
+   "skill": "s11",
+   "kind": "formula",
+   "ask": "Give the Winkler curved beam stress magnitude and the neutral axis radius of a rectangular section.",
+   "answer": "|σ| = M|r − r_n|/(A e r), with e = r̄ − r_n. Rectangle: r_n = h/ln(r_o/r_i). The neutral axis sits toward the centre of curvature and the inner fibre carries the peak stress.",
+   "cue": "Hyperbolic stress: the 1/r factor loads the short inner fibres hardest."
+  },
+  {
+   "id": "m-s11-10",
+   "skill": "s11",
+   "kind": "definition",
+   "ask": "How do you model a semi-rigid (flexible) corner joint in a frame?",
+   "answer": "As a rotational spring C between the members: relative rotation Δφ = M/C and energy M²/(2C) added to Castigliano. C large gives a rigid joint, C small gives a pin.",
+   "cue": "A joint is a hinge with a spring in it: rigid and pinned are its two limits."
+  },
+  {
+   "id": "m-s14-10",
+   "skill": "s14",
+   "kind": "definition",
+   "ask": "State the Rayleigh quotient for column buckling and the requirement on the trial shape.",
+   "answer": "P = ∫EI(w″)² dx / ∫(w′)² dx. The trial w must satisfy the essential (kinematic) conditions. The estimate is an upper bound, closest when w also meets the natural conditions.",
+   "cue": "Bending energy over shortening per unit load; a guessed shape adds constraint, so the estimate sits high."
+  },
+  {
+   "id": "m-s14-11",
+   "skill": "s14",
+   "kind": "number",
+   "ask": "Give the exact critical load of a cantilever (flagpole) column and two Rayleigh estimates.",
+   "answer": "Exact π²EI/(4L²) = 2.467EI/L². Trial x²: 3EI/L² (22% high). Trial 3Lx² − x³: 2.5EI/L² (1.3% high).",
+   "cue": "Flagpole effective length 2L gives π²/4; the parabola says 3, the tip-load cubic says 2.5."
+  },
+  {
+   "id": "m-s14-12",
+   "skill": "s14",
+   "kind": "formula",
+   "ask": "State the secant formula for an eccentrically loaded pinned column.",
+   "answer": "σ_max = (P/A)[1 + (ec/r²) sec((L/(2r))√(P/(EA)))], with eccentricity e, extreme fibre distance c and radius of gyration r. The secant grows sharply as P approaches P_cr.",
+   "cue": "Direct stress times one plus ec/r², amplified by a secant of half the slenderness times √(P/(EA))."
+  }
+ ]
+}

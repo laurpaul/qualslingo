@@ -1,0 +1,238 @@
+
+/* ================= v12: navy and gold theme =================
+   Navy field with faint gold geometric outlines, Roboto, gold titles,
+   snipped-corner gold tabs, navy content boxes with a light outline. Light variant: white page, navy band, gold rule. */
+:root{
+  --navy:#003057; --navy-deep:#002342; --navy-band:#002C56; --gold:#B3A369; --gold-tab:#A4925A; --gold-title:#BFB37C; --gold-dim:#635937; --buzz:#EEB211;
+  --night:var(--navy-deep); --violet:#00213F; --blue:#857437; --peri:var(--gold-title); --lav:#D8CC94; --whisper:#FFFFFF; --silver:#C9D2DD;
+  --bg:var(--navy); --surface:#0A3B66; --raise:#104676; --line:#3C6690; --fg:#FFFFFF; --muted:#B8C7D8;
+  --accent:var(--gold-title); --accent-ink:var(--navy-deep); --press:#7D6E3E; --hi:var(--buzz); --title:var(--gold-title);
+  --good:#7FD8B2; --good-bg:#0B3D45; --bad:#FFA392; --bad-bg:#3B2443;
+  --deco-s:rgba(180,161,104,.30); --deco-f:rgba(255,255,255,.022);
+  --sans:"Roboto",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --serif:"Roboto",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --math:"STIX Two Text","Cambria Math",Cambria,"Times New Roman",Georgia,serif;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --bg:#F3F5F8; --surface:#FFFFFF; --raise:#FFFFFF; --line:#C5CFDA; --fg:#0B1F33; --muted:#4B5E73;
+  --accent:var(--navy); --accent-ink:#FFFFFF; --press:var(--gold-tab); --hi:#857437; --title:var(--navy);
+  --good:#1B7550; --good-bg:#DDF1E7; --bad:#AE3A2C; --bad-bg:#F8E3DF;
+  --deco-s:rgba(0,48,87,.13); --deco-f:rgba(0,48,87,.02); color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:#F3F5F8; --surface:#FFFFFF; --raise:#FFFFFF; --line:#C5CFDA; --fg:#0B1F33; --muted:#4B5E73;
+  --accent:var(--navy); --accent-ink:#FFFFFF; --press:var(--gold-tab); --hi:#857437; --title:var(--navy);
+  --good:#1B7550; --good-bg:#DDF1E7; --bad:#AE3A2C; --bad-bg:#F8E3DF;
+  --deco-s:rgba(0,48,87,.13); --deco-f:rgba(0,48,87,.02); color-scheme:light}
+
+body{font-family:var(--sans);font-weight:400}
+h1,h2,h3,h4{font-family:var(--sans);font-weight:700;font-style:normal;letter-spacing:-.005em;color:var(--title)}
+.panel > h2,.exam-head h2{font-weight:700;font-style:normal;color:var(--title)}
+.eq,.cloze,.steps .eqs,.flash .eq{font-family:var(--math)}
+.label{font-weight:700;letter-spacing:.12em}
+.btn{font-weight:700;border-radius:4px;letter-spacing:.06em;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%)}
+.btn.ghost{clip-path:none;border-radius:4px}
+.btn.small{clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}
+.btn.ghost.small{clip-path:none}
+.card,.sheet,.fig .svgw,.boardfig,.cloze,.eq,.oral,.setup,.chip,.seg button,.field input,.toast{border-radius:6px}
+.card{border-width:1px}
+:root:not([data-theme="light"]) .card{border-color:rgba(255,255,255,.28)}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .card{border-color:var(--line)}}
+
+/* Background: the template's gold outline geometry (no moon). */
+.asdlbg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.asdlbg svg{position:absolute;inset:0;width:100%;height:100%}
+.asdlbg path{fill:var(--deco-f);stroke:var(--deco-s);stroke-width:5;stroke-linejoin:round}
+#appMain{position:relative;z-index:1}
+
+/* Title band: always navy, in both themes, with a gold rule. */
+.tray{--fg:#FFFFFF;--muted:#B8C7D8;--accent:var(--gold-title);--accent-ink:var(--navy-deep);--line:#3C6690;--hi:var(--buzz);--surface:#0A3B66;--raise:#104676;
+  background:var(--navy-band);color:#fff;border-bottom:3px solid var(--gold-tab)}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .tray{border-bottom-color:var(--buzz)}}
+:root[data-theme="light"] .tray{border-bottom-color:var(--buzz)}
+.brand{display:flex;align-items:center;gap:9px;font-family:var(--sans);font-style:normal;font-weight:700;font-size:18px;letter-spacing:0;color:#fff}
+.brand .gtmark{height:25px;width:auto;flex:none;display:block}
+.brand .bdiv{width:1.5px;height:26px;background:var(--gold);opacity:.8;flex:none}
+.bname{display:flex;flex-direction:column;line-height:1.05;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.bname small{font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--gold-title)}
+@media (max-width:440px){.brand{font-size:16px}.brand .bdiv{display:none}}
+@media (max-width:360px){.brand .gtmark{display:none}}
+
+/* Bottom rail: snipped-corner gold tabs on a navy band. */
+nav.tabs{--fg:#FFFFFF;--muted:#B8C7D8;--accent:var(--gold-title);--accent-ink:var(--navy-deep);
+  background:var(--navy-band);border-top:3px solid var(--gold-tab);gap:4px}
+nav.tabs button{border-radius:0;color:#C9D4E1;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)}
+nav.tabs button:hover{color:#fff;background:rgba(255,255,255,.06)}
+nav.tabs button[aria-selected="true"]{background:var(--gold-tab);color:#fff;font-weight:700}
+nav.tabs button[aria-selected="true"] svg{stroke-width:2.4}
+nav.tabs .n{background:#fff;color:var(--navy)}
+nav.tabs button[aria-selected="true"] .n{background:var(--navy);color:#fff}
+
+/* Section heads as template rail tabs. */
+.exam-head .code{background:var(--gold-tab);color:#fff;padding:5px 16px 5px 10px;letter-spacing:.12em;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,0 100%)}
+.exam-head h2{font-size:24px}
+.course-head{border-bottom:2px solid var(--gold-tab)}
+.course-head h3{color:var(--fg)}
+.panel > h2{font-size:26px;display:flex;align-items:center;gap:10px}
+.panel > h2::before{content:"";width:6px;height:24px;background:var(--gold-tab);clip-path:polygon(0 0,100% 0,100% 100%,0 calc(100% - 4px));flex:none}
+
+/* Today card: a navy box with gold accents in both themes. */
+.today{--fg:#fff;background:var(--violet);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:6px;position:relative;overflow:hidden}
+.today::after{content:"";position:absolute;right:0;top:0;width:44px;height:44px;background:var(--gold-tab);clip-path:polygon(100% 0,0 0,100% 100%);opacity:.9}
+.today h2{color:var(--gold-title)}
+.today .btn{background:var(--gold-title);color:var(--navy-deep);box-shadow:0 4px 0 #7D6E3E}
+.today .btn.ghost{color:#fff;border-color:rgba(255,255,255,.4);background:transparent;box-shadow:none}
+.week i.on{background:var(--gold-title);border-color:var(--gold-title)}
+
+/* Path nodes: navy discs with a gold rim; gold when mastered. */
+.node .core{font-family:var(--sans);font-style:normal;font-weight:700;font-size:20px}
+.node.gold .core{background:var(--buzz);color:var(--navy-deep)}
+.node .here{border-radius:3px;background:var(--gold-tab);border-color:var(--gold-tab);color:#fff;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,0 100%)}
+
+/* Lesson board header and kind tags as small gold rail tabs. */
+.kind .tag{background:var(--gold-tab);color:#fff;padding:3px 12px 3px 8px;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,0 100%)}
+.b-top .bar i,.meter i{background:var(--gold-tab)}
+.board{background:var(--bg)}
+
+/* Footer plate */
+.asdlfoot{margin:40px 0 0;border-radius:4px 0 0 4px;padding:18px 16px;background:var(--navy-band);display:flex;align-items:center;gap:14px;flex-wrap:wrap;border-top:3px solid var(--gold-tab);clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,0 100%)}
+.asdlfoot img{height:40px;width:auto}
+.asdlfoot span{font-size:12px;color:#B8C7D8;flex:1;min-width:160px}
+
+/* Sketch from memory */
+.skpad{display:flex;flex-direction:column;gap:8px}
+.skpad canvas{display:block;width:100%;touch-action:none;background:var(--surface);border:1px dashed var(--line);border-radius:6px;cursor:crosshair}
+.skbar{display:flex;gap:8px;justify-content:flex-end}
+.skcmp{display:grid;gap:12px}
+@media (min-width:720px){.skcmp{grid-template-columns:1fr 1fr}}
+.skmine img{display:block;width:100%;height:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips .chip{padding:7px 11px;font-size:14px;min-height:40px;border-bottom-width:1.5px}
+.chips .chip[aria-pressed="true"]{border-color:var(--good);color:var(--good);background:var(--good-bg)}
+.chips .chip[aria-pressed="true"]::before{content:"✓ ";font-weight:700}
+.skrate .btn{min-width:0;padding-inline:8px;letter-spacing:.03em}
+body{margin:0}
+[tabindex="-1"]:focus{outline:none}
+@media (min-width:720px){nav.tabs{justify-content:center}nav.tabs button{flex:0 1 120px}}
+/* v13 typeset math */
+.mx sub,.mx sup{font-size:.72em;line-height:0}
+.mx sub{vertical-align:-.28em}.mx sup{vertical-align:.5em}
+.mx sub sub,.mx sup sup,.mx sub sup,.mx sup sub{font-size:.85em}
+.mx .mu{font-style:normal}
+.mx i{font-style:italic;padding-right:.04em}
+.frac{display:inline-flex;flex-direction:column;align-items:stretch;vertical-align:middle;text-align:center;margin:0 .12em;line-height:1.2;font-size:.94em}
+.frac>.fn{border-bottom:1.1px solid currentColor;padding:0 .18em .06em}
+.frac>.fd{padding:.06em .18em 0}
+.frac .frac{font-size:.9em}
+.rad{white-space:nowrap;display:inline-flex;align-items:flex-start}
+.rad .rs{font-size:1.08em;line-height:1.15;margin-right:-.04em}
+.rad .ro{border-top:1.1px solid currentColor;padding:.04em .12em 0;margin-top:.14em;line-height:1.2}
+.bigop{font-size:1.3em;vertical-align:-.12em;margin-right:.04em}
+.mat{display:inline-grid;vertical-align:middle;gap:.05em .8em;padding:.12em .45em;margin:0 .2em;position:relative;text-align:center;line-height:1.25}
+.mat::before,.mat::after{content:"";position:absolute;top:0;bottom:0;width:.32em;border:1.2px solid currentColor}
+.mat::before{left:0;border-right:0}.mat::after{right:0;border-left:0}
+.eq .mx,.eqs .mx{display:flex;flex-direction:column;gap:.35em;align-items:flex-start}
+.eq .mx:not(:has(.eql)),.eqs .mx:not(:has(.eql)){display:block}
+.eql{display:block}
+.eq,.flash .eq{line-height:1.7}
+.bp{font-size:1.75em;line-height:0;vertical-align:-.16em;font-weight:300;font-family:var(--math)}
+.rad.tall{align-items:stretch}
+.rad.tall .rs{font-size:2.1em;line-height:1;margin-top:-.05em}
+.rad.tall .ro{margin-top:.18em}
+.mx .st{margin:0 .4em}
+.mx .mu{font-style:normal}
+/* v14 memory + checklist */
+.cue{border-left:4px solid var(--gold-tab);background:var(--surface);padding:10px 12px;border-radius:0 6px 6px 0;display:flex;flex-direction:column;gap:2px}
+.cue p{margin:0;font-size:15px}
+.memans{margin:0;font-size:17px;line-height:1.55}
+.mqtry{min-height:90px}
+.cklist{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.ck{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);cursor:pointer;min-height:44px}
+.ck input{width:20px;height:20px;flex:none;margin-top:2px;accent-color:var(--gold-tab)}
+.ck:has(input:checked){border-color:var(--good);background:var(--good-bg)}
+details.memrow{border-bottom:1px solid var(--line);padding:10px 0}
+details.memrow summary{cursor:pointer;font-weight:500;list-style-position:outside}
+details.memrow .eq,details.memrow .memans{margin-top:8px}
+.fhead{display:flex;align-items:center;gap:8px}
+.plgrid{display:grid;gap:10px;grid-template-columns:1fr}
+@media (min-width:560px){.plgrid{grid-template-columns:1fr 1fr}}
+.plcard{display:flex;flex-direction:column;text-align:left;border:1px solid var(--line);border-radius:6px;background:var(--surface);padding:0;overflow:hidden;color:inherit;font:inherit;cursor:pointer}
+.plcard:hover{border-color:var(--accent)}
+.plthumb{display:block;background:var(--bg);border-bottom:1px solid var(--line);height:120px;overflow:hidden;pointer-events:none}
+.plthumb svg{display:block;width:100%;height:100%;object-fit:contain}
+.pltxt{display:flex;flex-direction:column;gap:2px;padding:10px 12px}
+.pltxt b{font-weight:600;font-size:15px}
+.pltxt .tag{font-weight:800;font-size:11px;letter-spacing:.1em;color:var(--accent)}
+/* v15 Quals Lingo + Delta */
+.bmasc{display:flex;flex:none}
+.bmasc svg{display:block}
+.bname small{letter-spacing:.12em}
+.delta-say{display:flex;align-items:flex-end;gap:10px;margin-top:14px}
+.delta-say .dm{flex:none;filter:drop-shadow(0 3px 0 rgba(0,0,0,.25))}
+.bubble-d{position:relative;margin:0;background:var(--raise);border:1px solid var(--line);border-radius:12px 12px 12px 2px;padding:9px 12px;font-size:15px;line-height:1.4;flex:1}
+.bubble-d b{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
+.delta-end{display:flex;align-items:flex-end;gap:10px;width:100%;text-align:left;margin-bottom:6px}
+.delta-end svg{flex:none}
+.welcome-m{display:flex;align-items:flex-end;gap:10px}
+.lingofoot{margin:40px 0 0;padding:16px;background:var(--navy-band);display:flex;align-items:center;gap:12px;border-top:3px solid var(--gold-tab);border-radius:4px;color:#B8C7D8;font-size:13px}
+.lingofoot b{color:#fff}
+.mascot{overflow:visible}
+@media (prefers-reduced-motion: no-preference){.delta-say .dm svg{animation:dbob 3.2s ease-in-out infinite}.m-furious{animation:dshake .5s ease-in-out 2}}
+@keyframes dbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes dshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+/* v16 polish */
+.skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--accent);color:var(--accent-ink);padding:8px 12px;border-radius:4px;font-weight:700}
+.skip:focus{left:8px}
+.boot{padding:60px 0;text-align:center;color:var(--muted)}
+#view:has(.boot) ~ .lingofoot{display:none}
+.sheet{position:relative;padding-top:24px}
+.sheetx{position:absolute;top:8px;right:8px;width:40px;height:40px;border:0;background:none;color:var(--muted);display:grid;place-items:center;border-radius:6px}
+.sheetx:hover{color:var(--fg);background:var(--surface)}
+.sheetx svg{width:20px;height:20px}
+.sheet > h3:first-of-type{padding-right:40px}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:700}
+.seg button[aria-pressed="true"]::before{content:"✓ "}
+.kind .tag,.exam-head .code,.node .here{color:#0B1F33}
+nav.tabs button[aria-selected="true"]{color:#0B1F33}
+nav.tabs button[aria-selected="true"] .n{background:#0B1F33;color:#fff}
+.brand{flex:none}
+.bname small{white-space:nowrap}
+@media (max-width:420px){.bname small{display:none}.brand{font-size:17px}.tray .wrap{gap:6px}}
+details.memrow summary{padding-left:4px;margin-left:2px}
+.svgw{padding-bottom:26px!important}
+.svgw::after{bottom:4px}
+.numhint{color:var(--bad)}
+@media (pointer:coarse){.keys{display:none}}
+.welcome-m{padding-right:40px}
+.delta-miss{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--fg)}
+.delta-miss svg{flex:none}
+.delta-miss b{color:var(--accent);font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-right:4px}
+/* Hosted version: sign-in gate */
+.authgate{position:fixed;inset:0;z-index:80;background:var(--bg);display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:calc(24px + env(safe-area-inset-top,0px)) 16px calc(24px + env(safe-area-inset-bottom,0px))}
+.agcard{width:100%;max-width:420px;background:var(--raise);border:1px solid var(--line);border-radius:8px;padding:22px 20px;display:flex;flex-direction:column;gap:12px;margin:auto 0}
+.agtop{display:flex;align-items:center;gap:12px}
+.agtop h2{font-size:24px;margin:0}
+.agcard form{display:flex;flex-direction:column;gap:8px}
+.agcard input{font:inherit;font-size:16px;padding:12px;border-radius:6px;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);min-height:48px}
+.agcard input:focus{border-color:var(--accent);outline:none}
+.agcard .btn{margin-top:6px}
+.agmsg{margin:0;color:var(--bad);min-height:1em;font-size:14px}
+.aglinks{display:flex;flex-wrap:wrap;gap:6px 16px}
+.link{border:0;background:none;color:var(--accent);text-decoration:underline;padding:8px 0;font:inherit;font-size:14px;cursor:pointer;min-height:40px}
+.agoff{color:var(--muted);align-self:flex-start}
+#acctName{font:inherit;font-size:16px;padding:10px 12px;border-radius:6px;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);max-width:280px}
+/* phones: inputs at 16px stop iOS from zooming the page on focus */
+input,select,textarea{font-size:max(16px,1em)}
+/* Narrow phones (iPhone SE and similar) */
+@media (max-width:400px){
+  .tray .wrap{gap:4px}
+  .tray .icon{width:34px;height:40px}
+  .brand{font-size:15px;gap:6px}
+  .bmasc svg{width:34px;height:auto}
+  .markers{min-width:34px;gap:2px}
+  .markers i{width:4px}
+  .stat{font-size:14px;gap:3px}
+  .stat svg{width:15px;height:15px}
+}
+@media (max-width:340px){ .bname{display:none} }
+html,body{max-width:100%;overflow-x:clip}

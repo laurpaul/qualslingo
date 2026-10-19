@@ -1,0 +1,1539 @@
+{
+ "questions": [
+  {
+   "id": "o1-9",
+   "skill": "o1",
+   "type": "mc",
+   "q": "Find the eigenvectors of H = [[3,1],[1,3]].",
+   "a": "(1,1)/√2 with λ = 4 and (1,−1)/√2 with λ = 2",
+   "w": [
+    "(1,1)/√2 with λ = 2 and (1,−1)/√2 with λ = 4",
+    "(1,0) with λ = 3 and (0,1) with λ = 3",
+    "(1,2)/√5 with λ = 4 and (2,−1)/√5 with λ = 2, rotated"
+   ],
+   "x": "Equal diagonal entries put the eigenvectors at 45°: H(1,1) = 4(1,1) and H(1,−1) = 2(1,−1)."
+  },
+  {
+   "id": "o1-10",
+   "skill": "o1",
+   "type": "pair",
+   "q": "Match each two-variable quadratic f = ½xᵀHx + bᵀx to its contour family",
+   "pairs": [
+    [
+     "H positive definite",
+     "Ellipses around a unique minimum"
+    ],
+    [
+     "H indefinite (det H < 0)",
+     "Hyperbolas around a saddle"
+    ],
+    [
+     "H singular PSD, b in range of H",
+     "Parallel straight lines (flat trough)"
+    ],
+    [
+     "H singular PSD, b with null-space part",
+     "Parabolas (sloping trough)"
+    ]
+   ],
+   "x": "Eigenvalue signs set the family: two positive give ellipses, mixed signs give hyperbolas, and a zero eigenvalue gives a trough that is flat or sloping depending on b along the null direction."
+  },
+  {
+   "id": "o1-11",
+   "skill": "o1",
+   "type": "mc",
+   "q": "x* is a critical point and Hv = λv with ‖v‖ = 1. Substituting x = x* + αv into f = ½xᵀHx + bᵀx + c gives",
+   "a": "f = f(x*) + ½λα²",
+   "w": [
+    "f = f(x*) + λα²",
+    "f = f(x*) + ½α²/λ",
+    "f = f(x*) + λα + ½λα²"
+   ],
+   "x": "∇f(x*) = 0 removes the linear term and vᵀHv = λ for a unit eigenvector, so f = f(x*) + ½λα² along each eigendirection."
+  },
+  {
+   "id": "o1-12",
+   "skill": "o1",
+   "type": "mc",
+   "q": "f(x,y) = x² + 4xy + y², so H = [[2,4],[4,2]]. Classify the origin.",
+   "a": "Saddle; f decreases along (1,−1)",
+   "w": [
+    "Minimum; H has positive diagonal",
+    "Saddle; f decreases along (1,1)",
+    "Maximum; det H is negative"
+   ],
+   "x": "The eigenvalues are 6 along (1,1) and −2 along (1,−1), so the origin is a saddle and f falls as −α² along (1,−1)."
+  },
+  {
+   "id": "o1-13",
+   "skill": "o1",
+   "type": "num",
+   "q": "f = ½xᵀHx with H = [[5,3],[3,5]]. Find the length of the longest semi-axis of the contour f = 4.",
+   "a": 2,
+   "tol": 0.02,
+   "unit": "",
+   "x": "The eigenvalues are 2 and 8; along a unit eigenvector ½λr² = 4 gives r = √(8/λ), so the smallest eigenvalue λ = 2 gives the longest semi-axis r = 2."
+  },
+  {
+   "id": "o1-14",
+   "skill": "o1",
+   "type": "num",
+   "q": "f = ½xᵀHx + bᵀx with H = [[4,2],[2,4]] and b = (−6, −6). Find the minimum value f*.",
+   "a": -6,
+   "tol": 0.02,
+   "unit": "",
+   "x": "Solving Hx = −b gives x* = (1, 1), and f* = ½bᵀx* = −½bᵀH⁻¹b = −6."
+  },
+  {
+   "id": "o1-15",
+   "skill": "o1",
+   "type": "cloze",
+   "q": "Complete the minimum value of a positive definite quadratic f = ½xᵀHx + bᵀx + c",
+   "text": "f* = c − ½bᵀ___b",
+   "a": "H⁻¹",
+   "w": [
+    "H",
+    "2H⁻¹",
+    "H⁻²"
+   ],
+   "x": "Substituting x* = −H⁻¹b gives f* = c − ½bᵀH⁻¹b."
+  },
+  {
+   "id": "o1-16",
+   "skill": "o1",
+   "type": "mc",
+   "q": "For symmetric H, the directional curvature dᵀHd/dᵀd over all nonzero d spans",
+   "a": "[λ_min, λ_max]",
+   "w": [
+    "[0, λ_max]",
+    "[λ_min, trace H]",
+    "[−λ_max, λ_max]"
+   ],
+   "x": "The Rayleigh quotient is bounded by the extreme eigenvalues and reaches each at its eigenvector."
+  },
+  {
+   "id": "o2-9",
+   "skill": "o2",
+   "type": "mc",
+   "q": "On a plot of φ(α) = f(x + αp), the Armijo condition accepts α where φ(α) lies",
+   "a": "On or below the line φ(0) + c₁αφ′(0)",
+   "w": [
+    "On or above the line φ(0) + c₁αφ′(0)",
+    "Below the tangent line φ(0) + αφ′(0)",
+    "On or below the horizontal line φ(0)"
+   ],
+   "x": "The Armijo line has a gentler slope c₁φ′(0) than the tangent, and accepted steps lie on or under it."
+  },
+  {
+   "id": "o2-10",
+   "skill": "o2",
+   "type": "mc",
+   "q": "Graphically, the weak curvature condition φ′(α) ≥ c₂φ′(0) accepts steps where",
+   "a": "The slope has flattened to at least c₂φ′(0)",
+   "w": [
+    "The slope is steeper than it was at α = 0 (more negative)",
+    "φ(α) lies below φ(0)",
+    "The slope is exactly zero"
+   ],
+   "x": "Since φ′(0) < 0 and 0 < c₂ < 1, the condition keeps steps where φ has flattened enough, which excludes tiny steps."
+  },
+  {
+   "id": "o2-11",
+   "skill": "o2",
+   "type": "mc",
+   "q": "Goldstein conditions φ(0) + (1−c)αφ′(0) ≤ φ(α) ≤ φ(0) + cαφ′(0), 0 < c < ½. A known drawback is that",
+   "a": "Their lower bound can exclude every minimizer of φ",
+   "w": [
+    "They require a gradient evaluation at every single trial step",
+    "They require c above ½ for Newton steps",
+    "They demand an exact line search each time"
+   ],
+   "x": "Goldstein uses only function values, and its lower bound can cut off the minimizers of φ, so Wolfe conditions are preferred for quasi-Newton methods."
+  },
+  {
+   "id": "o2-12",
+   "skill": "o2",
+   "type": "num",
+   "q": "Backtracking on f(x) = x⁴ from x = 1 along p = −f′(1) = −4, with c₁ = 10⁻⁴, starting at α = 1 and halving. Which α is accepted?",
+   "a": 0.25,
+   "tol": 0.02,
+   "unit": "",
+   "x": "α = 1 gives f(−3) = 81 and α = 0.5 gives f(−1) = 1, both above the Armijo line; α = 0.25 gives f(0) = 0, which passes."
+  },
+  {
+   "id": "o2-13",
+   "skill": "o2",
+   "type": "num",
+   "q": "Steepest descent with exact line search on a quadratic with κ = 99. Using the worst-case factor ((κ−1)/(κ+1))² per iteration, how many iterations reduce f − f* by 10⁶? Round up to an integer.",
+   "a": 342,
+   "tol": 0.02,
+   "unit": "",
+   "x": "The factor is 0.98² = 0.9604, and ln(10⁻⁶)/ln(0.9604) = 341.9, so 342 iterations."
+  },
+  {
+   "id": "o2-14",
+   "skill": "o2",
+   "type": "cloze",
+   "q": "Complete the strong Wolfe curvature condition",
+   "text": "|∇f(x + αp)ᵀp| ≤ ___|∇f(x)ᵀp|",
+   "a": "c₂",
+   "w": [
+    "c₁",
+    "1 − c₂",
+    "c₂²"
+   ],
+   "x": "Strong Wolfe bounds the magnitude of the new directional derivative by c₂ times the initial one, with 0 < c₁ < c₂ < 1."
+  },
+  {
+   "id": "o2-15",
+   "skill": "o2",
+   "type": "mc",
+   "q": "Why do the Wolfe conditions require 0 < c₁ < c₂ < 1?",
+   "a": "So acceptable steps exist for any smooth f bounded below",
+   "w": [
+    "So the first trial step α = 1 always passes",
+    "So the curvature condition implies sufficient decrease too",
+    "So the line search converges quadratically"
+   ],
+   "x": "With c₁ < c₂, an interval of steps satisfying both conditions exists for every smooth f bounded below along a descent direction."
+  },
+  {
+   "id": "o2-16",
+   "skill": "o2",
+   "type": "mc",
+   "q": "Why does a quasi-Newton line search always try α = 1 first?",
+   "a": "The unit step is eventually accepted, keeping superlinear rate",
+   "w": [
+    "The unit step exactly minimizes φ(α) along every direction p",
+    "It satisfies the curvature condition for every smooth function",
+    "It guarantees monotone decrease without any further checks at all"
+   ],
+   "x": "Near the solution the quasi-Newton step is well scaled, so accepting α = 1 preserves the superlinear convergence rate."
+  },
+  {
+   "id": "o3-9",
+   "skill": "o3",
+   "type": "mc",
+   "q": "Compared with BFGS, the SR1 update",
+   "a": "May become indefinite, which suits trust region methods",
+   "w": [
+    "Stays positive definite whenever the curvature yᵀs > 0",
+    "Is a rank-two update built from both s and Bs vectors",
+    "Needs an exact line search to keep its denominator safe"
+   ],
+   "x": "SR1 is a symmetric rank-one secant update that can capture negative curvature, which a trust region handles naturally; it is skipped when its denominator is tiny."
+  },
+  {
+   "id": "o3-10",
+   "skill": "o3",
+   "type": "mc",
+   "q": "The DFP update is related to the BFGS update by",
+   "a": "Swapping s with y and B with its inverse H",
+   "w": [
+    "Using a rank-one correction in place of rank-two",
+    "Applying the update only once every n iterations",
+    "Adding a ridge term λI to every Hessian update"
+   ],
+   "x": "DFP and BFGS are dual: the BFGS formula for B, with s and y interchanged, gives the DFP formula for H = B⁻¹."
+  },
+  {
+   "id": "o3-11",
+   "skill": "o3",
+   "type": "cloze",
+   "q": "Complete the BFGS inverse Hessian update, with ρ = 1/(yᵀs)",
+   "text": "H₊ = (I − ρsyᵀ)H(I − ρysᵀ) + ___",
+   "a": "ρssᵀ",
+   "w": [
+    "ρyyᵀ",
+    "ρsyᵀ",
+    "ssᵀ/(sᵀHs)"
+   ],
+   "x": "The ρssᵀ term enforces the inverse secant condition H₊y = s, and the update keeps H₊ positive definite when yᵀs > 0."
+  },
+  {
+   "id": "o3-12",
+   "skill": "o3",
+   "type": "num",
+   "q": "Linear CG on Ax = b with A = [[4,1],[1,3]], b = (1, 2), x₀ = (2, 1). Compute the first step length α₀ = r₀ᵀr₀ / p₀ᵀAp₀ to 4 decimals.",
+   "a": 0.2205,
+   "tol": 0.02,
+   "unit": "",
+   "x": "r₀ = Ax₀ − b = (8, 3) and p₀ = −r₀, so α₀ = 73/331 = 0.2205."
+  },
+  {
+   "id": "o3-13",
+   "skill": "o3",
+   "type": "num",
+   "q": "Pure Newton on f(x) = x⁴ from x₀ = 1. Give x₁ to 4 decimals.",
+   "a": 0.6667,
+   "tol": 0.02,
+   "unit": "",
+   "x": "x₁ = x₀ − 4x₀³/(12x₀²) = 2x₀/3 = 0.6667; f″(0) = 0 at the minimizer, so Newton converges only linearly here with ratio 2/3."
+  },
+  {
+   "id": "o3-14",
+   "skill": "o3",
+   "type": "mc",
+   "q": "For linear CG on an SPD system, the error in the A-norm shrinks per iteration by roughly",
+   "a": "(√κ − 1)/(√κ + 1)",
+   "w": [
+    "(κ − 1)/(κ + 1)",
+    "1/κ",
+    "((κ − 1)/(κ + 1))²"
+   ],
+   "x": "The bound ‖e_k‖_A ≤ 2((√κ − 1)/(√κ + 1))ᵏ‖e₀‖_A shows CG depends on √κ, which is why preconditioning pays off."
+  },
+  {
+   "id": "o3-15",
+   "skill": "o3",
+   "type": "mc",
+   "q": "Limited-memory BFGS (L-BFGS) stores",
+   "a": "The m most recent (s, y) pairs",
+   "w": [
+    "A dense n×n inverse Hessian",
+    "Only the diagonal of the Hessian",
+    "The last m full Hessian matrices"
+   ],
+   "x": "L-BFGS applies the inverse Hessian implicitly through a two-loop recursion over m stored pairs, costing O(mn) memory and work."
+  },
+  {
+   "id": "o3-16",
+   "skill": "o3",
+   "type": "pair",
+   "q": "Match each method to its local convergence behaviour on a smooth strictly convex problem",
+   "pairs": [
+    [
+     "Steepest descent",
+     "Linear"
+    ],
+    [
+     "Newton's method",
+     "Quadratic"
+    ],
+    [
+     "BFGS",
+     "Superlinear"
+    ],
+    [
+     "Linear CG on an n-dim SPD quadratic",
+     "At most n iterations (exact arithmetic)"
+    ]
+   ],
+   "x": "Curvature information raises the rate: gradients alone give linear, secant updates give superlinear, the exact Hessian gives quadratic, and CG terminates in n steps on a quadratic."
+  },
+  {
+   "id": "o4-9",
+   "skill": "o4",
+   "type": "num",
+   "q": "Dogleg with g = (2, 2), B = diag(1, 2), Δ = 2. Compute the step and give its first component p₁.",
+   "a": -1.6,
+   "tol": 0.02,
+   "unit": "",
+   "x": "p_U = −(8/12)g = (−4/3, −4/3) with norm 1.886 and p_B = (−2, −1) with norm 2.236; the segment meets ‖p‖ = 2 at τ = 0.4 past p_U, giving p = (−1.6, −1.2)."
+  },
+  {
+   "id": "o4-10",
+   "skill": "o4",
+   "type": "num",
+   "q": "f(x_k) = 10, f(x_k + p) = 7, m(0) = 10 and m(p) = 6. Compute the trust region ratio ρ.",
+   "a": 0.75,
+   "tol": 0.02,
+   "unit": "",
+   "x": "ρ = actual reduction / predicted reduction = (10 − 7)/(10 − 6) = 0.75, a good agreement between model and function."
+  },
+  {
+   "id": "o4-11",
+   "skill": "o4",
+   "type": "mc",
+   "q": "Steihaug-CG solves the trust region subproblem with CG on Bp = −g and stops when",
+   "a": "An iterate leaves the region or negative curvature appears",
+   "w": [
+    "The residual norm first increases between two iterations",
+    "The step becomes parallel to the steepest descent direction",
+    "The model value rises above m(0) on two consecutive iterations"
+   ],
+   "x": "On negative curvature or a boundary crossing, Steihaug-CG moves to the boundary along the current direction; otherwise it stops at a small residual."
+  },
+  {
+   "id": "o4-12",
+   "skill": "o4",
+   "type": "mc",
+   "q": "Standard radius update thresholds (Nocedal and Wright) are",
+   "a": "Shrink if ρ < ¼; expand if ρ > ¾ and ‖p‖ = Δ",
+   "w": [
+    "Shrink if ρ < ¾; expand if ρ > ¼ and ‖p‖ < Δ",
+    "Shrink if ρ < 0; expand whenever ρ > 0",
+    "Shrink if ρ > 1; expand if ρ < ½"
+   ],
+   "x": "Poor agreement (ρ < ¼) shrinks Δ by a factor of 4, and very good agreement with a boundary step (ρ > ¾) doubles Δ up to Δ_max."
+  },
+  {
+   "id": "o4-13",
+   "skill": "o4",
+   "type": "cloze",
+   "q": "Complete the Cauchy point formula, assuming gᵀBg > 0",
+   "text": "p_C = −τ(Δ/‖g‖)g, τ = min(1, ___)",
+   "a": "‖g‖³/(Δ·gᵀBg)",
+   "w": [
+    "‖g‖²/(gᵀBg)",
+    "Δ·gᵀBg/‖g‖³",
+    "‖g‖³/(Δ²·gᵀBg)"
+   ],
+   "x": "Minimizing the model along −g gives step length ‖g‖²/gᵀBg, and τ caps it at the boundary, so τ = min(1, ‖g‖³/(Δ·gᵀBg))."
+  },
+  {
+   "id": "o4-14",
+   "skill": "o4",
+   "type": "mc",
+   "q": "The exact trust region solution p* satisfies (B + λI)p* = −g together with",
+   "a": "λ ≥ 0, λ(Δ − ‖p*‖) = 0, B + λI PSD",
+   "w": [
+    "λ ≤ 0, λ(Δ − ‖p*‖) = 0, B − λI PSD",
+    "λ ≥ 0, λ = ‖g‖/Δ, B PSD",
+    "λ = 0 and ‖p*‖ = Δ always"
+   ],
+   "x": "These Moré-Sorensen conditions characterize the global solution of the subproblem, with λ acting as the multiplier on ‖p‖ ≤ Δ."
+  },
+  {
+   "id": "o4-15",
+   "skill": "o4",
+   "type": "mc",
+   "q": "Why can a trust region method work directly with an indefinite B?",
+   "a": "The bound ‖p‖ ≤ Δ keeps the subproblem well posed",
+   "w": [
+    "An indefinite B always makes the ratio ρ equal to exactly one",
+    "The Cauchy point removes negative eigenvalues",
+    "Δ is set to the most negative eigenvalue"
+   ],
+   "x": "The ball constraint gives a bounded subproblem for any symmetric B, so negative curvature directions are exploited up to the radius."
+  },
+  {
+   "id": "o4-16",
+   "skill": "o4",
+   "type": "order",
+   "q": "Put one trust region iteration in order",
+   "steps": [
+    "Build the model m(p) from g and B at x_k",
+    "Solve the subproblem approximately for p with ‖p‖ ≤ Δ",
+    "Evaluate f(x_k + p) and form ρ",
+    "Update Δ and accept the step when ρ > η"
+   ],
+   "x": "Each iteration builds and solves the model, then compares actual and predicted reduction to set the radius and accept or reject."
+  },
+  {
+   "id": "o5-9",
+   "skill": "o5",
+   "type": "num",
+   "q": "min x² + y² subject to h = x + y − 2 = 0, with L = f + λh. Find λ.",
+   "a": -2,
+   "tol": 0.02,
+   "unit": "",
+   "x": "Stationarity gives 2x + λ = 0 and 2y + λ = 0, so x = y = 1 and λ = −2."
+  },
+  {
+   "id": "o5-10",
+   "skill": "o5",
+   "type": "num",
+   "q": "Same problem, now with constraint x + y = c and L = f + λ(x + y − c), λ = −2 at c = 2. Estimate, to first order, the change in f* when c goes from 2 to 2.1.",
+   "a": 0.2,
+   "tol": 0.03,
+   "unit": "",
+   "x": "df*/dc = −λ = 2, so Δf* ≈ 2 × 0.1 = 0.2 (the exact value c²/2 gives 0.205)."
+  },
+  {
+   "id": "o5-11",
+   "skill": "o5",
+   "type": "mc",
+   "q": "Convention g ≤ 0, μ ≥ 0. A primal active-set QP method drops a constraint from the working set when",
+   "a": "Its multiplier estimate is negative",
+   "w": [
+    "Its constraint value is strictly negative",
+    "It blocks the current step direction",
+    "The reduced Hessian becomes singular"
+   ],
+   "x": "A negative multiplier shows f decreases by moving off that constraint into the interior, so the method releases it."
+  },
+  {
+   "id": "o5-12",
+   "skill": "o5",
+   "type": "mc",
+   "q": "The Fritz John conditions differ from KKT by",
+   "a": "A multiplier μ₀ ≥ 0 on ∇f that may equal 0",
+   "w": [
+    "Dropping complementary slackness",
+    "Requiring LICQ at the candidate point",
+    "Using second derivatives of the constraints"
+   ],
+   "x": "Fritz John holds at every local minimizer without a constraint qualification; under a CQ, μ₀ > 0 and scaling to μ₀ = 1 recovers KKT."
+  },
+  {
+   "id": "o5-13",
+   "skill": "o5",
+   "type": "mc",
+   "q": "Convention g ≤ 0. Two active constraints at x* have ∇g₁ = (1, 0) and ∇g₂ = (0, 1). KKT holds when −∇f lies",
+   "a": "In the cone spanned by (1, 0) and (0, 1)",
+   "w": [
+    "In the cone spanned by (−1, 0) and (0, −1)",
+    "On the line through (1, 0) and (0, 1)",
+    "Orthogonal to both constraint gradients"
+   ],
+   "x": "KKT requires −∇f = μ₁∇g₁ + μ₂∇g₂ with μ ≥ 0, so −∇f lies in the first quadrant cone of the active gradients."
+  },
+  {
+   "id": "o5-14",
+   "skill": "o5",
+   "type": "cloze",
+   "q": "Complete the KKT system of min ½xᵀQx + cᵀx subject to Ax = b, with L = f + λᵀ(Ax − b)",
+   "text": "[[Q, Aᵀ],[A, 0]] (x, λ) = (−c, ___)",
+   "a": "b",
+   "w": [
+    "−b",
+    "0",
+    "Aᵀb"
+   ],
+   "x": "Stationarity gives Qx + Aᵀλ = −c and feasibility gives Ax = b, forming one symmetric indefinite linear system."
+  },
+  {
+   "id": "o5-15",
+   "skill": "o5",
+   "type": "mc",
+   "q": "min x subject to g = x² ≤ 0, so the only feasible point is x* = 0. At x*",
+   "a": "LICQ fails and no KKT multiplier exists",
+   "w": [
+    "KKT holds with μ = ½, since g is active at x*",
+    "KKT holds with μ = 0",
+    "LICQ holds since g is active"
+   ],
+   "x": "∇g = 2x vanishes at x* = 0, so ∇f = 1 has no representation −μ∇g; the minimizer satisfies Fritz John with μ₀ = 0."
+  },
+  {
+   "id": "o5-16",
+   "skill": "o5",
+   "type": "pair",
+   "q": "Convention g ≤ 0, so KKT requires μ ≥ 0. Match each multiplier and constraint state at a candidate point to its meaning",
+   "pairs": [
+    [
+     "μ > 0, g = 0",
+     "Strongly active constraint"
+    ],
+    [
+     "μ = 0, g = 0",
+     "Weakly active (degenerate) constraint"
+    ],
+    [
+     "μ = 0, g < 0",
+     "Inactive constraint"
+    ],
+    [
+     "μ < 0, g = 0",
+     "Releasing it lowers f"
+    ]
+   ],
+   "x": "Complementarity μg = 0 pairs positive multipliers with active constraints, and the multiplier sign shows whether the constraint holds f back."
+  },
+  {
+   "id": "o6-9",
+   "skill": "o6",
+   "type": "num",
+   "q": "min x² subject to x = 1, using the quadratic penalty φ = x² + (μ/2)(x − 1)² with μ = 10. Give the minimizer of φ to 4 decimals.",
+   "a": 0.8333,
+   "tol": 0.02,
+   "unit": "",
+   "x": "φ′ = 2x + μ(x − 1) = 0 gives x = μ/(2 + μ) = 0.8333, approaching 1 as μ grows."
+  },
+  {
+   "id": "o6-10",
+   "skill": "o6",
+   "type": "num",
+   "q": "Method of multipliers for min x² subject to h = x − 1 = 0, L_A = x² + λh + (μ/2)h², with λ₀ = 0 and μ = 8. Minimize L_A, then update λ. Give λ₁.",
+   "a": -1.6,
+   "tol": 0.02,
+   "unit": "",
+   "x": "Minimizing gives x₁ = 0.8, and λ₁ = λ₀ + μh(x₁) = 8(−0.2) = −1.6, moving toward λ* = −2."
+  },
+  {
+   "id": "o6-11",
+   "skill": "o6",
+   "type": "mc",
+   "q": "The main advantage of the augmented Lagrangian over the quadratic penalty is that it",
+   "a": "Converges to x* with finite μ as λ approaches λ*",
+   "w": [
+    "Keeps every iterate strictly feasible throughout the run",
+    "Removes the need for any inner minimization",
+    "Needs second derivatives only at the start"
+   ],
+   "x": "The multiplier term shifts the penalty so the exact minimizer is reached at moderate μ, avoiding the ill-conditioning of μ → ∞."
+  },
+  {
+   "id": "o6-12",
+   "skill": "o6",
+   "type": "cloze",
+   "q": "Complete the method of multipliers update for h(x) = 0 with L_A = f + λᵀh + (μ/2)‖h‖²",
+   "text": "λ_{k+1} = λ_k + ___",
+   "a": "μh(x_k)",
+   "w": [
+    "h(x_k)/μ",
+    "μ∇h(x_k)",
+    "−μh(x_k)"
+   ],
+   "x": "Stationarity of L_A gives ∇f + (λ_k + μh)ᵀ∇h = 0, so λ_k + μh(x_k) is the new multiplier estimate."
+  },
+  {
+   "id": "o6-13",
+   "skill": "o6",
+   "type": "mc",
+   "q": "In SQP with a line search, the merit function is used to",
+   "a": "Judge whether a step balances objective and feasibility",
+   "w": [
+    "Build the quadratic model of the Lagrangian for the QP subproblem",
+    "Choose the active set for the QP subproblem",
+    "Replace the Hessian with a BFGS estimate"
+   ],
+   "x": "A merit function such as f + ρ‖c‖₁ combines objective and constraint violation into one quantity the line search can decrease."
+  },
+  {
+   "id": "o6-14",
+   "skill": "o6",
+   "type": "mc",
+   "q": "A filter method accepts a trial point when",
+   "a": "No stored pair dominates its (f, violation)",
+   "w": [
+    "Its ℓ1 merit value decreases by the Armijo condition",
+    "It lowers f, whatever its violation",
+    "Its constraint violation is exactly zero"
+   ],
+   "x": "The filter treats objective and constraint violation as two goals and accepts points that improve one of them relative to every stored pair."
+  },
+  {
+   "id": "o6-15",
+   "skill": "o6",
+   "type": "mc",
+   "q": "The Maratos effect in SQP refers to",
+   "a": "A merit function rejecting good full steps near x*",
+   "w": [
+    "The QP subproblem becoming infeasible far from the solution",
+    "Multipliers diverging when LICQ holds",
+    "The BFGS update losing positive definiteness"
+   ],
+   "x": "Near x* the full SQP step can raise a nonsmooth merit function through second-order constraint curvature; a second-order correction step restores fast convergence."
+  },
+  {
+   "id": "o6-16",
+   "skill": "o6",
+   "type": "order",
+   "q": "Put the augmented Lagrangian (method of multipliers) loop in order",
+   "steps": [
+    "Choose λ₀ and μ₀",
+    "Minimize L_A(x; λ_k, μ_k) over x",
+    "Update λ_{k+1} = λ_k + μ_k h(x_k)",
+    "Increase μ if ‖h‖ fell too little",
+    "Stop when ‖h‖ and ‖∇L‖ are small"
+   ],
+   "x": "Each outer iteration minimizes the augmented Lagrangian, updates the multipliers from the constraint residual and raises μ only when feasibility progress stalls."
+  },
+  {
+   "id": "o7-9",
+   "skill": "o7",
+   "type": "pair",
+   "q": "Match each radial basis function to its form, with r = ‖x − c‖",
+   "pairs": [
+    [
+     "Gaussian",
+     "exp(−(εr)²)"
+    ],
+    [
+     "Multiquadric",
+     "√(1 + (εr)²)"
+    ],
+    [
+     "Inverse multiquadric",
+     "1/√(1 + (εr)²)"
+    ],
+    [
+     "Thin-plate spline",
+     "r² ln r"
+    ]
+   ],
+   "x": "Gaussian and inverse multiquadric kernels give positive definite interpolation matrices; multiquadric and thin-plate splines are paired with a low-order polynomial tail."
+  },
+  {
+   "id": "o7-10",
+   "skill": "o7",
+   "type": "num",
+   "q": "Gaussian RBF φ(r) = exp(−(εr)²) with ε = 1. Compute the kernel value between centres (0, 0) and (1, 1) to 4 decimals.",
+   "a": 0.1353,
+   "tol": 0.02,
+   "unit": "",
+   "x": "r² = 2, so φ = exp(−2) = 0.1353."
+  },
+  {
+   "id": "o7-11",
+   "skill": "o7",
+   "type": "num",
+   "q": "A kriging model predicts μ(x) = f_min exactly, with standard error σ = 2. Compute the expected improvement to 3 decimals.",
+   "a": 0.798,
+   "tol": 0.02,
+   "unit": "",
+   "x": "EI = (f_min − μ)Φ(z) + σφ(z) with z = 0 gives σ/√(2π) = 0.798."
+  },
+  {
+   "id": "o7-12",
+   "skill": "o7",
+   "type": "mc",
+   "q": "With n samples, leave-one-out cross-validation compared with 10-fold",
+   "a": "Needs n fits; nearly unbiased but higher variance",
+   "w": [
+    "Needs 10 fits; biased toward larger error than any k-fold scheme",
+    "Needs n² fits; lowest variance of all",
+    "Needs one fit; identical to training error"
+   ],
+   "x": "Leaving out one point uses n − 1 points per fit, giving a nearly unbiased error estimate with higher variance than k-fold."
+  },
+  {
+   "id": "o7-13",
+   "skill": "o7",
+   "type": "cloze",
+   "q": "Complete the PRESS statistic, where ŷ₍₋ᵢ₎ is the model fit without sample i",
+   "text": "PRESS = Σᵢ (yᵢ − ___)²",
+   "a": "ŷ₍₋ᵢ₎(xᵢ)",
+   "w": [
+    "ŷ(xᵢ)",
+    "ȳ",
+    "ŷ₍₋ᵢ₎(x̄)"
+   ],
+   "x": "PRESS sums the squared leave-one-out prediction errors at each held-out point."
+  },
+  {
+   "id": "o7-14",
+   "skill": "o7",
+   "type": "mc",
+   "q": "Solving least squares through the normal equations ΦᵀΦw = Φᵀy gives a condition number of",
+   "a": "κ(Φ)²",
+   "w": [
+    "κ(Φ)",
+    "√κ(Φ)",
+    "2κ(Φ)"
+   ],
+   "x": "Forming ΦᵀΦ squares the condition number, so QR or SVD on Φ itself is the numerically stable route."
+  },
+  {
+   "id": "o7-15",
+   "skill": "o7",
+   "type": "mc",
+   "q": "A full quadratic response surface in k = 20 variables needs at least how many samples?",
+   "a": "231",
+   "w": [
+    "41",
+    "400",
+    "1,048,576"
+   ],
+   "x": "A full quadratic has (k + 1)(k + 2)/2 = 21·22/2 = 231 coefficients, an example of sample needs growing quickly with dimension."
+  },
+  {
+   "id": "o7-16",
+   "skill": "o7",
+   "type": "mc",
+   "q": "Kriging correlation parameters θ are usually chosen by",
+   "a": "Maximizing the concentrated likelihood",
+   "w": [
+    "Least squares on training residuals",
+    "Fixing θ at the inverse sample spacing",
+    "Minimizing the predicted variance at x"
+   ],
+   "x": "After the mean and process variance are profiled out, θ is found by maximizing the concentrated log likelihood, usually with a global optimizer."
+  },
+  {
+   "id": "o8-9",
+   "skill": "o8",
+   "type": "num",
+   "q": "Forward difference error ≈ (h/2)|f″| + 2ε|f|/h. With ε = 10⁻¹⁶, |f| = 1, |f″| = 4, find the h that minimizes the error.",
+   "a": 1e-08,
+   "tol": 0.02,
+   "unit": "",
+   "x": "Setting the derivative to zero gives h² = 4ε|f|/|f″| = 10⁻¹⁶, so h = 10⁻⁸, about √ε for a well-scaled f."
+  },
+  {
+   "id": "o8-10",
+   "skill": "o8",
+   "type": "num",
+   "q": "Central difference for f(x) = x³ at x = 1 with h = 0.1. Give the result to 3 decimals.",
+   "a": 3.01,
+   "tol": 0.001,
+   "unit": "",
+   "x": "(1.1³ − 0.9³)/0.2 = 3.010, and the error h²f‴/6 = 0.01 matches the second-order truncation term."
+  },
+  {
+   "id": "o8-11",
+   "skill": "o8",
+   "type": "mc",
+   "q": "For a function with n inputs and m outputs, reverse-mode AD costs about",
+   "a": "m sweeps, each a small multiple of the cost of f",
+   "w": [
+    "n sweeps, each a small multiple of the cost of f",
+    "One sweep, whatever the values of n and m",
+    "n·m sweeps, each the full cost of f"
+   ],
+   "x": "Reverse mode yields one row of the Jacobian per sweep, so it suits many inputs and few outputs; forward mode yields one column per sweep."
+  },
+  {
+   "id": "o8-12",
+   "skill": "o8",
+   "type": "mc",
+   "q": "Jensen's inequality for convex f and random variable X states",
+   "a": "f(E[X]) ≤ E[f(X)]",
+   "w": [
+    "f(E[X]) ≥ E[f(X)]",
+    "E[f(X)] ≤ f(E[X])²",
+    "E[f(X)] = f(E[X])"
+   ],
+   "x": "For convex f the function of the mean lies at or below the mean of the function, with equality for affine f."
+  },
+  {
+   "id": "o8-13",
+   "skill": "o8",
+   "type": "mc",
+   "q": "Which composition is guaranteed convex?",
+   "a": "exp(g(x)) with g convex",
+   "w": [
+    "√g(x) with g convex and positive",
+    "g(x)² with g convex",
+    "−ln g(x) with g convex and positive"
+   ],
+   "x": "A convex nondecreasing outer function applied to a convex inner function is convex, and exp is convex and nondecreasing."
+  },
+  {
+   "id": "o8-14",
+   "skill": "o8",
+   "type": "cloze",
+   "q": "Complete the direct (forward) method equation for du/dx with residuals R(x, u) = 0",
+   "text": "(∂R/∂u)(du/dx) = ___",
+   "a": "−∂R/∂x",
+   "w": [
+    "∂R/∂x",
+    "−∂f/∂x",
+    "−(∂R/∂u)ᵀ"
+   ],
+   "x": "Differentiating R(x, u(x)) = 0 gives one linear solve per design variable for du/dx."
+  },
+  {
+   "id": "o8-15",
+   "skill": "o8",
+   "type": "mc",
+   "q": "For a coupled aerostructural solver, the coupled adjoint system uses",
+   "a": "The transpose of the full coupled Jacobian ∂R/∂u",
+   "w": [
+    "Separate adjoints with coupling terms set to zero",
+    "Finite differences of the converged coupling loop",
+    "The Jacobian of the aerodynamic residual only"
+   ],
+   "x": "Stacking both disciplines' residuals gives one ∂R/∂u with off-diagonal coupling blocks, and its transpose defines the coupled adjoint."
+  },
+  {
+   "id": "o8-16",
+   "skill": "o8",
+   "type": "order",
+   "q": "Put the adjoint computation of df/dx in order",
+   "steps": [
+    "Solve R(x, u) = 0 for the state u",
+    "Form ∂R/∂u, ∂R/∂x, ∂f/∂u and ∂f/∂x at the solution",
+    "Solve (∂R/∂u)ᵀψ = (∂f/∂u)ᵀ",
+    "Compute df/dx = ∂f/∂x − ψᵀ∂R/∂x"
+   ],
+   "x": "One adjoint solve per function of interest gives its full gradient at a cost nearly independent of the number of design variables."
+  },
+  {
+   "id": "o9-1",
+   "skill": "o9",
+   "type": "mc",
+   "q": "Minimizing all objectives, design x₁ dominates x₂ when",
+   "a": "fᵢ(x₁) ≤ fᵢ(x₂) for all i, strictly for at least one",
+   "w": [
+    "fᵢ(x₁) < fᵢ(x₂) for at least one objective i",
+    "Σᵢ fᵢ(x₁) < Σᵢ fᵢ(x₂) over all objectives",
+    "f₁(x₁) < f₁(x₂) with the other objectives free to vary"
+   ],
+   "x": "Dominance means x₁ is at least as good in every objective and strictly better in one; the Pareto set is the nondominated designs."
+  },
+  {
+   "id": "o9-2",
+   "skill": "o9",
+   "type": "num",
+   "q": "Minimize both objectives. Designs (f₁, f₂): (1,5), (2,3), (3,4), (4,1), (5,2). How many are Pareto optimal?",
+   "a": 3,
+   "tol": 0.02,
+   "unit": "",
+   "x": "(3,4) is dominated by (2,3) and (5,2) by (4,1), leaving (1,5), (2,3) and (4,1) on the front."
+  },
+  {
+   "id": "o9-3",
+   "skill": "o9",
+   "type": "mc",
+   "q": "Sweeping w in min w·f₁ + (1 − w)·f₂, with w in [0, 1], reaches",
+   "a": "Only points on convex portions of the Pareto front",
+   "w": [
+    "Every Pareto point, given enough distinct weight values to sweep",
+    "Only the two anchor (single-objective) points",
+    "Dominated points close to the utopia point"
+   ],
+   "x": "Each weight defines a supporting line to the front, so the weighted sum finds points on the convex hull of the front."
+  },
+  {
+   "id": "o9-4",
+   "skill": "o9",
+   "type": "mc",
+   "q": "The ε-constraint method",
+   "a": "Minimizes f₁ subject to f₂ ≤ ε, sweeping ε",
+   "w": [
+    "Minimizes f₁ + ε·f₂, sweeping ε",
+    "Minimizes max(f₁, f₂) − ε at each step",
+    "Adds noise ε to each objective and resamples"
+   ],
+   "x": "Turning all but one objective into constraints with swept bounds traces the full front, including nonconvex portions."
+  },
+  {
+   "id": "o9-5",
+   "skill": "o9",
+   "type": "mc",
+   "q": "The utopia point in objective space is",
+   "a": "The vector of each objective's own minimum",
+   "w": [
+    "The Pareto point closest to the origin",
+    "The worst value of each objective on the front",
+    "The midpoint between the two anchor points"
+   ],
+   "x": "Each component is the individual optimum of one objective; it is usually unattainable and serves as a reference for normalization and distance methods."
+  },
+  {
+   "id": "o9-6",
+   "skill": "o9",
+   "type": "mc",
+   "q": "Objectives are normalized before weighted-sum or distance methods so that",
+   "a": "Weights reflect preference, free of units and scale",
+   "w": [
+    "The Pareto front becomes convex and easier to trace with weights",
+    "Every objective has the same minimizer",
+    "The number of objectives can be reduced"
+   ],
+   "x": "Scaling each objective by its utopia and nadir values puts objectives on a common 0 to 1 range, so weights express trade-off preference."
+  },
+  {
+   "id": "o9-7",
+   "skill": "o9",
+   "type": "pair",
+   "q": "Match each genetic algorithm operator to its role",
+   "pairs": [
+    [
+     "Selection",
+     "Picks parents with probability favouring fitness"
+    ],
+    [
+     "Crossover",
+     "Combines two parents' genes into offspring"
+    ],
+    [
+     "Mutation",
+     "Randomly perturbs genes to keep diversity"
+    ],
+    [
+     "Elitism",
+     "Copies the best designs into the next generation"
+    ]
+   ],
+   "x": "Selection and elitism drive exploitation, while crossover and mutation explore new regions of the design space."
+  },
+  {
+   "id": "o9-8",
+   "skill": "o9",
+   "type": "mc",
+   "q": "In PSO, v ← wv + c₁r₁(p_best − x) + c₂r₂(g_best − x). The c₁ term is the",
+   "a": "Cognitive pull toward the particle's own best",
+   "w": [
+    "Social pull toward the best position found by the whole swarm",
+    "Inertia carrying the previous velocity",
+    "Random mutation of the particle position"
+   ],
+   "x": "The c₁ term draws each particle toward its personal best, the c₂ term toward the swarm best, and w sets inertia."
+  },
+  {
+   "id": "o9-9",
+   "skill": "o9",
+   "type": "cloze",
+   "q": "Complete the Metropolis criterion for an uphill move Δf > 0 at temperature T",
+   "text": "P(accept) = ___",
+   "a": "exp(−Δf/T)",
+   "w": [
+    "exp(−T/Δf)",
+    "exp(Δf/T)",
+    "1 − Δf/T"
+   ],
+   "x": "Downhill moves are always accepted and uphill moves are accepted with probability exp(−Δf/T), which shrinks as T falls."
+  },
+  {
+   "id": "o9-10",
+   "skill": "o9",
+   "type": "num",
+   "q": "Simulated annealing at T = 1 proposes a move with Δf = 2. Compute the acceptance probability to 4 decimals.",
+   "a": 0.1353,
+   "tol": 0.02,
+   "unit": "",
+   "x": "P = exp(−Δf/T) = exp(−2) = 0.1353."
+  },
+  {
+   "id": "o9-11",
+   "skill": "o9",
+   "type": "mc",
+   "q": "As the temperature T → 0 in simulated annealing, the method",
+   "a": "Accepts only improving moves, like greedy descent",
+   "w": [
+    "Accepts every proposed move, behaving like a pure random walk",
+    "Switches to gradient steps automatically",
+    "Restarts from the best design found so far"
+   ],
+   "x": "exp(−Δf/T) → 0 for uphill moves as T → 0, so late stages refine locally; the cooling schedule, such as T_{k+1} = 0.9T_k, sets the pace from early exploration to late refinement."
+  },
+  {
+   "id": "o9-12",
+   "skill": "o9",
+   "type": "order",
+   "q": "Put one Nelder-Mead iteration in order",
+   "steps": [
+    "Order vertices by f and form the centroid of all but the worst",
+    "Reflect the worst vertex through the centroid",
+    "Expand if the reflected point beats the best vertex",
+    "Contract if the reflected point is still worse than the second worst",
+    "Shrink toward the best vertex if contraction fails"
+   ],
+   "x": "Nelder-Mead reshapes the simplex with reflection, expansion, contraction and shrink using function values only."
+  },
+  {
+   "id": "o9-13",
+   "skill": "o9",
+   "type": "num",
+   "q": "Nelder-Mead simplex with vertices (0,0), (2,0), (1,2), where (1,2) is worst. Reflect with coefficient 1. Give the y-coordinate of the reflected point.",
+   "a": -2,
+   "tol": 0.02,
+   "unit": "",
+   "x": "The centroid of (0,0) and (2,0) is (1,0), and x_r = c + (c − x_w) = (1, −2)."
+  },
+  {
+   "id": "o9-14",
+   "skill": "o9",
+   "type": "mc",
+   "q": "DIRECT (dividing rectangles) chooses which boxes to divide by",
+   "a": "Selecting boxes potentially optimal for some Lipschitz constant",
+   "w": [
+    "Sampling boxes uniformly at random across the domain each iteration",
+    "Dividing only the box that holds the current best",
+    "Estimating the gradient at each box centre point"
+   ],
+   "x": "DIRECT divides every box on the lower right convex hull of (box size, centre value), balancing global and local search without a known Lipschitz constant."
+  },
+  {
+   "id": "o9-15",
+   "skill": "o9",
+   "type": "mc",
+   "q": "Gradient-free optimization is the better choice when f is",
+   "a": "Noisy or discrete, with few design variables",
+   "w": [
+    "Smooth with an adjoint available and 1,000 variables",
+    "Convex with cheap exact gradients",
+    "High dimensional with analytic Hessians"
+   ],
+   "x": "Gradient-free methods handle noise, discontinuities, discrete variables and multimodality, and their cost grows quickly with the number of variables."
+  },
+  {
+   "id": "o9-16",
+   "skill": "o9",
+   "type": "cloze",
+   "q": "Complete the statement",
+   "text": "A Nelder-Mead simplex in n variables has ___ vertices",
+   "a": "n + 1",
+   "w": [
+    "n",
+    "2n + 1",
+    "n²"
+   ],
+   "x": "A simplex in n dimensions is the convex hull of n + 1 affinely independent points."
+  },
+  {
+   "id": "o10-1",
+   "skill": "o10",
+   "type": "mc",
+   "q": "A Gauss-Seidel multidisciplinary analysis differs from Jacobi in that",
+   "a": "Each discipline uses the latest coupling values at once",
+   "w": [
+    "All disciplines run in parallel on the previous iteration's values",
+    "It solves the coupled residuals by Newton's method",
+    "It replaces each discipline with a surrogate model"
+   ],
+   "x": "Gauss-Seidel passes updated coupling variables to the next discipline within the same sweep, which usually converges in fewer iterations than Jacobi."
+  },
+  {
+   "id": "o10-2",
+   "skill": "o10",
+   "type": "mc",
+   "q": "Newton's method for a multidisciplinary analysis",
+   "a": "Uses coupled partial derivatives and converges quadratically",
+   "w": [
+    "Uses only discipline outputs and converges linearly like fixed point",
+    "Needs one discipline evaluation per outer sweep",
+    "Runs each discipline once with no iteration at all"
+   ],
+   "x": "Newton solves the coupled residuals with the full Jacobian, including coupling blocks, and converges quadratically near the solution, also for strong coupling."
+  },
+  {
+   "id": "o10-3",
+   "skill": "o10",
+   "type": "pair",
+   "q": "Match each MDO architecture or tool to its description",
+   "pairs": [
+    [
+     "MDF",
+     "Full MDA at every optimizer iteration"
+    ],
+    [
+     "IDF",
+     "Coupling targets as design variables with consistency constraints"
+    ],
+    [
+     "Collaborative optimization",
+     "Discipline optimizers match targets set by a system optimizer"
+    ],
+    [
+     "Gauss-Seidel MDA",
+     "Sequential fixed-point solve of the couplings"
+    ]
+   ],
+   "x": "MDF keeps disciplines consistent at each iterate, IDF lets the optimizer enforce consistency, and CO distributes optimization to the disciplines."
+  },
+  {
+   "id": "o10-4",
+   "skill": "o10",
+   "type": "mc",
+   "q": "In IDF, disciplinary consistency is enforced by",
+   "a": "Constraints equating coupling targets and outputs",
+   "w": [
+    "A full MDA run before each objective and constraint evaluation",
+    "A penalty on the variance across disciplines",
+    "Fixing coupling variables at initial values"
+   ],
+   "x": "IDF adds coupling targets as design variables with equality constraints so disciplines run independently and in parallel at each iterate."
+  },
+  {
+   "id": "o10-5",
+   "skill": "o10",
+   "type": "mc",
+   "q": "Compared with IDF, MDF",
+   "a": "Has fewer variables and is consistent at every iterate",
+   "w": [
+    "Has more variables and needs no multidisciplinary analysis at all",
+    "Runs all disciplines fully in parallel",
+    "Reaches consistency only at convergence"
+   ],
+   "x": "MDF solves the coupled analysis for every design, so each iterate is multidisciplinary feasible and early termination still gives a consistent design."
+  },
+  {
+   "id": "o10-6",
+   "skill": "o10",
+   "type": "mc",
+   "q": "In an N² diagram with disciplines on the diagonal (outputs along rows, inputs along columns), entries below the diagonal show",
+   "a": "Feedback from later disciplines to earlier ones",
+   "w": [
+    "Feedforward from earlier disciplines to later ones",
+    "Design variables shared by every discipline",
+    "Constraints applied at the system level"
+   ],
+   "x": "Below-diagonal entries are feedback loops that require iteration; reordering disciplines to minimize them speeds the MDA."
+  },
+  {
+   "id": "o10-7",
+   "skill": "o10",
+   "type": "num",
+   "q": "A full factorial design with 4 factors at 3 levels each. How many runs?",
+   "a": 81,
+   "tol": 0.02,
+   "unit": "",
+   "x": "A full factorial needs levels^factors = 3⁴ = 81 runs."
+  },
+  {
+   "id": "o10-8",
+   "skill": "o10",
+   "type": "num",
+   "q": "A central composite design for k = 4 factors with 3 center points. How many runs?",
+   "a": 27,
+   "tol": 0.02,
+   "unit": "",
+   "x": "N = 2ᵏ + 2k + n_c = 16 + 8 + 3 = 27."
+  },
+  {
+   "id": "o10-9",
+   "skill": "o10",
+   "type": "cloze",
+   "q": "Complete the central composite design run count for k factors and n_c center points",
+   "text": "N = 2ᵏ + ___ + n_c",
+   "a": "2k",
+   "w": [
+    "k²",
+    "2ᵏ⁻¹",
+    "k"
+   ],
+   "x": "A CCD combines 2ᵏ factorial corners, 2k axial (star) points and n_c center points, enough to fit a full quadratic."
+  },
+  {
+   "id": "o10-10",
+   "skill": "o10",
+   "type": "mc",
+   "q": "In a resolution III fractional factorial design",
+   "a": "Main effects are aliased with two-factor interactions",
+   "w": [
+    "Main effects are aliased with other main effects",
+    "Two-factor interactions are entirely free of aliasing",
+    "Main effects alias only with three-factor interactions"
+   ],
+   "x": "Resolution III keeps main effects clear of each other and aliases them with two-factor interactions; resolution IV clears them of two-factor interactions."
+  },
+  {
+   "id": "o10-11",
+   "skill": "o10",
+   "type": "num",
+   "q": "A 2² design gives y(A−,B−) = 10, y(A+,B−) = 14, y(A−,B+) = 12, y(A+,B+) = 20. Compute the main effect of A.",
+   "a": 6,
+   "tol": 0.02,
+   "unit": "",
+   "x": "Main effect of A = mean at A+ minus mean at A− = (14 + 20)/2 − (10 + 12)/2 = 17 − 11 = 6."
+  },
+  {
+   "id": "o10-12",
+   "skill": "o10",
+   "type": "mc",
+   "q": "A nonzero AB interaction in a two-level factorial means",
+   "a": "The effect of A depends on the level of B",
+   "w": [
+    "A and B have equal main effects",
+    "A and B are aliased with each other in the design",
+    "The response is linear in A and B"
+   ],
+   "x": "The interaction is half the difference between the effect of A at B+ and at B−, so it measures how one factor changes the other's effect."
+  },
+  {
+   "id": "o10-13",
+   "skill": "o10",
+   "type": "mc",
+   "q": "Reliability-based design optimization replaces the constraint g(x) ≤ 0 with",
+   "a": "P[g(x, U) > 0] ≤ P_f,allow",
+   "w": [
+    "g(x, E[U]) ≤ 0 at the mean inputs",
+    "g(x, U) ≤ 0 for one sampled U",
+    "E[g(x, U)] ≤ 0 over the inputs"
+   ],
+   "x": "RBDO bounds the probability of failure under uncertain inputs U, often through the reliability index β from FORM."
+  },
+  {
+   "id": "o10-14",
+   "skill": "o10",
+   "type": "mc",
+   "q": "In ANOVA, a factor is judged significant when",
+   "a": "Its F = MS_factor/MS_error exceeds F_crit",
+   "w": [
+    "Its sum of squares exceeds the total sum of squares",
+    "Its mean square falls below the error mean square",
+    "Its main effect has a positive sign"
+   ],
+   "x": "The F ratio compares variance explained by the factor with error variance, and a value above the critical F at the chosen significance level marks significance."
+  },
+  {
+   "id": "o10-15",
+   "skill": "o10",
+   "type": "cloze",
+   "q": "Complete the Monte Carlo standard error of a sample mean with N samples",
+   "text": "σ_mean = σ/___",
+   "a": "√N",
+   "w": [
+    "N",
+    "N²",
+    "ln N"
+   ],
+   "x": "Monte Carlo error falls as 1/√N independent of dimension, so halving the error takes four times the samples."
+  },
+  {
+   "id": "o10-16",
+   "skill": "o10",
+   "type": "pair",
+   "q": "Match each design of experiments to its structure",
+   "pairs": [
+    [
+     "Full factorial",
+     "Every level combination, Lᵏ runs"
+    ],
+    [
+     "Central composite",
+     "Factorial corners plus axial and center points"
+    ],
+    [
+     "Box-Behnken",
+     "Edge midpoints plus center points, no corners"
+    ],
+    [
+     "Latin hypercube",
+     "One sample in each stratum of each variable"
+    ]
+   ],
+   "x": "Factorial-based designs suit response surfaces in few factors, Box-Behnken avoids extreme corners, and Latin hypercubes spread samples for computer experiments."
+  }
+ ],
+ "boards": [
+  {
+   "skill": "o1",
+   "prompt": "H = [[3,1],[1,3]] and b = 0. Find the eigenvectors by hand, sketch the contours and tell me which axis is longer. Now flip the off-diagonal entries to −1: what changes?",
+   "points": [
+    "Eigenvectors are (1,1)/√2 with λ = 4 and (1,−1)/√2 with λ = 2, at 45° because the diagonal entries are equal",
+    "Contours are ellipses with semi-axis proportional to 1/√λ, so the long axis lies along (1,−1)",
+    "With off-diagonals −1 the eigenvalues stay 2 and 4 and the eigenvectors swap, so the long axis moves to (1,1)",
+    "Along an eigendirection f − f* = ½λα², which gives the curvature in that direction"
+   ]
+  },
+  {
+   "skill": "o1",
+   "prompt": "Classify every contour family a two-variable quadratic can produce. Now take f = x² + y: what do the contours look like and is there a minimum?",
+   "points": [
+    "Positive definite H gives ellipses around a unique minimizer",
+    "Indefinite H gives hyperbolas around a saddle point",
+    "Singular PSD H with b in the range of H gives parallel lines and a whole line of minimizers",
+    "f = x² + y has a zero eigenvalue along y with b = (0,1) in the null space, so the contours are parabolas y = c − x²"
+   ]
+  },
+  {
+   "skill": "o2",
+   "prompt": "Draw φ(α) for a descent direction and shade the step lengths accepted by the weak Wolfe conditions. Now switch to strong Wolfe: what changes in your picture?",
+   "points": [
+    "Sufficient decrease keeps steps with φ(α) on or below the line φ(0) + c₁αφ′(0)",
+    "The weak curvature condition keeps steps with φ′(α) ≥ c₂φ′(0), removing tiny steps",
+    "Strong Wolfe adds φ′(α) ≤ c₂|φ′(0)|, removing steps where φ is climbing steeply",
+    "Strong Wolfe intervals cluster around the local minimizers of φ",
+    "Typical constants are c₁ = 10⁻⁴ and c₂ = 0.9 for quasi-Newton, c₂ = 0.1 for nonlinear CG"
+   ]
+  },
+  {
+   "skill": "o2",
+   "prompt": "Your steepest descent code takes thousands of iterations on a smooth problem. What is going on, and what are your options?",
+   "points": [
+    "The rate is linear with worst-case factor ((κ−1)/(κ+1))², so a large condition number κ makes progress slow",
+    "The iterates zigzag because successive exact-line-search directions are orthogonal",
+    "Rescaling the variables or preconditioning reduces κ",
+    "Switching to conjugate gradients, BFGS or Newton gives faster rates using curvature information"
+   ]
+  },
+  {
+   "skill": "o3",
+   "prompt": "Derive the BFGS update starting from the secant condition. Now your line search hands you a step with yᵀs < 0: what do you do?",
+   "points": [
+    "The secant condition is B₊s = y, matching the gradient change along the step",
+    "BFGS chooses the symmetric inverse H₊ closest to H in a weighted Frobenius norm subject to H₊y = s, a rank-two update",
+    "B₊ stays positive definite exactly when yᵀs > 0",
+    "The Wolfe curvature condition guarantees yᵀs > 0, so a proper line search prevents the problem",
+    "Otherwise skip the update or use Powell damping, which blends y with Bs to restore positive curvature"
+   ]
+  },
+  {
+   "skill": "o3",
+   "prompt": "Run linear CG by hand on a 2x2 SPD quadratic. Now the Hessian has condition number 10⁴: how many iterations do you expect and what do you do?",
+   "points": [
+    "CG terminates in at most 2 iterations for a 2x2 SPD system in exact arithmetic",
+    "Search directions are A-conjugate and residuals are mutually orthogonal",
+    "For large systems the error shrinks roughly by (√κ − 1)/(√κ + 1) per iteration, about 0.98 for κ = 10⁴",
+    "Preconditioning clusters the eigenvalues of the preconditioned matrix and cuts the iteration count"
+   ]
+  },
+  {
+   "skill": "o4",
+   "prompt": "Write the trust region subproblem and its exact optimality conditions. Now B is indefinite and g = 0: what does the solution look like?",
+   "points": [
+    "The subproblem is min m(p) = f + gᵀp + ½pᵀBp subject to ‖p‖ ≤ Δ",
+    "The solution satisfies (B + λI)p = −g, λ ≥ 0, λ(Δ − ‖p‖) = 0 and B + λI positive semidefinite",
+    "With g = 0 and indefinite B, p = ±Δv along the eigenvector of the most negative eigenvalue, with λ = −λ_min",
+    "This step moves the iterate off a saddle point, which a pure Newton step would stay on"
+   ]
+  },
+  {
+   "skill": "o4",
+   "prompt": "Compare the dogleg method and Steihaug-CG. Which do you use for 10⁵ variables where you only have Hessian-vector products?",
+   "points": [
+    "Dogleg combines the Cauchy point and the full step p_B = −B⁻¹g, needing B positive definite and a factorization",
+    "Steihaug-CG needs only Hessian-vector products and handles indefinite B by stopping at the boundary on negative curvature",
+    "Its first CG iterate is the Cauchy point, so it achieves at least Cauchy decrease",
+    "For 10⁵ variables with Hessian-vector products only, Steihaug-CG is the method of choice"
+   ]
+  },
+  {
+   "skill": "o5",
+   "prompt": "Minimize x² + y² subject to x + y = 2 by hand using a Lagrange multiplier. Now change the right-hand side to 2.1: predict the new optimum value without re-solving.",
+   "points": [
+    "Stationarity of L = f + λ(x + y − 2) gives 2x + λ = 0, 2y + λ = 0, so x = y = 1, λ = −2, f* = 2",
+    "At the optimum ∇f is parallel to ∇h, the normal of the constraint line",
+    "The sensitivity is df*/dc = −λ = 2 with this sign convention",
+    "The first-order prediction is f* ≈ 2 + 2(0.1) = 2.2, against the exact 2.205"
+   ]
+  },
+  {
+   "skill": "o5",
+   "prompt": "Explain how an active-set method solves a convex inequality-constrained QP. Now the problem has thousands of inequalities: what would you change?",
+   "points": [
+    "A working set of constraints is treated as equalities and the equality QP is solved through its KKT system",
+    "If the step hits a blocking constraint, the method takes the feasible fraction and adds that constraint",
+    "If the step is zero and a multiplier is negative, that constraint leaves the working set",
+    "Each change of working set alters one constraint, so iterations can grow with the number of constraints",
+    "Interior point methods handle many inequalities with an iteration count that grows slowly with problem size"
+   ]
+  },
+  {
+   "skill": "o6",
+   "prompt": "Take min x² subject to x = 1. Run one iteration of the method of multipliers by hand with μ = 8 and λ₀ = 0. Now tell me why this beats the pure quadratic penalty.",
+   "points": [
+    "Minimizing x² + λ₀(x − 1) + 4(x − 1)² gives x₁ = 0.8",
+    "The update λ₁ = λ₀ + μh(x₁) = −1.6 moves toward λ* = −2",
+    "Pure penalty reaches x* only as μ → ∞, and the Hessian condition number grows like μ",
+    "The augmented Lagrangian reaches x* with finite μ, so the subproblems stay well conditioned"
+   ]
+  },
+  {
+   "skill": "o6",
+   "prompt": "Your SQP steps look great, but the line search keeps cutting them near the solution. What is happening and how do you fix it?",
+   "points": [
+    "This is the Maratos effect: the full step raises the ℓ1 merit function through constraint curvature",
+    "Superlinear convergence needs the unit step to be accepted near x*",
+    "A second-order correction step projects back toward the constraints and restores acceptance",
+    "A watchdog (nonmonotone) strategy or a filter method also accepts the full steps"
+   ]
+  },
+  {
+   "skill": "o7",
+   "prompt": "Write expected improvement for a kriging model and explain how it trades exploration against exploitation. Now what is EI at a point you have already sampled?",
+   "points": [
+    "EI = (f_min − μ)Φ(z) + σφ(z) with z = (f_min − μ)/σ",
+    "The first term rewards a low predicted mean (exploitation)",
+    "The second term rewards high predicted uncertainty (exploration)",
+    "Noise-free kriging interpolates, so σ = 0 and EI = 0 at a sampled point",
+    "Maximizing EI selects each new infill sample, as in efficient global optimization (EGO)"
+   ]
+  },
+  {
+   "skill": "o7",
+   "prompt": "You fit a Gaussian RBF interpolant and the weight solve blows up. Why? Then tell me how you choose the shape parameter.",
+   "points": [
+    "The Gaussian kernel matrix becomes ill-conditioned as ε → 0 or as centres crowd together",
+    "A small ridge term λI or a larger ε restores conditioning at some cost in interpolation",
+    "Thin-plate splines with a polynomial tail avoid a shape parameter",
+    "The shape parameter is chosen by minimizing leave-one-out error, which has a cheap closed form for RBFs (Rippa's formula)"
+   ]
+  },
+  {
+   "skill": "o8",
+   "prompt": "Derive the optimal step size for a forward difference in double precision. Now compare central differences and the complex step.",
+   "points": [
+    "Forward difference error is truncation (h/2)|f″| plus subtractive cancellation of about 2ε|f|/h",
+    "Balancing the two gives h ≈ 2√(ε|f|/|f″|), about 10⁻⁸ for a well-scaled f, with about half the digits accurate",
+    "Central differences have O(h²) truncation error and optimal h near ε^(1/3), about 10⁻⁵",
+    "Complex step f′ ≈ Im f(x + ih)/h has no subtraction, so h = 10⁻²⁰⁰ gives derivatives to machine precision",
+    "Each finite difference or complex step gradient costs about n function evaluations"
+   ]
+  },
+  {
+   "skill": "o8",
+   "prompt": "Explain forward and reverse mode automatic differentiation. Now you have a coupled aerostructural solver with 300 design variables and 3 outputs: how do you get the gradients?",
+   "points": [
+    "Forward mode propagates derivatives with the computation and gives one Jacobian column per sweep",
+    "Reverse mode propagates adjoints backward and gives one Jacobian row per sweep, storing the forward trace",
+    "With 300 inputs and 3 outputs, reverse mode or the adjoint method needs about 3 solves",
+    "The coupled adjoint uses the transpose of the full coupled Jacobian, including discipline coupling blocks",
+    "AD can supply the partial derivatives ∂R/∂u and ∂R/∂x that the adjoint system needs"
+   ]
+  },
+  {
+   "skill": "o9",
+   "prompt": "Draw objective space for two competing objectives and mark the Pareto front, the utopia point and a dominated design. Now the front is nonconvex: which scalarization do you use?",
+   "points": [
+    "The Pareto front is the set of nondominated designs, the lower left boundary when minimizing both",
+    "The utopia point collects each objective's individual minimum and lies outside the feasible region for conflicting objectives",
+    "A dominated design has another design at least as good in every objective and better in one",
+    "A weighted sum reaches only convex portions of the front",
+    "The ε-constraint method or normal boundary intersection traces nonconvex portions"
+   ]
+  },
+  {
+   "skill": "o9",
+   "prompt": "Walk me through one generation of a genetic algorithm. How do you handle constraints, and how many function evaluations should I expect?",
+   "points": [
+    "Evaluate the population, select parents by fitness (tournament or roulette), apply crossover and mutation, and keep elites",
+    "Constraints enter through penalties or feasibility rules that rank feasible designs above infeasible ones",
+    "Total evaluations equal population size times generations, often thousands",
+    "Each generation evaluates in parallel, which suits expensive analyses on a cluster",
+    "NSGA-II extends the GA to multiple objectives with nondominated sorting and crowding distance"
+   ]
+  },
+  {
+   "skill": "o9",
+   "prompt": "Explain simulated annealing and its acceptance rule. Now what does the cooling schedule control?",
+   "points": [
+    "A random neighbour is proposed; downhill moves are always accepted",
+    "Uphill moves are accepted with Metropolis probability exp(−Δf/T)",
+    "High T allows escape from local minima and broad exploration",
+    "The cooling schedule, such as geometric T_{k+1} = αT_k with α near 0.9 to 0.99, sets the exploration to refinement trade-off",
+    "Slow logarithmic cooling gives convergence to the global optimum in probability"
+   ]
+  },
+  {
+   "skill": "o9",
+   "prompt": "When would you choose a gradient-free method over a gradient-based one for an aircraft design problem? Now the problem grows to 500 variables.",
+   "points": [
+    "Gradient-free suits noisy, discontinuous or discrete problems, multimodal landscapes and few variables",
+    "Gradient-free cost grows rapidly with the number of variables",
+    "Gradient-based methods with adjoint derivatives scale to hundreds of variables at nearly fixed gradient cost",
+    "For 500 variables, use gradient-based optimization with adjoints, with multistart for multimodality",
+    "A hybrid uses a global gradient-free search to find a basin, then gradient-based refinement"
+   ]
+  },
+  {
+   "skill": "o10",
+   "prompt": "Draw an N² diagram for aerodynamics, structures and performance in a wing design. Now set up MDF and IDF for it and tell me which you would pick.",
+   "points": [
+    "Aerodynamics passes loads to structures and structures passes deflections back, forming a feedback loop",
+    "Performance receives drag and weight as feedforward inputs",
+    "MDF converges the aerostructural MDA for each design, so every iterate is consistent",
+    "IDF adds load and displacement targets as variables with consistency constraints, allowing parallel discipline runs",
+    "MDF suits a robust, available MDA solver; IDF suits strong coupling with costly or separately owned disciplines"
+   ]
+  },
+  {
+   "skill": "o10",
+   "prompt": "Solve the coupled aerostructural analysis. Compare Gauss-Seidel and Newton for the MDA. Now the coupling is strong: what happens?",
+   "points": [
+    "Gauss-Seidel iterates disciplines in sequence using the latest coupling values and converges linearly",
+    "Newton solves the coupled residual system with the full Jacobian and converges quadratically",
+    "Strong coupling slows or stalls the fixed-point iteration; Aitken relaxation helps",
+    "Newton handles strong coupling well and its Jacobian is reused in the coupled adjoint"
+   ]
+  },
+  {
+   "skill": "o10",
+   "prompt": "You have 4 factors and a budget of 30 runs to fit a quadratic response surface. Which design do you pick? Now one factor is a noise variable: how do you make the design robust?",
+   "points": [
+    "A full quadratic in 4 factors has 15 coefficients",
+    "A three-level full factorial needs 3⁴ = 81 runs, beyond the budget",
+    "A central composite design needs 16 + 8 + n_c runs, about 27, and fits a quadratic",
+    "Box-Behnken with 4 factors needs 27 runs including 3 center points",
+    "For robustness, cross control factors with the noise factor (Taguchi inner and outer arrays) and maximize S/N, or model mean and variance directly"
+   ]
+  },
+  {
+   "skill": "o10",
+   "prompt": "Propagate input uncertainty through your design and set up an RBDO problem. How many Monte Carlo samples do you need for a failure probability near 10⁻³?",
+   "points": [
+    "Monte Carlo error scales as 1/√N regardless of dimension",
+    "The coefficient of variation of the P_f estimate is √((1 − P_f)/(N·P_f)), so 10% error at 10⁻³ needs about 10⁵ samples",
+    "FORM finds the most probable point and gives P_f ≈ Φ(−β) from the reliability index β",
+    "RBDO minimizes cost subject to P[gᵢ > 0] ≤ P_f,allow for each failure mode",
+    "Decoupled methods such as SORA replace the nested double loop with a sequence of deterministic problems"
+   ]
+  }
+ ]
+}

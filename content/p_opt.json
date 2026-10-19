@@ -1,0 +1,1174 @@
+{
+ "problems": [
+  {
+   "id": "p-o1-1",
+   "skill": "o1",
+   "title": "Quadratic bowl and one steepest descent step",
+   "setup": "f(x) = ½xᵀHx + bᵀx with H = [[5,−1],[−1,5]] and b = (−9, −3). Start steepest descent at x₀ = (0, 0) with an exact line search.",
+   "parts": [
+    {
+     "ask": "Find the minimum value f* at the critical point x*.",
+     "type": "num",
+     "a": -10.5,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "∇f = Hx + b = 0 gives 5x₁ − x₂ = 9 and −x₁ + 5x₂ = 3",
+      "x* = (2, 1)",
+      "f* = ½bᵀx* = ½(−18 − 3) = −10.5"
+     ]
+    },
+    {
+     "ask": "Give the eigenvalues of H and the shape of the contours of f.",
+     "type": "mc",
+     "a": "λ = 4 along (1,1), λ = 6 along (1,−1); ellipses, long axis along (1,1)",
+     "w": [
+      "λ = 4 along (1,−1), λ = 6 along (1,1); ellipses, long axis along (1,1)",
+      "λ = 4 along (1,1), λ = −6 along (1,−1); hyperbolas",
+      "λ = 5 twice; circles centred on x*"
+     ],
+     "sol": [
+      "H(1,1) = 4(1,1) and H(1,−1) = 6(1,−1)",
+      "Both eigenvalues positive: H is positive definite, contours are ellipses",
+      "Semi-axis length scales as 1/√λ, so the long axis lies along the λ = 4 direction"
+     ]
+    },
+    {
+     "ask": "Find the exact line search step length α₀ along p₀ = −∇f(x₀).",
+     "type": "num",
+     "a": 0.22727,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "g₀ = ∇f(0) = b = (−9, −3), gᵀg = 90",
+      "gᵀHg = 5·81 − 2·27 + 5·9 = 396",
+      "α₀ = gᵀg / gᵀHg = 90/396 = 0.2273"
+     ]
+    },
+    {
+     "ask": "Using α₀ = 5/22, find f(x₁).",
+     "type": "num",
+     "a": -10.2273,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "x₁ = α₀(9, 3) = (2.0455, 0.6818)",
+      "f(x₁) = f(x₀) − ½(gᵀg)²/(gᵀHg) = −½·8100/396",
+      "f(x₁) = −10.227, within 0.27 of f* after one step"
+     ]
+    }
+   ],
+   "x": "For a positive definite quadratic, x* = −H⁻¹b, the eigenvectors of H set the ellipse axes, and the exact steepest descent step is α = gᵀg / gᵀHg."
+  },
+  {
+   "id": "p-o1-2",
+   "skill": "o1",
+   "title": "A quadratic with a symmetric H",
+   "setup": "f(x) = ½xᵀHx + bᵀx with H = [[2,6],[6,2]] and b = (−8, −8).",
+   "parts": [
+    {
+     "ask": "Find the value of f at the critical point.",
+     "type": "num",
+     "a": -8,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "Hx = −b gives 2x₁ + 6x₂ = 8 and 6x₁ + 2x₂ = 8",
+      "x* = (1, 1)",
+      "f(x*) = ½bᵀx* = ½(−16) = −8"
+     ]
+    },
+    {
+     "ask": "Classify the critical point.",
+     "type": "mc",
+     "a": "Saddle: eigenvalues 8 along (1,1) and −4 along (1,−1)",
+     "w": [
+      "Minimum: eigenvalues 8 along (1,1) and 4 along (1,−1)",
+      "Maximum: eigenvalues −8 along (1,1) and −4 along (1,−1)",
+      "Saddle: eigenvalues 4 along (1,1) and −8 along (1,−1)"
+     ],
+     "sol": [
+      "H(1,1) = 8(1,1) and H(1,−1) = −4(1,−1)",
+      "det H = 4 − 36 = −32 < 0 confirms mixed signs",
+      "Mixed eigenvalue signs give a saddle with hyperbolic contours"
+     ]
+    },
+    {
+     "ask": "Evaluate f at x* + 2v with v = (1,−1)/√2.",
+     "type": "num",
+     "a": -16,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "∇f(x*) = 0, so f(x* + αv) = f(x*) + ½λα²",
+      "λ = −4, α = 2: f = −8 + ½(−4)(4)",
+      "f = −16"
+     ]
+    },
+    {
+     "ask": "Explain what a pure Newton step does from a point near this saddle, and what a descent method needs here.",
+     "type": "say",
+     "a": "Newton jumps to the stationary point of the quadratic model, which is the saddle, since it solves Hp = −g regardless of curvature sign. A descent method needs a positive definite model (modified Hessian or trust region) to follow the negative curvature direction (1,−1) downhill.",
+     "sol": [
+      "Newton step on a quadratic lands exactly on x* = (1,1)",
+      "Negative curvature direction (1,−1) gives unbounded decrease",
+      "Trust region or Hessian modification exploits that direction"
+     ]
+    }
+   ],
+   "x": "The eigenvalue signs of H classify a critical point, and f changes by ½λα² along each unit eigenvector."
+  },
+  {
+   "id": "p-o2-1",
+   "skill": "o2",
+   "title": "Wolfe check on an elliptic bowl",
+   "setup": "f(x) = x₁² + 4x₂², x₀ = (2, 1), search direction p = −∇f(x₀). Use Wolfe constants c₁ = 0.1 and c₂ = 0.5, and test the trial step α = 0.25.",
+   "parts": [
+    {
+     "ask": "Compute the directional derivative ∇f(x₀)ᵀp.",
+     "type": "num",
+     "a": -80,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "∇f(x₀) = (4, 8), p = (−4, −8)",
+      "∇f(x₀)ᵀp = −16 − 64 = −80"
+     ]
+    },
+    {
+     "ask": "Does α = 0.25 satisfy the sufficient decrease (Armijo) condition?",
+     "type": "mc",
+     "a": "Yes: f(x₀ + αp) = 5 ≤ 6",
+     "w": [
+      "No: f(x₀ + αp) = 5 > 4",
+      "Yes: f(x₀ + αp) = 3 ≤ 6",
+      "No: f(x₀ + αp) = 7 > 6"
+     ],
+     "sol": [
+      "x₀ + 0.25p = (1, −1), f = 1 + 4 = 5",
+      "Armijo bound: f₀ + c₁α∇fᵀp = 8 + 0.1·0.25·(−80) = 6",
+      "5 ≤ 6, so sufficient decrease holds"
+     ]
+    },
+    {
+     "ask": "Check the curvature conditions at α = 0.25.",
+     "type": "mc",
+     "a": "Weak holds; strong fails since |56| > 40",
+     "w": [
+      "Both Wolfe conditions hold since 56 ≥ −40 and 56 ≥ 0",
+      "Weak Wolfe fails since the slope 56 is positive",
+      "Strong Wolfe holds since |56| ≤ |−80| = 80 here"
+     ],
+     "sol": [
+      "∇f(1,−1) = (2, −8), ∇f(x₁)ᵀp = −8 + 64 = 56",
+      "Weak: 56 ≥ c₂(−80) = −40 holds",
+      "Strong: |56| ≤ c₂·80 = 40 fails: the step overshot the 1D minimum"
+     ]
+    },
+    {
+     "ask": "Find the exact minimizing step along p.",
+     "type": "num",
+     "a": 0.14706,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "φ'(α) = ∇fᵀp + α pᵀHp = 0 with H = diag(2, 8)",
+      "pᵀHp = 2·16 + 8·64 = 544",
+      "α* = 80/544 = 0.147"
+     ]
+    }
+   ],
+   "x": "Strong Wolfe bounds |∇f(x + αp)ᵀp| by c₂|∇fᵀp|, which rejects steps that overshoot to a steep positive slope."
+  },
+  {
+   "id": "p-o2-2",
+   "skill": "o2",
+   "title": "Backtracking on a quartic",
+   "setup": "f(x) = x⁴ at x₀ = 1 with p = −f'(x₀) = −4, so φ(α) = (1 − 4α)⁴. Backtracking starts at α = 1, halves α each rejection, and uses c₁ = 0.1.",
+   "parts": [
+    {
+     "ask": "Compute φ'(0).",
+     "type": "num",
+     "a": -16,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "φ'(0) = f'(x₀)·p = 4·(−4)",
+      "φ'(0) = −16"
+     ]
+    },
+    {
+     "ask": "Find the accepted step length.",
+     "type": "num",
+     "a": 0.25,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "Armijo: φ(α) ≤ 1 − 1.6α",
+      "α = 1: φ = 81 > −0.6, reject",
+      "α = 0.5: φ = 1 > 0.2, reject",
+      "α = 0.25: φ = 0 ≤ 0.6, accept"
+     ]
+    },
+    {
+     "ask": "How many function evaluations did the line search use?",
+     "type": "num",
+     "a": 3,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "Trials α = 1, 0.5, 0.25",
+      "3 evaluations of φ"
+     ]
+    },
+    {
+     "ask": "What does the Armijo test alone guarantee about the accepted step?",
+     "type": "mc",
+     "a": "Decrease proportional to α|φ'(0)|",
+     "w": [
+      "The exact 1D minimizer of φ",
+      "A curvature condition on φ'(α)",
+      "Global convergence with any initial α"
+     ],
+     "sol": [
+      "Armijo gives f(x₀ + αp) ≤ f(x₀) + c₁α∇fᵀp",
+      "Backtracking from a large α supplies steps long enough in practice"
+     ]
+    }
+   ],
+   "x": "Backtracking accepts the first trial step meeting φ(α) ≤ φ(0) + c₁αφ'(0), and the halving from α = 1 keeps steps long."
+  },
+  {
+   "id": "p-o3-1",
+   "skill": "o3",
+   "title": "Conjugate gradient on a 2x2 system",
+   "setup": "Minimize f(x) = ½xᵀAx − bᵀx with A = [[4,1],[1,3]] and b = (1, 2), using linear CG (Fletcher Reeves β) from x₀ = (0, 0).",
+   "parts": [
+    {
+     "ask": "Find the first step length α₀.",
+     "type": "num",
+     "a": 0.25,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "r₀ = b − Ax₀ = (1, 2), p₀ = r₀",
+      "r₀ᵀr₀ = 5, p₀ᵀAp₀ = (1,2)·(6,7) = 20",
+      "α₀ = 5/20 = 0.25, x₁ = (0.25, 0.5)"
+     ]
+    },
+    {
+     "ask": "Find β₁.",
+     "type": "num",
+     "a": 0.0625,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "r₁ = r₀ − α₀Ap₀ = (1,2) − 0.25(6,7) = (−0.5, 0.25)",
+      "r₁ᵀr₁ = 0.3125",
+      "β₁ = 0.3125/5 = 0.0625, p₁ = (−0.4375, 0.375)"
+     ]
+    },
+    {
+     "ask": "After the second step, report x₂ component 2 (CG finishes in n = 2 steps).",
+     "type": "num",
+     "a": 0.63636,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "p₁ᵀAp₁ = 0.859375, α₁ = 0.3125/0.859375 = 4/11",
+      "x₂ = x₁ + α₁p₁ = (1/11, 7/11)",
+      "Check: Ax₂ = (11/11, 22/11) = b, r₂ = 0"
+     ]
+    },
+    {
+     "ask": "Why does CG reach the exact solution in two iterations here?",
+     "type": "mc",
+     "a": "The directions are A-conjugate and n = 2",
+     "w": [
+      "A is diagonal, so the two axes decouple",
+      "Fletcher Reeves β equals one at step two",
+      "The residuals are parallel to b"
+     ],
+     "sol": [
+      "p₁ᵀAp₀ = 0 by construction of β",
+      "Exact minimization over n A-conjugate directions gives x* in at most n steps"
+     ]
+    }
+   ],
+   "x": "Linear CG minimizes over successive A-conjugate directions and reaches x* in at most n steps in exact arithmetic."
+  },
+  {
+   "id": "p-o3-2",
+   "skill": "o3",
+   "title": "Newton step and a BFGS update",
+   "setup": "f(x) = x₁⁴ + x₂², x₀ = (1, 1). Take one pure Newton step, then form the BFGS update starting from B₀ = I using that step as s.",
+   "parts": [
+    {
+     "ask": "Find f(x₁) after the Newton step.",
+     "type": "num",
+     "a": 0.19753,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "∇f = (4x₁³, 2x₂) = (4, 2), ∇²f = diag(12x₁², 2) = diag(12, 2)",
+      "p = −(4/12, 2/2) = (−1/3, −1)",
+      "x₁ = (2/3, 0), f = 16/81 = 0.1975"
+     ]
+    },
+    {
+     "ask": "Compute yᵀs with s = x₁ − x₀ and y = ∇f(x₁) − ∇f(x₀).",
+     "type": "num",
+     "a": 2.93827,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "∇f(x₁) = (32/27, 0), y = (−76/27, −2)",
+      "s = (−1/3, −1)",
+      "yᵀs = 76/81 + 2 = 238/81 = 2.938"
+     ]
+    },
+    {
+     "ask": "What does the BFGS update B₁ satisfy, and why does yᵀs > 0 matter?",
+     "type": "mc",
+     "a": "B₁s = y; yᵀs > 0 keeps B₁ positive definite",
+     "w": [
+      "B₁y = s; yᵀs > 0 makes the matrix B₁ diagonal",
+      "B₁s = y; yᵀs > 0 makes B₁ equal the true ∇²f(x₁)",
+      "B₁ = B₀; yᵀs > 0 sets the next line search step"
+     ],
+     "sol": [
+      "Secant condition: B₁s = y",
+      "BFGS preserves positive definiteness when the curvature condition yᵀs > 0 holds",
+      "The Wolfe conditions guarantee yᵀs > 0"
+     ]
+    },
+    {
+     "ask": "Compare the cost and convergence of Newton and BFGS for a large n problem.",
+     "type": "say",
+     "a": "Newton needs the Hessian and an O(n³) solve each iteration but converges quadratically near x*. BFGS uses only gradients, updates in O(n²), and converges superlinearly.",
+     "sol": [
+      "Newton: second derivatives, quadratic rate",
+      "BFGS: rank two update from s and y, superlinear rate"
+     ]
+    }
+   ],
+   "x": "BFGS builds curvature from gradient differences through the secant condition B₁s = y, and yᵀs > 0 keeps the model positive definite."
+  },
+  {
+   "id": "p-o4-1",
+   "skill": "o4",
+   "title": "Dogleg step and radius update",
+   "setup": "f(x) = x₁⁴ + 2x₂² at x₀ = (1, 1) with model Hessian B = ∇²f(x₀) = diag(12, 4) and trust radius Δ = 1. Use the dogleg method, with η thresholds 0.25 and 0.75.",
+   "parts": [
+    {
+     "ask": "Find the length of the Cauchy (unconstrained steepest descent) point p_U.",
+     "type": "num",
+     "a": 0.70711,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "g = (4, 4), gᵀg = 32, gᵀBg = 16·12 + 16·4 = 256",
+      "p_U = −(32/256)g = (−0.5, −0.5)",
+      "‖p_U‖ = 0.707 < Δ"
+     ]
+    },
+    {
+     "ask": "Find the length of the full Newton step p_B.",
+     "type": "num",
+     "a": 1.05409,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "p_B = −B⁻¹g = (−1/3, −1)",
+      "‖p_B‖ = √(1/9 + 1) = 1.054 > Δ, so the dogleg path hits the boundary"
+     ]
+    },
+    {
+     "ask": "The dogleg step is p = (−0.3551, −0.9348) on ‖p‖ = 1. Compute ρ = actual / predicted reduction.",
+     "type": "num",
+     "a": 1.0614,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "f(x₀) = 3, f(x₀ + p) = 0.6449⁴ + 2(0.0652)² = 0.1815",
+      "actual = 2.8185",
+      "pred = −gᵀp − ½pᵀBp = 5.1596 − 2.5043 = 2.6553",
+      "ρ = 2.8185/2.6553 = 1.061"
+     ]
+    },
+    {
+     "ask": "What happens to the step and radius?",
+     "type": "mc",
+     "a": "Accept the step and expand Δ to 2",
+     "w": [
+      "Reject the step and halve Δ to 0.5",
+      "Accept the step and halve Δ to 0.5",
+      "Accept the step and keep Δ = 1"
+     ],
+     "sol": [
+      "ρ = 1.06 > 0.75 and ‖p‖ = Δ: model is good and the boundary was active",
+      "Standard rule: Δ ← 2Δ = 2, x₁ = x₀ + p"
+     ]
+    }
+   ],
+   "x": "The dogleg path runs from the Cauchy point toward the Newton point and stops on the boundary, and ρ > 0.75 with an active boundary doubles Δ."
+  },
+  {
+   "id": "p-o4-2",
+   "skill": "o4",
+   "title": "Cauchy point with an indefinite model",
+   "setup": "A trust region model m(p) = f + gᵀp + ½pᵀBp has g = (3, 4), B = diag(2, −1) and Δ = 1.",
+   "parts": [
+    {
+     "ask": "Classify B.",
+     "type": "mc",
+     "a": "Indefinite, eigenvalues 2 and −1",
+     "w": [
+      "Positive definite, eigenvalues 2 and 1",
+      "Negative definite, eigenvalues −2 and −1",
+      "Singular, eigenvalues 2 and 0"
+     ],
+     "sol": [
+      "B is diagonal: eigenvalues 2 and −1",
+      "Mixed signs give an indefinite model"
+     ]
+    },
+    {
+     "ask": "Find τ in the Cauchy point p_C = −τΔ g/‖g‖.",
+     "type": "num",
+     "a": 1,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "gᵀBg = 2·9 − 16 = 2 > 0",
+      "τ = min(1, ‖g‖³/(Δ gᵀBg)) = min(1, 125/2)",
+      "τ = 1, p_C = (−0.6, −0.8)"
+     ]
+    },
+    {
+     "ask": "Find the predicted reduction m(0) − m(p_C).",
+     "type": "num",
+     "a": 4.96,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "gᵀp_C = −1.8 − 3.2 = −5",
+      "½p_CᵀBp_C = ½(2·0.36 − 0.64) = 0.04",
+      "pred = 5 − 0.04 = 4.96"
+     ]
+    },
+    {
+     "ask": "Explain why trust region methods handle this indefinite B safely.",
+     "type": "say",
+     "a": "The constraint ‖p‖ ≤ Δ bounds the subproblem, so a minimizer exists for any symmetric B. The Cauchy point gives a guaranteed fraction of decrease, and negative curvature directions push the step to the boundary.",
+     "sol": [
+      "Bounded region gives a well posed subproblem",
+      "Cauchy decrease ensures global convergence"
+     ]
+    }
+   ],
+   "x": "The Cauchy point minimizes the model along −g inside the region, with τ = 1 whenever gᵀBg ≤ 0 or the minimizer lies past Δ."
+  },
+  {
+   "id": "p-o5-1",
+   "skill": "o5",
+   "title": "KKT at a corner with two active constraints",
+   "setup": "Minimize f = (x₁ − 2)² + (x₂ − 2)² subject to g₁ = x₁ + 2x₂ − 3 ≤ 0 and g₂ = 2x₁ + x₂ − 3 ≤ 0. Use L = f + μ₁g₁ + μ₂g₂.",
+   "parts": [
+    {
+     "ask": "At the candidate x = (1, 1), which constraints are active?",
+     "type": "mc",
+     "a": "Both g₁ and g₂",
+     "w": [
+      "Only g₁ = x₁ + 2x₂ − 3",
+      "Only g₂ = 2x₁ + x₂ − 3",
+      "Neither, (1,1) is interior"
+     ],
+     "sol": [
+      "g₁(1,1) = 1 + 2 − 3 = 0",
+      "g₂(1,1) = 2 + 1 − 3 = 0"
+     ]
+    },
+    {
+     "ask": "Solve stationarity for μ₁.",
+     "type": "num",
+     "a": 0.66667,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "∇f(1,1) = (−2, −2)",
+      "μ₁(1, 2) + μ₂(2, 1) = (2, 2)",
+      "μ₁ + 2μ₂ = 2 and 2μ₁ + μ₂ = 2 give μ₁ = μ₂ = 2/3"
+     ]
+    },
+    {
+     "ask": "Is (1, 1) a KKT point?",
+     "type": "mc",
+     "a": "Yes: feasible, stationary, μ ≥ 0, complementary",
+     "w": [
+      "No: μ₁ is negative, so stationarity fails at (1, 1)",
+      "No: two active constraints over-determine the point",
+      "Yes, but only with μ₁ = μ₂ = 0 and ∇f(1,1) = 0 too"
+     ],
+     "sol": [
+      "Both μ = 2/3 > 0 and both g = 0",
+      "f is convex and the constraints are linear, so this KKT point is the global minimum f* = 2"
+     ]
+    },
+    {
+     "ask": "Use μ₁ to estimate f* if g₁ is relaxed to x₁ + 2x₂ ≤ 3.3.",
+     "type": "num",
+     "a": 1.8,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "df*/dc₁ = −μ₁",
+      "Δf* ≈ −(2/3)(0.3) = −0.2",
+      "f* ≈ 2 − 0.2 = 1.8 (exact value 1.85 at (0.9, 1.2))"
+     ]
+    }
+   ],
+   "x": "At a KKT corner, −∇f lies in the cone of active constraint gradients, and each μᵢ ≥ 0 is the sensitivity of f* to relaxing constraint i."
+  },
+  {
+   "id": "p-o5-2",
+   "skill": "o5",
+   "title": "Dropping a constraint with a negative multiplier",
+   "setup": "Minimize f = (x₁ − 1)² + (x₂ − 3)² subject to g₁ = x₁ + x₂ − 2 ≤ 0 and g₂ = x₁ − x₂ ≤ 0. Use L = f + μ₁g₁ + μ₂g₂.",
+   "parts": [
+    {
+     "ask": "At the corner (1, 1) with both constraints active, solve for μ₂.",
+     "type": "num",
+     "a": -2,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "∇f(1,1) = (0, −4)",
+      "μ₁(1,1) + μ₂(1,−1) = (0, 4)",
+      "μ₁ + μ₂ = 0 and μ₁ − μ₂ = 4 give μ₁ = 2, μ₂ = −2"
+     ]
+    },
+    {
+     "ask": "What does μ₂ = −2 tell you?",
+     "type": "mc",
+     "a": "Release g₂: moving off it lowers f",
+     "w": [
+      "(1, 1) is the optimum",
+      "Release g₁: moving off it lowers f",
+      "The problem is infeasible"
+     ],
+     "sol": [
+      "KKT requires μ ≥ 0 for inequalities",
+      "μ₂ < 0 means f decreases into the interior of g₂, so g₂ is inactive at the optimum"
+     ]
+    },
+    {
+     "ask": "With only g₁ active, find f*.",
+     "type": "num",
+     "a": 2,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "Project (1, 3) onto x₁ + x₂ = 2: x* = (0, 2)",
+      "f* = 1 + 1 = 2",
+      "Check g₂(0,2) = −2 ≤ 0"
+     ]
+    },
+    {
+     "ask": "Find μ₁ at the optimum.",
+     "type": "num",
+     "a": 2,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "∇f(0,2) = (−2, −2)",
+      "(−2, −2) + μ₁(1, 1) = 0",
+      "μ₁ = 2 ≥ 0, so KKT holds"
+     ]
+    }
+   ],
+   "x": "An active set method releases any inequality whose multiplier is negative and re-solves with the remaining active constraints."
+  },
+  {
+   "id": "p-o6-1",
+   "skill": "o6",
+   "title": "Quadratic penalty versus log barrier",
+   "setup": "Minimize f = (x − 3)² subject to x ≤ 1, whose solution is x* = 1 with λ* = 4. Exterior penalty: f + (μ/2)max(0, x − 1)². Interior barrier: f − r ln(1 − x).",
+   "parts": [
+    {
+     "ask": "Find the penalty minimizer for μ = 10.",
+     "type": "num",
+     "a": 1.33333,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "For x > 1: 2(x − 3) + μ(x − 1) = 0",
+      "x(μ) = (6 + μ)/(2 + μ) = 16/12",
+      "x(10) = 1.333, infeasible"
+     ]
+    },
+    {
+     "ask": "Estimate λ from the penalty solution at μ = 10.",
+     "type": "num",
+     "a": 3.33333,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "λ ≈ μ·max(0, x − 1) = 10·(1/3)",
+      "λ ≈ 3.33, approaching λ* = 4 as μ grows"
+     ]
+    },
+    {
+     "ask": "Find the barrier minimizer for r = 0.1.",
+     "type": "num",
+     "a": 0.9753,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "2(x − 3) + r/(1 − x) = 0, with t = 1 − x: 2t² + 4t − r = 0",
+      "t = (−4 + √(16 + 8r))/4 = 0.02470",
+      "x(0.1) = 0.9753, strictly feasible"
+     ]
+    },
+    {
+     "ask": "Compare the two sequences as μ → ∞ and r → 0.",
+     "type": "mc",
+     "a": "Penalty approaches x* from outside, barrier from inside",
+     "w": [
+      "Penalty approaches x* from inside, barrier from outside",
+      "Both reach x* exactly at finite parameters",
+      "Both approach x* from the infeasible side"
+     ],
+     "sol": [
+      "Penalty iterates: 2.33, 1.33, 1.04 for μ = 1, 10, 100",
+      "Barrier iterates: 0.775, 0.975, 0.9975 for r = 1, 0.1, 0.01",
+      "Barrier multiplier estimate r/(1 − x) also tends to 4"
+     ]
+    }
+   ],
+   "x": "Exterior penalties converge from the infeasible side with λ ≈ μ·g, and log barriers converge from the feasible interior with λ ≈ r/(−g)."
+  },
+  {
+   "id": "p-o6-2",
+   "skill": "o6",
+   "title": "One SQP step",
+   "setup": "Minimize f = x₁² + x₂² subject to h = x₁² + x₂ − 1 = 0 with L = f + λh. Start at x₀ = (1, 1) with λ₀ = 0, so the Lagrangian Hessian is W = 2I.",
+   "parts": [
+    {
+     "ask": "Which linear system gives the SQP step (p, λ₁)?",
+     "type": "mc",
+     "a": "[[W, Aᵀ],[A, 0]] [p; λ] = [−∇f; −h]",
+     "w": [
+      "[[W, A],[Aᵀ, 0]] [p; λ] = [∇f; h]",
+      "W p = −∇f with h ignored",
+      "[[A, W],[0, Aᵀ]] [p; λ] = [−h; −∇f]"
+     ],
+     "sol": [
+      "QP: min ∇fᵀp + ½pᵀWp s.t. h + Ap = 0",
+      "A = ∇hᵀ = (2, 1), ∇f = (2, 2), h₀ = 1"
+     ]
+    },
+    {
+     "ask": "Solve for p₂, the x₂ component of the step.",
+     "type": "num",
+     "a": -0.6,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "2p₁ + 2λ = −2, 2p₂ + λ = −2, 2p₁ + p₂ = −1",
+      "p₁ = −1 − λ, p₂ = −1 − λ/2 → −3 − 2.5λ = −1",
+      "λ₁ = −0.8, p = (−0.2, −0.6)"
+     ]
+    },
+    {
+     "ask": "Evaluate h at x₁ = x₀ + p.",
+     "type": "num",
+     "a": 0.04,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "x₁ = (0.8, 0.4)",
+      "h = 0.64 + 0.4 − 1 = 0.04",
+      "The residual equals p₁² = 0.04 from the curvature of h"
+     ]
+    },
+    {
+     "ask": "Why does practical SQP use a merit function or filter?",
+     "type": "say",
+     "a": "The full QP step can increase f or the constraint violation far from the solution. A merit function or filter judges each step on both objective and feasibility, which gives global convergence while keeping Newton speed near x*.",
+     "sol": [
+      "Step acceptance balances f and ‖h‖",
+      "Near x*, full steps give quadratic convergence of Newton on the KKT system"
+     ]
+    }
+   ],
+   "x": "SQP solves a QP with the Lagrangian Hessian and linearized constraints, which is Newton's method applied to the KKT conditions."
+  },
+  {
+   "id": "p-o7-1",
+   "skill": "o7",
+   "title": "Least squares line on four points",
+   "setup": "Fit ŷ = β₀ + β₁x to (0, 1), (1, 2), (2, 4), (3, 5) by least squares.",
+   "parts": [
+    {
+     "ask": "Find β₁ from the normal equations.",
+     "type": "num",
+     "a": 1.4,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "XᵀX = [[4, 6],[6, 14]], Xᵀy = (12, 25)",
+      "4β₀ + 6β₁ = 12 and 6β₀ + 14β₁ = 25",
+      "β₁ = 1.4, β₀ = 0.9"
+     ]
+    },
+    {
+     "ask": "Compute the sum of squared residuals.",
+     "type": "num",
+     "a": 0.2,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "ŷ = (0.9, 2.3, 3.7, 5.1)",
+      "e = (0.1, −0.3, 0.3, −0.1)",
+      "SSE = 0.01 + 0.09 + 0.09 + 0.01 = 0.2"
+     ]
+    },
+    {
+     "ask": "Compute R².",
+     "type": "num",
+     "a": 0.98,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "ȳ = 3, SST = 4 + 1 + 1 + 4 = 10",
+      "R² = 1 − 0.2/10 = 0.98"
+     ]
+    },
+    {
+     "ask": "The surrogate predicts ŷ(4) = 6.5. What is the main caution?",
+     "type": "mc",
+     "a": "x = 4 is extrapolation beyond the sampled range",
+     "w": [
+      "R² = 0.98 proves the line is exact at x = 4",
+      "The four residuals sum to a nonzero value",
+      "Four points give zero residual degrees of freedom"
+     ],
+     "sol": [
+      "Data span x ∈ [0, 3]",
+      "Validate surrogates inside the sampled domain or with held out points"
+     ]
+    }
+   ],
+   "x": "Least squares solves XᵀXβ = Xᵀy, and with an intercept the residuals sum to zero and R² = 1 − SSE/SST."
+  },
+  {
+   "id": "p-o7-2",
+   "skill": "o7",
+   "title": "Gaussian RBF interpolation",
+   "setup": "Interpolate y(0) = 1 and y(1) = 2 with ŷ(x) = w₁φ(|x − 0|) + w₂φ(|x − 1|), φ(r) = exp(−r²).",
+   "parts": [
+    {
+     "ask": "Which matrix system gives w?",
+     "type": "mc",
+     "a": "[[1, e⁻¹],[e⁻¹, 1]] w = (1, 2)",
+     "w": [
+      "[[1, e],[e, 1]] w = (1, 2)",
+      "[[0, e⁻¹],[e⁻¹, 0]] w = (1, 2)",
+      "[[1, 0],[0, 1]] w = (1, 2)"
+     ],
+     "sol": [
+      "Φᵢⱼ = φ(|xᵢ − xⱼ|), φ(0) = 1, φ(1) = e⁻¹ = 0.3679",
+      "Interpolation: Φw = y"
+     ]
+    },
+    {
+     "ask": "Solve for w₂.",
+     "type": "num",
+     "a": 1.88758,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "det Φ = 1 − e⁻² = 0.8647",
+      "w₂ = (2 − 0.3679)/0.8647 = 1.8876",
+      "w₁ = (1 − 2·0.3679)/0.8647 = 0.3056"
+     ]
+    },
+    {
+     "ask": "Predict ŷ(0.5).",
+     "type": "num",
+     "a": 1.70805,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "φ(0.5) = e⁻⁰·²⁵ = 0.7788 for both centres",
+      "ŷ = 0.7788(0.3056 + 1.8876)",
+      "ŷ(0.5) = 1.708"
+     ]
+    },
+    {
+     "ask": "What does this surrogate predict far from the data, for example ŷ(3)?",
+     "type": "mc",
+     "a": "It decays toward 0 (ŷ(3) ≈ 0.035)",
+     "w": [
+      "It follows the linear data trend up to ŷ(3) = 4",
+      "It stays at the last sampled value, ŷ = 2",
+      "It grows without bound as x increases"
+     ],
+     "sol": [
+      "Gaussian basis functions vanish far from their centres",
+      "Adding a polynomial tail or using kriging with a trend captures behaviour far from samples"
+     ]
+    }
+   ],
+   "x": "RBF interpolation solves Φw = y so the surrogate passes through every sample, and Gaussian bases revert to zero away from the data."
+  },
+  {
+   "id": "p-o8-1",
+   "skill": "o8",
+   "title": "Finite difference versus complex step",
+   "setup": "Differentiate f(x) = eˣ at x = 0, where f'(0) = 1. Compare forward difference and central difference with h = 0.01, and complex step with h = 10⁻²⁰.",
+   "parts": [
+    {
+     "ask": "Find the forward difference error (estimate minus 1).",
+     "type": "num",
+     "a": 0.005017,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "(e^0.01 − 1)/0.01 = 1.005017",
+      "Error ≈ h f''/2 = 0.005: first order in h"
+     ]
+    },
+    {
+     "ask": "Find the central difference error.",
+     "type": "num",
+     "a": 1.6667e-05,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "(e^0.01 − e^−0.01)/0.02 = 1.0000167",
+      "Error ≈ h² f'''/6 = 1.667×10⁻⁵: second order in h"
+     ]
+    },
+    {
+     "ask": "Why can the complex step use h = 10⁻²⁰?",
+     "type": "mc",
+     "a": "It has no subtraction, so no cancellation",
+     "w": [
+      "Imaginary parts are stored with extra mantissa bits",
+      "Its truncation error is exactly zero for every f",
+      "It averages the forward and backward differences"
+     ],
+     "sol": [
+      "f'(x) ≈ Im f(x + ih)/h",
+      "Only truncation error O(h²) remains, so derivatives reach machine precision"
+     ]
+    },
+    {
+     "ask": "Give the near optimal forward difference step for double precision (ε ≈ 2.2×10⁻¹⁶), as √ε.",
+     "type": "num",
+     "a": 1.4832e-08,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "Total error ≈ hf''/2 + 2ε|f|/h",
+      "Balancing gives h ≈ √ε for f, f'' of order 1",
+      "√(2.2×10⁻¹⁶) = 1.48×10⁻⁸"
+     ]
+    }
+   ],
+   "x": "Finite differences trade truncation error against subtractive cancellation, while the complex step removes cancellation and gives derivatives to machine precision."
+  },
+  {
+   "id": "p-o8-2",
+   "skill": "o8",
+   "title": "Convexity check and gradient bound",
+   "setup": "f(x) = x₁² + x₁x₂ + x₂² + e^x₁.",
+   "parts": [
+    {
+     "ask": "Give the Hessian of f.",
+     "type": "mc",
+     "a": "[[2 + e^x₁, 1],[1, 2]]",
+     "w": [
+      "[[2, 1],[1, 2 + e^x₁]]",
+      "[[2 + e^x₁, 2],[2, 2]]",
+      "[[e^x₁, 1],[1, 2]]"
+     ],
+     "sol": [
+      "∇f = (2x₁ + x₂ + e^x₁, x₁ + 2x₂)",
+      "∂²f/∂x₁² = 2 + e^x₁, ∂²f/∂x₁∂x₂ = 1, ∂²f/∂x₂² = 2"
+     ]
+    },
+    {
+     "ask": "Find det ∇²f at the origin.",
+     "type": "num",
+     "a": 5,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "∇²f(0) = [[3, 1],[1, 2]]",
+      "det = 6 − 1 = 5"
+     ]
+    },
+    {
+     "ask": "Why is f convex on all of ℝ²?",
+     "type": "mc",
+     "a": "2 + e^x₁ > 0 and det = 3 + 2e^x₁ > 0 everywhere",
+     "w": [
+      "f is a sum of quadratic terms only, so it is convex",
+      "The Hessian is constant over the whole plane",
+      "det ∇²f(0) > 0 at a single point suffices"
+     ],
+     "sol": [
+      "Leading minors positive for every x gives a positive definite Hessian everywhere",
+      "Positive definite Hessian everywhere means strictly convex"
+     ]
+    },
+    {
+     "ask": "Use the first order convexity condition at x = 0 to give a lower bound on f(1, 1).",
+     "type": "num",
+     "a": 2,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "f(y) ≥ f(x) + ∇f(x)ᵀ(y − x)",
+      "f(0) = 1, ∇f(0) = (1, 0)",
+      "Bound = 1 + 1 = 2 (actual 3 + e = 5.718)"
+     ]
+    }
+   ],
+   "x": "A function with a positive definite Hessian everywhere is strictly convex, and every tangent plane is a global under-estimator."
+  },
+  {
+   "id": "p-o9-1",
+   "skill": "o9",
+   "title": "Pareto set and weighted sum",
+   "setup": "Minimize both f₁ and f₂ over six designs: A(1, 9), B(2, 6), C(4, 5), D(5, 2), E(7, 1), F(5, 6).",
+   "parts": [
+    {
+     "ask": "Which design is dominated?",
+     "type": "mc",
+     "a": "F, dominated by C",
+     "w": [
+      "C, dominated by B at (2, 6)",
+      "D, dominated by E at (7, 1)",
+      "B, dominated by A at (1, 9)"
+     ],
+     "sol": [
+      "C(4, 5) is better than F(5, 6) in both objectives",
+      "A, B, C, D, E are mutually nondominated: the Pareto set"
+     ]
+    },
+    {
+     "ask": "With weights w = 0.5 on each objective, find the minimum weighted sum value.",
+     "type": "num",
+     "a": 3.5,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "Scores 0.5f₁ + 0.5f₂: A 5, B 4, C 4.5, D 3.5, E 4",
+      "Minimum 3.5 at D"
+     ]
+    },
+    {
+     "ask": "Which Pareto design does the weighted sum miss for every w ∈ [0, 1]?",
+     "type": "mc",
+     "a": "C, in a nonconvex dent",
+     "w": [
+      "B, at the knee of the Pareto front",
+      "E, at the low f₂ end of the front",
+      "A, at the low f₁ end of the front"
+     ],
+     "sol": [
+      "Segment B to D at f₁ = 4 has f₂ = 3.33, below C's f₂ = 5",
+      "C lies above the convex hull, so a linear score always favours B or D"
+     ]
+    },
+    {
+     "ask": "Using the ε-constraint method, minimize f₁ subject to f₂ ≤ 5. Give f₁.",
+     "type": "num",
+     "a": 4,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "Feasible: C(4, 5), D(5, 2), E(7, 1)",
+      "Minimum f₁ = 4 at C"
+     ]
+    }
+   ],
+   "x": "Weighted sums find only the convex hull of the Pareto front, while the ε-constraint method reaches nonconvex Pareto points."
+  },
+  {
+   "id": "p-o9-2",
+   "skill": "o9",
+   "title": "Nelder Mead iteration",
+   "setup": "Minimize f = x₁² + x₂² with Nelder Mead from the simplex (1, 1), (0, 2), (3, 2). Use reflection 1, expansion 2 and contraction 0.5.",
+   "parts": [
+    {
+     "ask": "Find the centroid's x₂ coordinate (centroid of all points except the worst).",
+     "type": "num",
+     "a": 1.5,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "f values: 2, 4, 13, so (3, 2) is worst",
+      "Centroid of (1,1) and (0,2) = (0.5, 1.5)"
+     ]
+    },
+    {
+     "ask": "Compute f at the reflected point.",
+     "type": "num",
+     "a": 5,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "x_r = c + (c − x_w) = (0.5, 1.5) + (−2.5, −0.5)",
+      "x_r = (−2, 1), f = 5"
+     ]
+    },
+    {
+     "ask": "Which operation follows, given f_best = 2, f_second worst = 4, f_r = 5, f_worst = 13?",
+     "type": "mc",
+     "a": "Outside contraction toward x_r",
+     "w": [
+      "Expansion to the point past x_r",
+      "Accept x_r directly as new vertex",
+      "Shrink all vertices toward the best"
+     ],
+     "sol": [
+      "f_r ≥ f_second worst rules out acceptance and expansion",
+      "f_r < f_worst gives outside contraction"
+     ]
+    },
+    {
+     "ask": "Compute f at the outside contraction point.",
+     "type": "num",
+     "a": 2.125,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "x_oc = c + 0.5(x_r − c) = (−0.75, 1.25)",
+      "f = 0.5625 + 1.5625 = 2.125 ≤ f_r, accept"
+     ]
+    }
+   ],
+   "x": "Nelder Mead moves the worst vertex through the centroid using only function values, choosing reflection, expansion or contraction by comparing ranks."
+  },
+  {
+   "id": "p-o10-1",
+   "skill": "o10",
+   "title": "Central composite design and main effects",
+   "setup": "A 2 factor central composite design uses a 2² factorial, axial points and 1 centre point, in coded units. The factorial runs give y(−,−) = 10, y(+,−) = 18, y(−,+) = 14, y(+,+) = 26.",
+   "parts": [
+    {
+     "ask": "How many runs does the CCD need?",
+     "type": "num",
+     "a": 9,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "2^k factorial = 4",
+      "2k axial = 4",
+      "1 centre: total 9"
+     ]
+    },
+    {
+     "ask": "Find the axial distance α for a rotatable design.",
+     "type": "num",
+     "a": 1.41421,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "α = (2^k)^(1/4) = 4^(1/4)",
+      "α = √2 = 1.414"
+     ]
+    },
+    {
+     "ask": "Estimate the main effect of factor A from the factorial runs.",
+     "type": "num",
+     "a": 10,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "Effect A = ȳ(A+) − ȳ(A−)",
+      "= (18 + 26)/2 − (10 + 14)/2 = 22 − 12",
+      "Effect A = 10 (B = 6, AB = 2)"
+     ]
+    },
+    {
+     "ask": "Why add axial and centre points to the factorial?",
+     "type": "mc",
+     "a": "To estimate the pure quadratic terms",
+     "w": [
+      "To estimate the AB interaction term",
+      "To reduce the total number of runs",
+      "To estimate the main effects of A and B"
+     ],
+     "sol": [
+      "Full quadratic in 2 variables has 6 coefficients",
+      "Factorial alone supports linear and interaction terms; axial points give curvature"
+     ]
+    }
+   ],
+   "x": "A CCD combines 2^k factorial, 2k axial and centre runs so a full quadratic response surface can be fit, with main effects read from the factorial."
+  },
+  {
+   "id": "p-o10-2",
+   "skill": "o10",
+   "title": "Gauss Seidel multidisciplinary analysis",
+   "setup": "Two coupled disciplines: y₁ = 1 + 0.5y₂ and y₂ = 2 + 0.25y₁. Run block Gauss Seidel (solve y₁ then y₂) starting from y₂ = 0.",
+   "parts": [
+    {
+     "ask": "Find y₁ after the first iteration's y₁ update.",
+     "type": "num",
+     "a": 1,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "y₁ = 1 + 0.5·0 = 1",
+      "then y₂ = 2 + 0.25·1 = 2.25"
+     ]
+    },
+    {
+     "ask": "Find the converged coupled value y₁*.",
+     "type": "num",
+     "a": 2.28571,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "y₁ = 1 + 0.5(2 + 0.25y₁) = 2 + 0.125y₁",
+      "y₁* = 2/0.875 = 16/7 = 2.286",
+      "y₂* = 2 + 4/7 = 18/7"
+     ]
+    },
+    {
+     "ask": "Find the error reduction factor per iteration.",
+     "type": "num",
+     "a": 0.125,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "e₁ ← (0.5)(0.25)e₁ each sweep",
+      "Factor = 0.125: errors 1.286, 0.161, 0.020"
+     ]
+    },
+    {
+     "ask": "Which MDO architecture solves this MDA inside every optimizer iteration?",
+     "type": "mc",
+     "a": "MDF (multidisciplinary feasible)",
+     "w": [
+      "IDF (individual discipline feasible)",
+      "Collaborative optimization",
+      "Analytical target cascading"
+     ],
+     "sol": [
+      "MDF converges the MDA for each design point",
+      "IDF adds coupling targets as design variables with consistency constraints"
+     ]
+    }
+   ],
+   "x": "Block Gauss Seidel converges a coupled MDA at a rate set by the product of coupling sensitivities, and MDF wraps that full MDA in the optimizer."
+  }
+ ]
+}

@@ -1,0 +1,920 @@
+{
+ "ladders": [
+  {
+   "id": "lad-1",
+   "exam": "SDO",
+   "chair": "Aircraft design",
+   "skill": "f1",
+   "title": "Master equation to constraint diagram",
+   "freq": "Constraint analysis or master equation in 6 of 11 terms, 14 chair sessions",
+   "figure": "A blank pair of axes: wing loading W_TO/S along the bottom, thrust loading T_SL/W_TO up the side, and the word \"derive\" next to it.",
+   "rungs": [
+    {
+     "ask": "Start from energy. Where does the master equation come from?",
+     "answer": "Excess power raises the total energy: (T − D)V = W d/dt(h + V²/(2g)). Dividing by WV gives (T − D)/W = (1/V)dh/dt + (1/g)dV/dt.",
+     "say": "I will start from the energy equation: excess power equals the rate of change of specific energy"
+    },
+    {
+     "ask": "Now put it in sizing form, in terms of takeoff thrust and takeoff weight.",
+     "answer": "Write T = αT_SL, W = βW_TO, D = qS(K₁C_L² + K₂C_L + C_D0 + C_DR) with C_L = nβW_TO/(qS), then divide by βW_TO: T_SL/W_TO = (β/α)[(qS/(βW_TO))(K₁(nβW_TO/(qS))² + K₂(nβW_TO/(qS)) + C_D0 + C_DR) + (1/V)d/dt(h + V²/(2g))].",
+     "say": "I divide through by βW_TO so everything is in thrust loading and wing loading"
+    },
+    {
+     "ask": "Describe every term for me.",
+     "answer": "α is thrust lapse T/T_SL, β is the instantaneous weight fraction W/W_TO, q is dynamic pressure, n is load factor, K₁ and K₂ are the drag polar coefficients, C_D0 is zero-lift drag, C_DR is additional drag from stores or flaps, and the last bracket is climb plus acceleration through (1/V)dh/dt + (1/g)dV/dt.",
+     "say": "α is thrust lapse and β is the weight fraction at that mission point"
+    },
+    {
+     "ask": "Why those two axes?",
+     "answer": "W_TO/S and T_SL/W_TO are the two design parameters the master equation depends on once a mission segment fixes q, n and the energy rate, so every segment becomes one curve in this plane; the feasible region lies above the thrust curves and left of the stall and landing lines.",
+     "say": "Each mission segment becomes one boundary in the wing loading, thrust loading plane"
+    },
+    {
+     "ask": "Draw the stall or landing line. Where does it come from?",
+     "answer": "From V_stall = √(2βW_TO/(ρSC_Lmax)): W_TO/S ≤ ρV_stall²C_Lmax/(2β), a vertical line, with feasible designs to its left.",
+     "say": "Stall fixes a maximum wing loading, a vertical line"
+    },
+    {
+     "ask": "Now takeoff ground roll.",
+     "answer": "With V_TO = k_TO V_stall and acceleration g αT_SL/(βW_TO), s_G = V_TO²/(2a) gives T_SL/W_TO = (β²/α) k_TO² (W_TO/S)/(ρ g C_Lmax s_G), a line rising from the origin.",
+     "say": "Takeoff gives thrust loading proportional to wing loading"
+    },
+    {
+     "ask": "Cruise and a sustained turn. What shape, and where is the minimum?",
+     "answer": "With K₂ = 0 and constant h and V, T_SL/W_TO = (β/α)[qC_D0/(βW_TO/S) + K₁n²β(W_TO/S)/q], a bucket with its minimum at W_TO/S = (q/β)√(C_D0/K₁)/n; the turn raises the K₁ term by n².",
+     "say": "The induced term carries n², and the bucket bottom is where parasite and induced drag are equal"
+    },
+    {
+     "ask": "Put it on a carrier.",
+     "answer": "Catapult launch replaces the takeoff roll: end speed plus wind over deck sets a minimum flying speed, which becomes a wing loading limit through C_Lmax, and the arrested landing with a low approach speed gives a strict vertical landing line further left.",
+     "say": "On the carrier, catapult end speed plus wind over deck and the approach speed set the constraints"
+    },
+    {
+     "ask": "Now fly it on Mars.",
+     "answer": "Surface density is about 0.02 kg/m³, under 2 percent of Earth sea level, and g is 3.71 m/s², so q at a given speed is tiny and the stall line moves far left to very low wing loading; low Reynolds number and the low speed of sound add penalties, and the thrust source becomes electric propellers, which changes α.",
+     "say": "Low density drives the stall line to low wing loading, and I re-derive α for an electric propeller"
+    }
+   ],
+   "trap": "Write the climb term as (1/V)dh/dt and the acceleration term as (1/g)dV/dt, put n² on K₁, and divide by βW_TO so every curve lands in the T_SL/W_TO versus W_TO/S plane."
+  },
+  {
+   "id": "lad-2",
+   "exam": "SDO",
+   "chair": "Aircraft design",
+   "skill": "f4",
+   "title": "Turbofan Brayton cycle with bypass",
+   "freq": "Propulsion or Brayton in 7 of 11 terms, 15 chair sessions",
+   "figure": "A two-spool turbofan sketched in side view, with a T-s diagram beside it and a request for station numbers on both.",
+   "rungs": [
+    {
+     "ask": "Number the stations on the engine.",
+     "answer": "0 freestream, 2 fan face, 13 fan exit in the bypass duct, 19 bypass nozzle exit, 3 compressor exit, 4 turbine inlet, 5 turbine exit, 9 core nozzle exit.",
+     "say": "Station 2 is the fan face, 4 is turbine inlet, and the bypass stream is 13 to 19"
+    },
+    {
+     "ask": "Which property relation do you use to draw the T-s diagram?",
+     "answer": "dh = T ds + v dp, so along an isobar dT/ds = T/c_p, and constant pressure lines fan apart as temperature rises.",
+     "say": "I will use dh equals T ds plus v dp"
+    },
+    {
+     "ask": "Draw the ideal core cycle.",
+     "answer": "0 to 3 is isentropic compression (vertical up), 3 to 4 is constant pressure heat addition along the p₃ isobar, 4 to 9 is isentropic expansion through turbine and nozzle down to p₀, and 9 to 0 closes along the p₀ isobar as heat rejection to the atmosphere.",
+     "say": "Compression and expansion are vertical, heat addition and rejection follow isobars"
+    },
+    {
+     "ask": "Now add the bypass stream.",
+     "answer": "The bypass air goes 0 to 13 by isentropic fan compression to a modest pressure, then 13 to 19 by expansion back to p₀, a short vertical pair that sits low on the diagram beside the core.",
+     "say": "The bypass path is a separate short compression and expansion from station 0"
+    },
+    {
+     "ask": "Make it real. What changes?",
+     "answer": "Compression and expansion lean to the right because entropy rises with component inefficiency, and the burner shows a small total pressure drop.",
+     "say": "Real components add entropy, so the vertical lines tilt right"
+    },
+    {
+     "ask": "How does the turbine know how much work to make?",
+     "answer": "Turbine work balances compressor plus fan work: ṁ_core(h₄ − h₅) = ṁ_core(h₃ − h₂) + ṁ_bypass(h₁₃ − h₂), and T₄ is capped by turbine materials.",
+     "say": "Turbine work equals compressor work plus fan work"
+    },
+    {
+     "ask": "Why do modern transports use high bypass?",
+     "answer": "Thrust is F = ṁ(V_e − V₀) and propulsive efficiency is η_p = 2/(1 + V_e/V₀), so moving more mass with a smaller velocity increment produces the same thrust with less kinetic energy wasted in the jet.",
+     "say": "High bypass raises propulsive efficiency by moving more mass with a smaller velocity increment"
+    },
+    {
+     "ask": "Then why does a fighter use low bypass?",
+     "answer": "Supersonic flight needs high specific thrust F/ṁ, which needs a high exhaust velocity, and a slim low bypass engine also keeps frontal area and wave drag small; the fan diameter, nacelle drag and ground clearance bound bypass ratio on transports too.",
+     "say": "At high flight Mach the priority becomes specific thrust and frontal area"
+    }
+   ],
+   "trap": "Start the station numbering at 0 for freestream and 2 for the fan face, and draw the bypass stream as its own 0 to 13 to 19 path."
+  },
+  {
+   "id": "lad-3",
+   "exam": "SDO",
+   "chair": "Aircraft design",
+   "skill": "f3",
+   "title": "V-n diagram with altitude, weight and gusts",
+   "freq": "V-n diagram in 8 of 11 terms",
+   "figure": "Axes of load factor n versus airspeed, with the examiner asking for the maneuver envelope first and the gust lines later.",
+   "rungs": [
+    {
+     "ask": "Draw the maneuver envelope.",
+     "answer": "The positive stall boundary is n = ρV²SC_Lmax/(2W), a parabola from the origin up to n_max; a horizontal line at n_max runs to dive speed V_D; the negative side uses C_Lmin up to n_min, and a vertical line at V_D closes it.",
+     "say": "The left boundary is the stall parabola, the top is the structural limit"
+    },
+    {
+     "ask": "Label the points.",
+     "answer": "V_s is the 1 g stall speed, V_A = V_s√n_max is the corner or maneuvering speed, V_C is design cruise speed, and V_D is design dive speed.",
+     "say": "The corner speed is V_s times the square root of n_max"
+    },
+    {
+     "ask": "Where is this aerodynamically limited and where is it structurally limited?",
+     "answer": "Left of the corner the wing reaches C_Lmax first, so the parabola is the aerodynamic limit; right of the corner the structure reaches n_max first.",
+     "say": "Left of the corner the limit is aerodynamic, right of it the limit is structural"
+    },
+    {
+     "ask": "Give me the stall speed at load factor n.",
+     "answer": "V_stall = √(2nW/(ρSC_Lmax)), so stall speed grows with √n.",
+     "say": "Stall speed carries the factor 2 and the load factor n"
+    },
+    {
+     "ask": "Increase the weight. What moves?",
+     "answer": "The stall parabola flattens because n = qSC_Lmax/W. With n_max fixed by the category, V_A = V_s√n_max rises with √W; if the structure is instead held to a fixed limit load n·W, the allowable n drops as 1/W and V_A stays put.",
+     "say": "Heavier weight moves the corner speed right with the square root of weight"
+    },
+    {
+     "ask": "Now climb to altitude.",
+     "answer": "Plotted against equivalent airspeed V_e = V√(ρ/ρ₀), the aerodynamic boundaries stay put; plotted against true airspeed, the stall curves stretch right by √(ρ₀/ρ).",
+     "say": "I plot in equivalent airspeed, so the aerodynamic boundaries stay fixed with altitude"
+    },
+    {
+     "ask": "Add the gust lines.",
+     "answer": "From n = 1 the gust lines fan out as Δn = ρ₀U_eV_e a K_g/(2W/S), with K_g = 0.88μ_g/(5.3 + μ_g) and the largest design gust at V_B, smaller at V_C and smallest at V_D.",
+     "say": "Gust lines start at n equals 1 and their slope is proportional to lift curve slope over wing loading"
+    },
+    {
+     "ask": "Which airplane suffers more in gusts, and why?",
+     "answer": "Δn scales with a/(W/S), so a light, high aspect ratio, low wing loading airplane sees the larger gust load factor.",
+     "say": "Low wing loading and high lift curve slope give the larger gust increment"
+    }
+   ],
+   "trap": "Use equivalent airspeed so altitude leaves the aerodynamic boundaries fixed, and write V_stall = √(2nW/(ρSC_Lmax)) with the 2 and the n."
+  },
+  {
+   "id": "lad-4",
+   "exam": "SDO",
+   "chair": "Aircraft design",
+   "skill": "f6",
+   "title": "Rotor power: hover to forward flight",
+   "freq": "Hover momentum theory is a named signature ask of this chair",
+   "figure": "A rotor disk of area A with a control volume drawn around the slipstream, later redrawn tilted in forward flight next to a power versus speed sketch.",
+   "rungs": [
+    {
+     "ask": "Hover. Find the induced velocity.",
+     "answer": "Actuator disk momentum theory: the far wake velocity is 2v_i, so T = ṁ·2v_i = 2ρAv_i², giving v_i = √(T/(2ρA)).",
+     "say": "I will use actuator disk momentum theory with a control volume around the slipstream"
+    },
+    {
+     "ask": "And the ideal hover power?",
+     "answer": "P = Tv_i = T^(3/2)/√(2ρA).",
+     "say": "Ideal power is T to the three halves over root 2ρA"
+    },
+    {
+     "ask": "How do you measure how good a real rotor is?",
+     "answer": "Figure of merit FM = P_ideal/P_actual, typically 0.7 to 0.8 for a good rotor.",
+     "say": "Figure of merit compares ideal induced power with actual power"
+    },
+    {
+     "ask": "What does disk loading do?",
+     "answer": "Ideal power per unit thrust is √(T/A)/√(2ρ), so low disk loading gives efficient hover; a helicopter hovers efficiently and a jet lift vehicle at very high disk loading pays heavily.",
+     "say": "Power per unit thrust scales with the square root of disk loading"
+    },
+    {
+     "ask": "Now forward flight. Induced velocity?",
+     "answer": "Glauert gives T = 2ρAv_i√(V² + v_i²); at high speed v_i ≈ T/(2ρAV), so induced power falls as 1/V.",
+     "say": "Induced power falls as one over V in forward flight"
+    },
+    {
+     "ask": "Sketch total power required versus speed.",
+     "answer": "Total power is induced (falling as 1/V) plus profile (roughly constant, rising mildly with advance ratio) plus parasite ½ρV³f (rising as V³), a bucket shape.",
+     "say": "Total power is induced plus profile plus parasite, a bucket"
+    },
+    {
+     "ask": "Where do you fly for endurance and for range?",
+     "answer": "Endurance is best at the bottom of the bucket, minimum power; range is best at the tangent from the origin, minimum P/V.",
+     "say": "Minimum power for endurance, tangent from the origin for range"
+    },
+    {
+     "ask": "Hover it on Mars.",
+     "answer": "With ρ under 2 percent of Earth sea level and T = mg_Mars, hover power scales as 1/√ρ, so the vehicle needs very large, fast spinning rotors at low disk loading, and tip Mach number becomes the limit because the speed of sound is low.",
+     "say": "Hover power scales with one over root ρ, so I enlarge the rotor and watch tip Mach"
+    }
+   ],
+   "trap": "Carry the far wake velocity as 2v_i, which gives v_i = √(T/(2ρA)) and P = T^(3/2)/√(2ρA)."
+  },
+  {
+   "id": "lad-5",
+   "exam": "SDO",
+   "chair": "Applied optimization",
+   "skill": "o5",
+   "title": "Minimum cruise drag over span and area",
+   "freq": "KKT in 8 of 11 terms; this chair asked KKT in 7 of 13 sessions",
+   "figure": "Cruise drag written as a function of wing area S and span b, with a stall speed requirement and a hangar span limit listed beneath.",
+   "rungs": [
+    {
+     "ask": "Write the objective in S and b.",
+     "answer": "With lift equal to weight, C_L = W/(qS), K = 1/(πeAR), AR = b²/S: D = qC_D0S + W²/(qπeb²).",
+     "say": "Lift equals weight is an equality I use to eliminate C_L"
+    },
+    {
+     "ask": "Write the constraints in standard form.",
+     "answer": "Stall: g₁ = S_min − S ≤ 0 with S_min = 2W/(ρV_s²C_Lmax). Span: g₂ = b − b_max ≤ 0.",
+     "say": "I write every constraint as g less than or equal to zero"
+    },
+    {
+     "ask": "Before any algebra, what does each variable want?",
+     "answer": "∂D/∂S = qC_D0 > 0, so area wants to shrink to S_min; ∂D/∂b = −2W²/(qπeb³) < 0, so span wants to grow to b_max. Both constraints are active.",
+     "say": "Physically, area wants to shrink and span wants to grow, so both constraints are active"
+    },
+    {
+     "ask": "Prove it.",
+     "answer": "KKT: ∇D + λ₁∇g₁ + λ₂∇g₂ = 0, λ ≥ 0, λᵢgᵢ = 0. The S row gives λ₁ = qC_D0, the b row gives λ₂ = 2W²/(qπeb_max³), both positive.",
+     "say": "I will set up the KKT conditions"
+    },
+    {
+     "ask": "Is it a minimum?",
+     "answer": "Two linearly independent active constraints in two variables with strictly positive multipliers leave a critical cone of only the zero vector, so the corner is a strict local minimum.",
+     "say": "With strict complementarity, the critical cone is just the origin"
+    },
+    {
+     "ask": "What does λ₂ mean physically?",
+     "answer": "λ₂ = −dD*/db_max, the drag saved per unit of extra allowable span, the shadow price of the hangar limit; a large λ₂ says that limit is costly.",
+     "say": "The multiplier is the sensitivity of the optimal drag to the constraint limit"
+    },
+    {
+     "ask": "Draw the contours and the corner.",
+     "answer": "Drag contours in the (S, b) plane decrease toward small S and large b; at the corner, −∇D lies inside the cone spanned by the active constraint gradients ∇g₁ = (−1, 0) and ∇g₂ = (0, 1).",
+     "say": "Minus the gradient lies in the cone of the active constraint gradients"
+    },
+    {
+     "ask": "Add wing weight that grows with span. What changes?",
+     "answer": "Then W depends on b, so a larger span raises induced drag through W² while lowering it through b², and an interior span optimum can appear where the span constraint goes inactive with λ₂ = 0.",
+     "say": "Coupling weight to span can make the span constraint inactive"
+    }
+   ],
+   "trap": "Treat lift as the equality C_L = W/(qS), reason physically about each variable first, then confirm with KKT and positive multipliers."
+  },
+  {
+   "id": "lad-6",
+   "exam": "SDO",
+   "chair": "Optimization theory",
+   "skill": "o1",
+   "title": "One quadratic, three questions",
+   "freq": "Quadratic through critical point, eigenvectors and contours is a theory chair staple; KKT in 8 of 11 terms, line search in 5 of 11",
+   "figure": "f(x) = x₁² + x₁x₂ + x₂² − 3x₁ − 3x₂ written on the board, which is ½xᵀHx − bᵀx with H = [[2,1],[1,2]] and b = (3, 3).",
+   "rungs": [
+    {
+     "ask": "Find the critical point.",
+     "answer": "∇f = Hx − b = 0 gives x* = (1, 1), with f* = −3.",
+     "say": "I set the gradient to zero, Hx equals b"
+    },
+    {
+     "ask": "Classify it.",
+     "answer": "H = [[2,1],[1,2]] has eigenvalues 3 and 1, both positive, so H is positive definite and x* is the strict global minimizer of this convex quadratic.",
+     "say": "Both Hessian eigenvalues are positive, so this is a strict global minimum"
+    },
+    {
+     "ask": "Eigenvectors, then sketch the contours.",
+     "answer": "λ = 3 along (1, 1)/√2 and λ = 1 along (1, −1)/√2. Contours are ellipses centred at (1, 1) with axes at 45 degrees, long axis along (1, −1), axis ratio √3.",
+     "say": "Principal axes pass through the critical point and the long axis follows the smaller eigenvalue"
+    },
+    {
+     "ask": "Add x₁ + x₂ ≤ 1. Solve it.",
+     "answer": "The unconstrained minimizer violates it, so the constraint is active. KKT: Hx − b + λ(1, 1) = 0 with x₁ + x₂ = 1 gives x = (½, ½), λ = 3/2 ≥ 0, f = −9/4.",
+     "say": "I will set up the KKT conditions with the constraint active"
+    },
+    {
+     "ask": "What does λ = 3/2 tell you?",
+     "answer": "Relaxing the right-hand side from 1 to 1 + δ lowers the optimal f by about (3/2)δ, so λ is the shadow price of the constraint.",
+     "say": "The multiplier is the rate of change of the optimum with the constraint limit"
+    },
+    {
+     "ask": "Back to unconstrained. Start at (1, 0) and take a steepest descent step.",
+     "answer": "g = (−1, −2), p = −g = (1, 2). The exact step for a quadratic is α = gᵀg/(gᵀHg) = 5/14, landing at (19/14, 5/7).",
+     "say": "For a quadratic the exact step is gᵀg over gᵀHg"
+    },
+    {
+     "ask": "Now do it inexactly. Does α = 1 pass Armijo?",
+     "answer": "Armijo needs f(x + αp) ≤ f(x) + c₁α∇fᵀp. At α = 1, f(2, 2) = 0 sits above −2 − 5c₁, so it fails; backtracking to α = ½ gives f(1.5, 1) = −2.75, which passes.",
+     "say": "I check sufficient decrease, the Armijo condition, and backtrack"
+    },
+    {
+     "ask": "State strong Wolfe and check the exact step.",
+     "answer": "Strong Wolfe adds |∇f(x + αp)ᵀp| ≤ c₂|∇fᵀp| with 0 < c₁ < c₂ < 1; at the exact step ∇f(x + αp)ᵀp = 0, so it satisfies the curvature condition for every c₂.",
+     "say": "The curvature condition bounds the directional derivative at the new point"
+    },
+    {
+     "ask": "How fast does steepest descent converge on this function?",
+     "answer": "With exact line search the error in f shrinks at least by ((κ − 1)/(κ + 1))² per step, and κ = 3 gives 1/4.",
+     "say": "The rate is set by the condition number, ((κ − 1)/(κ + 1)) squared"
+    }
+   ],
+   "trap": "Draw the contour principal axes through the critical point, with the long axis along the eigenvector of the smaller eigenvalue."
+  },
+  {
+   "id": "lad-7",
+   "exam": "SDO",
+   "chair": "Optimization theory",
+   "skill": "o7",
+   "title": "Surrogate from first principles",
+   "freq": "Surrogates in 6 of 11 terms, asked as a 15-rung ladder",
+   "figure": "Scattered sample points (xᵢ, yᵢ) for i = 1..n and a request: build me a model from these.",
+   "rungs": [
+    {
+     "ask": "Formulate it as an optimization problem.",
+     "answer": "Choose a model linear in the parameters, ŷ(x) = Σⱼ wⱼφⱼ(x) for j = 1..m, and choose w to minimize the sum of squared errors over the samples.",
+     "say": "The model is linear in the parameters, so fitting is a least squares problem"
+    },
+    {
+     "ask": "Define the error and name every term with its dimension.",
+     "answer": "ε(w) = Σᵢ (yᵢ − Σⱼ wⱼφⱼ(xᵢ))², with n samples, m basis functions φⱼ, weights w of size m, and Φ the n × m matrix with Φᵢⱼ = φⱼ(xᵢ).",
+     "say": "Φ is n by m, rows are samples and columns are basis functions"
+    },
+    {
+     "ask": "Derive the weights in summation form.",
+     "answer": "∂ε/∂w_k = −2Σᵢ φ_k(xᵢ)(yᵢ − Σⱼ wⱼφⱼ(xᵢ)) = 0, so Σⱼ (Σᵢ φ_k(xᵢ)φⱼ(xᵢ)) wⱼ = Σᵢ φ_k(xᵢ)yᵢ for each k.",
+     "say": "The derivative carries a factor of 2, which cancels"
+    },
+    {
+     "ask": "Stop. Same thing in vector form.",
+     "answer": "ε = ‖y − Φw‖² = (y − Φw)ᵀ(y − Φw), ∇ε = −2Φᵀ(y − Φw) = 0, so ΦᵀΦw = Φᵀy, the normal equations.",
+     "say": "In matrix form this is ΦᵀΦ w equals Φᵀ y"
+    },
+    {
+     "ask": "When is Φ itself invertible, and what do you get?",
+     "answer": "When n = m and the basis functions are independent on the samples, Φ is square and nonsingular, w = Φ⁻¹y, and the model interpolates every sample.",
+     "say": "Square and full rank Φ gives interpolation"
+    },
+    {
+     "ask": "More points than basis functions?",
+     "answer": "n > m is overdetermined; with Φ of full column rank, w = (ΦᵀΦ)⁻¹Φᵀy is the least squares fit, which passes near the samples.",
+     "say": "Overdetermined gives the least squares solution through the normal equations"
+    },
+    {
+     "ask": "Fewer points than basis functions? How does the summation change?",
+     "answer": "n < m is underdetermined: ΦᵀΦ is singular and infinitely many w interpolate. Pick the minimum norm one: minimize ‖w‖² subject to Φw = y, giving w = Φᵀ(ΦΦᵀ)⁻¹y, with the inner sums now over the m basis functions inside an n × n system.",
+     "say": "Underdetermined, I pick the minimum norm interpolant"
+    },
+    {
+     "ask": "Regularize it. Write the problem and the solution.",
+     "answer": "Minimize ‖y − Φw‖² + μ‖w‖² with μ > 0, so (ΦᵀΦ + μI)w = Φᵀy and w = (ΦᵀΦ + μI)⁻¹Φᵀy; in summation form, Σⱼ (Σᵢ φ_kφⱼ + μδ_kj)wⱼ = Σᵢ φ_k yᵢ.",
+     "say": "Regularization adds μ times the identity, which makes the matrix invertible"
+    },
+    {
+     "ask": "Check the dimensions.",
+     "answer": "Φᵀ is m × n and y is n × 1, so Φᵀy is m × 1; ΦᵀΦ + μI is m × m, so w is m × 1, one weight per basis function.",
+     "say": "Dimension check: w is m by 1, one weight per basis function"
+    }
+   ],
+   "trap": "Switch fluently between Σᵢ, Σⱼ summation and the Φ matrix form, and keep the factor of 2 in the least squares derivative."
+  },
+  {
+   "id": "lad-8",
+   "exam": "SDO",
+   "chair": "Optimization theory",
+   "skill": "o4",
+   "title": "Trust region step on a saddle",
+   "freq": "On the newer topic list and asked on a real recent board",
+   "figure": "f(x, y) = x⁴ − 2x² + y², with the current point (0.5, 1) and a circle of radius Δ = 1 drawn around it.",
+   "rungs": [
+    {
+     "ask": "Find and classify the stationary points.",
+     "answer": "∇f = (4x³ − 4x, 2y) = 0 gives (0, 0) and (±1, 0); the Hessian diag(12x² − 4, 2) is indefinite at the origin, a saddle, and positive definite at (±1, 0), the minima.",
+     "say": "The fourth-order term gives an indefinite Hessian at the origin, a saddle"
+    },
+    {
+     "ask": "Write the trust region subproblem.",
+     "answer": "Minimize the second-order model m(p) = f + gᵀp + ½pᵀBp subject to ‖p‖ ≤ Δ.",
+     "say": "I will build a quadratic model and restrict the step to a trust region"
+    },
+    {
+     "ask": "Evaluate g and B at (0.5, 1).",
+     "answer": "g = (−1.5, 2), ‖g‖ = 2.5, B = diag(−1, 2), and gᵀBg = 5.75.",
+     "say": "The model Hessian is indefinite here, which a trust region handles directly"
+    },
+    {
+     "ask": "Find the Cauchy point.",
+     "answer": "The Cauchy point minimizes the model along steepest descent inside the region: p_C = −τ(Δ/‖g‖)g with τ = min(‖g‖³/(ΔgᵀBg), 1) = min(2.72, 1) = 1, so p_C = (0.6, −0.8).",
+     "say": "The Cauchy point lies along steepest descent"
+    },
+    {
+     "ask": "What about the Newton step?",
+     "answer": "p_N = −B⁻¹g = (−1.5, −1) heads to the stationary point of an indefinite model, a model saddle, and its length 1.80 exceeds Δ, so the method uses the boundary solution instead.",
+     "say": "Newton targets the model stationary point, which here is a saddle of the model"
+    },
+    {
+     "ask": "Take the Cauchy step and compute ρ.",
+     "answer": "ρ = actual reduction over predicted reduction = (f(x) − f(x + p))/(m(0) − m(p)) = 1.478/2.04 ≈ 0.72.",
+     "say": "ρ is actual reduction over predicted reduction"
+    },
+    {
+     "ask": "Accept or reject, and what happens to Δ?",
+     "answer": "ρ ≈ 0.72 exceeds the acceptance threshold, so accept; it lies between ¼ and ¾, so Δ stays at 1. The rule shrinks Δ when ρ < ¼ and expands it when ρ > ¾ with the step on the boundary.",
+     "say": "Accept, and keep the radius since ρ sits between one quarter and three quarters"
+    },
+    {
+     "ask": "How does this differ from line search?",
+     "answer": "Line search picks a direction then a length; trust region picks a maximum length then a direction, so negative curvature is safe because the region bounds the step.",
+     "say": "Trust region fixes the step size first and then chooses the direction"
+    }
+   ],
+   "trap": "Build the model with the second-order term, take the Cauchy point along steepest descent, and judge the step with ρ = actual over predicted reduction."
+  },
+  {
+   "id": "lad-9",
+   "exam": "SDO",
+   "chair": "Applied optimization",
+   "skill": "o5",
+   "title": "Electric aircraft range to a constrained corner",
+   "freq": "Asked on a real recent SDO board",
+   "figure": "An electric airplane with fixed battery energy E_b, and range to be maximized over weight W, wing area S and span b.",
+   "rungs": [
+    {
+     "ask": "Write the range.",
+     "answer": "Battery mass is constant in flight, so energy equals drag times distance over efficiency: R = ηE_b/D.",
+     "say": "For an electric aircraft, range equals η E_b over drag"
+    },
+    {
+     "ask": "So what is the real problem?",
+     "answer": "With E_b and η fixed, maximizing R is minimizing cruise drag D = qC_D0S + W²/(qπeb²).",
+     "say": "Maximizing range reduces to minimizing drag"
+    },
+    {
+     "ask": "Solve it unconstrained.",
+     "answer": "D falls as S → 0 and as b → ∞, and W wants its lower bound, so the unconstrained answer is degenerate: zero area and infinite span.",
+     "say": "The unconstrained answer is degenerate, so the constraints carry the design"
+    },
+    {
+     "ask": "Which constraints fix it?",
+     "answer": "A box on W at its lowest buildable weight, a stall bound S ≥ S_min, and a structural bound on aspect ratio b² ≤ AR_max S.",
+     "say": "I add a structural aspect ratio limit and the stall and box bounds"
+    },
+    {
+     "ask": "With the aspect ratio limit active, find the best area.",
+     "answer": "Substitute b² = AR_max S: D = qC_D0S + W²/(qπeAR_max S), minimized at S* = W/(q√(πeAR_max C_D0)), where parasite drag equals induced drag.",
+     "say": "With aspect ratio active, the best area makes parasite drag equal induced drag"
+    },
+    {
+     "ask": "Now S_min exceeds S*. Prove the corner with KKT.",
+     "answer": "Active g₁ = S_min − S ≤ 0 and g₂ = b² − AR_max S ≤ 0. The b row gives λ₂ = W²/(qπeb⁴) > 0, and the S row gives λ₁ = qC_D0 − W²/(qπeAR_max S_min²), positive exactly when S_min > S*.",
+     "say": "I will set up the KKT conditions at the corner"
+    },
+    {
+     "ask": "Interpret the multipliers.",
+     "answer": "λ₁ is the drag cost per unit increase of S_min; λ₂ is the drag saved per unit relaxation of the aspect ratio limit, the price the structure charges the aerodynamics.",
+     "say": "The multipliers are the shadow prices of stall and structure"
+    }
+   ],
+   "trap": "Spot the degenerate unconstrained answer (infinite span, zero area) and bring in the structural and box constraints, then confirm the corner with positive KKT multipliers."
+  },
+  {
+   "id": "lad-10",
+   "exam": "SMM",
+   "chair": "Structural analysis",
+   "skill": "s8",
+   "title": "Coil spring: axial, then torsional",
+   "freq": "Asked two terms running: Fall 2025 axial, Spring 2026 torsional",
+   "figure": "A helical spring with N coils, mean coil diameter D and wire diameter d, first pulled by an axial force F, later twisted by a moment M about its axis.",
+   "rungs": [
+    {
+     "ask": "Axial load. What does the wire feel?",
+     "answer": "Each wire section carries a torque T = FD/2 about the wire axis (plus a small direct shear), so the wire is in torsion.",
+     "say": "An axially loaded coil puts the wire in torsion"
+    },
+    {
+     "ask": "Find the deflection. Name your method.",
+     "answer": "Castigliano's second theorem: U = T²L_w/(2GJ) with wire length L_w = πDN and J = πd⁴/32, and δ = ∂U/∂F = 8FD³N/(Gd⁴).",
+     "say": "I will use Castigliano's second theorem, δ equals ∂U over ∂F"
+    },
+    {
+     "ask": "So the spring constant?",
+     "answer": "k = Gd⁴/(8D³N).",
+     "say": "k equals G d⁴ over 8 D³ N with D the mean coil diameter"
+    },
+    {
+     "ask": "Why does a coil beat a straight bar of the same wire?",
+     "answer": "The coil is a compliance amplifier: it packs a long wire, length πDN, into a short envelope and loads it through the lever arm D/2, so deflection grows as D³N while a straight bar gives only FL_w/(EA).",
+     "say": "The coil packs a long wire into a small envelope and loads it through a lever arm"
+    },
+    {
+     "ask": "Two of these in series, then in parallel.",
+     "answer": "Series: 1/k_eq = 1/k₁ + 1/k₂, same force, deflections add. Parallel: k_eq = k₁ + k₂, same deflection, forces add.",
+     "say": "Series adds compliances, parallel adds stiffnesses"
+    },
+    {
+     "ask": "Now load it with a moment M about the coil axis. What does the wire feel?",
+     "answer": "A moment about the coil axis bends the wire about its own cross-section axis, a bending moment M₃ of magnitude M along the whole wire, so the wire is in bending.",
+     "say": "A torsional coil spring puts the wire in bending"
+    },
+    {
+     "ask": "Find the rotational stiffness.",
+     "answer": "U = M²L_w/(2EI) with I = πd⁴/64, θ = ∂U/∂M = 64MDN/(Ed⁴), so k_θ = Ed⁴/(64DN).",
+     "say": "Same energy method, now with EI and I = πd⁴/64"
+    },
+    {
+     "ask": "Limiting case check.",
+     "answer": "Both stiffnesses fall as N rises, since more coils means a longer wire, and rise steeply with wire diameter as d⁴.",
+     "say": "Check: more coils makes it softer, thicker wire makes it stiffer with d⁴"
+    }
+   ],
+   "trap": "An axial force puts the wire in torsion (use GJ, J = πd⁴/32); a moment about the coil axis puts the wire in bending (use EI, I = πd⁴/64)."
+  },
+  {
+   "id": "lad-11",
+   "exam": "SMM",
+   "chair": "Solid mechanics",
+   "skill": "s15",
+   "title": "Bulk modulus of a particle composite",
+   "freq": "Asked Spring 2026",
+   "figure": "A cube under uniform pressure p on every face, then the same cube redrawn as matrix A filled with particles of B at volume fraction f.",
+   "rungs": [
+    {
+     "ask": "Define the bulk modulus.",
+     "answer": "K = −V dp/dV, so under pressure p the volumetric strain is ΔV/V = −p/K.",
+     "say": "Bulk modulus relates pressure to volumetric strain"
+    },
+    {
+     "ask": "What does it mean physically?",
+     "answer": "K measures resistance to change of volume with shape held fixed; a large K means a nearly incompressible solid.",
+     "say": "It is the stiffness against volume change at fixed shape"
+    },
+    {
+     "ask": "Derive it for an isotropic linear elastic solid.",
+     "answer": "Under σ = −pI each normal strain is −p(1 − 2ν)/E, so ε_kk = −3p(1 − 2ν)/E and K = E/(3(1 − 2ν)) = λ + 2μ/3.",
+     "say": "I apply a hydrostatic stress and sum the three normal strains"
+    },
+    {
+     "ask": "What happens as ν goes to one half?",
+     "answer": "K → ∞, the incompressible limit, while the shear modulus stays finite.",
+     "say": "At ν equals one half the solid becomes incompressible"
+    },
+    {
+     "ask": "Now the composite. Build an estimate.",
+     "answer": "Assume the same pressure p in every phase. Volume changes add by volume fraction: ΔV/V = −p[(1 − f)/K_A + f/K_B], so 1/K_eff = (1 − f)/K_A + f/K_B.",
+     "say": "I assume uniform pressure in both phases and add the volume changes"
+    },
+    {
+     "ask": "What did that assumption ignore, and which bound is it?",
+     "answer": "Uniform stress ignores the interface shear that keeps the phases compatible, which is the Reuss (series) estimate, the lower bound on K_eff; uniform strain gives the Voigt upper bound K = (1 − f)K_A + fK_B.",
+     "say": "Uniform stress is the Reuss lower bound, uniform strain is the Voigt upper bound"
+    },
+    {
+     "ask": "Limit check: rigid particles.",
+     "answer": "K_B → ∞ gives K_eff = K_A/(1 − f), and f = 0 recovers K_A.",
+     "say": "Check the limits f equals zero and rigid particles"
+    }
+   ],
+   "trap": "State that the uniform pressure (series) estimate is the Reuss lower bound on K_eff, with the uniform strain Voigt estimate as the upper bound."
+  },
+  {
+   "id": "lad-12",
+   "exam": "SMM",
+   "chair": "Structural analysis",
+   "skill": "s6",
+   "title": "Rope angle for an all-compressive beam",
+   "freq": "Asked Spring 2025",
+   "figure": "A horizontal beam of length L and rectangular depth h, pinned to a wall at its left end, its right end held up by a rope running back to the wall at angle α above the beam, under a uniform load w.",
+   "rungs": [
+    {
+     "ask": "Free body diagram. Find the rope tension.",
+     "answer": "Moments about the pin: T sinα · L = wL²/2, so T = wL/(2 sinα), and T must come out as tension because a rope only pulls.",
+     "say": "A rope carries tension only, so I draw T pulling and check its sign"
+    },
+    {
+     "ask": "What does the rope do to the beam besides hold it up?",
+     "answer": "Its horizontal component T cosα = wL/(2 tanα) pushes the beam into the wall, a uniform axial compression N.",
+     "say": "The rope's horizontal component puts the beam in axial compression"
+    },
+    {
+     "ask": "Bending moment?",
+     "answer": "Vertical reactions are wL/2 at each end, so the beam bends like a simply supported span with M_max = wL²/8 at midspan, tension on the bottom fibre.",
+     "say": "Maximum moment is wL² over 8 at midspan with the bottom fibre in tension"
+    },
+    {
+     "ask": "Write the stress at the bottom fibre.",
+     "answer": "σ_bottom = −N/A + M c/I with c = h/2; the axial term shifts the neutral axis toward the tension side.",
+     "say": "I superpose axial and bending stress"
+    },
+    {
+     "ask": "Find the α that makes the whole section compressive.",
+     "answer": "Set σ_bottom ≤ 0 at midspan, which moves the neutral axis to the extreme fibre: N/A ≥ M_max c/I gives tanα ≤ 4I/(ALc) = 2h/(3L) for a rectangle.",
+     "say": "I shift the neutral axis to the extreme fibre"
+    },
+    {
+     "ask": "Explain that with the kern.",
+     "answer": "The section stays compressive when the load eccentricity e = M/N is within the kern, h/6 for a rectangle: (L tanα)/4 ≤ h/6 gives the same tanα ≤ 2h/(3L).",
+     "say": "Equivalent statement: the eccentricity M over N stays inside the kern, h over 6"
+    },
+    {
+     "ask": "A shallower rope gives more compression. What else must you check?",
+     "answer": "The beam is now a column: check N ≤ π²EI/L² for the pinned-pinned span, and note the beam-column amplification of the moment as N approaches that load.",
+     "say": "With large compression I check buckling and beam-column amplification"
+    }
+   ],
+   "trap": "Draw the rope force as tension (a rope only pulls), then shift the neutral axis to the extreme fibre to get tanα ≤ 2h/(3L), and check column buckling under the added compression."
+  },
+  {
+   "id": "lad-13",
+   "exam": "SMM",
+   "chair": "Solid mechanics",
+   "skill": "s12",
+   "title": "Inflating an incompressible balloon",
+   "freq": "Asked Spring 2025",
+   "figure": "A thin spherical membrane of initial radius R₀ and thickness t₀, made of an incompressible neo-Hookean rubber, inflated by internal pressure P to radius R.",
+   "rungs": [
+    {
+     "ask": "Write the stretches.",
+     "answer": "λ_θ = λ_φ = λ = R/R₀ and λ_R = t/t₀; incompressibility λ_Rλ_θλ_φ = 1 gives λ_R = λ⁻².",
+     "say": "Incompressibility ties thickness stretch to the hoop stretches"
+    },
+    {
+     "ask": "Write the Cauchy stress for the neo-Hookean solid.",
+     "answer": "σ = −pI + μB with B = FFᵀ, so σ_θθ = −p + μλ² and σ_rr = −p + μλ⁻⁴, where p is the pressure multiplier from incompressibility.",
+     "say": "p is a Lagrange multiplier enforcing incompressibility"
+    },
+    {
+     "ask": "How do you find p?",
+     "answer": "The membrane is thin, so the radial stress is small compared with the hoop stress: σ_rr = 0 gives p = μλ⁻⁴ and σ_θθ = μ(λ² − λ⁻⁴).",
+     "say": "I fix the multiplier from σ_rr equals zero through the thin wall"
+    },
+    {
+     "ask": "Equilibrium. Find P as a function of λ.",
+     "answer": "Cut the sphere in half: PπR² = σ_θθ·2πRt, so P = 2σ_θθt/R = 2μ(t₀/R₀)(λ⁻¹ − λ⁻⁷).",
+     "say": "Half-sphere equilibrium gives P equals 2σt over R in the current geometry"
+    },
+    {
+     "ask": "Small strain check.",
+     "answer": "With λ = 1 + ε, P ≈ 12μεt₀/R₀, matching linear thin-sphere theory with E = 3μ and ν = ½.",
+     "say": "The small strain limit recovers linear theory"
+    },
+    {
+     "ask": "Why is a balloon hard to start and then easier?",
+     "answer": "dP/dλ = 0 gives λ⁶ = 7, so the pressure peaks at λ = 7^(1/6) ≈ 1.38 with P_max ≈ 1.24μt₀/R₀ and then falls as the wall thins.",
+     "say": "The pressure curve has a limit point at λ equal to 7 to the one sixth"
+    },
+    {
+     "ask": "What kind of instability is that?",
+     "answer": "A limit point: under controlled pressure the balloon snaps through to a much larger radius at P_max; under controlled volume it passes smoothly.",
+     "say": "This is a limit point, so under pressure control it snaps through"
+    }
+   ],
+   "trap": "Use current geometry, t = t₀λ⁻² and R = R₀λ, in the equilibrium P = 2σt/R, and find the multiplier p from σ_rr = 0."
+  },
+  {
+   "id": "lad-14",
+   "exam": "SMM",
+   "chair": "Stability",
+   "skill": "s9",
+   "title": "Two-bar spring column, start to finish",
+   "freq": "This chair's rigid-bar ladder (Π, equilibrium, P_cr, post-buckling, imperfections) recycled its figure 2021, 2023, 2026; zero second variation asked Fall 2025",
+   "figure": "Two rigid bars of length L stacked vertically, a rotational spring C at the base pin, a second spring C at the middle hinge, and a vertical dead load P at the free top.",
+   "rungs": [
+    {
+     "ask": "Set up the total potential with every term.",
+     "answer": "Angles θ₁, θ₂ from the vertical: Π = ½Cθ₁² + ½C(θ₂ − θ₁)² − PL(2 − cosθ₁ − cosθ₂).",
+     "say": "The middle spring sees the relative angle, ½C(θ₂ − θ₁)²"
+    },
+    {
+     "ask": "Equilibrium.",
+     "answer": "∂Π/∂θ₁ = Cθ₁ − C(θ₂ − θ₁) − PL sinθ₁ = 0 and ∂Π/∂θ₂ = C(θ₂ − θ₁) − PL sinθ₂ = 0; θ₁ = θ₂ = 0 is the trivial path for every P.",
+     "say": "Stationary total potential gives equilibrium"
+    },
+    {
+     "ask": "Linearize and find P_cr.",
+     "answer": "The Hessian at zero is [[2C − PL, −C], [−C, C − PL]]; det = 0 gives (PL)² − 3C(PL) + C² = 0, so P_cr = (3 − √5)C/(2L) ≈ 0.382C/L.",
+     "say": "I set the determinant of the second variation matrix to zero"
+    },
+    {
+     "ask": "Mode shape?",
+     "answer": "θ₂/θ₁ = (1 + √5)/2 ≈ 1.618, both bars leaning the same way with the top bar leaning more.",
+     "say": "The buckling mode is the null vector at P_cr"
+    },
+    {
+     "ask": "Stability of the trivial path.",
+     "answer": "Below P_cr the Hessian is positive definite, so the straight column is stable; above P_cr it has a negative eigenvalue and the straight column is unstable.",
+     "say": "Positive definite second variation means stable"
+    },
+    {
+     "ask": "At P_cr the second variation is zero along the mode. Is it stable?",
+     "answer": "The second-order test is inconclusive there, so go to higher order: the cubic terms vanish by symmetry and the quartic term +(PL/24)(θ₁⁴ + θ₂⁴) is positive, so the critical point is stable.",
+     "say": "Zero second variation is inconclusive, so I go to higher-order terms"
+    },
+    {
+     "ask": "Post-buckling. Expand to the right order.",
+     "answer": "Use cosθ ≈ 1 − θ²/2 + θ⁴/24 and keep every term to θ⁴; the quadratic terms locate P_cr and the quartic terms give P rising with amplitude, P ≈ P_cr(1 + c a²) with c > 0.",
+     "say": "The quadratic term locates P_cr and the quartic term decides post-buckling"
+    },
+    {
+     "ask": "Classify the bifurcation.",
+     "answer": "Rising load after buckling with a symmetric path is a stable symmetric bifurcation; a falling path would be unstable symmetric, and a linear term in a would be asymmetric.",
+     "say": "Rising post-buckling path: stable symmetric bifurcation"
+    },
+    {
+     "ask": "Add a small initial tilt. Imperfection sensitive?",
+     "answer": "Stable symmetric is imperfection insensitive: the deflection grows smoothly as P approaches P_cr and the load can rise past it. Unstable symmetric systems lose load capacity with the two-thirds power of the imperfection.",
+     "say": "Stable symmetric is imperfection insensitive; the two-thirds power law belongs to unstable symmetric"
+    }
+   ],
+   "trap": "When d²Π = 0 at the critical point, state that the second-order test is inconclusive and examine the cubic and quartic terms, keeping every term of the expansion to θ⁴."
+  },
+  {
+   "id": "lad-15",
+   "exam": "SMM",
+   "chair": "Structural analysis",
+   "skill": "s7",
+   "title": "Thin-walled tube that turns out thick",
+   "freq": "This chair's signature trap: the required t comes out as D/4",
+   "figure": "A beam whose circular cross section of diameter D has a concentric hole, drawn as a thin ring, carrying a torque T with an allowable shear stress τ_allow and the instruction: size the wall.",
+   "rungs": [
+    {
+     "ask": "Which theory do you use?",
+     "answer": "Thin-walled closed section torsion (Bredt): shear flow q = T/(2A), shear stress τ = q/t, with A the area enclosed by the mid-wall line.",
+     "say": "I will assume a thin wall and use Bredt's formula, q equals T over 2A"
+    },
+    {
+     "ask": "State the assumption you just made.",
+     "answer": "Thin wall means t is small compared with the radius, typically t/R ≤ 1/10, so the shear stress is uniform through the thickness.",
+     "say": "My assumption is t much smaller than R, uniform stress through the wall"
+    },
+    {
+     "ask": "Size it with T = πD³τ_allow/8.",
+     "answer": "t = T/(2Aτ_allow) with A = πD²/4, so t = 2T/(πD²τ_allow) = D/4.",
+     "say": "I write the final asked-for quantity, t equals D over 4"
+    },
+    {
+     "ask": "Is that a good answer?",
+     "answer": "t = D/4 gives t/R = ½, which violates the thin-wall assumption the formula rests on, so the result is invalid and the section needs thick-wall analysis.",
+     "say": "Stop: t equals D over 4 violates my thin-wall assumption"
+    },
+    {
+     "ask": "Redo it properly.",
+     "answer": "Use exact circular-shaft torsion: τ_max = Tr_o/J with J = π(r_o⁴ − r_i⁴)/2, and solve for the inner radius that keeps τ_max at τ_allow.",
+     "say": "For a thick tube I use τ equals T r over J with the polar J"
+    },
+    {
+     "ask": "Now cut a slit along the full length. What happens to the stiffness?",
+     "answer": "The section becomes open: J_open = (1/3)st³ with s = 2πR, versus J_closed = 4A²t/s = 2πR³t, a ratio J_closed/J_open = 3R²/t², a huge loss for a thin wall.",
+     "say": "A slit turns a closed cell into an open section, J drops to one third s t³"
+    },
+    {
+     "ask": "Same tube in bending. Which section property?",
+     "answer": "Bending uses I = π(r_o⁴ − r_i⁴)/4, half the polar J, and the thin-wall form I ≈ πR³t.",
+     "say": "Bending uses I, torsion uses the polar J equal to 2I for a circle"
+    }
+   ],
+   "trap": "When the sized wall comes out t = D/4, stop and say the thin-wall assumption is violated, then switch to thick-wall torsion with J = π(r_o⁴ − r_i⁴)/2."
+  },
+  {
+   "id": "lad-16",
+   "exam": "SMM",
+   "chair": "Structural analysis",
+   "skill": "s10",
+   "title": "Strut-braced wing as a spring",
+   "freq": "Replacing a member with an equivalent spring asked 2020 and 2021",
+   "figure": "A cantilever wing beam of bending stiffness EI under a tip load P, braced by a strut of axial stiffness EA and length L_s attached at distance a from the root at angle β to the wing.",
+   "rungs": [
+    {
+     "ask": "What kind of member is the strut?",
+     "answer": "Pinned at both ends and loaded only at its ends, it is a two-force member carrying axial force only.",
+     "say": "The strut is a two-force member, so it carries axial load"
+    },
+    {
+     "ask": "Replace it with a spring.",
+     "answer": "Axial stiffness k_s = EA/L_s; its stiffness against vertical motion of the wing at the attachment is k_v = (EA/L_s)sin²β.",
+     "say": "I replace the strut with an axial spring and project it twice, giving sin²β"
+    },
+    {
+     "ask": "Now the wing is indeterminate. Set it up.",
+     "answer": "Release the strut reaction R and use compatibility: wing deflection at a under P minus that under R equals R/k_v.",
+     "say": "One redundant, so I use compatibility with the spring"
+    },
+    {
+     "ask": "Write the compatibility equation.",
+     "answer": "P(a²/(6EI))(3L − a) − Ra³/(3EI) = R/k_v, so R = P(a²(3L − a)/(6EI))/(a³/(3EI) + 1/k_v).",
+     "say": "For the redundant, beam flexibility and spring flexibility add"
+    },
+    {
+     "ask": "Check the limits.",
+     "answer": "k_v → ∞ gives the rigid prop reaction; k_v → 0 gives R = 0 and the plain cantilever.",
+     "say": "Check: infinite spring stiffness gives a rigid support, zero gives the free cantilever"
+    },
+    {
+     "ask": "The root is a real fitting, slightly flexible. Model it.",
+     "answer": "Replace the clamp by a linear spring for vertical slip and a rotational spring for root rotation, both together, and add ½k_ru² + ½k_θφ² to the energy.",
+     "say": "A real support may need both a linear and a rotational spring"
+    },
+    {
+     "ask": "Series or parallel?",
+     "answer": "Elements sharing the same force act in series (compliances add); elements sharing the same displacement act in parallel (stiffnesses add); the strut and the wing beam at the attachment share displacement, so they act in parallel there.",
+     "say": "Same force means series, same displacement means parallel"
+    }
+   ],
+   "trap": "Project the strut stiffness onto the wing deflection direction twice, k_v = (EA/L_s)sin²β, and check both spring limits."
+  },
+  {
+   "id": "lad-17",
+   "exam": "SMM",
+   "chair": "Structural analysis",
+   "skill": "s8",
+   "title": "Rayleigh-Ritz: trial functions and springs",
+   "freq": "Change-the-trial-function question asked in two different years",
+   "figure": "A cantilever of length L and stiffness EI with a tip load P, later with a spring k under the tip, later with the clamp replaced by a rotational spring.",
+   "rungs": [
+    {
+     "ask": "Set up the Ritz approximation.",
+     "answer": "Π = ∫₀ᴸ ½EI(w″)² dx − Pw(L), with a trial function that satisfies the kinematic boundary conditions w(0) = 0 and w′(0) = 0.",
+     "say": "I will use Rayleigh-Ritz on the total potential energy, with the load potential entering with a minus sign"
+    },
+    {
+     "ask": "Use w = a x².",
+     "answer": "Π = 2EIL a² − PL²a, ∂Π/∂a = 0 gives a = PL/(4EI) and tip deflection PL³/(4EI).",
+     "say": "Stationarity with respect to each Ritz coefficient"
+    },
+    {
+     "ask": "Compare with exact.",
+     "answer": "Exact is PL³/(3EI). Ritz gives a stiffer structure, so the approximate deflection is smaller and Π is an upper bound on the true minimum.",
+     "say": "Ritz is stiffer than exact, so it underestimates deflection here"
+    },
+    {
+     "ask": "Change the trial function to a x² + b x³.",
+     "answer": "Two equations in a and b give tip deflection PL³/(3EI), the exact answer, because the exact cubic lies in the trial space.",
+     "say": "Adding the cubic puts the exact solution in the trial space"
+    },
+    {
+     "ask": "Put a spring k under the tip.",
+     "answer": "Add ½k w(L)² to Π. With w = a x², tip deflection becomes PL³/(4EI + kL³).",
+     "say": "The spring adds its strain energy to Π"
+    },
+    {
+     "ask": "Does the trial function need to change for the spring?",
+     "answer": "The spring support is a natural boundary condition, so the trial function only needs the kinematic conditions; the energy term enforces the force balance.",
+     "say": "Spring supports are natural boundary conditions"
+    },
+    {
+     "ask": "Replace the clamp with a rotational spring C.",
+     "answer": "Now w(0) = 0 is the only kinematic condition, so the trial needs a linear term, w = a₁x + a₂x² + ..., and Π gains ½C(w′(0))².",
+     "say": "Release the kinematic condition, enrich the trial function, add the spring energy"
+    }
+   ],
+   "trap": "Make the trial function satisfy the kinematic boundary conditions, treat spring supports as natural boundary conditions through their energy, and enter the load potential with a minus sign."
+  },
+  {
+   "id": "lad-18",
+   "exam": "SMM",
+   "chair": "Solid mechanics",
+   "skill": "s12",
+   "title": "Finite simple shear of an infinite slab",
+   "freq": "Asked Fall 2025",
+   "figure": "A slab of thickness h, infinitely long in x₁ and x₃, with its top face slid by γh in x₁ relative to its bottom face.",
+   "rungs": [
+    {
+     "ask": "Write the motion and F.",
+     "answer": "x₁ = X₁ + γX₂, x₂ = X₂, x₃ = X₃, so F = [[1, γ, 0], [0, 1, 0], [0, 0, 1]] and det F = 1, isochoric.",
+     "say": "Simple shear is isochoric, det F equals 1"
+    },
+    {
+     "ask": "Left Cauchy-Green tensor?",
+     "answer": "B = FFᵀ = [[1 + γ², γ, 0], [γ, 1, 0], [0, 0, 1]].",
+     "say": "B equals F F transpose"
+    },
+    {
+     "ask": "Stress for an incompressible neo-Hookean solid.",
+     "answer": "σ = −pI + μB, so σ₁₂ = μγ, σ₁₁ = −p + μ(1 + γ²), σ₂₂ = −p + μ, σ₃₃ = −p + μ.",
+     "say": "I use σ equals minus p I plus μ B"
+    },
+    {
+     "ask": "How do you find p?",
+     "answer": "The loading plates apply shear traction only, so the normal traction on the faces normal to x₂ is zero: σ₂₂ = 0 gives p = μ, so σ₁₁ = μγ² and σ₃₃ = 0.",
+     "say": "I find p from the normal traction condition on the sheared faces"
+    },
+    {
+     "ask": "Physical meaning of τ/G?",
+     "answer": "τ/G = σ₁₂/μ = γ, the amount of shear, the tangent of the angle through which an initially vertical material line tilts.",
+     "say": "τ over G is the amount of shear, the tangent of the shear angle"
+    },
+    {
+     "ask": "Why does an axial normal stress appear?",
+     "answer": "Maintaining finite simple shear needs a normal stress difference σ₁₁ − σ₂₂ = μγ², a second-order effect in γ (the Poynting effect) that small strain theory drops.",
+     "say": "The normal stress is second order in γ, a finite deformation effect"
+    },
+    {
+     "ask": "Check the small strain limit.",
+     "answer": "As γ → 0, σ₁₂ = μγ recovers linear shear τ = Gγ, and the normal stresses of order γ² vanish faster.",
+     "say": "Small strain recovers τ equals G γ"
+    }
+   ],
+   "trap": "Find the pressure multiplier p from the zero normal traction on the faces normal to x₂ (they carry shear only), then read off the normal stress σ₁₁ − σ₂₂ = μγ² as the second-order finite shear effect."
+  }
+ ]
+}

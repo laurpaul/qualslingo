@@ -1,0 +1,284 @@
+{
+ "ladders": [
+  {
+   "id": "lad-19",
+   "exam": "SDO",
+   "chair": "Optimization theory",
+   "skill": "o5",
+   "title": "Circle constraint: free minimum to a corner",
+   "freq": "KKT in 8 of 11 terms and 7 of 13 constrained optimization chair sessions, usually paired with an unconstrained problem on the same function",
+   "figure": "f(x) = (x₁ − 6)² + (x₂ − 8)² written on the board, the disk g₁ = x₁² + x₂² − 25 ≤ 0 shaded on (x₁, x₂) axes, and a second constraint g₂ = x₂ − 3 ≤ 0 listed for later.",
+   "rungs": [
+    {
+     "ask": "Forget the constraint for a moment. Minimize f.",
+     "answer": "∇f = 2(x₁ − 6, x₂ − 8) = 0 gives x = (6, 8); the Hessian 2I is positive definite, so it is the strict global minimizer with f = 0, and the contours are circles centred there.",
+     "say": "I set the gradient to zero, then check the Hessian."
+    },
+    {
+     "ask": "Now add the disk. Is it active?",
+     "answer": "g₁(6, 8) = 100 − 25 = 75 > 0, so the free minimizer is infeasible and the constraint is active at the solution, which lies on the circle x₁² + x₂² = 25.",
+     "say": "The free minimizer violates the constraint, so I treat it as active."
+    },
+    {
+     "ask": "Say the words and solve it.",
+     "answer": "KKT conditions: ∇f + λ₁∇g₁ = 0, g₁ ≤ 0, λ₁ ≥ 0, λ₁g₁ = 0. The rows give x₁ = 6/(1 + λ₁) and x₂ = 8/(1 + λ₁); the circle gives 10/(1 + λ₁) = 5, so λ₁ = 1, x* = (3, 4) and f* = 25.",
+     "say": "I will write the KKT conditions: stationarity, feasibility, the sign of the multiplier and complementary slackness."
+    },
+    {
+     "ask": "Show me the geometry at (3, 4).",
+     "answer": "−∇f = (6, 8) and ∇g₁ = (6, 8), so −∇f = λ₁∇g₁ with λ₁ = 1: minus the gradient lies in the cone of the active constraint gradients, and the f contour through (3, 4) is tangent to the circle.",
+     "say": "At a constrained minimum, minus the gradient of f lies in the cone spanned by the active constraint gradients."
+    },
+    {
+     "ask": "What does λ₁ = 1 buy me?",
+     "answer": "Relaxing to x₁² + x₂² ≤ 25 + δ gives f* = (10 − √(25 + δ))², so df*/dδ = −1 = −λ₁ at δ = 0: λ₁ is the shadow price, the drop in optimal f per unit relaxation of g₁.",
+     "say": "The multiplier is the sensitivity of the optimal objective to the constraint limit."
+    },
+    {
+     "ask": "Now add x₂ ≤ 3. Where is the minimum?",
+     "answer": "(3, 4) violates g₂, and with g₂ alone active the minimizer (6, 3) violates g₁, so both are active at (4, 3) or (−4, 3). At (4, 3): ∇f = (−4, −10), ∇g₁ = (8, 6), ∇g₂ = (0, 1), so the rows give λ₁ = ½ and λ₂ = 7, both positive.",
+     "say": "I check each single active set first, then the corner where both are active."
+    },
+    {
+     "ask": "Why reject (−4, 3)?",
+     "answer": "There ∇f = (−20, −10) and ∇g₁ = (−8, 6), so the x₁ row gives λ₁ = −2.5. A negative multiplier says f decreases by moving off g₁ into the feasible interior along x₂ = 3, so (−4, 3) fails the KKT sign condition.",
+     "say": "The KKT sign condition requires every inequality multiplier to be nonnegative, and here λ₁ is negative."
+    },
+    {
+     "ask": "Is (4, 3) the global minimum, and how sure are you?",
+     "answer": "∇g₁ = (8, 6) and ∇g₂ = (0, 1) are linearly independent, so LICQ holds; f and both gᵢ are convex, so the KKT point is the global minimizer with f* = 29, and λ₂ = 7 marks x₂ ≤ 3 as the expensive constraint.",
+     "say": "This is a convex problem, so a KKT point is the global minimum."
+    },
+    {
+     "ask": "Make the circle an equality, h = x₁² + x₂² − 25 = 0. What changes?",
+     "answer": "The multiplier sign becomes free: (3, 4) with λ = 1 and (−3, −4) with λ = −3 both satisfy the Lagrange conditions. ∇²L = (2 + 2λ)I is 4I at (3, 4), a minimum with f = 25, and −4I at (−3, −4), the maximum on the circle with f = 225.",
+     "say": "With an equality constraint the multiplier can take either sign, so I use the second-order conditions to tell the minimum from the maximum."
+    }
+   ],
+   "trap": "Check each single active set first, then the corner, and accept the corner where every inequality multiplier satisfies λᵢ ≥ 0."
+  },
+  {
+   "id": "lad-20",
+   "exam": "SDO",
+   "chair": "Optimization theory",
+   "skill": "o2",
+   "title": "Strong Wolfe from the picture to the numbers",
+   "freq": "Line search in 5 of 11 terms; strong Wolfe named by the constrained optimization chair and Armijo asked by name on a recent board",
+   "figure": "Axes of α against φ(α) with a smooth curve that dips, rises and falls again, φ(0) marked on the vertical axis, and beside it f(x) = ½x², x_k = 2, p_k = −2, c₁ = 10⁻⁴ listed for later.",
+   "rungs": [
+    {
+     "ask": "What have I drawn, and what is its slope at zero?",
+     "answer": "φ(α) = f(x_k + αp_k), the objective along the search direction. φ'(0) = ∇f(x_k)ᵀp_k, which is negative because p_k is a descent direction.",
+     "say": "This is f restricted to the ray x_k plus α p_k, and its initial slope is the directional derivative."
+    },
+    {
+     "ask": "Draw the sufficient decrease line and write the condition.",
+     "answer": "A line from (0, φ(0)) with slope c₁φ'(0), shallower than the tangent. Armijo accepts α where φ lies on or below it: f(x_k + αp_k) ≤ f(x_k) + c₁α∇f(x_k)ᵀp_k, with 0 < c₁ < 1, typically c₁ = 10⁻⁴.",
+     "say": "Armijo asks for a decrease at least a fraction c₁ of what the tangent line predicts."
+    },
+    {
+     "ask": "Which steps does Armijo let through that you dislike?",
+     "answer": "Every sufficiently small α passes, so it accepts tiny steps that make little progress. The curvature condition ∇f(x_k + αp_k)ᵀp_k ≥ c₂∇f(x_k)ᵀp_k with c₁ < c₂ < 1 rejects them by asking the slope to have flattened to at least c₂ times the initial slope.",
+     "say": "I add the curvature condition to rule out steps that are too short."
+    },
+    {
+     "ask": "Make it strong. What does the absolute value add?",
+     "answer": "Strong Wolfe uses |∇f(x_k + αp_k)ᵀp_k| ≤ c₂|∇f(x_k)ᵀp_k|, which also rejects points where φ is climbing steeply, so the accepted α sit near stationary points of φ.",
+     "say": "The strong version bounds the slope from both sides, so accepted steps lie close to a local minimizer of φ."
+    },
+    {
+     "ask": "Numbers. f = ½x², x_k = 2, p_k = −2, c₁ = 10⁻⁴, c₂ = 0.9.",
+     "answer": "φ(α) = 2(1 − α)² and φ'(0) = −4. Armijo, 2(1 − α)² ≤ 2 − 4c₁α, gives α ≤ 2(1 − c₁) = 1.9998. Strong curvature, |−4(1 − α)| ≤ 3.6, gives 0.1 ≤ α ≤ 1.9. Strong Wolfe accepts α ∈ [0.1, 1.9].",
+     "say": "I write φ of α explicitly, then turn each condition into an interval of α."
+    },
+    {
+     "ask": "Now c₂ = 0.1.",
+     "answer": "|1 − α| ≤ 0.1 gives α ∈ [0.9, 1.1], a tight window around the exact minimizer α = 1. Small c₂ suits nonlinear conjugate gradients; c₂ = 0.9 suits Newton and quasi-Newton, where α = 1 is the natural first trial.",
+     "say": "A smaller c₂ demands a more exact line search."
+    },
+    {
+     "ask": "Why does BFGS insist on the curvature condition?",
+     "answer": "With s = αp_k and y = ∇f_{k+1} − ∇f_k, the curvature condition gives yᵀs ≥ (c₂ − 1)α∇f_kᵀp_k > 0, since c₂ < 1 and ∇f_kᵀp_k < 0. Positive yᵀs keeps the BFGS update positive definite.",
+     "say": "The curvature condition guarantees y transpose s is positive, which keeps the BFGS matrix positive definite."
+    },
+    {
+     "ask": "How do you actually find such an α?",
+     "answer": "Bracket, then zoom: try α = 1 and increase α until the interval holds acceptable steps (a trial fails Armijo, or φ' turns positive), then shrink the bracket with quadratic or cubic interpolation of φ and φ' until strong Wolfe holds.",
+     "say": "I use a bracketing phase followed by a zoom phase with interpolation."
+    },
+    {
+     "ask": "Is there always an acceptable step?",
+     "answer": "For φ smooth and bounded below along the ray with 0 < c₁ < c₂ < 1, strong Wolfe steps exist: the Armijo line first meets φ at some α' > 0, and the mean value theorem gives a point in (0, α') with φ' = c₁φ'(0), which satisfies both conditions.",
+     "say": "Acceptable steps exist whenever f is smooth and bounded below along the ray and 0 < c₁ < c₂ < 1."
+    }
+   ],
+   "trap": "Draw the Armijo line with slope c₁φ'(0) through φ(0), then mark where the slope of φ has flattened to c₂ times its initial value, keeping 0 < c₁ < c₂ < 1."
+  },
+  {
+   "id": "lad-21",
+   "exam": "SDO",
+   "chair": "Optimization theory",
+   "skill": "o3",
+   "title": "Four methods on one quartic",
+   "freq": "Classic mock slip: Newton, modified Newton, quasi-Newton (BFGS) and CG (Fletcher-Reeves β) kept distinct; line search in 5 of 11 terms",
+   "figure": "f(x, y) = x⁴/4 + y²/2 − xy written on the board, axes with the start point x₀ = (0, 1) marked, and the list Newton, modified Newton, BFGS with B₀ = I, nonlinear CG.",
+   "rungs": [
+    {
+     "ask": "Stationary points first.",
+     "answer": "∇f = (x³ − y, y − x) = 0 gives y = x and x³ = x: (0, 0), (1, 1) and (−1, −1). The Hessian [[3x², −1],[−1, 1]] has det −1 at the origin, a saddle, and det 2 with trace 4 at ±(1, 1), the minima with f = −¼.",
+     "say": "I solve the gradient equations, then classify each point with the Hessian."
+    },
+    {
+     "ask": "Take a pure Newton step from (0, 1).",
+     "answer": "g = (−1, 1) and H = [[0, −1],[−1, 1]]; Hp = −g gives p = (0, −1), which lands exactly on (0, 0), the saddle. Newton goes to the stationary point of the quadratic model, whatever its type.",
+     "say": "Newton solves H p equals minus g, which finds a stationary point of the model."
+    },
+    {
+     "ask": "Fix it.",
+     "answer": "H has eigenvalues (1 ± √5)/2, one of them −0.618, so modified Newton uses B = H + τI with τ = 1: B = [[1, −1],[−1, 2]] is positive definite, Bp = −g gives p = (1, 0) with gᵀp = −1 < 0, and α = 1 lands on the minimizer (1, 1).",
+     "say": "Modified Newton shifts the Hessian until it is positive definite, which guarantees a descent direction."
+    },
+    {
+     "ask": "Now BFGS with B₀ = I. First step?",
+     "answer": "p₀ = −g = (1, −1) and φ(α) = α⁴/4 + (3/2)α² − 2α + ½ with φ'(0) = −2. α = 1 gives φ'(1) = 2 > 0.9 · 2, so the zoom moves in; α = ½ gives φ = −7/64 and φ'(½) = −3/8, which passes strong Wolfe, so x₁ = (½, ½).",
+     "say": "With B₀ = I the first quasi-Newton step is a steepest descent step with a Wolfe line search."
+    },
+    {
+     "ask": "Update the matrix.",
+     "answer": "s = (½, −½), g₁ = (−3/8, 0), y = g₁ − g₀ = (5/8, −1) and yᵀs = 13/16 > 0. B₁ = B₀ − B₀ssᵀB₀/(sᵀB₀s) + yyᵀ/(yᵀs) satisfies the secant condition B₁s = y and stays positive definite.",
+     "say": "BFGS builds curvature from gradient differences through the secant condition B₁s equals y."
+    },
+    {
+     "ask": "Same start, nonlinear CG.",
+     "answer": "Fletcher-Reeves starts with the same p₀ = (1, −1) and α = ½. Then β = g₁ᵀg₁/(g₀ᵀg₀) = (9/64)/2 = 9/128 and p₁ = −g₁ + βp₀ = (57/128, −9/128), a descent direction with g₁ᵀp₁ < 0; strong Wolfe with c₂ < ½ guarantees that for Fletcher-Reeves.",
+     "say": "CG keeps only the previous direction and mixes it in with the factor β."
+    },
+    {
+     "ask": "Rank them on cost and convergence.",
+     "answer": "Newton: second derivatives, O(n²) storage, O(n³) solve, quadratic convergence near a minimizer with positive definite Hessian. BFGS: gradients only, O(n²) storage, superlinear. CG: gradients only, O(n) storage, linear rate, the choice for very many variables.",
+     "say": "Newton buys quadratic convergence with second derivatives, BFGS gets superlinear convergence from gradients, and CG trades rate for O(n) storage."
+    },
+    {
+     "ask": "Swap the quartic for a quadratic. What happens to each?",
+     "answer": "Newton reaches the minimizer in one step; linear CG and BFGS with exact line searches reach it in at most n steps, and BFGS then reproduces the Hessian, B_n = H.",
+     "say": "On a quadratic Newton takes one step, and CG and BFGS with exact line searches finish in at most n steps."
+    }
+   ],
+   "trap": "Keep the four methods distinct: Newton uses H, modified Newton uses a positive definite shift of H, BFGS uses a secant update, and CG uses β to mix directions."
+  },
+  {
+   "id": "lad-22",
+   "exam": "SDO",
+   "chair": "Optimization theory",
+   "skill": "o6",
+   "title": "Penalty and barrier paths to one constraint",
+   "freq": "Classic mock slip: μ is the barrier homotopy parameter, fixed per subproblem and driven to 0; penalty and barrier methods sit on the newer topic list",
+   "figure": "minimize f(x) = x² subject to x ≥ 1, drawn as a parabola on (x, f) axes with the feasible region x ≥ 1 shaded, and the words penalty and barrier written to the side.",
+   "rungs": [
+    {
+     "ask": "Solve it exactly first.",
+     "answer": "Standard form g = 1 − x ≤ 0. The free minimizer x = 0 violates it, so it is active: L = x² + λ(1 − x) gives 2x − λ = 0 at x = 1, so x* = 1, λ* = 2 > 0 and f* = 1.",
+     "say": "I put the constraint in standard form, g equals 1 minus x less than or equal to zero, and apply KKT."
+    },
+    {
+     "ask": "Write a quadratic penalty and minimize it.",
+     "answer": "P(x; ρ) = x² + (ρ/2)max(0, 1 − x)². For x < 1, 2x − ρ(1 − x) = 0 gives x(ρ) = ρ/(2 + ρ): 0.833 at ρ = 10 and 0.980 at ρ = 100, approaching 1 from the infeasible side.",
+     "say": "The exterior penalty charges for violation, so its minimizers approach the boundary from outside the feasible region."
+    },
+    {
+     "ask": "Now a log barrier.",
+     "answer": "B(x; μ) = x² − μ ln(x − 1) on x > 1. 2x − μ/(x − 1) = 0 gives 2x² − 2x − μ = 0, so x(μ) = (1 + √(1 + 2μ))/2: 1.366 at μ = 1, 1.048 at μ = 0.1 and 1.005 at μ = 0.01, approaching 1 from inside.",
+     "say": "The barrier grows to infinity at the boundary, so every iterate stays strictly feasible."
+    },
+    {
+     "ask": "What is μ, exactly?",
+     "answer": "μ is the homotopy parameter: held fixed while each subproblem is solved, then reduced, for example μ_{k+1} = μ_k/10, with each solve warm started from the previous x(μ). x(μ) traces the central path to x* as μ → 0.",
+     "say": "μ is a fixed parameter for each subproblem, and the outer loop drives it to zero."
+    },
+    {
+     "ask": "Where are the multipliers hiding?",
+     "answer": "Penalty: λ ≈ ρ max(0, 1 − x) = 2ρ/(2 + ρ) → 2. Barrier: λ ≈ μ/(x − 1) = 2x → 2. Both recover λ* = 2 in the limit.",
+     "say": "Each method gives a multiplier estimate that converges to the KKT multiplier."
+    },
+    {
+     "ask": "Why not start with μ = 10⁻⁸?",
+     "answer": "The subproblem Hessian becomes ill conditioned: for the barrier it is 2 + μ/(x − 1)² ≈ 4/μ near x*, and for the penalty it is 2 + ρ. Newton from a distant start then takes tiny or erratic steps; continuation keeps each start close to the next solution, inside the region of fast convergence.",
+     "say": "Small μ makes the subproblem ill conditioned, so I reduce it gradually and warm start."
+    },
+    {
+     "ask": "Can a penalty be exact for finite ρ?",
+     "answer": "Yes: the L1 penalty x² + ρ max(0, 1 − x) has its minimizer at x = 1 for every ρ > λ* = 2, at the price of a kink at the solution.",
+     "say": "The L1 penalty is exact once ρ exceeds the optimal multiplier."
+    },
+    {
+     "ask": "Connect the barrier to interior point methods.",
+     "answer": "Barrier stationarity 2x − μ/(x − 1) = 0 with λ = μ/(x − 1) is the KKT system with complementarity perturbed to λ(1 − x) = −μ, that is λg = −μ. Primal-dual interior point methods apply Newton to these perturbed KKT equations and drive μ → 0.",
+     "say": "The barrier subproblem is the KKT system with complementary slackness relaxed to λ g equals minus μ."
+    },
+    {
+     "ask": "Your aerodynamic analysis crashes outside the feasible region. Which do you pick?",
+     "answer": "The barrier, because every iterate stays strictly feasible, so every analysis call sees a valid design and stopping early still returns a usable feasible design. The penalty suits an infeasible start or equality constraints.",
+     "say": "I pick the barrier, which keeps every iterate inside the feasible region."
+    }
+   ],
+   "trap": "Treat μ as a fixed parameter in each subproblem, drive it to zero in the outer loop, and read the multiplier from μ/(−g)."
+  },
+  {
+   "id": "lad-23",
+   "exam": "SDO",
+   "chair": "Applied optimization",
+   "skill": "o10",
+   "title": "Wing MDO: MDF, IDF and where the DOE goes",
+   "freq": "Newer topic list; surrogates appear in 6 of 11 terms, and governing equations as equality constraints is a classic mock slip",
+   "figure": "A swept wing planform with spanwise stations, three discipline boxes beside it (aerodynamics, structures, performance), the goal maximize range R over 10 design variables x, loads Γ at 20 stations and twist θ at 20 stations noted, and constraints g(x, y) ≤ 0.",
+   "rungs": [
+    {
+     "ask": "Draw the N² for this wing.",
+     "answer": "Disciplines on the diagonal in the order aerodynamics, structures, performance; outputs leave along rows and inputs enter along columns. Loads Γ go from aerodynamics to structures above the diagonal; twist θ returns from structures to aerodynamics below the diagonal, the feedback loop; L/D and structural weight W_s feed forward to performance.",
+     "say": "I put the disciplines on the diagonal, feed-forward couplings above it and feedback below it."
+    },
+    {
+     "ask": "Solve the coupled analysis at fixed x.",
+     "answer": "An MDA: guess θ, run aerodynamics for Γ, run structures for θ, and repeat until ‖θ_new − θ‖ falls below a tolerance. This block Gauss-Seidel iteration suits weak coupling; Newton on the coupled residuals suits strong coupling.",
+     "say": "For fixed design variables I converge the multidisciplinary analysis by fixed-point iteration on the coupling variables."
+    },
+    {
+     "ask": "Write MDF.",
+     "answer": "Minimize −R(x, y(x)) over x subject to g(x, y(x)) ≤ 0, where y(x) = (Γ, θ) comes from a fully converged MDA at every function evaluation and R comes from Breguet, R = (V/c)(L/D)ln(W_i/W_f).",
+     "say": "In MDF the optimizer sees the design variables alone, and every evaluation runs a converged MDA."
+    },
+    {
+     "ask": "Now IDF.",
+     "answer": "Add coupling targets Γᵗ and θᵗ as optimization variables. Each discipline runs once from the targets, in parallel: Γ(x, θᵗ) and θ(x, Γᵗ). Consistency constraints Γᵗ − Γ(x, θᵗ) = 0 and θᵗ − θ(x, Γᵗ) = 0 enforce agreement at the optimum.",
+     "say": "In IDF the coupling variables become optimizer variables and consistency becomes a set of equality constraints."
+    },
+    {
+     "ask": "Count the variables and constraints.",
+     "answer": "MDF: 10 design variables plus the design constraints. IDF: 10 + 20 + 20 = 50 variables and 40 extra consistency equalities.",
+     "say": "IDF trades a larger optimization problem for one pass of each discipline per evaluation."
+    },
+    {
+     "ask": "Stop the optimizer halfway. Which design can I fly?",
+     "answer": "The MDF iterate, since every MDF iterate is multidisciplinary consistent. IDF reaches consistency at convergence, so its intermediate iterates satisfy each discipline separately while the coupling targets still disagree.",
+     "say": "Every MDF iterate is consistent, while IDF becomes consistent at convergence."
+    },
+    {
+     "ask": "How do you get gradients in each?",
+     "answer": "MDF needs total derivatives through the coupled system: the coupled direct method when design variables are few, or the coupled adjoint when the functions of interest are few. IDF needs partial derivatives of each discipline with respect to its own inputs, which assemble the consistency constraint Jacobian.",
+     "say": "MDF needs coupled total derivatives, while IDF needs each discipline's partial derivatives."
+    },
+    {
+     "ask": "Structures is a two hour finite element run. Where does the DOE go?",
+     "answer": "IDF makes the structures inputs explicit, x_struct and the load targets, so parametrize the loads with a few shape coefficients, sample that input space with a space-filling DOE such as a Latin hypercube, fit a structures surrogate, validate it by cross-validation, and run the optimizer on the surrogate with infill samples near the optimum.",
+     "say": "Because IDF exposes each discipline's inputs, I can sample each discipline separately and replace the expensive one with a surrogate."
+    },
+    {
+     "ask": "Pick one for this wing.",
+     "answer": "MDF for a weakly coupled wing with a fast, robust MDA and coupled derivatives available; IDF for expensive disciplines, parallel computing, an MDA that struggles to converge, or discipline surrogates.",
+     "say": "I pick by coupling strength and discipline cost: MDF when the MDA is cheap and robust, IDF when the disciplines are expensive or run in parallel."
+    }
+   ],
+   "trap": "Name the coupling variables first, then state that MDF converges the MDA inside every evaluation and IDF turns the coupling into variables plus consistency equalities."
+  }
+ ]
+}

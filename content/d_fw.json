@@ -1,0 +1,1697 @@
+{
+ "questions": [
+  {
+   "id": "f1-9",
+   "skill": "f1",
+   "type": "mc",
+   "q": "Sustained level turn constraint T_SL/W_TO = (β/α)[qC_D0/(βW/S) + Kn²β(W/S)/q]. Raising the required n moves its bucket:",
+   "a": "Up by a factor n, and to lower W/S by 1/n",
+   "w": [
+    "Down by a factor n, and to higher W/S by n",
+    "Straight up by n², at the same W/S",
+    "Up by a factor n², and to higher W/S by n"
+   ],
+   "x": "The bucket sits at βW/S = (q/n)√(C_D0/K) with minimum T_SL/W_TO = (β/α)·2n√(KC_D0), so it rises with n and moves to lower wing loading."
+  },
+  {
+   "id": "f1-10",
+   "skill": "f1",
+   "type": "mc",
+   "q": "With drag and rolling friction neglected, the simplified takeoff constraint T_SL/W_TO versus W_TO/S is:",
+   "a": "A straight line through the origin",
+   "w": [
+    "A vertical line at the stall wing loading",
+    "A horizontal line set by the climb gradient",
+    "A bucket curve with a minimum at max L/D"
+   ],
+   "x": "Mattingly's simple form T_SL/W_TO = (β²/α)·k_TO²(W_TO/S)/(s_TO ρ g C_Lmax) is linear in W_TO/S through the origin, with slope falling as field length, density and C_Lmax grow."
+  },
+  {
+   "id": "f1-11",
+   "skill": "f1",
+   "type": "mc",
+   "q": "At fixed altitude, as flight Mach rises from 0 to 0.8, which jet engine's thrust lapse α falls the most?",
+   "a": "High bypass turbofan, from its low specific thrust",
+   "w": [
+    "Turbojet, from its high exhaust velocity and core flow",
+    "Afterburning turbojet, from its high T_t7",
+    "Low bypass turbofan, from its mixed exhaust"
+   ],
+   "x": "Thrust is ṁ(V_e − V_0), and a high bypass engine has V_e close to V_0, so rising ram drag cuts its thrust fastest; turbojets hold α better with Mach, and a propeller's thrust falls roughly as P/V."
+  },
+  {
+   "id": "f1-12",
+   "skill": "f1",
+   "type": "num",
+   "q": "Warmup and takeoff weight fraction 0.97, climb fraction 0.985. What is β = W/W_TO at the start of cruise? Give 3 decimals.",
+   "a": 0.955,
+   "tol": 0.005,
+   "unit": "",
+   "x": "β is the product of the preceding segment fractions: 0.97 × 0.985 = 0.955, and β keeps falling along the mission as fuel burns."
+  },
+  {
+   "id": "f1-13",
+   "skill": "f1",
+   "type": "num",
+   "q": "Climb constraint with α = β = 1: q = 10,000 Pa, W/S = 4000 Pa, C_D0 = 0.02, K = 0.1, climb gradient (1/V)dh/dt = 0.1. Find T/W to 2 decimals.",
+   "a": 0.19,
+   "tol": 0.02,
+   "unit": "",
+   "x": "T/W = qC_D0/(W/S) + K(W/S)/q + (1/V)dh/dt = 0.05 + 0.04 + 0.10 = 0.19."
+  },
+  {
+   "id": "f1-14",
+   "skill": "f1",
+   "type": "cloze",
+   "q": "Complete the sustained turn constraint",
+   "text": "T_SL/W_TO = (β/α)[qC_D0/(βW_TO/S) + K ___ β(W_TO/S)/q]",
+   "a": "n²",
+   "w": [
+    "n",
+    "1/n²",
+    "√n"
+   ],
+   "x": "Induced drag scales with C_L² and C_L = nβW_TO/(qS), so the induced term carries n²."
+  },
+  {
+   "id": "f1-15",
+   "skill": "f1",
+   "type": "mc",
+   "q": "On Mars, with ρ about 1/70 of Earth's sea-level value, the stall constraint at fixed stall speed and C_Lmax:",
+   "a": "Moves left, to about 1/70 the allowed W/S",
+   "w": [
+    "Moves right, to about 70 times the allowed W/S",
+    "Moves left, to about 1/√70 the allowed W/S",
+    "Stays fixed, since W/S already includes gravity"
+   ],
+   "x": "The stall line is W/S = ½ρV_s²C_Lmax, so it scales directly with density and Mars aircraft need very low wing loading."
+  },
+  {
+   "id": "f1-16",
+   "skill": "f1",
+   "type": "pair",
+   "q": "Match each constraint to its shape on the T_SL/W_TO vs W_TO/S diagram",
+   "pairs": [
+    [
+     "Stall or landing",
+     "Vertical line capping W/S"
+    ],
+    [
+     "Simplified takeoff",
+     "Straight line rising from the origin"
+    ],
+    [
+     "Cruise or dash",
+     "Bucket, parasite term rising at low W/S"
+    ],
+    [
+     "Climb gradient",
+     "Adds the offset (β/α)(1/V)dh/dt"
+    ]
+   ],
+   "x": "Stall and landing depend on W/S alone, takeoff is linear in W/S, speed constraints form buckets from parasite and induced terms, and climb adds a P_s term."
+  },
+  {
+   "id": "f2-9",
+   "skill": "f2",
+   "type": "mc",
+   "q": "The service ceiling is the altitude where:",
+   "a": "Maximum rate of climb falls to 100 ft/min",
+   "w": [
+    "Maximum rate of climb falls to zero",
+    "Maximum rate of climb falls to 1000 ft/min",
+    "Cruise Mach reaches the drag divergence Mach"
+   ],
+   "x": "Service ceiling is where the best rate of climb is 100 ft/min (0.5 m/s); absolute ceiling is where it reaches zero and P_A just touches P_R."
+  },
+  {
+   "id": "f2-10",
+   "skill": "f2",
+   "type": "mc",
+   "q": "Compared with a piston prop, a jet's power available P_A versus airspeed:",
+   "a": "Grows about linearly, since P_A = TV with T nearly flat",
+   "w": [
+    "Stays about flat, since prop shaft power is nearly constant",
+    "Falls as 1/V, since ram drag cuts the thrust",
+    "Grows as V³, matching the parasite power curve"
+   ],
+   "x": "A jet's thrust is roughly constant with speed so P_A = TV rises linearly, while a prop delivers nearly constant power η_p P_shaft; rate of climb is (P_A − P_R)/W."
+  },
+  {
+   "id": "f2-11",
+   "skill": "f2",
+   "type": "mc",
+   "q": "In a steady unpowered glide, the maximum ground distance from height h in still air is:",
+   "a": "h·(L/D)_max, independent of weight",
+   "w": [
+    "h·(L/D)_max, growing with √W",
+    "h·(L/D)_max², independent of weight",
+    "h/(L/D)_max, independent of weight"
+   ],
+   "x": "tan γ = D/L, so the flattest glide is at (L/D)_max and distance = h·(L/D)_max; weight sets the best glide speed, which scales with √(W/S)."
+  },
+  {
+   "id": "f2-12",
+   "skill": "f2",
+   "type": "num",
+   "q": "An aircraft with (L/D)_max = 15 loses power at 3000 m above flat terrain in still air. Maximum glide distance, in km?",
+   "a": 45,
+   "tol": 0.02,
+   "unit": "km",
+   "x": "Glide ratio equals L/D, so distance = h·(L/D)_max = 3000 m × 15 = 45 km."
+  },
+  {
+   "id": "f2-13",
+   "skill": "f2",
+   "type": "num",
+   "q": "Prop Breguet range: η_p = 0.8, c = 8×10⁻⁷ 1/m (N of fuel per J of shaft work), L/D = 15, W_i/W_f = 1.25. Range in km (nearest 10)?",
+   "a": 3347,
+   "tol": 0.02,
+   "unit": "km",
+   "x": "R = (η_p/c)(L/D) ln(W_i/W_f) = (10⁶ m)(15)(0.2231) ≈ 3.35×10⁶ m ≈ 3350 km."
+  },
+  {
+   "id": "f2-14",
+   "skill": "f2",
+   "type": "cloze",
+   "q": "Complete the jet Breguet endurance equation (TSFC c, weight basis)",
+   "text": "E = (1/c)(___) ln(W_i/W_f)",
+   "a": "L/D",
+   "w": [
+    "V·L/D",
+    "C_L^{3/2}/C_D",
+    "D/L"
+   ],
+   "x": "Jet endurance depends on L/D alone, so it peaks at (L/D)_max, independent of speed."
+  },
+  {
+   "id": "f2-15",
+   "skill": "f2",
+   "type": "mc",
+   "q": "Landing ground roll from touchdown speed V_TD with mean deceleration ā is about:",
+   "a": "s = V_TD²/(2ā)",
+   "w": [
+    "s = V_TD²/(2ā) + V_TD/ā",
+    "s = V_TD²/ā",
+    "s = 2V_TD²/ā"
+   ],
+   "x": "Constant deceleration from V_TD to rest gives s = V_TD²/(2ā); brakes, spoilers and reverse thrust shorten the roll by raising ā."
+  },
+  {
+   "id": "f2-16",
+   "skill": "f2",
+   "type": "order",
+   "q": "Put the steps for finding absolute and service ceilings in order",
+   "steps": [
+    "Compute P_R(V) at a chosen altitude from the drag polar",
+    "Compute P_A(V) at that altitude with the engine lapse",
+    "Find maximum rate of climb = max (P_A − P_R)/W",
+    "Repeat over altitudes and plot max rate of climb vs h",
+    "Read the ceilings at 0 and 100 ft/min"
+   ],
+   "x": "Excess power over weight gives rate of climb at each altitude, and extrapolating the curve gives absolute (zero) and service (100 ft/min) ceilings."
+  },
+  {
+   "id": "f3-9",
+   "skill": "f3",
+   "type": "mc",
+   "q": "For a positively cambered wing, the negative stall curve on a V-n diagram is shallower than the positive one because:",
+   "a": "|C_L| at negative stall is smaller than C_Lmax",
+   "w": [
+    "Negative gusts are weaker than positive gusts",
+    "The negative limit load is larger in magnitude",
+    "Dynamic pressure is lower in inverted flight"
+   ],
+   "x": "The negative boundary is n = ρV²S C_L,neg/(2W), and camber makes |C_L,neg| smaller than C_Lmax, so it reaches its limit load at a higher speed."
+  },
+  {
+   "id": "f3-10",
+   "skill": "f3",
+   "type": "mc",
+   "q": "On a transport V-n diagram, the flaps-extended envelope differs from the clean one by:",
+   "a": "A +2.0 limit load and a speed cap at V_F",
+   "w": [
+    "A +3.8 limit load and a speed cap at V_D",
+    "A +2.5 limit load and a speed cap at V_A",
+    "A −1.0 limit load and a speed cap at V_C"
+   ],
+   "x": "With flaps extended, FAR 25 sets the positive maneuver limit at +2.0 up to the flap design speed V_F, while higher C_Lmax moves the stall curve left."
+  },
+  {
+   "id": "f3-11",
+   "skill": "f3",
+   "type": "pair",
+   "q": "Match each design speed to its meaning",
+   "pairs": [
+    [
+     "V_S1",
+     "1 g stall speed in the configuration"
+    ],
+    [
+     "V_F",
+     "Design flaps-extended speed"
+    ],
+    [
+     "V_B",
+     "Design speed for maximum gust intensity"
+    ],
+    [
+     "V_D",
+     "Design dive speed closing the envelope"
+    ]
+   ],
+   "x": "V_S1 starts the envelope, V_F bounds the flap envelope, V_B sits where the stall curve meets the V_B gust line, and V_D closes the envelope on the right."
+  },
+  {
+   "id": "f3-12",
+   "skill": "f3",
+   "type": "num",
+   "q": "W/S = 3000 Pa, ρ = 1.225 kg/m³, C_Lmax = 1.5, positive limit load 3.8. Find the corner speed V_A in m/s.",
+   "a": 111.4,
+   "tol": 0.02,
+   "unit": "m/s",
+   "x": "V_S1 = √(2(W/S)/(ρC_Lmax)) = √(6000/1.8375) = 57.1 m/s, and V_A = V_S1√3.8 = 111 m/s."
+  },
+  {
+   "id": "f3-13",
+   "skill": "f3",
+   "type": "num",
+   "q": "Gust: ρ₀ = 1.225 kg/m³, U_de = 15 m/s, V_e = 150 m/s, a = 5.0 /rad, K_g = 0.8, W/S = 5000 Pa. Total load factor n = 1 + Δn? (2 decimals)",
+   "a": 2.1,
+   "tol": 0.02,
+   "unit": "",
+   "x": "Δn = ρ₀U_de V_e a K_g/(2W/S) = 1.225·15·150·5·0.8/10000 = 1.10, so n = 2.10."
+  },
+  {
+   "id": "f3-14",
+   "skill": "f3",
+   "type": "cloze",
+   "q": "Complete the gust load increment (EAS form)",
+   "text": "Δn = ρ₀ U_de V_e a K_g / (2 ___)",
+   "a": "W/S",
+   "w": [
+    "W",
+    "S",
+    "(W/S)²"
+   ],
+   "x": "Gust load increment scales with lift slope and EAS and inversely with wing loading."
+  },
+  {
+   "id": "f3-15",
+   "skill": "f3",
+   "type": "mc",
+   "q": "Which aircraft is most likely to have gust loads, rather than maneuver loads, set its V-n envelope?",
+   "a": "Sailplane: low W/S, high AR, high lift slope",
+   "w": [
+    "Fighter: high W/S, low AR, low lift slope",
+    "Aerobatic: high limit load factor near +6",
+    "Bizjet: high W/S, swept wing, low lift slope"
+   ],
+   "x": "Δn grows with lift slope a and scales as 1/(W/S), so light, high aspect ratio aircraft see gust lines rise above the maneuver limit loads."
+  },
+  {
+   "id": "f3-16",
+   "skill": "f3",
+   "type": "mc",
+   "q": "Under FAR 25, the aircraft must be free of flutter up to:",
+   "a": "1.15 V_D, a 15% margin beyond the dive speed",
+   "w": [
+    "V_C, the design cruise speed at the cruise altitude",
+    "V_A, the design maneuvering speed",
+    "1.5 V_D, the ultimate speed margin"
+   ],
+   "x": "Flutter clearance extends 15% beyond V_D/M_D, so the flutter boundary sits outside the right edge of the V-n envelope."
+  },
+  {
+   "id": "f4-9",
+   "skill": "f4",
+   "type": "mc",
+   "q": "At fixed T_t4 and overall pressure ratio, raising turbofan bypass ratio:",
+   "a": "Lowers specific thrust and lowers TSFC",
+   "w": [
+    "Raises specific thrust and lowers TSFC",
+    "Lowers specific thrust and raises TSFC",
+    "Raises specific thrust and raises TSFC"
+   ],
+   "x": "More bypass spreads the core energy over more air at lower jet velocity, so thrust per unit airflow drops while propulsive efficiency and TSFC improve."
+  },
+  {
+   "id": "f4-10",
+   "skill": "f4",
+   "type": "mc",
+   "q": "On a T-s diagram, a real (non-isentropic) compressor at the same pressure ratio reaches:",
+   "a": "Higher T_t3 and higher entropy than the ideal",
+   "w": [
+    "Lower T_t3 and higher entropy than the ideal compressor",
+    "Higher T_t3 at the same entropy as the ideal",
+    "Lower T_t3 and lower entropy than the ideal"
+   ],
+   "x": "Losses generate entropy, so the compression line slants right and ends on the same isobar at a higher temperature, needing more work."
+  },
+  {
+   "id": "f4-11",
+   "skill": "f4",
+   "type": "num",
+   "q": "Compressor: T_t2 = 288 K, π_c = 20, γ = 1.4, isentropic efficiency η_c = 0.85. Find T_t3 in K.",
+   "a": 746.6,
+   "tol": 0.02,
+   "unit": "K",
+   "x": "Ideal T_t3s = 288·20^(0.2857) = 677.8 K, and T_t3 = 288 + (677.8 − 288)/0.85 = 747 K."
+  },
+  {
+   "id": "f4-12",
+   "skill": "f4",
+   "type": "num",
+   "q": "Ideal ramjet thermal efficiency at M₀ = 3, γ = 1.4? Give 3 decimals.",
+   "a": 0.643,
+   "tol": 0.02,
+   "unit": "",
+   "x": "Ram compression gives τ_r = 1 + 0.2·9 = 2.8, and η_th = 1 − 1/τ_r = 0.643, rising with flight Mach."
+  },
+  {
+   "id": "f4-13",
+   "skill": "f4",
+   "type": "cloze",
+   "q": "Complete the turbine isentropic efficiency",
+   "text": "η_t = (h_t4 − h_t5)/(h_t4 − ___)",
+   "a": "h_t5s",
+   "w": [
+    "h_t3",
+    "h_t5",
+    "h_t2"
+   ],
+   "x": "Turbine efficiency is actual work over ideal work, with h_t5s the isentropic exit enthalpy at the same exit pressure."
+  },
+  {
+   "id": "f4-14",
+   "skill": "f4",
+   "type": "mc",
+   "q": "On a T-s diagram, afterburner heat addition appears as:",
+   "a": "Heating along a low pressure isobar after the turbine",
+   "w": [
+    "Heating along the high pressure burner isobar, before the turbine",
+    "Isentropic expansion through the turbine",
+    "Heating at constant volume ahead of the nozzle"
+   ],
+   "x": "The afterburner adds heat at the low pressure behind the turbine, giving a large rise in T and jet velocity with low cycle efficiency and high TSFC."
+  },
+  {
+   "id": "f4-15",
+   "skill": "f4",
+   "type": "mc",
+   "q": "Above about Mach 5 to 6, designers switch from ramjet to scramjet because:",
+   "a": "Subsonic diffusion gives huge T and shock losses",
+   "w": [
+    "Supersonic flow cuts the residence time to zero",
+    "Ramjets need a compressor above Mach 5",
+    "Combustor pressure drops below ambient at Mach 5"
+   ],
+   "x": "Slowing the flow to subsonic at high Mach drives static temperature toward dissociation and causes large stagnation pressure loss, so the scramjet burns in supersonic flow."
+  },
+  {
+   "id": "f4-16",
+   "skill": "f4",
+   "type": "pair",
+   "q": "Match each engine to its typical best flight Mach range",
+   "pairs": [
+    [
+     "Turboprop",
+     "Up to about M 0.6"
+    ],
+    [
+     "High bypass turbofan",
+     "About M 0.75 to 0.85"
+    ],
+    [
+     "Ramjet",
+     "About M 2 to 5"
+    ],
+    [
+     "Scramjet",
+     "Above about M 5"
+    ]
+   ],
+   "x": "Propulsive efficiency favors large mass flow at low speed, while ram compression takes over at high Mach."
+  },
+  {
+   "id": "f5-9",
+   "skill": "f5",
+   "type": "cloze",
+   "q": "Complete the Biot-Savart result for a semi-infinite straight vortex",
+   "text": "At distance r abeam its end: w = Γ/(___ r)",
+   "a": "4π",
+   "w": [
+    "2π",
+    "π",
+    "8π"
+   ],
+   "x": "A semi-infinite filament induces half of the infinite vortex value Γ/(2πr), giving Γ/(4πr)."
+  },
+  {
+   "id": "f5-10",
+   "skill": "f5",
+   "type": "mc",
+   "q": "Helmholtz's vortex theorems state that a vortex filament:",
+   "a": "Keeps constant strength and ends only at boundaries",
+   "w": [
+    "Grows in strength along its length as it trails downstream",
+    "Decays in strength at a rate set by viscosity",
+    "Ends in the fluid wherever the lift goes to zero"
+   ],
+   "x": "A vortex filament has constant strength along its length and extends to infinity, closes on itself, or ends on a boundary, which is why a lifting line sheds trailing vortices."
+  },
+  {
+   "id": "f5-11",
+   "skill": "f5",
+   "type": "num",
+   "q": "Thin airfoil a₀ = 2π /rad, finite wing AR = 8, e = 0.9. Find the wing lift slope a = a₀/(1 + a₀/(πeAR)) in /rad.",
+   "a": 4.917,
+   "tol": 0.02,
+   "unit": "1/rad",
+   "x": "a = 6.283/(1 + 6.283/22.62) = 6.283/1.278 = 4.92 per radian."
+  },
+  {
+   "id": "f5-12",
+   "skill": "f5",
+   "type": "num",
+   "q": "An unswept airfoil has M_crit = 0.70. Using simple sweep theory, estimate M_crit at 30° sweep (2 decimals).",
+   "a": 0.808,
+   "tol": 0.02,
+   "unit": "",
+   "x": "The normal Mach component M cos Λ governs, so M_crit ≈ 0.70/cos 30° = 0.81."
+  },
+  {
+   "id": "f5-13",
+   "skill": "f5",
+   "type": "mc",
+   "q": "Flying within about one span of the ground, a wing experiences:",
+   "a": "Less downwash: lower induced drag, more lift at α",
+   "w": [
+    "More downwash: higher induced drag, less lift at α",
+    "Less downwash: higher induced drag, less lift at α",
+    "More downwash: lower induced drag, more lift at α"
+   ],
+   "x": "The ground acts like an image vortex system that reduces downwash, cutting induced drag and raising lift slope, which causes floating on landing."
+  },
+  {
+   "id": "f5-14",
+   "skill": "f5",
+   "type": "mc",
+   "q": "Whitcomb's transonic area rule says wave drag is minimized by:",
+   "a": "A smooth total cross-section area along x",
+   "w": [
+    "A constant wing thickness ratio along the entire span",
+    "A fuselage with constant diameter along x",
+    "Maximum wing sweep at a given span and thickness"
+   ],
+   "x": "Wave drag depends on the axial distribution of total cross-sectional area, so the fuselage is waisted at the wing (coke bottle) toward a Sears-Haack shape."
+  },
+  {
+   "id": "f5-15",
+   "skill": "f5",
+   "type": "mc",
+   "q": "In Raymer's estimate e = 1.78(1 − 0.045AR^0.68) − 0.64, raising AR from 6 to 10:",
+   "a": "Lowers e slightly, but K = 1/(πeAR) still falls",
+   "w": [
+    "Raises e sharply, so K falls faster than 1/AR itself",
+    "Lowers e so much that K = 1/(πeAR) rises",
+    "Leaves e and K both unchanged at this level"
+   ],
+   "x": "e drops from about 0.87 to 0.76 while πeAR grows from 16.4 to 23.8, so the induced drag factor K still falls with aspect ratio."
+  },
+  {
+   "id": "f5-16",
+   "skill": "f5",
+   "type": "order",
+   "q": "Put the Prandtl lifting line solution steps in order",
+   "steps": [
+    "Model the wing as a bound vortex Γ(y) shedding a trailing sheet dΓ/dy",
+    "Find downwash w(y) = (1/4π)∫(dΓ/dη)/(y − η) dη",
+    "Set α_eff = α − w/V at each section",
+    "Impose Γ = ½V c a₀(α_eff − α_L0) and solve, e.g. by Fourier series"
+   ],
+   "x": "Each section sees the freestream reduced by downwash from the trailing sheet, and enforcing 2D section lift at α_eff gives the integro-differential equation for Γ(y)."
+  },
+  {
+   "id": "f6-9",
+   "skill": "f6",
+   "type": "mc",
+   "q": "In forward flight at speed V, the advancing and retreating blade tip speeds are:",
+   "a": "ΩR + V and ΩR − V",
+   "w": [
+    "ΩR + V/2 and ΩR − V/2",
+    "ΩR and ΩR − 2V",
+    "ΩR + 2V and ΩR − V"
+   ],
+   "x": "At ψ = 90° the tip sees ΩR + V and at ψ = 270° it sees ΩR − V, with advance ratio μ = V/(ΩR)."
+  },
+  {
+   "id": "f6-10",
+   "skill": "f6",
+   "type": "num",
+   "q": "ΩR = 210 m/s, forward speed 80 m/s, speed of sound 340 m/s. Advancing tip Mach number (2 decimals)?",
+   "a": 0.853,
+   "tol": 0.02,
+   "unit": "",
+   "x": "M_tip,adv = (ΩR + V)/a = 290/340 = 0.85, near the onset of drag rise and noise."
+  },
+  {
+   "id": "f6-11",
+   "skill": "f6",
+   "type": "mc",
+   "q": "Retreating blade stall at high advance ratio happens because:",
+   "a": "Low local speed forces high α to hold roll balance",
+   "w": [
+    "High local speed raises the drag on that side",
+    "Reversed flow on the advancing side drops its lift",
+    "Higher inflow on the retreating side lowers its α"
+   ],
+   "x": "Lift on the retreating side must match the advancing side, and the lower relative speed there demands high blade pitch and α, which reaches stall first at the outboard sections."
+  },
+  {
+   "id": "f6-12",
+   "skill": "f6",
+   "type": "mc",
+   "q": "In a steady autorotation after engine failure, the rotor is driven by:",
+   "a": "Upflow through the disk, as height is traded for energy",
+   "w": [
+    "Stored rotor inertia alone, decaying steadily to the ground",
+    "Tail rotor thrust fed back through the gearbox",
+    "Downflow through the disk from forward speed"
+   ],
+   "x": "In descent, air flows up through the disk and the inner blade region produces a driving force that sustains rotor speed; the pilot flares to trade rotor energy for a soft landing."
+  },
+  {
+   "id": "f6-13",
+   "skill": "f6",
+   "type": "mc",
+   "q": "Ingenuity's 1.2 m coaxial rotors turn at about 2500 rpm mainly because:",
+   "a": "Thin air needs high ΩR for thrust, capped by tip Mach",
+   "w": [
+    "Low gravity needs high ΩR to stabilize the craft",
+    "Dust storms demand high rpm for blade cleaning",
+    "Cold air raises the speed of sound, so high rpm is free"
+   ],
+   "x": "Thrust scales with ρA(ΩR)², so Mars's low density demands high tip speed, while the low Martian speed of sound limits ΩR through compressibility."
+  },
+  {
+   "id": "f6-14",
+   "skill": "f6",
+   "type": "num",
+   "q": "A Mars rotor of 0.6 m radius turns at 2500 rpm; local speed of sound is 240 m/s. Hover tip Mach number (2 decimals)?",
+   "a": 0.6545,
+   "tol": 0.02,
+   "unit": "",
+   "x": "ΩR = 2500·2π/60·0.6 = 157 m/s, and M_tip = 157/240 = 0.65."
+  },
+  {
+   "id": "f6-15",
+   "skill": "f6",
+   "type": "cloze",
+   "q": "Complete the blade element thrust per blade (small inflow angle)",
+   "text": "dT = ½ρ(Ωr)² c ___ dr",
+   "a": "C_l",
+   "w": [
+    "C_d",
+    "C_m",
+    "C_l²"
+   ],
+   "x": "Each blade element produces sectional lift ½ρU²cC_l dr with U ≈ Ωr in hover, and integrating along the blades gives rotor thrust."
+  },
+  {
+   "id": "f6-16",
+   "skill": "f6",
+   "type": "pair",
+   "q": "Match each rotorcraft configuration to how it handles main rotor torque",
+   "pairs": [
+    [
+     "Single main rotor",
+     "Tail rotor thrust on a moment arm"
+    ],
+    [
+     "Coaxial",
+     "Two counter-rotating rotors on one axis"
+    ],
+    [
+     "Tandem",
+     "Counter-rotating rotors fore and aft"
+    ],
+    [
+     "NOTAR",
+     "Circulation control boom plus a direct jet"
+    ]
+   ],
+   "x": "Counter-rotating layouts cancel torque between the two rotors and spend no power on an anti-torque rotor, while single-rotor designs use a tail rotor or air jet for yaw balance."
+  },
+  {
+   "id": "f7-9",
+   "skill": "f7",
+   "type": "num",
+   "q": "W_crew + W_payload = 10,000 lb, W_e/W_0 = 0.55, W_f/W_0 = 0.30. Find W_0 in lb.",
+   "a": 66667,
+   "tol": 0.02,
+   "unit": "lb",
+   "x": "W_0 = 10,000/(1 − 0.30 − 0.55) = 10,000/0.15 = 66,700 lb."
+  },
+  {
+   "id": "f7-10",
+   "skill": "f7",
+   "type": "num",
+   "q": "Segment fractions: takeoff 0.97, climb 0.985, cruise 0.85, loiter 0.95, landing 0.995. With 6% reserve and trapped fuel, W_f/W_0 (3 decimals)?",
+   "a": 0.2463,
+   "tol": 0.02,
+   "unit": "",
+   "x": "The product is 0.7677, so W_f/W_0 = 1.06(1 − 0.7677) = 0.246."
+  },
+  {
+   "id": "f7-11",
+   "skill": "f7",
+   "type": "mc",
+   "q": "In Raymer's W_f/W_0 = 1.06(1 − W_x/W_0), the factor 1.06 accounts for:",
+   "a": "About 6% reserve and trapped fuel",
+   "w": [
+    "About 6% engine installation losses",
+    "About 6% empty weight growth margin",
+    "About 6% payload growth allowance"
+   ],
+   "x": "The 6% allowance covers reserve fuel and trapped or unusable fuel on top of the mission fuel."
+  },
+  {
+   "id": "f7-12",
+   "skill": "f7",
+   "type": "mc",
+   "q": "Why are warmup, taxi, takeoff and landing weight fractions taken from historical data rather than Breguet?",
+   "a": "Short segments fit historical ratios best",
+   "w": [
+    "Breguet applies only at supersonic speed",
+    "These segments burn no fuel in practice",
+    "Historical ratios include the payload drop"
+   ],
+   "x": "These segments are brief, with high power and varying speed, so typical ratios such as 0.970 and 0.995 capture them well."
+  },
+  {
+   "id": "f7-13",
+   "skill": "f7",
+   "type": "mc",
+   "q": "Why does adding 100 kg of payload raise W_0 by much more than 100 kg?",
+   "a": "Fuel and structure scale with W_0: a growth factor",
+   "w": [
+    "Payload adds wetted area, which doubles the drag",
+    "Extra payload lowers L/D by the same fraction",
+    "The empty weight fraction rises in step with payload"
+   ],
+   "x": "W_0 = W_payload/(1 − W_f/W_0 − W_e/W_0), so each kilogram of payload also carries its share of fuel and structure, often a factor of 3 to 10."
+  },
+  {
+   "id": "f7-14",
+   "skill": "f7",
+   "type": "mc",
+   "q": "Typical section: torsional stiffness K_θ, lift slope a, area S, aerodynamic center a distance e ahead of the elastic axis. Divergence dynamic pressure is:",
+   "a": "q_D = K_θ/(e a S)",
+   "w": [
+    "q_D = e a S/K_θ",
+    "q_D = K_θ/(e² a S)",
+    "q_D = K_θ a/(e S)"
+   ],
+   "x": "Divergence occurs when the aerodynamic twisting stiffness q e a S equals K_θ, so stiffer sections and a smaller offset e raise q_D."
+  },
+  {
+   "id": "f7-15",
+   "skill": "f7",
+   "type": "cloze",
+   "q": "Complete Raymer's loiter weight fraction (jet, TSFC c)",
+   "text": "W_f/W_i = exp(−E c / ___)",
+   "a": "(L/D)",
+   "w": [
+    "(V·L/D)",
+    "(D/L)",
+    "(V/(L/D))"
+   ],
+   "x": "Loiter time E with constant L/D and c gives W_f/W_i = exp(−Ec/(L/D)), best at (L/D)_max for a jet."
+  },
+  {
+   "id": "f7-16",
+   "skill": "f7",
+   "type": "pair",
+   "q": "Match each mission segment to its typical Raymer weight fraction",
+   "pairs": [
+    [
+     "Warmup and takeoff",
+     "0.970"
+    ],
+    [
+     "Climb",
+     "0.985"
+    ],
+    [
+     "Landing",
+     "0.995"
+    ],
+    [
+     "Cruise",
+     "exp(−Rc/(V L/D))"
+    ]
+   ],
+   "x": "Short segments use historical ratios, while cruise and loiter come from the Breguet equations."
+  },
+  {
+   "id": "f8-1",
+   "skill": "f8",
+   "type": "mc",
+   "q": "Wind axes, thrust inclined α + ε to the velocity (ε = installed thrust angle). The tangential point-mass equation is:",
+   "a": "m dV/dt = T cos(α+ε) − D − W sin γ",
+   "w": [
+    "m dV/dt = T cos(α+ε) − D + W sin γ",
+    "m dV/dt = T sin(α+ε) − D − W cos γ",
+    "m dV/dt = T cos(α+ε) − D − W cos γ"
+   ],
+   "x": "Along the velocity vector, the thrust component T cos(α+ε) accelerates the aircraft while drag and the weight component W sin γ along the climbing path decelerate it."
+  },
+  {
+   "id": "f8-2",
+   "skill": "f8",
+   "type": "mc",
+   "q": "With bank angle φ = 0, the normal (vertical plane) equation becomes:",
+   "a": "mV dγ/dt = L + T sin(α+ε) − W cos γ",
+   "w": [
+    "mV dγ/dt = L + T cos(α+ε) − W sin γ",
+    "mV dγ/dt = L − T sin(α+ε) − W cos γ",
+    "m dγ/dt = L + T sin(α+ε) − W cos γ"
+   ],
+   "x": "Normal to the path, lift plus the thrust normal component minus W cos γ supplies the centripetal force mV dγ/dt."
+  },
+  {
+   "id": "f8-3",
+   "skill": "f8",
+   "type": "mc",
+   "q": "In the heading equation mV cos γ dψ/dt = (L + T sin(α+ε)) sin φ, the aircraft turns because:",
+   "a": "Banking tilts lift and normal thrust into the horizontal",
+   "w": [
+    "Rudder side force pushes the nose toward the inside of the turn",
+    "Drag acts asymmetrically on the two wing halves",
+    "Gravity gains a component toward the turn centre"
+   ],
+   "x": "The horizontal component of the normal aerodynamic and thrust force, (L + T sin(α+ε)) sin φ, provides the centripetal force that changes heading ψ."
+  },
+  {
+   "id": "f8-4",
+   "skill": "f8",
+   "type": "mc",
+   "q": "Steady, level, wings-level flight with small α + ε reduces the point-mass EOM to:",
+   "a": "T = D and L = W",
+   "w": [
+    "T = W and L = D",
+    "T = D + W and L = W",
+    "T = D and L = W + D"
+   ],
+   "x": "With dV/dt = 0, γ = 0, φ = 0 and cos(α+ε) ≈ 1, sin(α+ε) ≈ 0, thrust balances drag and lift balances weight."
+  },
+  {
+   "id": "f8-5",
+   "skill": "f8",
+   "type": "num",
+   "q": "Level coordinated turn at V = 150 m/s and φ = 60°, g = 9.81 m/s². Turn rate in deg/s (2 decimals)?",
+   "a": 6.49,
+   "tol": 0.02,
+   "unit": "deg/s",
+   "x": "n = 1/cos 60° = 2, ω = g√(n²−1)/V = g tan φ/V = 9.81·1.732/150 = 0.113 rad/s = 6.49 deg/s."
+  },
+  {
+   "id": "f8-6",
+   "skill": "f8",
+   "type": "num",
+   "q": "Pull-up at the bottom of a vertical arc: V = 200 m/s, R = 1000 m, g = 9.81 m/s². Load factor n (2 decimals)?",
+   "a": 5.077,
+   "tol": 0.02,
+   "unit": "",
+   "x": "At the bottom, L − W = mV²/R, so n = 1 + V²/(gR) = 1 + 40000/9810 = 5.08."
+  },
+  {
+   "id": "f8-7",
+   "skill": "f8",
+   "type": "mc",
+   "q": "In a steady climb with small α + ε, the climb angle satisfies:",
+   "a": "sin γ = (T − D)/W",
+   "w": [
+    "sin γ = (T − D)/L",
+    "tan γ = (T − D)/W",
+    "cos γ = (T − D)/W"
+   ],
+   "x": "The tangential equation with dV/dt = 0 gives sin γ = (T − D)/W, and rate of climb V sin γ = (T − D)V/W."
+  },
+  {
+   "id": "f8-8",
+   "skill": "f8",
+   "type": "mc",
+   "q": "With n = L/W, thrust normal component neglected and φ = 0, the flight path angle rate is:",
+   "a": "dγ/dt = (g/V)(n − cos γ)",
+   "w": [
+    "dγ/dt = (g/V)(n − sin γ)",
+    "dγ/dt = (V/g)(n − cos γ)",
+    "dγ/dt = (g/V)(n + cos γ)"
+   ],
+   "x": "Dividing mV dγ/dt = L − W cos γ by mV gives dγ/dt = (g/V)(n − cos γ), so n = cos γ holds the path straight."
+  },
+  {
+   "id": "f8-9",
+   "skill": "f8",
+   "type": "mc",
+   "q": "At the bottom of an outside loop (aircraft inverted, centre above), the load factor is:",
+   "a": "n = −(1 + V²/(gR))",
+   "w": [
+    "n = −(V²/(gR) + 2)",
+    "n = V²/(gR) − 1",
+    "n = 1 − V²/(gR)"
+   ],
+   "x": "Inverted at the bottom, the aerodynamic force must hold weight and supply the centripetal force while pointing toward the aircraft's belly, giving the most negative load factor of the maneuver."
+  },
+  {
+   "id": "f8-10",
+   "skill": "f8",
+   "type": "cloze",
+   "q": "Complete the energy height definition",
+   "text": "h_e = h + V²/(___)",
+   "a": "2g",
+   "w": [
+    "g",
+    "4g",
+    "2"
+   ],
+   "x": "Energy height is total mechanical energy per unit weight: potential h plus kinetic V²/(2g)."
+  },
+  {
+   "id": "f8-11",
+   "skill": "f8",
+   "type": "num",
+   "q": "h = 10,000 m, V = 300 m/s, g = 9.81 m/s². Energy height h_e in m (nearest 10)?",
+   "a": 14587,
+   "tol": 0.01,
+   "unit": "m",
+   "x": "h_e = 10,000 + 300²/(2·9.81) = 10,000 + 4587 = 14,590 m."
+  },
+  {
+   "id": "f8-12",
+   "skill": "f8",
+   "type": "cloze",
+   "q": "Complete the specific excess power",
+   "text": "P_s = (T − D)V / ___",
+   "a": "W",
+   "w": [
+    "m",
+    "L",
+    "D"
+   ],
+   "x": "Specific excess power is excess power per unit weight, with units of velocity, and equals dh_e/dt."
+  },
+  {
+   "id": "f8-13",
+   "skill": "f8",
+   "type": "mc",
+   "q": "Physically, specific excess power P_s = dh_e/dt measures:",
+   "a": "The rate at which the aircraft can climb, speed up, or both",
+   "w": [
+    "The maximum sustained load factor available at a given speed",
+    "The fuel burned per unit of energy height gained",
+    "The thrust margin at the absolute ceiling"
+   ],
+   "x": "P_s = dh/dt + (V/g)dV/dt, so excess power can be spent on climb rate, acceleration, or a mix of the two."
+  },
+  {
+   "id": "f8-14",
+   "skill": "f8",
+   "type": "mc",
+   "q": "Which EOM, multiplied by V/W, gives the energy equation behind Mattingly's master equation?",
+   "a": "Tangential, with dh/dt = V sin γ",
+   "w": [
+    "Normal, with dγ/dt = g(n − cos γ)/V",
+    "Heading, with dψ/dt = g tan φ/V",
+    "Pitch moment, with dq/dt = M/I_yy"
+   ],
+   "x": "Multiplying m dV/dt = T − D − W sin γ by V/W and using V sin γ = dh/dt gives (T − D)V/W = dh/dt + (V/g)dV/dt = dh_e/dt."
+  },
+  {
+   "id": "f8-15",
+   "skill": "f8",
+   "type": "order",
+   "q": "Put the steps of the level turn derivation in order",
+   "steps": [
+    "Set γ = 0 and dγ/dt = 0 in the normal equation",
+    "Get L cos φ = W, so n = 1/cos φ",
+    "Use the heading equation: L sin φ = mV dψ/dt",
+    "Combine for ω = dψ/dt = g√(n² − 1)/V and R = V/ω"
+   ],
+   "x": "Vertical balance fixes n through bank angle, and the horizontal lift component sets turn rate and radius."
+  },
+  {
+   "id": "f8-16",
+   "skill": "f8",
+   "type": "pair",
+   "q": "Match each maneuver to its load factor (n = L/W, speed V, radius R)",
+   "pairs": [
+    [
+     "Level coordinated turn",
+     "n = 1/cos φ"
+    ],
+    [
+     "Bottom of a pull-up",
+     "n = 1 + V²/(gR)"
+    ],
+    [
+     "Top of an inside loop",
+     "n = V²/(gR) − 1"
+    ],
+    [
+     "Top of a push-over",
+     "n = 1 − V²/(gR)"
+    ]
+   ],
+   "x": "In each case the net of lift and the weight component along the radius, taken toward the centre, supplies the centripetal force mV²/R."
+  },
+  {
+   "id": "f9-1",
+   "skill": "f9",
+   "type": "mc",
+   "q": "Raymer's component buildup for parasite drag is:",
+   "a": "C_D0 = Σ(C_f FF Q S_wet)/S_ref + C_D,misc + C_D,L&P",
+   "w": [
+    "C_D0 = Σ(C_f FF Q S_ref)/S_wet + C_D,misc + C_D,L&P",
+    "C_D0 = Σ(C_f FF Q)·S_wet·S_ref + C_D,misc",
+    "C_D0 = Σ(C_f + FF + Q)S_wet/S_ref + C_D,L&P"
+   ],
+   "x": "Each component contributes skin friction times form factor times interference factor times its wetted area, normalized by the reference area, plus miscellaneous and leakage and protuberance terms."
+  },
+  {
+   "id": "f9-2",
+   "skill": "f9",
+   "type": "cloze",
+   "q": "Complete the average laminar flat plate skin friction (Blasius)",
+   "text": "C_f = ___/√Re",
+   "a": "1.328",
+   "w": [
+    "0.664",
+    "0.455",
+    "0.074"
+   ],
+   "x": "The Blasius solution gives average laminar C_f = 1.328/√Re over a plate of length l, with Re based on l."
+  },
+  {
+   "id": "f9-3",
+   "skill": "f9",
+   "type": "num",
+   "q": "Turbulent flat plate: C_f = 0.455/(log₁₀Re)^2.58. Find C_f at Re = 10⁷ (4 decimals).",
+   "a": 0.003004,
+   "tol": 0.02,
+   "unit": "",
+   "x": "log₁₀Re = 7, and 7^2.58 = 151.5, so C_f = 0.455/151.5 = 0.0030."
+  },
+  {
+   "id": "f9-4",
+   "skill": "f9",
+   "type": "mc",
+   "q": "At the same Reynolds number, turbulent skin friction exceeds laminar because:",
+   "a": "A fuller velocity profile gives a steeper wall gradient",
+   "w": [
+    "A thinner boundary layer lowers the momentum flux at the wall",
+    "Laminar flow separates earlier and adds pressure drag",
+    "Turbulent flow has a lower wall shear but larger area"
+   ],
+   "x": "Turbulent mixing brings high momentum fluid close to the wall, so ∂u/∂y at the wall and the wall shear stress τ_w = μ ∂u/∂y are larger."
+  },
+  {
+   "id": "f9-5",
+   "skill": "f9",
+   "type": "mc",
+   "q": "In the component buildup, the form factor FF accounts for:",
+   "a": "Pressure drag and supervelocity from thickness",
+   "w": [
+    "Drag rise where two components join at their junction",
+    "Drag of gaps, rivets and antennas",
+    "Lift-dependent drag at the cruise C_L"
+   ],
+   "x": "FF scales flat plate friction up for a body with thickness, which raises local velocity and adds viscous pressure drag; it grows with t/c and with lower fineness ratio."
+  },
+  {
+   "id": "f9-6",
+   "skill": "f9",
+   "type": "mc",
+   "q": "An interference factor Q = 1.5 for a nacelle mounted close to a wing means:",
+   "a": "Its parasite drag is 50% above the isolated value",
+   "w": [
+    "Its wetted area is 50% of the isolated component value",
+    "Its skin friction is 1.5 times the laminar value",
+    "Its form factor is 50% below the isolated value"
+   ],
+   "x": "Q multiplies the component's isolated parasite drag to capture mutual flow interference at junctions; well faired parts have Q near 1.0."
+  },
+  {
+   "id": "f9-7",
+   "skill": "f9",
+   "type": "num",
+   "q": "Equivalent skin friction C_fe = 0.003 and wetted area ratio S_wet/S_ref = 6. Estimate C_D0 (3 decimals).",
+   "a": 0.018,
+   "tol": 0.02,
+   "unit": "",
+   "x": "Raymer's quick estimate is C_D0 = C_fe·S_wet/S_ref = 0.003·6 = 0.018."
+  },
+  {
+   "id": "f9-8",
+   "skill": "f9",
+   "type": "pair",
+   "q": "Match each drag source to its cause",
+   "pairs": [
+    [
+     "Wave drag",
+     "Shocks at transonic and supersonic speed"
+    ],
+    [
+     "Trim drag",
+     "Tail force to trim, adding lift and induced drag"
+    ],
+    [
+     "Cooling drag",
+     "Momentum loss of engine cooling airflow"
+    ],
+    [
+     "Interference drag",
+     "Flow interaction at component junctions"
+    ]
+   ],
+   "x": "These terms sit on top of skin friction and form drag in the full drag buildup."
+  },
+  {
+   "id": "f9-9",
+   "skill": "f9",
+   "type": "mc",
+   "q": "Which trailing edge device increases both camber and wing area, giving the largest ΔC_Lmax?",
+   "a": "Fowler flap",
+   "w": [
+    "Plain flap",
+    "Split flap",
+    "Single slotted flap"
+   ],
+   "x": "A Fowler flap translates aft and rotates, adding chord (area) and camber, and its slots re-energize the boundary layer over the flap."
+  },
+  {
+   "id": "f9-10",
+   "skill": "f9",
+   "type": "mc",
+   "q": "A leading edge slat mainly:",
+   "a": "Delays stall, extending the lift curve to higher α",
+   "w": [
+    "Shifts α_L0 more negative at the same lift curve slope",
+    "Raises C_L at α = 0 through added camber",
+    "Lowers the lift slope to soften the stall"
+   ],
+   "x": "The slat's high-energy slot flow eases the suction peak and adverse gradient on the main element, raising α_stall and C_Lmax along a nearly unchanged lift line."
+  },
+  {
+   "id": "f9-11",
+   "skill": "f9",
+   "type": "mc",
+   "q": "Deflecting a trailing edge flap changes the section lift curve by:",
+   "a": "Shifting α_L0 more negative, slope about the same",
+   "w": [
+    "Raising α_stall, with α_L0 about the same",
+    "Doubling the lift slope, α_L0 about the same",
+    "Shifting α_L0 more positive, slope about the same"
+   ],
+   "x": "Added camber moves the lift curve up and to the left, so C_L rises at each α while the stall angle falls slightly."
+  },
+  {
+   "id": "f9-12",
+   "skill": "f9",
+   "type": "mc",
+   "q": "Typical transport C_Lmax values, clean versus full landing configuration, are about:",
+   "a": "1.5 clean and 2.8 landing",
+   "w": [
+    "0.8 clean and 1.2 landing",
+    "2.5 clean and 5.0 landing",
+    "1.5 clean and 1.6 landing"
+   ],
+   "x": "Clean swept wings reach C_Lmax around 1.2 to 1.6, and multi-element slotted flaps with slats reach about 2.5 to 3.0."
+  },
+  {
+   "id": "f9-13",
+   "skill": "f9",
+   "type": "mc",
+   "q": "Without washout, a highly tapered wing tends to stall first:",
+   "a": "Near the tip, where local c_l peaks",
+   "w": [
+    "At the root, where the chord is largest",
+    "Uniformly along the whole span",
+    "At mid-span, where the flap ends"
+   ],
+   "x": "Taper loads the outboard sections to the highest local c_l, so washout (lower tip incidence) is added to make the root stall first and keep the ailerons effective."
+  },
+  {
+   "id": "f9-14",
+   "skill": "f9",
+   "type": "num",
+   "q": "Landing: W/S = 5000 Pa, ρ = 1.225 kg/m³, C_Lmax = 2.8. Stall speed in m/s?",
+   "a": 53.99,
+   "tol": 0.02,
+   "unit": "m/s",
+   "x": "V_s = √(2(W/S)/(ρC_Lmax)) = √(10000/3.43) = 54.0 m/s."
+  },
+  {
+   "id": "f9-15",
+   "skill": "f9",
+   "type": "order",
+   "q": "Put the component drag buildup steps in order",
+   "steps": [
+    "Compute each component's Re, capped by the surface roughness cutoff",
+    "Find C_f from the laminar and turbulent fractions",
+    "Apply form factor FF and interference factor Q",
+    "Sum C_f FF Q S_wet over components and divide by S_ref",
+    "Add miscellaneous, leakage and protuberance drag"
+   ],
+   "x": "Reynolds number sets skin friction, FF and Q correct it for shape and installation, and the remaining small items complete C_D0."
+  },
+  {
+   "id": "f9-16",
+   "skill": "f9",
+   "type": "cloze",
+   "q": "Complete the equivalent flat-plate area",
+   "text": "f = C_D0 · ___",
+   "a": "S_ref",
+   "w": [
+    "S_wet",
+    "b²",
+    "c̄"
+   ],
+   "x": "Equivalent flat-plate area is parasite drag divided by dynamic pressure, so f = C_D0 S_ref and D_0 = q f."
+  },
+  {
+   "id": "f10-1",
+   "skill": "f10",
+   "type": "mc",
+   "q": "For a statically stable aircraft to trim at positive α (nose-up C_m positive), it needs:",
+   "a": "C_mα < 0 and C_m0 > 0",
+   "w": [
+    "C_mα > 0 and C_m0 > 0",
+    "C_mα < 0 and C_m0 < 0",
+    "C_mα > 0 and C_m0 < 0"
+   ],
+   "x": "C_mα < 0 gives a restoring nose-down moment when α rises, and C_m0 > 0 places the trim point C_m = 0 at positive α."
+  },
+  {
+   "id": "f10-2",
+   "skill": "f10",
+   "type": "cloze",
+   "q": "Complete the static margin",
+   "text": "SM = (x_np − x_cg)/___",
+   "a": "c̄",
+   "w": [
+    "b",
+    "l_t",
+    "x_np"
+   ],
+   "x": "Static margin is the distance from the CG aft to the neutral point, in units of mean aerodynamic chord."
+  },
+  {
+   "id": "f10-3",
+   "skill": "f10",
+   "type": "num",
+   "q": "x_np = 3.2 m, x_cg = 2.9 m (both measured aft from the same datum), c̄ = 2.0 m. Static margin as a fraction (2 decimals)?",
+   "a": 0.15,
+   "tol": 0.02,
+   "unit": "",
+   "x": "SM = (3.2 − 2.9)/2.0 = 0.15, i.e. 15% of the mean chord."
+  },
+  {
+   "id": "f10-4",
+   "skill": "f10",
+   "type": "num",
+   "q": "l_t = 15 m, S_t = 20 m², c̄ = 4 m, S = 100 m². Horizontal tail volume coefficient V_H (2 decimals)?",
+   "a": 0.75,
+   "tol": 0.02,
+   "unit": "",
+   "x": "V_H = l_t S_t/(c̄ S) = 300/400 = 0.75, a typical tail volume for light general aviation aircraft; jet transports sit nearer 1.0."
+  },
+  {
+   "id": "f10-5",
+   "skill": "f10",
+   "type": "mc",
+   "q": "C_mα relates to static margin SM and lift slope C_Lα as:",
+   "a": "C_mα = −C_Lα·SM",
+   "w": [
+    "C_mα = C_Lα·SM",
+    "C_mα = −C_Lα/SM",
+    "C_mα = −SM/C_Lα"
+   ],
+   "x": "C_mα = C_Lα(x_cg − x_np)/c̄ = −C_Lα·SM, so a larger margin gives a stronger nose-down restoring moment."
+  },
+  {
+   "id": "f10-6",
+   "skill": "f10",
+   "type": "mc",
+   "q": "The stick-fixed neutral point is:",
+   "a": "The CG location where C_mα = 0",
+   "w": [
+    "The point where the lift acts at zero α",
+    "The CG location where C_m0 = 0",
+    "The point where elevator power is zero"
+   ],
+   "x": "With the CG at the neutral point the aircraft is neutrally stable; CG positions ahead of it give C_mα < 0."
+  },
+  {
+   "id": "f10-7",
+   "skill": "f10",
+   "type": "mc",
+   "q": "Moving the CG aft toward the neutral point:",
+   "a": "Lowers static margin and the elevator needed per g",
+   "w": [
+    "Raises static margin and the elevator needed per g",
+    "Lowers static margin and raises the trim drag",
+    "Raises static margin and lowers the trim drag"
+   ],
+   "x": "An aft CG shortens the restoring arm, so the aircraft needs less elevator to trim and to pull g, and also carries less tail download."
+  },
+  {
+   "id": "f10-8",
+   "skill": "f10",
+   "type": "pair",
+   "q": "Match each item to what it means or sets (standard body axes, β positive with wind from the right)",
+   "pairs": [
+    [
+     "Forward CG limit",
+     "Elevator power to trim at high C_L"
+    ],
+    [
+     "Aft CG limit",
+     "Minimum acceptable static margin"
+    ],
+    [
+     "C_nβ > 0",
+     "Directional (weathercock) stability"
+    ],
+    [
+     "C_lβ < 0",
+     "Dihedral effect: roll away from sideslip"
+    ]
+   ],
+   "x": "Control power bounds the forward CG and stability bounds the aft CG; positive C_nβ yaws the nose into the wind and negative C_lβ rolls the wing level."
+  },
+  {
+   "id": "f10-9",
+   "skill": "f10",
+   "type": "mc",
+   "q": "Which surface contributes most to positive C_nβ (directional stability)?",
+   "a": "Vertical tail aft of the CG",
+   "w": [
+    "Fuselage nose ahead of the CG",
+    "Wing dihedral angle",
+    "Horizontal tail aft of the CG"
+   ],
+   "x": "Sideslip gives the vertical tail an angle of attack, and its side force acting aft of the CG yaws the nose back into the relative wind."
+  },
+  {
+   "id": "f10-10",
+   "skill": "f10",
+   "type": "mc",
+   "q": "Which change makes C_lβ more negative (stronger dihedral effect)?",
+   "a": "Moving the wing from low to high on the fuselage",
+   "w": [
+    "Adding anhedral to the wing",
+    "Moving the wing from high to low on the fuselage",
+    "Changing aft sweep to forward sweep"
+   ],
+   "x": "Geometric dihedral, a high wing position, and aft sweep all strengthen the dihedral effect, rolling the aircraft away from the sideslip."
+  },
+  {
+   "id": "f10-11",
+   "skill": "f10",
+   "type": "num",
+   "q": "Lanchester's phugoid approximation: period T = π√2·V/g. Find T in s for V = 100 m/s, g = 9.81 m/s².",
+   "a": 45.29,
+   "tol": 0.02,
+   "unit": "s",
+   "x": "T = π·1.414·100/9.81 = 45.3 s, a long period that grows linearly with speed."
+  },
+  {
+   "id": "f10-12",
+   "skill": "f10",
+   "type": "mc",
+   "q": "The short period mode frequency rises mainly with:",
+   "a": "Larger −C_mα (more static margin) and dynamic pressure",
+   "w": [
+    "Smaller −C_mα (less static margin) and dynamic pressure",
+    "Larger C_lβ and roll damping C_lp",
+    "Larger tail volume V_V and C_nβ"
+   ],
+   "x": "The short period is a fast pitch and α oscillation at nearly constant speed, with ω² roughly proportional to q·(−C_mα) plus pitch damping terms."
+  },
+  {
+   "id": "f10-13",
+   "skill": "f10",
+   "type": "mc",
+   "q": "Strong dihedral effect relative to directional stability tends to:",
+   "a": "Stabilize spiral but degrade Dutch roll damping",
+   "w": [
+    "Destabilize spiral and improve Dutch roll damping",
+    "Stabilize both spiral and Dutch roll",
+    "Destabilize the phugoid and the short period"
+   ],
+   "x": "Large |C_lβ| relative to C_nβ rolls the aircraft level in a spiral but couples roll strongly into yaw oscillation, so the designer balances the two."
+  },
+  {
+   "id": "f10-14",
+   "skill": "f10",
+   "type": "mc",
+   "q": "The roll subsidence mode is:",
+   "a": "A fast first-order roll rate response, damped by C_lp",
+   "w": [
+    "A slow oscillation of roll and yaw together, lightly damped",
+    "A long period exchange of speed and altitude",
+    "A slow divergence in bank and heading"
+   ],
+   "x": "After an aileron input, roll rate settles exponentially with time constant τ = −1/L_p, set by the wing's roll damping."
+  },
+  {
+   "id": "f10-15",
+   "skill": "f10",
+   "type": "cloze",
+   "q": "Complete the elevator control power",
+   "text": "C_mδe = −a_t η_t V_H ___",
+   "a": "τ_e",
+   "w": [
+    "δ_e",
+    "α_t",
+    "ε"
+   ],
+   "x": "Elevator power grows with tail lift slope, tail efficiency, tail volume, and elevator effectiveness τ_e = dα_t/dδ_e."
+  },
+  {
+   "id": "f10-16",
+   "skill": "f10",
+   "type": "pair",
+   "q": "Match each dynamic mode to its character",
+   "pairs": [
+    [
+     "Phugoid",
+     "Long period speed-altitude exchange at near-constant α"
+    ],
+    [
+     "Short period",
+     "Fast α and pitch rate oscillation at near-constant V"
+    ],
+    [
+     "Dutch roll",
+     "Coupled yaw and roll oscillation"
+    ],
+    [
+     "Spiral",
+     "Slow roll and heading convergence or divergence"
+    ]
+   ],
+   "x": "Two modes are longitudinal and three lateral-directional, the third being roll subsidence."
+  }
+ ],
+ "boards": [
+  {
+   "skill": "f1",
+   "prompt": "Draw me the sustained turn and the P_s constraints on the diagram. Where is the bucket, and what happens when I ask for a higher load factor or a higher altitude?",
+   "points": [
+    "Both come from the master equation with n and P_s = dh_e/dt set by the requirement",
+    "The bucket sits at βW/S = (q/n)√(C_D0/K), where parasite and induced terms are equal",
+    "Higher n raises the curve and moves the bucket to lower W/S",
+    "Higher altitude lowers q and α, which moves the bucket to lower W/S and raises the required T_SL/W_TO",
+    "P_s adds the term P_s/V inside the bracket, lifting the whole curve"
+   ]
+  },
+  {
+   "skill": "f1",
+   "prompt": "Now take this constraint diagram to Mars or Titan. What moves, and which constraints end up driving the design?",
+   "points": [
+    "Stall, landing and takeoff lines scale with ρ and with local g through W",
+    "Mars: low density forces very low W/S, large wings, and high C_Lmax",
+    "Mars: the low speed of sound caps flight speed through Mach effects at high C_L",
+    "Titan: about 4.4 times Earth density and 0.14 g allow high C_L flight at low speed and very low power",
+    "Thrust lapse α follows the propulsion type: electric props on both bodies"
+   ]
+  },
+  {
+   "skill": "f2",
+   "prompt": "Plot maximum rate of climb versus altitude and define the ceilings. Now compare a jet and a piston prop.",
+   "points": [
+    "Rate of climb = (P_A − P_R)/W, maximized at each altitude",
+    "Absolute ceiling is where maximum rate of climb reaches zero, with P_A tangent to P_R",
+    "Service ceiling is where maximum rate of climb equals 100 ft/min",
+    "A jet's P_A = TV rises with speed, so its best climb speed is higher than a prop's",
+    "Both P_A curves fall with altitude through the engine lapse, while P_R shifts up and right"
+   ]
+  },
+  {
+   "skill": "f2",
+   "prompt": "Your engine quits at 10,000 ft. How far can you glide, at what speed, and what changes if you are heavier?",
+   "points": [
+    "tan γ = D/L, so the flattest glide and longest distance occur at (L/D)_max",
+    "Distance = h·(L/D)_max in still air, independent of weight",
+    "Best glide speed scales with √(W/S), so a heavier aircraft glides the same distance faster and in less time",
+    "Minimum sink rate occurs at minimum power, 3C_D0 = KC_L², for maximum time aloft",
+    "A headwind shortens ground distance, so pilots add speed above best glide into wind"
+   ]
+  },
+  {
+   "skill": "f3",
+   "prompt": "Draw the complete V-n diagram for a transport with the flaps envelope and the gust lines. Now tell me where flutter sits.",
+   "points": [
+    "Stall curves n = ±ρV²SC_L/(2W), with the negative side shallower for a cambered wing",
+    "Clean limits about +2.5 and −1.0; flaps envelope at +2.0 up to V_F",
+    "Gust lines radiate from n = 1 at V = 0, evaluated at V_B, V_C and V_D",
+    "The design envelope is the outer boundary of the maneuver and gust envelopes",
+    "Flutter clearance extends to 1.15 V_D, outside the envelope"
+   ]
+  },
+  {
+   "skill": "f3",
+   "prompt": "When do gusts rather than maneuvers set the structural loads, and what happens to that answer as the aircraft burns fuel?",
+   "points": [
+    "Δn = ρ₀U_de V_e a K_g/(2W/S), rising with lift slope and falling with wing loading",
+    "Aircraft with low W/S or a high lift slope, such as sailplanes and high aspect ratio transports, are often gust critical",
+    "K_g = 0.88μ_g/(5.3 + μ_g) with mass ratio μ_g = 2(W/S)/(ρ c̄ a g), so a lighter aircraft has a smaller K_g and more alleviation",
+    "Δn still rises as W/S falls, so the light end of the weight range can set the gust loads"
+   ]
+  },
+  {
+   "skill": "f4",
+   "prompt": "Draw the real turbofan core cycle on a T-s diagram with component losses. Now add an afterburner.",
+   "points": [
+    "Real compression and expansion slant right with entropy rise, set by η_c and η_t",
+    "Burner heat addition follows a slightly falling pressure line from total pressure loss",
+    "Turbine work equals compressor and fan work per unit mass, scaled by the mass flows",
+    "The afterburner heats along a low pressure isobar after the turbine, raising V_e and thrust",
+    "Heat added at low pressure gives poor cycle efficiency, so TSFC rises sharply"
+   ]
+  },
+  {
+   "skill": "f4",
+   "prompt": "Plot specific thrust and TSFC against bypass ratio and against overall pressure ratio. Then why does a ramjet need no compressor, and what is a turboprop doing differently?",
+   "points": [
+    "Higher bypass ratio lowers specific thrust and lowers TSFC at fixed T_t4",
+    "Higher OPR raises thermal efficiency and lowers TSFC, with specific thrust peaking at an intermediate OPR",
+    "A ramjet compresses by ram diffusion, τ_r = 1 + (γ−1)M₀²/2, so it needs high flight speed, typically supersonic",
+    "A turboprop extracts most of the core energy as shaft power to a propeller, the extreme of high bypass",
+    "Propeller tip Mach and blade efficiency limit turboprops to about M 0.6"
+   ]
+  },
+  {
+   "skill": "f5",
+   "prompt": "Draw a horseshoe vortex for a wing of span b and find the downwash at mid-span. Now turn it into lifting line theory.",
+   "points": [
+    "The horseshoe has a bound vortex along the span and two semi-infinite trailing legs, as Helmholtz requires",
+    "Each trailing leg induces Γ/(4πr) in the plane of its end, here with r = b/2",
+    "At mid-span the two legs add to w = Γ/(πb), while the bound vortex induces zero on itself",
+    "Lifting line superposes infinitely many horseshoes, giving w(y) = (1/4π)∫(dΓ/dη)/(y − η) dη",
+    "Elliptic Γ(y) gives uniform downwash, α_i = C_L/(πAR) and C_Di = C_L²/(πAR)"
+   ]
+  },
+  {
+   "skill": "f5",
+   "prompt": "Why sweep a wing? Now tell me what sweep costs you at low speed and how the area rule fits in.",
+   "points": [
+    "The normal component V cos Λ sets the pressure distribution, raising M_crit and M_dd",
+    "Sweep lowers the lift slope and the effective C_Lmax at low speed",
+    "Aft sweep drives spanwise boundary layer flow toward the tips, promoting tip stall and pitch up",
+    "Fixes include washout, fences, vortilons, and leading edge devices",
+    "The area rule shapes the total cross-section distribution smoothly, lowering wave drag near M 1"
+   ]
+  },
+  {
+   "skill": "f6",
+   "prompt": "Derive rotor thrust with blade element theory and connect it to momentum theory. What does BEMT give you?",
+   "points": [
+    "Blade element: dT = ½ρU²c(C_l cos φ − C_d sin φ) dr per blade with inflow angle φ",
+    "Section angle of attack α = θ − φ with φ ≈ v_i/(Ωr)",
+    "Momentum theory on an annulus gives dT = 4πρ v_i² r dr in hover",
+    "BEMT equates the two to solve for v_i(r), giving thrust, power and figure of merit",
+    "Ideal twist θ ∝ 1/r gives uniform inflow and minimum induced power"
+   ]
+  },
+  {
+   "skill": "f6",
+   "prompt": "What limits a helicopter's top speed? Now the engine fails: walk me through autorotation.",
+   "points": [
+    "Advancing tip Mach (ΩR + V)/a brings drag rise, noise and vibration",
+    "Retreating blades at ΩR − V need high α and stall, with reversed flow inboard",
+    "These two limits bound advance ratio μ = V/(ΩR) to roughly 0.4 to 0.5",
+    "In autorotation upflow through the disk drives the rotor while the aircraft descends",
+    "The pilot lowers collective to keep rotor speed, then flares to trade rotor energy for a soft touchdown"
+   ]
+  },
+  {
+   "skill": "f7",
+   "prompt": "You are sizing a business jet. Build the fuel fraction segment by segment, including reserves. Now the customer adds 10% payload.",
+   "points": [
+    "Warmup and takeoff 0.970, climb 0.985, landing 0.995 from historical data",
+    "Cruise from exp(−Rc/(V L/D)) and loiter from exp(−Ec/(L/D))",
+    "W_f/W_0 = 1.06(1 − Π segment fractions), with 6% for reserves and trapped fuel",
+    "W_0 = (W_crew + W_payload)/(1 − W_f/W_0 − W_e/W_0), iterated since W_e/W_0 depends on W_0",
+    "Extra payload grows W_0 by the growth factor, so a 10% payload rise gives a larger rise in W_0"
+   ]
+  },
+  {
+   "skill": "f7",
+   "prompt": "Derive divergence for a typical section. Now sweep the wing forward, then aft, and tell me what happens.",
+   "points": [
+    "Moment balance K_θθ = q S a e (α₀ + θ) gives θ = qSaeα₀/(K_θ − qSae)",
+    "Twist grows without bound at q_D = K_θ/(e a S)",
+    "Forward sweep couples bending to nose-up twist at the tip, lowering divergence speed",
+    "Aft sweep couples bending to nose-down twist, raising divergence speed and lowering aileron effectiveness",
+    "Forward swept designs such as the X-29 used aeroelastically tailored composites to raise q_D"
+   ]
+  },
+  {
+   "skill": "f8",
+   "prompt": "Write the point-mass equations of motion in wind axes and define every angle.",
+   "points": [
+    "m dV/dt = T cos(α+ε) − D − W sin γ along the velocity",
+    "mV dγ/dt = (L + T sin(α+ε)) cos φ − W cos γ normal to the path in the vertical plane",
+    "mV cos γ dψ/dt = (L + T sin(α+ε)) sin φ for heading",
+    "ε is the installed thrust angle, γ the flight path angle, φ the bank angle, ψ the heading",
+    "Steady level flight with small α + ε reduces these to T = D and L = W"
+   ]
+  },
+  {
+   "skill": "f8",
+   "prompt": "Reduce the equations to a level coordinated turn and derive n, turn rate and radius. Now what limits an instantaneous turn versus a sustained turn?",
+   "points": [
+    "γ = 0 and dγ/dt = 0 give L cos φ = W, so n = 1/cos φ",
+    "The heading equation gives ω = g√(n² − 1)/V and R = V²/(g√(n² − 1))",
+    "Instantaneous turn is bounded by C_Lmax and the structural limit, peaking at the corner speed",
+    "Sustained turn requires T = D at the elevated n, so P_s = 0 sets the limit",
+    "Induced drag grows with n², so thrust to weight sets sustained turn performance"
+   ]
+  },
+  {
+   "skill": "f8",
+   "prompt": "Draw a vertical inside loop and give me the load factor at the top and bottom. Now fly it as an outside loop.",
+   "points": [
+    "Bottom of an inside loop: n = 1 + V²/(gR), the maximum positive load",
+    "Top of an inside loop: n = V²/(gR) − 1, with weight helping the turn",
+    "An outside loop puts the pilot on the outside of the circle with negative load factors",
+    "Bottom of an outside loop, inverted: n = −(1 + V²/(gR)), the most severe negative load",
+    "Negative limit loads are smaller in magnitude, so outside loops need large radius or low speed"
+   ]
+  },
+  {
+   "skill": "f8",
+   "prompt": "Define energy height and specific excess power. Show how P_s links to the master equation and how you would use P_s contours to fly a minimum time climb.",
+   "points": [
+    "h_e = h + V²/(2g) is mechanical energy per unit weight",
+    "P_s = (T − D)V/W = dh_e/dt = dh/dt + (V/g)dV/dt",
+    "Substituting T = αT_SL, W = βW_TO and dividing by V gives the master equation",
+    "P_s contours plotted on an h versus M chart with lines of constant h_e",
+    "Minimum time to climb follows the points where P_s contours are tangent to h_e lines"
+   ]
+  },
+  {
+   "skill": "f9",
+   "prompt": "Build up C_D0 for a transport, component by component. Which numbers dominate?",
+   "points": [
+    "C_D0 = Σ(C_f FF Q S_wet)/S_ref + C_D,misc + C_D,L&P",
+    "C_f from Re per component: laminar 1.328/√Re and turbulent 0.455/(log₁₀Re)^2.58",
+    "FF rises with thickness ratio for wings and with lower fineness ratio for fuselages",
+    "Q captures interference, near 1.0 for faired parts and up to 1.5 for close nacelles",
+    "Wing and fuselage carry most of the wetted area, so they dominate parasite drag"
+   ]
+  },
+  {
+   "skill": "f9",
+   "prompt": "Compare laminar and turbulent skin friction. Now scale the aircraft up by a factor of two in length: what happens to C_D0?",
+   "points": [
+    "Laminar C_f = 1.328/√Re and turbulent C_f = 0.455/(log₁₀Re)^2.58",
+    "Turbulent friction is several times larger at the same Re from higher wall shear",
+    "Transition depends on Re, pressure gradient, surface finish and sweep",
+    "A larger aircraft has higher Re, so C_f falls and C_D0 drops for the same shape",
+    "Wetted area ratio S_wet/S_ref is about constant under pure geometric scaling"
+   ]
+  },
+  {
+   "skill": "f9",
+   "prompt": "Draw C_L versus α for a clean wing, with flaps, and with slats. Explain each device.",
+   "points": [
+    "Trailing edge flaps add camber, shifting α_L0 more negative and raising C_L at each α",
+    "Slotted flaps re-energize the boundary layer, and Fowler flaps also add area",
+    "Slats delay leading edge stall, extending the lift curve to higher α_stall",
+    "Combined slats and multi-slotted flaps give landing C_Lmax near 2.5 to 3.0",
+    "Higher C_Lmax lowers stall speed and field length, raising allowed W/S"
+   ]
+  },
+  {
+   "skill": "f9",
+   "prompt": "Sketch the stall progression on a rectangular, a tapered and a swept wing. How do you fix the bad ones?",
+   "points": [
+    "Rectangular wings stall first at the root, a benign pattern",
+    "Tapered wings load the tips and tend to stall outboard",
+    "Aft swept wings drive spanwise flow outboard, promoting tip stall and pitch up",
+    "Washout, leading edge devices outboard, fences and vortilons move the stall inboard",
+    "Root-first stall keeps the ailerons effective and gives a nose-down pitch break"
+   ]
+  },
+  {
+   "skill": "f10",
+   "prompt": "Draw C_m versus α for a stable aircraft. Define the neutral point and static margin. Now move the CG aft.",
+   "points": [
+    "Stability needs C_mα < 0, and trim at positive α needs C_m0 > 0",
+    "The neutral point is the CG location where C_mα = 0",
+    "SM = (x_np − x_cg)/c̄, and C_mα = −C_Lα·SM",
+    "Moving the CG aft flattens the C_m curve, lowering SM and elevator per g",
+    "At the neutral point the slope is zero; aft of it the aircraft needs active control"
+   ]
+  },
+  {
+   "skill": "f10",
+   "prompt": "How do you set the CG range for an aircraft, and how does tail sizing enter?",
+   "points": [
+    "The forward limit is set by elevator power to trim at C_Lmax and to rotate on takeoff",
+    "The aft limit is set by a minimum static margin and acceptable handling",
+    "Tail volume V_H = l_t S_t/(c̄ S) sets both the stability contribution and control power",
+    "A scissor plot of S_t/S versus x_cg combines both limits to size the tail",
+    "Elevator power C_mδe = −a_t η_t V_H τ_e"
+   ]
+  },
+  {
+   "skill": "f10",
+   "prompt": "Describe the longitudinal dynamic modes. Give me the physics and an approximation for each.",
+   "points": [
+    "Phugoid: long period, lightly damped exchange of speed and altitude at near-constant α",
+    "Lanchester approximation: period ≈ π√2·V/g, damping ≈ 1/(√2·L/D)",
+    "Short period: fast, well damped α and pitch rate oscillation at near-constant speed",
+    "Short period frequency rises with static margin and dynamic pressure",
+    "Pilots handle the slow phugoid, while short period characteristics drive handling qualities"
+   ]
+  },
+  {
+   "skill": "f10",
+   "prompt": "Talk me through lateral-directional stability. What happens with a very large vertical tail versus very large dihedral?",
+   "points": [
+    "C_nβ > 0 from the vertical tail gives directional stability",
+    "C_lβ < 0 from dihedral, high wing and aft sweep gives the dihedral effect",
+    "Modes: roll subsidence (fast, first order), Dutch roll (yaw-roll oscillation), spiral (slow)",
+    "Large C_nβ relative to dihedral effect favors spiral divergence",
+    "Large dihedral effect relative to C_nβ favors poorly damped Dutch roll, often fixed with a yaw damper"
+   ]
+  }
+ ]
+}

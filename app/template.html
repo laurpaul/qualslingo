@@ -1,0 +1,680 @@
+<title>Quals Daily</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,800&family=Spectral:ital,wght@0,300;0,600;1,300;1,600&display=swap">
+<style>
+/* Layout: a whiteboard-room metaphor. Sticky marker tray (streak, goal, markers) over two exam boards (SDO, SMM);
+   each board is a column of course ledgers whose skills sit on a zigzag path. A lesson opens as a full-screen board.
+   Palette and type follow "The Both". Dark first. */
+:root{
+  --night:#141220; --violet:#2E2068; --blue:#3460A8; --peri:#A8A8F0; --lav:#C0B8E8; --whisper:#ECEAF8; --silver:#C8C4DC;
+  --bg:var(--night); --surface:#1B1830; --raise:#24203C; --line:#37325A; --fg:var(--whisper); --muted:#A7A2C4;
+  --accent:var(--peri); --accent-ink:var(--night); --press:var(--blue); --hi:var(--lav);
+  --good:#7AD3AE; --good-bg:#14302A; --bad:#F29A88; --bad-bg:#3A1C26;
+  --serif:"Spectral",Georgia,"Times New Roman",serif;
+  --sans:"Bricolage Grotesque",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --bg:var(--whisper); --surface:#F6F5FD; --raise:#FFFFFF; --line:var(--silver); --fg:var(--night); --muted:#57527A;
+  --accent:var(--blue); --accent-ink:#FFFFFF; --press:var(--violet); --hi:var(--violet);
+  --good:#1D7A54; --good-bg:#DCF1E7; --bad:#B13A2D; --bad-bg:#F8E2DE; color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:var(--whisper); --surface:#F6F5FD; --raise:#FFFFFF; --line:var(--silver); --fg:var(--night); --muted:#57527A;
+  --accent:var(--blue); --accent-ink:#FFFFFF; --press:var(--violet); --hi:var(--violet);
+  --good:#1D7A54; --good-bg:#DCF1E7; --bad:#B13A2D; --bad-bg:#F8E2DE; color-scheme:light}
+
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--fg)}
+body{font-family:var(--sans);font-weight:300;font-size:16px;line-height:1.5;padding-inline:16px;padding-block:0 72px}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:600px;margin-inline:auto}
+h1,h2,h3{font-family:var(--serif);font-weight:600;margin:0;text-wrap:balance}
+.label{font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+
+/* Marker tray */
+.tray{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-inline:-16px;padding:12px 16px 10px}
+.tray .wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{margin-right:auto;font-family:var(--serif);font-style:italic;font-weight:300;font-size:22px;letter-spacing:-.01em;line-height:1}
+.brand b{font-family:var(--sans);font-style:normal;font-weight:800;font-size:12px;letter-spacing:.14em;color:var(--accent);margin-right:6px;vertical-align:3px}
+.stat{display:flex;align-items:center;gap:6px;font-weight:500;font-variant-numeric:tabular-nums;font-size:15px}
+.stat svg{width:18px;height:18px}
+.stat.streak{color:var(--accent)}
+.markers{display:flex;gap:3px;align-items:flex-end;border:0;background:none;padding:2px 0}
+.markers i{display:block;width:6px;height:18px;border-radius:2px 2px 3px 3px;background:var(--accent);position:relative}
+.markers i::before{content:"";position:absolute;top:-4px;left:1px;width:4px;height:5px;border-radius:2px 2px 0 0;background:inherit;opacity:.7}
+.markers i.off{background:var(--line)}
+.markers.inf i{background:var(--hi)}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;margin-block:18px 6px;padding:4px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.tabs button{flex:1;min-width:0;border:0;background:transparent;padding:9px 4px;border-radius:9px;font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tabs button[aria-selected="true"]{background:var(--raise);color:var(--fg);box-shadow:0 1px 0 var(--line)}
+.tabs .n{color:var(--accent);margin-left:3px;font-variant-numeric:tabular-nums}
+.tabs .n:empty{display:none}
+
+/* Today */
+.today{margin-top:14px;padding:16px;border-radius:16px;background:var(--violet);color:var(--whisper);display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.ring{position:relative;width:66px;height:66px}
+.ring svg{transform:rotate(-90deg)}
+.ring span{position:absolute;inset:0;display:grid;place-items:center;font-weight:800;font-size:13px;font-variant-numeric:tabular-nums}
+.today h2{font-size:20px}
+.today p{margin:2px 0 8px;font-size:14px;opacity:.85}
+.week{display:flex;gap:7px}
+.week span{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:500;opacity:.75}
+.week i{display:block;width:14px;height:14px;border-radius:50%;border:1.5px solid currentColor}
+.week i.on{background:var(--peri);border-color:var(--peri)}
+.week span.now{opacity:1}
+.today .cta{grid-column:1 / -1;display:flex;gap:10px;flex-wrap:wrap}
+
+/* Setup */
+.setup{margin-top:14px;padding:16px;border:1.5px dashed var(--line);border-radius:16px;display:flex;flex-direction:column;gap:12px}
+.setup h3{font-size:19px}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 12px;font-weight:500;font-size:14px}
+.seg button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:var(--raise)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field input{font:inherit;padding:9px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);max-width:220px}
+
+/* Boards (exam sections) */
+.exam{margin-top:34px}
+.exam-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.exam-head .code{font-weight:800;font-size:12px;letter-spacing:.14em;color:var(--accent)}
+.exam-head h2{font-size:26px;font-weight:300;font-style:italic}
+.exam-head .tm{margin-left:auto;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.course{margin-top:22px}
+.course-head{display:flex;align-items:baseline;gap:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.course-head .cn{font-weight:800;font-size:12px;letter-spacing:.1em;color:var(--muted);font-variant-numeric:tabular-nums}
+.course-head h3{font-size:19px}
+.course-head .pct{margin-left:auto;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.nodes{display:flex;flex-direction:column;gap:20px;padding-block:22px 4px}
+.node{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:none;padding:0;width:120px}
+.node .disc{position:relative;width:82px;height:82px;display:grid;place-items:center}
+.node svg.lv{position:absolute;inset:0;width:82px;height:82px;transform:rotate(-90deg)}
+.node .core{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--accent-ink);box-shadow:0 5px 0 var(--press);transition:transform .12s;font-family:var(--serif);font-weight:600;font-size:22px;font-style:italic}
+.node:hover .core{transform:translateY(-2px)}
+.node:active .core{transform:translateY(3px);box-shadow:0 2px 0 var(--press)}
+.node.fresh .core{background:var(--raise);color:var(--muted);box-shadow:0 5px 0 var(--line)}
+.node.gold .core{background:var(--hi);color:var(--bg)}
+.node .nm{font-weight:500;font-size:13px;text-align:center;line-height:1.25}
+.node .lvt{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:-4px}
+.node .here{position:absolute;top:-24px;font-weight:800;font-size:10px;letter-spacing:.12em;text-transform:uppercase;background:var(--raise);border:1.5px solid var(--accent);color:var(--accent);border-radius:7px;padding:2px 7px;white-space:nowrap;z-index:1}
+
+/* Sheet */
+.scrim{position:fixed;inset:0;background:rgba(10,8,20,.55);z-index:20;display:flex;align-items:flex-end;justify-content:center;padding:16px}
+.sheet{width:100%;max-width:560px;max-height:calc(100% - 24px);overflow-y:auto;background:var(--raise);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:12px;margin-bottom:env(safe-area-inset-bottom,0px)}
+.sheet h3{font-size:24px}
+.sheet p{margin:0}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:800;font-size:14px;letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:var(--accent-ink);box-shadow:0 4px 0 var(--press);flex:1;min-width:140px}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 var(--press)}
+.btn[disabled]{background:var(--line);color:var(--muted);box-shadow:none;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--fg);border:1.5px solid var(--line);box-shadow:none}
+.today .btn.ghost{color:var(--whisper);border-color:rgba(236,234,248,.35)}
+.today .btn{background:var(--peri);color:var(--night);box-shadow:0 4px 0 var(--blue)}
+.btn.small{flex:0 0 auto;min-width:0;padding:9px 14px;font-size:12px}
+.note{font-size:13px;color:var(--muted)}
+.facts{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.facts li{font-size:14px;padding-left:14px;position:relative}
+.facts li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+
+/* Lesson board */
+.board{position:fixed;inset:0;z-index:30;background:var(--bg);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
+.b-top{display:flex;align-items:center;gap:14px;padding:14px 16px;max-width:680px;width:100%;margin-inline:auto}
+.x{border:0;background:none;color:var(--muted);padding:4px;display:grid}
+.x svg{width:22px;height:22px}
+.bar{flex:1;height:12px;border-radius:6px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);border-radius:6px;transition:width .35s ease}
+.combo{font-weight:800;font-size:12px;letter-spacing:.08em;color:var(--good);font-variant-numeric:tabular-nums;min-width:48px;text-align:right}
+.b-body{flex:1;overflow-y:auto;padding:6px 16px 24px;max-width:680px;width:100%;margin-inline:auto;display:flex;flex-direction:column;gap:18px}
+.kind{display:flex;gap:10px;align-items:center;margin-top:6px}
+.kind .tag{font-weight:800;font-size:11px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase}
+.prompt{font-family:var(--serif);font-weight:300;font-size:24px;line-height:1.3;text-wrap:pretty;overflow-wrap:anywhere}
+.opts{display:grid;gap:10px}
+.opt{border:1.5px solid var(--line);border-bottom-width:4px;background:var(--surface);border-radius:14px;padding:13px 15px;text-align:left;font-size:16px;display:flex;gap:12px;align-items:center;min-width:0}
+.opt span{min-width:0;overflow-wrap:anywhere}
+.opt .k{flex:none;width:26px;height:26px;border-radius:7px;border:1.5px solid var(--line);display:grid;place-items:center;font-size:12px;font-weight:500;color:var(--muted)}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--raise)}
+.opt[aria-pressed="true"] .k{border-color:var(--accent);color:var(--accent)}
+.opt.ok{border-color:var(--good);background:var(--good-bg)}
+.opt.no{border-color:var(--bad);background:var(--bad-bg)}
+.opt[disabled]{cursor:default}
+.slot{min-height:58px;border-bottom:1.5px solid var(--line);display:flex;flex-direction:column;gap:8px;padding-bottom:12px}
+.pool{display:flex;flex-direction:column;gap:8px}
+.chip{border:1.5px solid var(--line);border-bottom-width:3px;background:var(--surface);border-radius:12px;padding:10px 14px;text-align:left;font-size:15px;overflow-wrap:anywhere}
+.chip.used{visibility:hidden}
+.chip .num{font-weight:800;color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match .col{display:flex;flex-direction:column;gap:10px;min-width:0}
+.match .chip{min-height:54px;font-size:14px}
+.match .chip[aria-pressed="true"]{border-color:var(--accent);background:var(--raise)}
+.match .chip.done{border-color:var(--good);color:var(--good);background:var(--good-bg);cursor:default}
+.match .chip.flash{border-color:var(--bad);background:var(--bad-bg)}
+textarea{font:inherit;font-size:16px;width:100%;min-height:150px;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);resize:vertical}
+.b-foot{border-top:1px solid var(--line);padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));max-height:60vh;overflow-y:auto;background:var(--bg)}
+.b-foot .inner{max-width:680px;margin-inline:auto;display:flex;flex-direction:column;gap:10px}
+.b-foot.ok{background:var(--good-bg);border-color:var(--good)}
+.b-foot.no{background:var(--bad-bg);border-color:var(--bad)}
+.verdict{font-weight:800;font-size:18px}
+.b-foot.ok .verdict{color:var(--good)}
+.b-foot.no .verdict{color:var(--bad)}
+.explain{margin:0;font-size:15px}
+.ans{margin:0;font-size:15px;font-weight:500}
+.keys{font-size:12px;color:var(--muted);margin:0}
+.end{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:18px;padding:24px 16px;max-width:560px;margin-inline:auto;overflow-y:auto;width:100%}
+.end h2{font-size:34px;font-weight:300;font-style:italic}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%}
+.tile{border:1.5px solid var(--line);border-radius:14px;padding:12px 8px}
+.tile b{display:block;font-family:var(--serif);font-weight:600;font-size:28px;font-variant-numeric:tabular-nums}
+.thinking{color:var(--muted);font-style:italic;font-family:var(--serif)}
+
+/* Panels */
+.panel{margin-top:20px;display:flex;flex-direction:column;gap:14px}
+.panel > h2{font-size:28px;font-weight:300;font-style:italic}
+.panel > p{margin:0;color:var(--muted);max-width:62ch}
+.list{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.li{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}
+.li .tag{font-weight:800;font-size:11px;letter-spacing:.1em;color:var(--accent);padding-top:3px}
+.li .t{min-width:0;overflow-wrap:anywhere}
+.li .when{font-size:12px;color:var(--muted);text-align:right;white-space:nowrap;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.boxes{display:flex;gap:3px}
+.boxes i{width:7px;height:7px;border-radius:2px;background:var(--line)}
+.boxes i.on{background:var(--good)}
+.lb{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.lr{display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.lr .pos{font-family:var(--serif);font-weight:600;font-size:20px;font-variant-numeric:tabular-nums;color:var(--muted)}
+.lr.me{background:color-mix(in srgb,var(--accent) 10%,transparent);margin-inline:-10px;padding-inline:10px;border-radius:10px}
+.lr .who{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.lr .xp{font-weight:800;font-variant-numeric:tabular-nums}
+.lr .sub{display:block;font-size:12px;color:var(--muted);font-weight:300}
+.empty{padding:22px;border:1.5px dashed var(--line);border-radius:14px;color:var(--muted);text-align:center}
+.grade{display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:14px;background:var(--surface);border:1px solid var(--line)}
+.grade .v{font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+.grade .v.solid{color:var(--good)} .grade .v.partial{color:var(--accent)} .grade .v.missed{color:var(--bad)}
+.pill{display:inline-block;font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:2px 8px;color:var(--muted)}
+.playbook{counter-reset:pb;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.playbook li{counter-increment:pb;display:grid;grid-template-columns:30px 1fr;gap:10px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px}
+.playbook li::before{content:counter(pb);font-family:var(--serif);font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums}
+.playbook b{font-weight:500}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:40;background:var(--raise);border:1px solid var(--line);border-radius:12px;padding:10px 16px;font-size:14px;max-width:calc(100% - 32px)}
+.settings{display:flex;flex-direction:column;gap:14px}
+</style>
+
+<div class="tray"><div class="wrap">
+  <div class="brand"><b>ASDL</b>Quals Daily</div>
+  <div class="stat streak" title="Day streak"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 4 5 5.5 5 11a5 5 0 0 1-10 0c0-2.6 1.3-4 2.5-5 .2 2 1 3 2 3.5C11 9 11.5 5 12 2z"/></svg><span id="sStreak">0</span></div>
+  <div class="stat" title="XP this week"><span id="sXp">0</span>&nbsp;<span class="muted" style="font-size:12px">XP</span></div>
+  <button class="markers" id="sMarkers" aria-label="Markers"></button>
+</div></div>
+
+<div class="wrap">
+  <div class="tabs" role="tablist">
+    <button role="tab" data-tab="path" aria-selected="true">Path</button>
+    <button role="tab" data-tab="review">Review<span class="n" id="nDue"></span></button>
+    <button role="tab" data-tab="board">Board</button>
+    <button role="tab" data-tab="league">League</button>
+  </div>
+  <main id="view"></main>
+</div>
+<div id="layer"></div>
+
+<script>
+const CONTENT = /*__CONTENT__*/;
+
+/* ---------- Catalogue ---------- */
+const EXAMS = [
+  {id:"SDO", name:"Fixed wing vehicles", courses:[
+    {cn:"AE 6310", name:"Design optimization", skills:[
+      ["o1","Quadratics & critical points","Q"],["o2","Line search & Wolfe","α"],["o3","Newton, quasi-Newton & CG","N"],["o4","Trust region","Δ"],
+      ["o5","Constraints & KKT","λ"],["o6","Penalty, barrier & SQP","μ"],["o7","Surrogate modeling","ŷ"],["o8","Convexity & gradients","∇"]]},
+    {cn:"AE 6343", name:"Aircraft design", skills:[
+      ["f1","Master equation & constraint diagram","T/W"],["f2","Performance","V"],["f3","V-n diagram","n"],["f4","Propulsion","T-s"],
+      ["f5","Aerodynamics","Γ"],["f6","Rotorcraft & unusual vehicles","A"],["f7","Aeroelasticity & sizing","W₀"]]}
+  ]},
+  {id:"SMM", name:"Structures & materials", courses:[
+    {cn:"AE 6114", name:"Solid mechanics", skills:[
+      ["s1","Kinematics","F"],["s2","Stress, balance & objectivity","σ"],["s3","Constitutive laws","C"],["s4","Plane problems & Airy","φ"],["s5","Vessels & Lamé","p"]]},
+    {cn:"AE 6115", name:"Structural analysis", skills:[
+      ["s6","Beams & sections","I"],["s7","Shear flow & torsion","q"],["s8","Energy methods & Ritz","U"]]},
+    {cn:"AE 6100", name:"Structural stability", skills:[["s9","Stability","Π"]]}
+  ]}
+];
+const SKILL = {}; const SKILL_EXAM = {}; const ORDER = [];
+EXAMS.forEach(e=>e.courses.forEach(c=>c.skills.forEach(([id,name,glyph])=>{SKILL[id]={id,name,glyph,course:c.cn,exam:e.id};SKILL_EXAM[id]=e.id;ORDER.push(id)})));
+const QS = CONTENT.questions; const QBY = {}; QS.forEach(q=>{(QBY[q.skill] ||= []).push(q)});
+const QID = {}; QS.forEach(q=>QID[q.id]=q);
+const BOARDS = CONTENT.boards;
+const MAXLV = 5, LESSON_N = 8, MAXM = 5, REGEN_MIN = 30;
+const INTERVALS = [0,1,3,7,14,30];
+const PLAYBOOK = [
+  ["Name the method first.","Say which method you will use and why before any algebra, for example \"I will set up the KKT conditions\" or \"this is a two-DOF energy problem\"."],
+  ["State your assumptions out loud.","Small strain, linear elastic, thin wall, quasi-static, point mass: say each one as you use it."],
+  ["Plan the board in columns.","One column per stage, left to right, so the examiner can follow without asking."],
+  ["Stand beside your work.","Write, then step aside so the examiner sees the board."],
+  ["Check before you box.","Run a units check and a limiting case on every final expression."],
+  ["Answer the question asked, then stop.","A short, complete answer invites the next question; extra material invites a detour."],
+  ["Name a broken assumption.","When a result contradicts the premise (a thin wall coming out thick), stop and say which assumption the result violates."],
+  ["Let the question finish.","Pause for a beat after the examiner stops talking, then answer."],
+  ["Hold ground you own.","When you are confident, restate your reasoning calmly; concede only to a reason."],
+  ["Narrate onto the page.","The oral is graded on reasoning, so say each step as you write it."]
+];
+
+/* ---------- Dates ---------- */
+const pad = n=>String(n).padStart(2,"0");
+const dayKey = (d=new Date())=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const addDays = (k,n)=>{const [y,m,d]=k.split("-").map(Number);const t=new Date(y,m-1,d+n);return dayKey(t)};
+const diffDays = (a,b)=>{const p=s=>{const [y,m,d]=s.split("-").map(Number);return Date.UTC(y,m-1,d)};return Math.round((p(b)-p(a))/864e5)};
+const weekKey = ()=>{const t=new Date();const dow=(t.getDay()+6)%7;t.setDate(t.getDate()-dow);return dayKey(t)};
+
+/* ---------- State ---------- */
+const fresh = ()=>({v:1, exams:["SDO","SMM"], examDate:"", goal:30, setup:false, unlimited:false,
+  xpDays:{}, streak:0, last:"", best:0, markers:MAXM, mAt:Date.now(),
+  lv:{}, cards:{}, boards:[], weekXp:0, week:weekKey()});
+let S = fresh();
+let store = null, uid = null, saveMode = "none", userNS = null, dbNS = null;
+
+function lsGet(){try{const r=localStorage.getItem("qd-state");return r?JSON.parse(r):null}catch(e){return null}}
+function lsSet(){try{localStorage.setItem("qd-state",JSON.stringify(S))}catch(e){}}
+function normalize(o){const f=fresh();const s=Object.assign(f,o||{});if(s.week!==weekKey()){s.week=weekKey();s.weekXp=0}return s}
+
+let saving=Promise.resolve(), dirty=false;
+function save(){
+  lsSet();
+  if(saveMode!=="db") return;
+  dirty=true;
+  saving = saving.then(async()=>{
+    if(!dirty) return; dirty=false;
+    try{ await store.doc("data/users/"+uid+"/state").set(JSON.parse(JSON.stringify(S))) }
+    catch(e){ if(e&&e.code==="invalid_argument"){saveMode="local";toast("Progress is saving on this device only.")} }
+  });
+}
+async function postLeague(){
+  if(saveMode!=="db") return;
+  try{ await store.doc("league/"+uid).set({week:S.week, xp:S.weekXp, streak:S.streak, exams:S.exams, at:Date.now()}) }catch(e){}
+}
+
+/* markers */
+function tickMarkers(){
+  if(S.markers>=MAXM){S.mAt=Date.now();return}
+  const gained=Math.floor((Date.now()-S.mAt)/(REGEN_MIN*60e3));
+  if(gained>0){S.markers=Math.min(MAXM,S.markers+gained);S.mAt+=gained*REGEN_MIN*60e3}
+}
+function nextMarkerMin(){return Math.max(1,Math.ceil((S.mAt+REGEN_MIN*60e3-Date.now())/60e3))}
+
+/* streak + xp */
+function liveStreak(){ if(!S.last) return 0; const g=diffDays(S.last,dayKey()); return g<=1?S.streak:0 }
+function award(xp){
+  const t=dayKey();
+  if(S.week!==weekKey()){S.week=weekKey();S.weekXp=0}
+  S.xpDays[t]=(S.xpDays[t]||0)+xp; S.weekXp+=xp;
+  if(S.last!==t){ S.streak = (S.last && diffDays(S.last,t)===1)? S.streak+1 : 1; S.last=t; S.best=Math.max(S.best,S.streak) }
+  const keys=Object.keys(S.xpDays).sort(); while(keys.length>60){delete S.xpDays[keys.shift()]}
+}
+
+/* cards (spaced review) */
+function due(){const t=dayKey();return Object.entries(S.cards).filter(([id,c])=>QID[id]&&inScope(QID[id].skill)&&c.due<=t).map(([id])=>id)}
+function grade(id,ok){
+  const c=S.cards[id]||{b:0,due:dayKey(),n:0,m:0};
+  c.n++; if(ok){c.b=Math.min(INTERVALS.length-1,c.b+1)}else{c.b=0;c.m++}
+  c.due=addDays(dayKey(), ok?INTERVALS[c.b]:1);
+  S.cards[id]=c;
+}
+const inScope = sk=>S.exams.includes(SKILL_EXAM[sk]);
+
+/* ---------- Utilities ---------- */
+const $ = (s,r=document)=>r.querySelector(s);
+const esc = s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shuffle = a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function toast(msg){const t=document.createElement("div");t.className="toast";t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3200)}
+const ICON = {
+  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>'
+};
+
+/* ---------- Render: tray ---------- */
+function renderTray(){
+  tickMarkers();
+  $("#sStreak").textContent=liveStreak();
+  $("#sXp").textContent=S.weekXp;
+  const m=$("#sMarkers"); m.classList.toggle("inf",S.unlimited);
+  m.innerHTML=Array.from({length:MAXM},(_,i)=>`<i class="${S.unlimited||i<S.markers?"":"off"}"></i>`).join("");
+  m.title = S.unlimited? "Unlimited markers" : `${S.markers} of ${MAXM} markers`;
+  const d=due().length; $("#nDue").textContent=d?d:"";
+}
+
+/* ---------- Tabs ---------- */
+let TAB="path";
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{TAB=b.dataset.tab;document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-selected",x===b));render()});
+function render(){ renderTray(); ({path:renderPath,review:renderReview,board:renderBoard,league:renderLeague})[TAB]() }
+
+/* ---------- Path ---------- */
+function nextSkill(){ return ORDER.filter(inScope).find(id=>(S.lv[id]||0)<1) || ORDER.filter(inScope).sort((a,b)=>(S.lv[a]||0)-(S.lv[b]||0))[0] }
+function lvRing(lv){const r=37,c=2*Math.PI*r,f=lv/MAXLV;return `<svg class="lv" viewBox="0 0 82 82"><circle cx="41" cy="41" r="${r}" fill="none" stroke="var(--line)" stroke-width="5"/><circle cx="41" cy="41" r="${r}" fill="none" stroke="var(--accent)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${c*f} ${c}"/></svg>`}
+function renderPath(){
+  const t=dayKey(), today=S.xpDays[t]||0, f=Math.min(1,today/S.goal);
+  const days=[...Array(7)].map((_,i)=>addDays(t,i-6));
+  const r=26,c=2*Math.PI*r;
+  const nx=nextSkill(); const dcount=due().length;
+  let h=`<section class="today">
+    <div class="ring"><svg width="66" height="66" viewBox="0 0 66 66"><circle cx="33" cy="33" r="${r}" fill="none" stroke="rgba(236,234,248,.2)" stroke-width="7"/><circle cx="33" cy="33" r="${r}" fill="none" stroke="var(--peri)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${c*f} ${c}"/></svg><span>${today}/${S.goal}</span></div>
+    <div><h2>${today>=S.goal?"Daily goal met":"Today's board time"}</h2><p>${liveStreak()?liveStreak()+" day streak. ":""}${countdown()}</p>
+      <div class="week">${days.map(k=>`<span class="${k===t?"now":""}"><i class="${(S.xpDays[k]||0)>0?"on":""}"></i>${"MTWTFSS"[(new Date(k+"T12:00").getDay()+6)%7]}</span>`).join("")}</div></div>
+    <div class="cta"><button class="btn" id="goNext">${(S.lv[nx]||0)?"Continue":"Start"}: ${esc(SKILL[nx].name)}</button>${dcount?`<button class="btn ghost" id="goRev">Review ${dcount}</button>`:""}</div>
+  </section>`;
+  if(!S.setup) h+=setupCard();
+  EXAMS.filter(e=>S.exams.includes(e.id)).forEach(e=>{
+    h+=`<section class="exam"><div class="exam-head"><span class="code">${e.id}</span><h2>${e.name}</h2></div>`;
+    e.courses.forEach(co=>{
+      const tot=co.skills.length*MAXLV, got=co.skills.reduce((a,[id])=>a+(S.lv[id]||0),0);
+      h+=`<div class="course"><div class="course-head"><span class="cn">${co.cn}</span><h3>${co.name}</h3><span class="pct">${Math.round(100*got/tot)}%</span></div><div class="nodes">`;
+      co.skills.forEach(([id],i)=>{
+        const lv=S.lv[id]||0, off=[0,60,90,60,0,-60,-90,-60][i%8];
+        h+=`<button class="node ${lv===0?"fresh":""} ${lv>=MAXLV?"gold":""}" data-skill="${id}" style="align-self:center;transform:translateX(${off}px)">
+          ${id===nx?'<span class="here">Next</span>':""}<span class="disc">${lvRing(lv)}<span class="core">${esc(SKILL[id].glyph)}</span></span>
+          <span class="nm">${esc(SKILL[id].name)}</span><span class="lvt">${lv>=MAXLV?"Board ready":"Level "+lv+" of "+MAXLV}</span></button>`;
+      });
+      h+=`</div></div>`;
+    });
+    h+=`</section>`;
+  });
+  h+=`<p class="note" style="margin-top:36px;text-align:center"><button class="btn ghost small" id="openSettings">Settings</button></p>`;
+  $("#view").innerHTML=h;
+  $("#goNext").onclick=()=>openSkill(nx);
+  $("#goRev")&&($("#goRev").onclick=()=>startReview());
+  document.querySelectorAll(".node").forEach(n=>n.onclick=()=>openSkill(n.dataset.skill));
+  $("#openSettings").onclick=openSettings;
+  if(!S.setup) wireSetup($("#view"));
+}
+function countdown(){
+  if(!S.examDate) return "Pick a skill or clear your review queue.";
+  const d=diffDays(dayKey(),S.examDate);
+  return d>0? `T minus ${d} day${d===1?"":"s"} to your board.` : d===0? "Board day. Name the method first." : "Your board date has passed. Update it in Settings.";
+}
+function setupCard(){ return `<section class="setup"><h3>Set up your board</h3>${setupFields()}<div class="row"><button class="btn" id="setDone">Save</button></div></section>` }
+function setupFields(){
+  return `<div class="field"><span class="label">Which qual are you sitting?</span><div class="seg" id="segExam">
+     ${[["SDO","Fixed wing (SDO)"],["SMM","Structures (SMM)"],["both","Both"]].map(([v,l])=>`<button data-v="${v}" aria-pressed="${(v==="both"&&S.exams.length===2)||(S.exams.length===1&&S.exams[0]===v)}">${l}</button>`).join("")}</div></div>
+   <div class="field"><label class="label" for="inDate">Exam date (optional)</label><input type="date" id="inDate" value="${S.examDate}"></div>
+   <div class="field"><span class="label">Daily goal</span><div class="seg" id="segGoal">${[[15,"Casual 15 XP"],[30,"Steady 30 XP"],[60,"Intense 60 XP"]].map(([v,l])=>`<button data-v="${v}" aria-pressed="${S.goal===v}">${l}</button>`).join("")}</div></div>`;
+}
+function wireSetup(root){
+  root.querySelectorAll("#segExam button").forEach(b=>b.onclick=()=>{S.exams=b.dataset.v==="both"?["SDO","SMM"]:[b.dataset.v];root.querySelectorAll("#segExam button").forEach(x=>x.setAttribute("aria-pressed",x===b))});
+  root.querySelectorAll("#segGoal button").forEach(b=>b.onclick=()=>{S.goal=+b.dataset.v;root.querySelectorAll("#segGoal button").forEach(x=>x.setAttribute("aria-pressed",x===b))});
+  const d=root.querySelector("#inDate"); d.onchange=()=>{S.examDate=d.value};
+  const done=root.querySelector("#setDone"); done&&(done.onclick=()=>{S.setup=true;save();postLeague();closeLayer();render()});
+}
+function openSettings(){
+  sheet(`<h3>Settings</h3><div class="settings">${setupFields()}
+   <div class="field"><span class="label">Markers</span><div class="seg" id="segM"><button data-v="0" aria-pressed="${!S.unlimited}">5 markers, refill over time</button><button data-v="1" aria-pressed="${S.unlimited}">Unlimited</button></div></div>
+   <div class="row"><button class="btn" id="setDone">Save</button></div></div>
+   <p class="note">${saveMode==="db"?"Progress saves to your account and follows you across devices.":"Progress is saving on this device only."}</p>`);
+  const L=$("#layer"); wireSetup(L);
+  L.querySelectorAll("#segM button").forEach(b=>b.onclick=()=>{S.unlimited=b.dataset.v==="1";L.querySelectorAll("#segM button").forEach(x=>x.setAttribute("aria-pressed",x===b))});
+}
+
+/* ---------- Sheets ---------- */
+function sheet(html){
+  $("#layer").innerHTML=`<div class="scrim"><div class="sheet" role="dialog" aria-modal="true">${html}</div></div>`;
+  const sc=$("#layer .scrim"); sc.onclick=e=>{if(e.target===sc)closeLayer()};
+}
+function closeLayer(){$("#layer").innerHTML="";document.body.style.overflow=""}
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("#layer .scrim"))closeLayer()});
+
+function openSkill(id){
+  const sk=SKILL[id], lv=S.lv[id]||0, qs=QBY[id]||[];
+  const seen=qs.filter(q=>S.cards[q.id]).length, solid=qs.filter(q=>(S.cards[q.id]||{}).b>=3).length;
+  const facts=shuffle(qs).slice(0,3).map(q=>`<li>${esc(q.x)}</li>`).join("");
+  tickMarkers();
+  const blocked=!S.unlimited&&S.markers<1;
+  sheet(`<span class="label">${sk.course} · ${sk.exam}</span><h3>${esc(sk.name)}</h3>
+    <p class="muted">Level ${lv} of ${MAXLV}. ${seen} of ${qs.length} questions seen, ${solid} locked in.</p>
+    <details><summary class="label" style="cursor:pointer">Key facts</summary><ul class="facts" style="margin-top:10px">${facts}</ul></details>
+    ${blocked?`<p class="note">Out of markers. One refills in ${nextMarkerMin()} min, or finish a review round to earn two back.</p>`:""}
+    <div class="row"><button class="btn" id="sLesson" ${blocked?"disabled":""}>${lv>=MAXLV?"Practice":"Start lesson"}</button>
+    <button class="btn ghost" id="sBoard">Board question</button></div>`);
+  $("#sLesson").onclick=()=>{closeLayer();startLesson(id)};
+  $("#sBoard").onclick=()=>{closeLayer();TAB="board";document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-selected",x.dataset.tab==="board"));boardSkill=id;pickBoard();render()};
+}
+
+/* ---------- Lesson engine ---------- */
+let L=null;
+function pickLesson(id){
+  const qs=QBY[id]||[];
+  const score=q=>{const c=S.cards[q.id];if(!c)return Math.random();return 2+c.b-(c.m*.5)+Math.random()*.5};
+  const pool=qs.slice().sort((a,b)=>score(a)-score(b));
+  let pick=pool.slice(0,6);
+  const d=due().filter(x=>QID[x].skill===id&&!pick.includes(QID[x]));
+  pick=pick.concat(d.map(x=>QID[x]).slice(0,2));
+  if(pick.length<LESSON_N) pick=pick.concat(pool.filter(q=>!pick.includes(q)).slice(0,LESSON_N-pick.length));
+  return shuffle(pick).slice(0,LESSON_N);
+}
+function startLesson(id){ L={mode:"lesson",skill:id,queue:pickLesson(id),i:0,ok:0,firstTry:new Set(),missed:new Set(),combo:0,t0:Date.now(),total:0}; L.total=L.queue.length; openBoard() }
+function startReview(){
+  let ids=due(); if(!ids.length){ids=Object.keys(S.cards).filter(id=>QID[id]&&inScope(QID[id].skill)).sort((a,b)=>S.cards[a].b-S.cards[b].b)}
+  if(!ids.length){toast("Finish a lesson first. Missed questions come back here.");return}
+  L={mode:"review",queue:shuffle(ids).slice(0,10).map(x=>QID[x]),i:0,ok:0,firstTry:new Set(),missed:new Set(),combo:0,t0:Date.now()}; L.total=L.queue.length; openBoard();
+}
+function openBoard(){
+  document.body.style.overflow="hidden";
+  $("#layer").innerHTML=`<div class="board" role="dialog" aria-modal="true" aria-label="Lesson">
+   <div class="b-top"><button class="x" id="bQuit" aria-label="Quit lesson">${ICON.x}</button><div class="bar"><i id="bBar"></i></div><span class="combo" id="bCombo"></span>
+   ${L.mode==="lesson"&&!S.unlimited?`<span class="markers" id="bM" aria-label="Markers"></span>`:""}</div>
+   <div class="b-body" id="bBody"></div><div class="b-foot" id="bFoot"></div></div>`;
+  $("#bQuit").onclick=()=>{L=null;closeLayer();render()};
+  showQ();
+}
+function bMarkers(){const m=$("#bM");if(m)m.innerHTML=Array.from({length:MAXM},(_,i)=>`<i class="${i<S.markers?"":"off"}"></i>`).join("")}
+let answerFn=null, picked=null;
+function showQ(){
+  bMarkers();
+  $("#bBar").style.width=(100*Math.min(L.i,L.total)/L.total)+"%";
+  $("#bCombo").textContent=L.combo>=3?L.combo+" in a row":"";
+  if(L.i>=L.queue.length) return finish();
+  const q=L.queue[L.i], sk=SKILL[q.skill]; picked=null;
+  const again=L.i>=L.total?'<span class="pill">Again</span>':"";
+  const kind={mc:"Choose the answer",order:"Put in order",pair:"Match the pairs"}[q.type];
+  let h=`<div class="kind"><span class="tag">${kind}</span><span class="pill">${esc(sk.course)} · ${esc(sk.name)}</span>${again}</div><div class="prompt">${esc(q.q)}</div>`;
+  const body=$("#bBody");
+  if(q.type==="mc"){
+    const opts=shuffle([q.a,...q.w]);
+    h+=`<div class="opts">${opts.map((o,i)=>`<button class="opt" data-v="${esc(o)}"><span class="k">${i+1}</span><span>${esc(o)}</span></button>`).join("")}</div>`;
+    body.innerHTML=h;
+    body.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{body.querySelectorAll(".opt").forEach(x=>x.setAttribute("aria-pressed",x===b));picked=b.dataset.v;footCheck(true)});
+    answerFn=()=>{const ok=picked===q.a;body.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x.dataset.v===q.a)x.classList.add("ok");else if(x.dataset.v===picked)x.classList.add("no")});return ok};
+  } else if(q.type==="order"){
+    const items=shuffle(q.steps.map((s,i)=>({s,i})));
+    h+=`<div class="slot" id="slot"></div><div class="pool">${items.map(o=>`<button class="chip" data-i="${o.i}">${esc(o.s)}</button>`).join("")}</div>`;
+    body.innerHTML=h; const seq=[];
+    const draw=()=>{$("#slot").innerHTML=seq.map((i,n)=>`<button class="chip" data-i="${i}"><span class="num">${n+1}</span>${esc(q.steps[i])}</button>`).join("");
+      body.querySelectorAll(".pool .chip").forEach(c=>c.classList.toggle("used",seq.includes(+c.dataset.i)));
+      $("#slot").querySelectorAll(".chip").forEach(c=>c.onclick=()=>{seq.splice(seq.indexOf(+c.dataset.i),1);draw()});
+      footCheck(seq.length===q.steps.length)};
+    body.querySelectorAll(".pool .chip").forEach(c=>c.onclick=()=>{if(!seq.includes(+c.dataset.i)){seq.push(+c.dataset.i);draw()}});
+    draw();
+    answerFn=()=>seq.every((v,i)=>v===i);
+  } else {
+    const left=shuffle(q.pairs.map((p,i)=>({t:p[0],i}))), right=shuffle(q.pairs.map((p,i)=>({t:p[1],i})));
+    h+=`<div class="match"><div class="col">${left.map(o=>`<button class="chip" data-s="L" data-i="${o.i}">${esc(o.t)}</button>`).join("")}</div><div class="col">${right.map(o=>`<button class="chip" data-s="R" data-i="${o.i}">${esc(o.t)}</button>`).join("")}</div></div>`;
+    body.innerHTML=h; let sel=null, done=0, slip=false;
+    body.querySelectorAll(".match .chip").forEach(c=>c.onclick=()=>{
+      if(c.classList.contains("done"))return;
+      if(!sel||sel.dataset.s===c.dataset.s){body.querySelectorAll(`.match .chip[data-s="${c.dataset.s}"]`).forEach(x=>x.setAttribute("aria-pressed",x===c));sel=c;return}
+      if(sel.dataset.i===c.dataset.i){[sel,c].forEach(x=>{x.classList.add("done");x.removeAttribute("aria-pressed")});done++;sel=null;if(done===q.pairs.length){answerFn=()=>!slip;check()}}
+      else{slip=true;const a=sel;[a,c].forEach(x=>x.classList.add("flash"));setTimeout(()=>[a,c].forEach(x=>{x.classList.remove("flash");x.removeAttribute("aria-pressed")}),450);sel=null}
+    });
+    $("#bFoot").className="b-foot";$("#bFoot").innerHTML=`<div class="inner"><p class="keys">Tap a left item, then its partner on the right.</p></div>`;
+    return;
+  }
+}
+function footCheck(enabled){
+  const f=$("#bFoot"); f.className="b-foot";
+  f.innerHTML=`<div class="inner"><div class="row"><button class="btn" id="bCheck" ${enabled?"":"disabled"}>Check</button></div><p class="keys">Keys: 1 to 4 to choose, Enter to check.</p></div>`;
+  $("#bCheck").onclick=check;
+}
+function check(){
+  const q=L.queue[L.i]; const ok=answerFn();
+  const firstPass=L.i<L.total;
+  if(firstPass) grade(q.id, ok);
+  if(ok){ if(firstPass)L.ok++; L.combo++ }
+  else{ L.combo=0; L.missed.add(q.id); if(L.mode==="lesson"&&!S.unlimited){tickMarkers();if(S.markers===MAXM)S.mAt=Date.now();S.markers=Math.max(0,S.markers-1)} L.queue.push(q) }
+  const f=$("#bFoot"); f.className="b-foot "+(ok?"ok":"no");
+  const right = q.type==="mc"?`<p class="ans">Answer: ${esc(q.a)}</p>`: q.type==="order"? `<p class="ans">${q.steps.map((s,i)=>(i+1)+". "+esc(s)).join("<br>")}</p>`:"";
+  f.innerHTML=`<div class="inner"><div class="verdict">${ok?["Solid.","Clean.","On the board.","Exactly."][Math.floor(Math.random()*4)]:"Here is the board answer."}</div>
+    ${ok?"":right}<p class="explain">${esc(q.x)}</p><div class="row"><button class="btn" id="bNext">Continue</button></div></div>`;
+  $("#bNext").onclick=next; $("#bNext").focus();
+  bMarkers();
+  if(L.mode==="lesson"&&!S.unlimited&&S.markers<=0&&!ok){ $("#bNext").textContent="Out of markers"; $("#bNext").onclick=()=>outOfMarkers() }
+}
+function next(){ L.i++; showQ() }
+function outOfMarkers(){
+  save();
+  $("#bBody").innerHTML=`<div class="end"><h2>Out of markers</h2><p class="muted">One refills every ${REGEN_MIN} minutes. A review round earns two back right away.</p>
+    <div class="row" style="width:100%"><button class="btn" id="oRev">Start review</button><button class="btn ghost" id="oQuit">Back to path</button></div></div>`;
+  $("#bFoot").innerHTML="";
+  $("#oRev").onclick=()=>{L=null;closeLayer();startReview()};
+  $("#oQuit").onclick=()=>{L=null;closeLayer();render()};
+}
+function finish(){
+  const acc=Math.round(100*L.ok/L.total), flawless=L.ok===L.total;
+  let xp = L.mode==="lesson"? L.ok*2+5+(flawless?5:0) : L.ok+3;
+  let lvUp=false;
+  if(L.mode==="lesson"){ const lv=S.lv[L.skill]||0; if(lv<MAXLV&&acc>=50){S.lv[L.skill]=lv+1;lvUp=true} }
+  else { S.markers=Math.min(MAXM,S.markers+2) }
+  award(xp); save(); postLeague();
+  const secs=Math.round((Date.now()-L.t0)/1000);
+  const sk=L.skill&&SKILL[L.skill];
+  $("#bBar").style.width="100%";
+  $("#bBody").innerHTML=`<div class="end"><span class="label">${L.mode==="lesson"?esc(sk.name):"Review round"}</span>
+    <h2>${flawless?"Flawless board.":acc>=75?"Strong board.":acc>=50?"Board cleared.":"Good reps."}</h2>
+    <div class="tiles"><div class="tile"><b>+${xp}</b><span class="label">XP</span></div><div class="tile"><b>${acc}%</b><span class="label">First try</span></div><div class="tile"><b>${Math.floor(secs/60)}:${pad(secs%60)}</b><span class="label">Time</span></div></div>
+    <p class="muted">${lvUp?`${esc(sk.name)} is now level ${S.lv[L.skill]} of ${MAXLV}.`:L.mode==="lesson"?"Reach 50% first try to level up this skill.":"Two markers refilled."} ${L.missed.size?L.missed.size+" missed question"+(L.missed.size>1?"s":"")+" will come back in review tomorrow.":""}</p>
+    <div class="row" style="width:100%"><button class="btn" id="eDone">Continue</button></div></div>`;
+  $("#bFoot").innerHTML=""; $("#bFoot").className="b-foot";
+  $("#eDone").onclick=()=>{L=null;closeLayer();render()}; $("#eDone").focus();
+}
+document.addEventListener("keydown",e=>{
+  if(!L||!$("#bBody"))return;
+  if(/^[1-4]$/.test(e.key)){const o=document.querySelectorAll("#bBody .opt:not([disabled])")[+e.key-1];o&&o.click()}
+  if(e.key==="Enter"){const b=$("#bNext")||$("#bCheck:not([disabled])")||$("#eDone");if(b&&document.activeElement?.tagName!=="TEXTAREA"){e.preventDefault();b.click()}}
+});
+
+/* ---------- Review ---------- */
+function renderReview(){
+  const ids=due(); const all=Object.keys(S.cards).filter(id=>QID[id]&&inScope(QID[id].skill));
+  const weak=all.slice().sort((a,b)=>(S.cards[b].m-S.cards[b].b)-(S.cards[a].m-S.cards[a].b)).slice(0,12);
+  let h=`<section class="panel"><h2>Review</h2><p>Questions return on a 1, 3, 7, 14 and 30 day ladder. A miss sends a question back to the bottom rung.</p>
+   <div class="row"><button class="btn" id="rGo" ${all.length?"":"disabled"}>${ids.length?`Review ${Math.min(10,ids.length)} due`:"Practice weakest"}</button></div>`;
+  if(!all.length) h+=`<div class="empty">Your review deck fills as you do lessons. Every question you see lands here on a schedule.</div>`;
+  else h+=`<span class="label">Weakest first</span><div class="list">${weak.map(id=>{const q=QID[id],c=S.cards[id];return `<div class="li"><span class="tag">${q.skill.toUpperCase()}</span><span class="t">${esc(q.q)}</span><span class="when"><span class="boxes">${INTERVALS.slice(1).map((_,i)=>`<i class="${i<c.b?"on":""}"></i>`).join("")}</span>${c.due<=dayKey()?"Due now":"Due "+c.due.slice(5)}</span></div>`}).join("")}</div>`;
+  h+=`</section>`;
+  $("#view").innerHTML=h; $("#rGo").onclick=startReview;
+}
+
+/* ---------- Board (oral) ---------- */
+let boardSkill=null, boardQ=null, sampleFn=null, grading=null;
+function boardPool(){return BOARDS.filter(b=>inScope(b.skill)&&(!boardSkill||b.skill===boardSkill))}
+function pickBoard(){const p=boardPool();boardQ=p[Math.floor(Math.random()*p.length)]||null;grading=null}
+function renderBoard(){
+  if(!boardQ||!inScope(boardQ.skill)) pickBoard();
+  const sk=boardQ&&SKILL[boardQ.skill];
+  let h=`<section class="panel"><h2>Oral board</h2><p>The examiner asks; you answer the way you would at the board. Write your spoken answer, then get it graded against the points a full answer covers.</p>
+   <div class="field"><label class="label" for="bSkill">Topic</label><select id="bSkill" style="font:inherit;padding:9px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);max-width:100%">
+     <option value="">Any topic on my boards</option>${ORDER.filter(inScope).map(id=>`<option value="${id}" ${id===boardSkill?"selected":""}>${SKILL[id].course} · ${esc(SKILL[id].name)}</option>`).join("")}</select></div>`;
+  if(boardQ){
+    h+=`<div class="grade"><span class="label">${sk.course} · ${esc(sk.name)}</span><div class="prompt" style="font-size:21px">${esc(boardQ.prompt)}</div></div>
+    <label class="label" for="bAns">Your answer</label><textarea id="bAns" placeholder="Method first, then the governing equations, then what they mean."></textarea>
+    <div class="row"><button class="btn" id="bGrade">${sampleFn?"Grade my answer":"Show full answer"}</button><button class="btn ghost" id="bNew">New question</button></div>
+    <div id="bOut"></div>`;
+  }
+  h+=`<span class="label" style="margin-top:12px">Board playbook</span><ol class="playbook">${PLAYBOOK.map(([a,b])=>`<li><span><b>${esc(a)}</b> ${esc(b)}</span></li>`).join("")}</ol></section>`;
+  $("#view").innerHTML=h;
+  $("#bSkill").onchange=e=>{boardSkill=e.target.value||null;pickBoard();renderBoard()};
+  if(!boardQ) return;
+  $("#bNew").onclick=()=>{pickBoard();renderBoard()};
+  $("#bGrade").onclick=gradeBoard;
+}
+function showKey(extra=""){
+  $("#bOut").innerHTML=`<div class="grade">${extra}<span class="label">A full answer covers</span><ul class="facts">${boardQ.points.map(p=>`<li>${esc(p)}</li>`).join("")}</ul></div>`;
+}
+let gctl=null;
+async function gradeBoard(){
+  const ans=$("#bAns").value.trim();
+  if(!sampleFn){ showKey(); if(ans.length>40){award(3);save();postLeague();renderTray()} return }
+  if(ans.length<20){toast("Write a few sentences first, the way you would say it.");return}
+  const btn=$("#bGrade"); btn.disabled=true;
+  $("#bOut").innerHTML=`<div class="grade"><span class="thinking">Grading against the board key...</span></div>`;
+  const prompt=`You are grading a PhD qualifying oral exam answer in aerospace engineering (Georgia Tech).
+Question: ${boardQ.prompt}
+Key points a full answer covers:
+${boardQ.points.map((p,i)=>(i+1)+". "+p).join("\n")}
+
+Student's answer:
+"""${ans.slice(0,4000)}"""
+
+Grade it. Reply with only JSON: {"verdict":"solid"|"partial"|"missed","covered":[point numbers covered],"feedback":["1 to 3 short coaching notes"]}.
+Rules for feedback: state only correct facts, in positive form. Never repeat or quote a mistaken statement from the student; instead state the correct version directly. No em dashes. Each note under 30 words. "solid" means every key point is present and correct; "partial" means at least half.`;
+  gctl=new AbortController();
+  try{
+    const r=await sampleFn.json(prompt,{signal:gctl.signal,modelTier:"default",cache:false});
+    const v=["solid","partial","missed"].includes(r.verdict)?r.verdict:"partial";
+    const cov=new Set((r.covered||[]).map(Number));
+    const xp={solid:10,partial:6,missed:3}[v]; award(xp); S.boards.unshift({skill:boardQ.skill,v,d:dayKey()}); S.boards=S.boards.slice(0,40); save(); postLeague(); renderTray();
+    $("#bOut").innerHTML=`<div class="grade"><span class="v ${v}">${{solid:"Solid",partial:"Partial",missed:"Needs another pass"}[v]} · +${xp} XP</span>
+      ${(r.feedback||[]).length?`<ul class="facts">${r.feedback.slice(0,3).map(f=>`<li>${esc(String(f).replace(/\u2014|\u2013/g,", "))}</li>`).join("")}</ul>`:""}
+      <span class="label">Board key</span><ul class="facts">${boardQ.points.map((p,i)=>`<li style="${cov.has(i+1)?"":"font-weight:500"}">${cov.has(i+1)?"":"<span class=\"pill\">Add</span> "}${esc(p)}</li>`).join("")}</ul></div>`;
+  }catch(e){
+    if(e&&["not_granted","sampling_disabled","not_declared","capability_disabled","capability_removed"].includes(e.code)){sampleFn=null;showKey('<p class="note">Grading is off for this view, so here is the full key to self-grade against.</p>');$("#bGrade").textContent="Show full answer"}
+    else if(e&&e.code==="cancelled"){$("#bOut").innerHTML=""}
+    else{showKey(`<p class="note">${e&&e.code==="rate_limited"?"Grading is busy right now. Try again in a minute.":"Grading did not come through. Try again, or self-grade against the key."}</p>`)}
+  }finally{ btn.disabled=false }
+}
+
+/* ---------- League ---------- */
+let LEAGUE=[], names={}, leagueOn=false;
+function renderLeague(){
+  let h=`<section class="panel"><h2>Weekly league</h2><p>Everyone using this page this week, ranked by XP. Resets Monday.</p>`;
+  if(saveMode!=="db") h+=`<div class="empty">The league needs a signed-in view with Contributor access to this page. Your own progress still counts on this device.</div>`;
+  else{
+    const rows=LEAGUE.filter(r=>r.week===weekKey()&&r.xp>0).sort((a,b)=>b.xp-a.xp);
+    if(!rows.some(r=>r.id===uid)) rows.push({id:uid,xp:S.weekXp,streak:liveStreak(),exams:S.exams,me:true});
+    rows.sort((a,b)=>b.xp-a.xp);
+    h+=`<div class="lb">${rows.map((r,i)=>`<div class="lr ${r.id===uid?"me":""}"><span class="pos">${i+1}</span><span class="who">${esc(r.id===uid?"You":(names[r.id]||"Classmate"))}<span class="sub">${(r.exams||[]).join(" + ")}${r.streak?" · "+r.streak+" day streak":""}</span></span><span class="xp">${r.id===uid?S.weekXp:r.xp} XP</span></div>`).join("")}</div>`;
+    if(rows.length<2) h+=`<p class="note">Share this page with your study group (Contributor access) and they appear here as they play.</p>`;
+  }
+  h+=`</section>`;
+  $("#view").innerHTML=h;
+}
+async function resolveNames(){
+  if(!userNS) return; const ids=LEAGUE.map(r=>r.id).filter(id=>id!==uid&&!names[id]); if(!ids.length) return;
+  try{const ps=await userNS.profiles(ids.slice(0,64));for(const id of ids){names[id]=(ps&&ps[id]&&ps[id].name)||""}}catch(e){}
+  if(TAB==="league") renderLeague();
+}
+
+/* ---------- Boot ---------- */
+S = normalize(lsGet());
+render();
+(async()=>{
+  const C=window.claude; if(!C||!C.use) return;
+  C.use("sample").then(s=>{ sampleFn=s; if(TAB==="board") renderBoard() });
+  const [db,user]=await Promise.all([C.use("db"),C.use("user")]);
+  userNS=user;
+  if(!db||!user) return;
+  try{ uid=await user.id() }catch(e){}
+  if(!uid) return;
+  store=db;
+  try{
+    const snap=await store.doc("data/users/"+uid+"/state").get();
+    if(snap.exists){ S=normalize(snap.data()); lsSet() }
+    saveMode="db";
+    if(!snap.exists && lsGet()){ save() }
+  }catch(e){ return }
+  render();
+  store.collection("league").where("week","==",weekKey()).onSnapshot(q=>{
+    LEAGUE=q.docs.map(d=>Object.assign({id:d.id},d.data()));
+    resolveNames(); if(TAB==="league") renderLeague();
+  },()=>{});
+})();
+setInterval(()=>{ if(!L) renderTray() },60e3);
+</script>

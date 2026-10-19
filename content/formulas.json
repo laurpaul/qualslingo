@@ -1,0 +1,1467 @@
+{
+ "formulas": [
+  {
+   "skill": "o1",
+   "name": "Second-order Taylor model",
+   "eq": "f(x + p) ≈ f(x) + ∇f(x)ᵀp + ½ pᵀ∇²f(x) p",
+   "where": "∇f gradient, ∇²f Hessian (symmetric), p step from x",
+   "use": "Local quadratic model behind every optimality condition and every Newton-type step."
+  },
+  {
+   "skill": "o1",
+   "name": "First-order necessary condition",
+   "eq": "∇f(x*) = 0",
+   "where": "x* local minimizer of a smooth f in the interior (unconstrained)",
+   "use": "Every smooth unconstrained local minimizer is a stationary point; solve ∇f = 0 to find the candidates."
+  },
+  {
+   "skill": "o1",
+   "name": "Second-order conditions",
+   "eq": "Necessary: ∇²f(x*) ⪰ 0.  Sufficient: ∇f(x*) = 0 and ∇²f(x*) ≻ 0",
+   "where": "⪰ 0 positive semidefinite, ≻ 0 positive definite, evaluated at the stationary point x*",
+   "use": "A stationary point with a positive definite Hessian is a strict local minimizer."
+  },
+  {
+   "skill": "o1",
+   "name": "Quadratic gradient and minimizer",
+   "eq": "f = ½xᵀHx + bᵀx + c:  ∇f = Hx + b,  ∇²f = H,  x* = −H⁻¹b",
+   "where": "H symmetric n×n matrix, b vector, c scalar; x* is the unique minimizer when H ≻ 0",
+   "use": "Model problem for line search, CG and Newton: the gradient is the residual Ax − b."
+  },
+  {
+   "skill": "o1",
+   "name": "Eigenvalue classification",
+   "eq": "Hv = λv:  all λᵢ > 0 min,  all λᵢ < 0 max,  mixed signs saddle",
+   "where": "H Hessian at the stationary point, λᵢ its eigenvalues, v eigenvectors (principal curvature directions)",
+   "use": "Classifies a critical point from the curvature along each Hessian eigenvector."
+  },
+  {
+   "skill": "o1",
+   "name": "Two-variable test",
+   "eq": "D = f_xx f_yy − f_xy²:  D > 0, f_xx > 0 min;  D > 0, f_xx < 0 max;  D < 0 saddle",
+   "where": "Second partial derivatives evaluated at a point where f_x = f_y = 0; D = det H",
+   "use": "Fast board check for 2D critical points; D = 0 calls for higher-order terms."
+  },
+  {
+   "skill": "o2",
+   "name": "Descent step",
+   "eq": "x_{k+1} = x_k + α_k p_k,  with ∇f_kᵀp_k < 0",
+   "where": "α_k > 0 step length, p_k search direction, ∇f_k gradient at x_k",
+   "use": "A direction with negative directional derivative guarantees f decreases for small enough α."
+  },
+  {
+   "skill": "o2",
+   "name": "Sufficient decrease (Armijo)",
+   "eq": "f(x_k + αp_k) ≤ f(x_k) + c₁ α ∇f_kᵀp_k",
+   "where": "0 < c₁ < 1, typically c₁ = 10⁻⁴",
+   "use": "Requires the actual decrease to be a fraction of the linear prediction, which rules out overly long steps."
+  },
+  {
+   "skill": "o2",
+   "name": "Curvature condition",
+   "eq": "∇f(x_k + αp_k)ᵀp_k ≥ c₂ ∇f_kᵀp_k",
+   "where": "c₁ < c₂ < 1; typically c₂ = 0.9 for Newton and quasi-Newton, 0.1 for nonlinear CG",
+   "use": "Requires the slope to have flattened enough, which rules out overly short steps and gives yᵀs > 0."
+  },
+  {
+   "skill": "o2",
+   "name": "Strong Wolfe condition",
+   "eq": "|∇f(x_k + αp_k)ᵀp_k| ≤ c₂ |∇f_kᵀp_k|  (with Armijo)",
+   "where": "Same c₁ < c₂ < 1 as the weak Wolfe conditions",
+   "use": "Keeps the accepted point near a stationary point of the 1D function φ(α) = f(x_k + αp_k)."
+  },
+  {
+   "skill": "o2",
+   "name": "Exact step on a quadratic",
+   "eq": "α* = −∇f_kᵀp_k / (p_kᵀAp_k)",
+   "where": "f = ½xᵀAx − bᵀx with A ≻ 0, ∇f_k = Ax_k − b",
+   "use": "Closed-form minimizer of f along p_k; for steepest descent it becomes gᵀg/(gᵀAg)."
+  },
+  {
+   "skill": "o2",
+   "name": "Steepest descent rate",
+   "eq": "‖x_{k+1} − x*‖_A ≤ ((κ − 1)/(κ + 1)) ‖x_k − x*‖_A",
+   "where": "Exact line search on a convex quadratic, κ = λ_max/λ_min of A, ‖e‖_A² = eᵀAe",
+   "use": "Linear convergence that slows sharply as conditioning worsens, the zigzag picture on elongated contours."
+  },
+  {
+   "skill": "o3",
+   "name": "Newton step",
+   "eq": "∇²f_k p_k = −∇f_k",
+   "where": "∇²f_k Hessian, ∇f_k gradient at x_k; p_k minimizes the local quadratic model when ∇²f_k ≻ 0",
+   "use": "Uses exact curvature and converges quadratically near a minimizer with a positive definite Hessian."
+  },
+  {
+   "skill": "o3",
+   "name": "Quadratic convergence",
+   "eq": "‖x_{k+1} − x*‖ ≤ C ‖x_k − x*‖²",
+   "where": "C constant tied to the Hessian Lipschitz constant and ‖∇²f(x*)⁻¹‖, valid near x*",
+   "use": "The number of correct digits roughly doubles per Newton iteration close to the solution."
+  },
+  {
+   "skill": "o3",
+   "name": "Secant condition",
+   "eq": "B_{k+1} s_k = y_k",
+   "where": "s_k = x_{k+1} − x_k, y_k = ∇f_{k+1} − ∇f_k, B_{k+1} Hessian approximation",
+   "use": "Makes the quasi-Newton model reproduce the observed gradient change along the last step."
+  },
+  {
+   "skill": "o3",
+   "name": "BFGS update",
+   "eq": "B₊ = B − (B s sᵀB)/(sᵀB s) + (y yᵀ)/(yᵀs)",
+   "where": "s and y as in the secant condition; B₊ stays symmetric positive definite when yᵀs > 0",
+   "use": "Rank-two update giving superlinear convergence from gradients alone."
+  },
+  {
+   "skill": "o3",
+   "name": "Inverse BFGS update",
+   "eq": "H₊ = (I − ρ s yᵀ) H (I − ρ y sᵀ) + ρ s sᵀ,  ρ = 1/(yᵀs)",
+   "where": "H ≈ ∇²f⁻¹, so the step is p = −H∇f at O(n²) cost with no linear solve",
+   "use": "Form used in practice and in the L-BFGS two-loop recursion."
+  },
+  {
+   "skill": "o3",
+   "name": "Linear CG iteration",
+   "eq": "α = rᵀr/(pᵀAp),  x₊ = x + αp,  r₊ = r + αAp,  β = r₊ᵀr₊/(rᵀr),  p₊ = −r₊ + βp",
+   "where": "r = Ax − b residual (gradient), A ≻ 0 symmetric, p₀ = −r₀; directions satisfy p_iᵀAp_j = 0 for i ≠ j",
+   "use": "Reaches the exact minimizer in at most n steps, with error bound driven by (√κ − 1)/(√κ + 1)."
+  },
+  {
+   "skill": "o4",
+   "name": "Trust-region subproblem",
+   "eq": "min_p m_k(p) = f_k + g_kᵀp + ½ pᵀB_k p   s.t. ‖p‖ ≤ Δ_k",
+   "where": "g_k gradient, B_k Hessian or approximation (indefinite allowed), Δ_k trust radius",
+   "use": "Chooses step length and direction together by trusting the quadratic model only inside a ball."
+  },
+  {
+   "skill": "o4",
+   "name": "Agreement ratio",
+   "eq": "ρ_k = (f(x_k) − f(x_k + p_k)) / (m_k(0) − m_k(p_k))",
+   "where": "Numerator actual reduction, denominator predicted reduction from the model",
+   "use": "Measures how well the model predicted the step and drives acceptance and radius updates."
+  },
+  {
+   "skill": "o4",
+   "name": "Radius update rule",
+   "eq": "ρ < ¼: Δ ← ¼Δ;  ρ > ¾ and ‖p‖ = Δ: Δ ← min(2Δ, Δ_max);  accept p if ρ > η",
+   "where": "η ∈ [0, ¼), typical Nocedal and Wright constants",
+   "use": "Shrinks the region after poor predictions and expands it after good boundary steps."
+  },
+  {
+   "skill": "o4",
+   "name": "Exact solution conditions",
+   "eq": "(B + λI)p* = −g,  λ(Δ − ‖p*‖) = 0,  B + λI ⪰ 0,  λ ≥ 0",
+   "where": "λ scalar multiplier on the trust-region constraint, ‖p*‖ ≤ Δ",
+   "use": "Characterizes the global subproblem solution; λ acts like a Levenberg-Marquardt shift."
+  },
+  {
+   "skill": "o4",
+   "name": "Cauchy point",
+   "eq": "p_C = −τ (Δ/‖g‖) g,  τ = 1 if gᵀBg ≤ 0, else min(‖g‖³/(Δ gᵀBg), 1)",
+   "where": "Minimizer of the model along −g inside the trust region",
+   "use": "Cheap step whose decrease m(0) − m(p_C) ≥ ½‖g‖ min(Δ, ‖g‖/‖B‖) secures global convergence."
+  },
+  {
+   "skill": "o4",
+   "name": "Dogleg path",
+   "eq": "p(τ) = τ p_U for 0 ≤ τ ≤ 1;  p_U + (τ − 1)(p_B − p_U) for 1 ≤ τ ≤ 2",
+   "where": "p_U = −(gᵀg/gᵀBg) g steepest descent minimizer, p_B = −B⁻¹g full Newton step, B ≻ 0",
+   "use": "Approximates the subproblem by moving along a two-segment path and stopping at the boundary."
+  },
+  {
+   "skill": "o5",
+   "name": "Lagrangian",
+   "eq": "L(x, λ, μ) = f(x) + λᵀh(x) + μᵀg(x)",
+   "where": "Problem: min f s.t. h(x) = 0, g(x) ≤ 0; λ equality multipliers, μ inequality multipliers",
+   "use": "Folds the constraints into one function whose stationarity gives the KKT conditions."
+  },
+  {
+   "skill": "o5",
+   "name": "KKT stationarity",
+   "eq": "∇f(x*) + Σ λⱼ∇hⱼ(x*) + Σ μᵢ∇gᵢ(x*) = 0",
+   "where": "Sign convention g ≤ 0 with L = f + λᵀh + μᵀg; requires a constraint qualification such as LICQ",
+   "use": "At the optimum −∇f is a combination of the active constraint gradients."
+  },
+  {
+   "skill": "o5",
+   "name": "Feasibility, dual sign, complementarity",
+   "eq": "h(x*) = 0,  g(x*) ≤ 0,  μ ≥ 0,  μᵢ gᵢ(x*) = 0",
+   "where": "Convention g ≤ 0 and minimization; λ free in sign",
+   "use": "Each inactive constraint carries μᵢ = 0, and each active one pushes back with μᵢ ≥ 0."
+  },
+  {
+   "skill": "o5",
+   "name": "Multiplier sensitivity",
+   "eq": "df*/dc = −μ   for the constraint g(x) ≤ c",
+   "where": "Convention L = f + μ(g − c), g ≤ c, minimization; f* optimal objective",
+   "use": "The multiplier is the shadow price: relaxing c by Δc lowers f* by about μΔc."
+  },
+  {
+   "skill": "o5",
+   "name": "Second-order sufficient condition",
+   "eq": "dᵀ∇²ₓₓL(x*, λ*, μ*) d > 0  for all d ≠ 0 with ∇hᵀd = 0, ∇g_Aᵀd = 0",
+   "where": "g_A active inequality constraints, assuming strict complementarity (μᵢ > 0 on each); d lies in the null space of the active constraint Jacobian",
+   "use": "Curvature of the Lagrangian along the constraint surface confirms a strict local minimizer."
+  },
+  {
+   "skill": "o5",
+   "name": "Equality QP KKT system",
+   "eq": "[[Q, Aᵀ],[A, 0]] [x; λ] = [−c; b]",
+   "where": "min ½xᵀQx + cᵀx s.t. Ax = b, with L = f + λᵀ(Ax − b)",
+   "use": "One symmetric indefinite linear solve gives both the optimal point and its multipliers."
+  },
+  {
+   "skill": "o6",
+   "name": "Quadratic penalty",
+   "eq": "φ(x; μ) = f(x) + (μ/2) Σ hⱼ(x)² + (μ/2) Σ max(0, gᵢ(x))²",
+   "where": "μ > 0 penalty parameter driven to ∞; convention g ≤ 0",
+   "use": "Approaches x* from the infeasible side as μ grows, with Hessian conditioning growing like μ."
+  },
+  {
+   "skill": "o6",
+   "name": "Log barrier",
+   "eq": "φ(x; μ) = f(x) − μ Σ ln(−gᵢ(x)),  μ → 0⁺",
+   "where": "Convention g ≤ 0; defined on the strict interior g < 0; multiplier estimate μᵢ ≈ −μ/gᵢ",
+   "use": "Follows the central path of interior minimizers x*(μ) to the constrained optimum."
+  },
+  {
+   "skill": "o6",
+   "name": "Augmented Lagrangian",
+   "eq": "L_A = f + λᵀh + (μ/2)‖h‖²,   λ_{k+1} = λ_k + μ h(x_k)",
+   "where": "Equality constraints h = 0, sign convention L = f + λᵀh",
+   "use": "The multiplier update lets a moderate, finite μ reach x*, avoiding penalty ill-conditioning."
+  },
+  {
+   "skill": "o6",
+   "name": "Exact ℓ1 penalty",
+   "eq": "φ₁(x; ρ) = f(x) + ρ (Σ|hⱼ(x)| + Σ max(0, gᵢ(x))),   exact for ρ > ‖λ*‖∞",
+   "where": "‖λ*‖∞ largest multiplier magnitude at x*; φ₁ is nonsmooth at the constraint boundary",
+   "use": "Recovers x* with one finite ρ and serves as the merit function in SQP line searches."
+  },
+  {
+   "skill": "o6",
+   "name": "SQP subproblem",
+   "eq": "min_p ∇fᵀp + ½pᵀ∇²ₓₓL p  s.t.  h + ∇hᵀp = 0,  g + ∇gᵀp ≤ 0",
+   "where": "All quantities evaluated at x_k; ∇²ₓₓL exact or BFGS approximation of the Lagrangian Hessian",
+   "use": "Each iteration solves a QP built from a quadratic model of L and linearized constraints."
+  },
+  {
+   "skill": "o6",
+   "name": "SQP Newton-KKT system",
+   "eq": "[[∇²ₓₓL, Aᵀ],[A, 0]] [p; λ₊] = [−∇f; −h]",
+   "where": "A = ∂h/∂x Jacobian, convention L = f + λᵀh, equality-constrained case",
+   "use": "SQP equals Newton's method on the KKT equations, so it converges quadratically near x*."
+  },
+  {
+   "skill": "o7",
+   "name": "Quadratic response surface",
+   "eq": "ŷ = β₀ + Σ βᵢxᵢ + Σ_{i≤j} βᵢⱼ xᵢxⱼ",
+   "where": "k design variables, (k + 1)(k + 2)/2 coefficients, so at least that many samples",
+   "use": "Workhorse polynomial surrogate, linear in its coefficients and fit by least squares."
+  },
+  {
+   "skill": "o7",
+   "name": "Least squares normal equations",
+   "eq": "ΦᵀΦ w = Φᵀy",
+   "where": "Φ_ij = φⱼ(xᵢ) basis matrix (n samples × m terms), w coefficients, y sampled responses",
+   "use": "Minimizes ‖Φw − y‖²; solve with QR or SVD on Φ for numerical stability."
+  },
+  {
+   "skill": "o7",
+   "name": "Ridge regularization",
+   "eq": "(ΦᵀΦ + λI) w = Φᵀy",
+   "where": "λ > 0 regularization weight on ‖w‖²",
+   "use": "Shrinks the coefficients and stabilizes an ill-conditioned or underdetermined fit."
+  },
+  {
+   "skill": "o7",
+   "name": "Radial basis function interpolant",
+   "eq": "ŷ(x) = Σ wᵢ ψ(‖x − xᵢ‖),  Ψw = y,  Gaussian ψ(r) = exp(−(εr)²)",
+   "where": "Ψ_ij = ψ(‖xᵢ − xⱼ‖), ε shape parameter, xᵢ sample sites",
+   "use": "Interpolates scattered samples exactly in any dimension with one linear solve."
+  },
+  {
+   "skill": "o7",
+   "name": "Coefficient of determination",
+   "eq": "R² = 1 − SS_res/SS_tot,  SS_res = Σ(yᵢ − ŷᵢ)²,  SS_tot = Σ(yᵢ − ȳ)²",
+   "where": "ȳ sample mean; adjusted R² = 1 − (1 − R²)(n − 1)/(n − p − 1) with p regressors",
+   "use": "Fraction of response variance the fit explains; judge predictive accuracy by cross-validation."
+  },
+  {
+   "skill": "o7",
+   "name": "Expected improvement",
+   "eq": "EI = (f_min − ŷ) Φ(z) + s φ(z),   z = (f_min − ŷ)/s",
+   "where": "ŷ and s kriging mean and standard deviation at x, Φ and φ standard normal CDF and PDF",
+   "use": "Infill criterion balancing exploitation (low ŷ) and exploration (high s) in Bayesian optimization."
+  },
+  {
+   "skill": "o8",
+   "name": "Convex function definition",
+   "eq": "f(θx + (1 − θ)y) ≤ θ f(x) + (1 − θ) f(y),   θ ∈ [0, 1]",
+   "where": "x, y in a convex domain",
+   "use": "Chord lies on or above the graph; for a convex problem every local minimizer is global."
+  },
+  {
+   "skill": "o8",
+   "name": "First-order convexity",
+   "eq": "f(y) ≥ f(x) + ∇f(x)ᵀ(y − x)  for all x, y",
+   "where": "Differentiable f on a convex set",
+   "use": "Every tangent plane is a global underestimator, so ∇f(x*) = 0 certifies a global minimizer."
+  },
+  {
+   "skill": "o8",
+   "name": "Second-order convexity",
+   "eq": "∇²f(x) ⪰ 0  for all x  (strictly convex if ∇²f ≻ 0)",
+   "where": "Twice differentiable f on an open convex set; ⪰ 0 positive semidefinite",
+   "use": "Quick convexity test: check the Hessian eigenvalues or leading minors."
+  },
+  {
+   "skill": "o8",
+   "name": "Finite differences",
+   "eq": "Forward: (f(x + heᵢ) − f(x))/h + O(h).  Central: (f(x + heᵢ) − f(x − heᵢ))/(2h) + O(h²)",
+   "where": "eᵢ unit vector, h step; forward optimum h ≈ √ε_f, central optimum h ≈ ε_f^(1/3), ε_f function precision",
+   "use": "Simplest gradient route, with step size balancing truncation error against subtractive cancellation."
+  },
+  {
+   "skill": "o8",
+   "name": "Complex step",
+   "eq": "∂f/∂xᵢ ≈ Im[f(x + i h eᵢ)]/h + O(h²)",
+   "where": "i = √−1, h tiny (10⁻²⁰ to 10⁻³⁰), f implemented in complex arithmetic",
+   "use": "Free of subtractive cancellation, so it delivers derivatives to machine precision."
+  },
+  {
+   "skill": "o8",
+   "name": "Adjoint method",
+   "eq": "(∂R/∂u)ᵀ ψ = (∂f/∂u)ᵀ,   df/dx = ∂f/∂x − ψᵀ ∂R/∂x",
+   "where": "R(x, u) = 0 governing residuals, u state, ψ adjoint vector (Martins and Ning convention)",
+   "use": "One linear solve per output gives the full gradient, ideal for many design variables and few functions."
+  },
+  {
+   "skill": "o9",
+   "name": "Pareto dominance",
+   "eq": "x₁ ≺ x₂ ⟺ fᵢ(x₁) ≤ fᵢ(x₂) for all i, and fⱼ(x₁) < fⱼ(x₂) for some j",
+   "where": "Minimization of objectives f₁ … f_m; the Pareto set is the nondominated designs",
+   "use": "Defines the trade-off front from which the decision maker picks a design."
+  },
+  {
+   "skill": "o9",
+   "name": "Weighted sum",
+   "eq": "min Σ wᵢ f̄ᵢ(x),   wᵢ ≥ 0,  Σ wᵢ = 1,   f̄ᵢ = (fᵢ − fᵢ^utopia)/(fᵢ^nadir − fᵢ^utopia)",
+   "where": "f̄ᵢ normalized objectives, utopia from individual minima, nadir from worst Pareto values",
+   "use": "Sweeping the weights traces the convex portions of the Pareto front."
+  },
+  {
+   "skill": "o9",
+   "name": "ε-constraint method",
+   "eq": "min f₁(x)  s.t.  fᵢ(x) ≤ εᵢ,  i = 2 … m",
+   "where": "εᵢ bounds swept across the range of each secondary objective",
+   "use": "Traces the whole Pareto front, including nonconvex portions."
+  },
+  {
+   "skill": "o9",
+   "name": "Particle swarm update",
+   "eq": "v₊ = w v + c₁r₁(p_best − x) + c₂r₂(g_best − x),   x₊ = x + v₊",
+   "where": "w inertia, c₁ cognitive and c₂ social coefficients, r₁, r₂ uniform on [0, 1]",
+   "use": "Each particle blends momentum, its own best point and the swarm best to explore globally."
+  },
+  {
+   "skill": "o9",
+   "name": "Simulated annealing acceptance",
+   "eq": "P(accept) = 1 if Δf ≤ 0,  exp(−Δf/T) if Δf > 0",
+   "where": "Δf = f_new − f_current, T temperature reduced by a cooling schedule such as T_{k+1} = 0.9T_k",
+   "use": "Accepting some uphill moves at high T lets the search escape local minima."
+  },
+  {
+   "skill": "o9",
+   "name": "Nelder-Mead reflection",
+   "eq": "x_r = x_c + α(x_c − x_w),  α = 1;  expansion α = 2, contraction α = ±½",
+   "where": "x_w worst vertex, x_c centroid of the other n vertices of the n + 1 point simplex",
+   "use": "Moves the simplex away from its worst point using function values only."
+  },
+  {
+   "skill": "o10",
+   "name": "MDF architecture",
+   "eq": "min f(x, y(x))  s.t.  g(x, y(x)) ≤ 0,  y from a full MDA at every x",
+   "where": "y coupling variables solved by Gauss-Seidel, Jacobi or Newton iteration",
+   "use": "Every optimizer iterate is multidisciplinary feasible, with the fewest optimization variables."
+  },
+  {
+   "skill": "o10",
+   "name": "IDF architecture",
+   "eq": "min f(x, yᵗ)  s.t.  g ≤ 0,  yᵗᵢ − Yᵢ(x, yᵗ_{j≠i}) = 0",
+   "where": "yᵗ coupling targets added as design variables, Yᵢ discipline i output",
+   "use": "Decouples the disciplines so they run in parallel, with consistency reached at the optimum."
+  },
+  {
+   "skill": "o10",
+   "name": "Coupled Newton solve",
+   "eq": "[[∂R₁/∂u₁, ∂R₁/∂u₂],[∂R₂/∂u₁, ∂R₂/∂u₂]] [Δu₁; Δu₂] = −[R₁; R₂]",
+   "where": "Rᵢ discipline residuals, uᵢ discipline states; off-diagonal blocks are the coupling",
+   "use": "Converges the MDA quadratically, and the same Jacobian gives coupled derivatives."
+  },
+  {
+   "skill": "o10",
+   "name": "Factorial run counts",
+   "eq": "Full factorial N = Lᵏ;  two-level fractional N = 2^(k − p)",
+   "where": "L levels, k factors, p generators; resolution sets which effects alias",
+   "use": "Sizes a screening or response-surface experiment before any runs are made."
+  },
+  {
+   "skill": "o10",
+   "name": "Central composite design",
+   "eq": "N = 2ᵏ + 2k + n_c,  axial distance α = (2ᵏ)^(1/4) for rotatability",
+   "where": "2ᵏ factorial corners, 2k axial (star) points, n_c center points",
+   "use": "Supplies enough points to fit a full quadratic response surface."
+  },
+  {
+   "skill": "o10",
+   "name": "Main effect",
+   "eq": "E_A = ȳ(A+) − ȳ(A−)",
+   "where": "ȳ(A±) mean response over runs with factor A at its high or low level",
+   "use": "Average change in response when one factor moves from low to high."
+  },
+  {
+   "skill": "f1",
+   "name": "Master equation",
+   "eq": "T_SL/W_TO = (β/α){(q/(βW_TO/S))[K₁(nβW_TO/(qS))² + K₂(nβW_TO/(qS)) + C_D0 + C_DR] + P_s/V}",
+   "where": "α thrust lapse T/T_SL, β = W/W_TO, q dynamic pressure, n load factor, C_DR extra drag, P_s = d/dt(h + V²/2g)",
+   "use": "Mattingly energy balance turning every mission requirement into a T/W versus W/S constraint curve."
+  },
+  {
+   "skill": "f1",
+   "name": "Simplified master equation",
+   "eq": "T_SL/W_TO = (β/α)[qC_D0/(βW_TO/S) + K₁n²β(W_TO/S)/q + (1/V)dh/dt + (1/g)dV/dt]",
+   "where": "K₂ = 0 and C_DR = 0 in the full form; K₁ = 1/(πeAR)",
+   "use": "Parasite term falls with W/S, induced term grows with W/S, and the climb and acceleration terms add on top."
+  },
+  {
+   "skill": "f1",
+   "name": "Stall and landing constraint",
+   "eq": "W_TO/S ≤ ρV_stall²C_Lmax/(2β)",
+   "where": "β weight fraction at the condition, ρ density, C_Lmax for the relevant flap setting",
+   "use": "A vertical line on the constraint diagram, with the feasible region to its left."
+  },
+  {
+   "skill": "f1",
+   "name": "Takeoff constraint",
+   "eq": "T_SL/W_TO = (β²/α) k_TO² (W_TO/S)/(s_TO ρ g C_Lmax)",
+   "where": "k_TO = V_TO/V_stall (about 1.2), s_TO ground roll length, simple form with drag and friction neglected",
+   "use": "Straight line through the origin whose slope falls with longer field length, higher ρ and higher C_Lmax."
+  },
+  {
+   "skill": "f1",
+   "name": "Constant-speed bucket",
+   "eq": "Min at βW_TO/S = (q/n)√(C_D0/K₁),  where T_SL/W_TO = (β/α) 2n √(K₁C_D0)",
+   "where": "From the simplified master equation at constant altitude and speed",
+   "use": "The minimum T/W of a cruise or turn constraint sits where parasite and induced terms are equal (max L/D)."
+  },
+  {
+   "skill": "f2",
+   "name": "Breguet range (jet)",
+   "eq": "R = (V/c_t)(L/D) ln(W_i/W_f)",
+   "where": "c_t thrust-specific fuel consumption (1/s, fuel weight flow per thrust), constant V, L/D, c_t",
+   "use": "Range grows with V(L/D)/c_t, maximized at √C_L/C_D max where C_D0 = 3KC_L²."
+  },
+  {
+   "skill": "f2",
+   "name": "Breguet range (propeller)",
+   "eq": "R = (η_p/c_p)(L/D) ln(W_i/W_f)",
+   "where": "η_p propeller efficiency, c_p power-specific fuel consumption in weight per energy (1/length)",
+   "use": "Prop range is maximized at (L/D)_max, where C_D0 = KC_L²."
+  },
+  {
+   "skill": "f2",
+   "name": "Jet endurance",
+   "eq": "E = (1/c_t)(L/D) ln(W_i/W_f)",
+   "where": "c_t thrust-specific fuel consumption (1/s), constant L/D and c_t",
+   "use": "Jet endurance depends on L/D alone, so it peaks at (L/D)_max."
+  },
+  {
+   "skill": "f2",
+   "name": "Maximum lift-to-drag",
+   "eq": "C_L* = √(C_D0/K),   (L/D)_max = 1/(2√(KC_D0))",
+   "where": "Parabolic polar C_D = C_D0 + KC_L², K = 1/(πeAR)",
+   "use": "At C_L* induced drag equals parasite drag, the minimum drag condition."
+  },
+  {
+   "skill": "f2",
+   "name": "Rate of climb",
+   "eq": "R/C = V sin γ = (P_A − P_R)/W = (T − D)V/W",
+   "where": "P_A = TV power available, P_R = DV power required, steady climb",
+   "use": "Excess power per weight sets climb rate; ceilings occur where its maximum reaches 100 ft/min (service) and 0 (absolute)."
+  },
+  {
+   "skill": "f2",
+   "name": "Takeoff ground roll",
+   "eq": "s_LO ≈ 1.44 W²/(g ρ S C_Lmax T)",
+   "where": "V_LO = 1.2V_stall, T average thrust, drag and rolling friction neglected (Anderson)",
+   "use": "Ground roll scales with W/S and inversely with ρ, C_Lmax and T/W."
+  },
+  {
+   "skill": "f3",
+   "name": "Stall boundary",
+   "eq": "n = ρ₀V_e² S C_Lmax/(2W)",
+   "where": "V_e equivalent airspeed, ρ₀ sea-level density; use C_L,neg for the negative side",
+   "use": "Parabolic left edge of the maneuver envelope, the most load the wing can produce at each speed."
+  },
+  {
+   "skill": "f3",
+   "name": "Equivalent airspeed",
+   "eq": "V_e = V√(ρ/ρ₀) = V√σ",
+   "where": "V true airspeed, σ = ρ/ρ₀ density ratio",
+   "use": "Plotting in EAS gives one envelope for all altitudes, since q = ½ρ₀V_e²."
+  },
+  {
+   "skill": "f3",
+   "name": "Maneuvering (corner) speed",
+   "eq": "V_A = V_S1 √n_max",
+   "where": "V_S1 1 g stall speed, n_max positive limit load factor",
+   "use": "Where the stall curve meets the limit load line, the speed for maximum instantaneous turn rate."
+  },
+  {
+   "skill": "f3",
+   "name": "Gust load factor",
+   "eq": "Δn = ρ₀ U_de V_e a K_g/(2W/S),   K_g = 0.88μ_g/(5.3 + μ_g),  μ_g = 2(W/S)/(ρ c̄ a g)",
+   "where": "U_de derived gust velocity (EAS), a lift slope per rad, K_g gust alleviation factor, c̄ mean chord",
+   "use": "Gust lines radiate from n = 1 at zero speed with slope rising with a and falling with W/S."
+  },
+  {
+   "skill": "f3",
+   "name": "FAR 25 limit load factors",
+   "eq": "n_max = 2.1 + 24000/(W + 10000), bounded 2.5 ≤ n_max ≤ 3.8;  n_min = −1.0",
+   "where": "W design takeoff weight in lb",
+   "use": "Sets the horizontal limit lines of a transport category maneuver envelope."
+  },
+  {
+   "skill": "f3",
+   "name": "Ultimate load",
+   "eq": "n_ult = 1.5 n_limit",
+   "where": "1.5 factor of safety on limit load (FAR 23 and 25)",
+   "use": "Structure carries limit load with no permanent deformation and ultimate load for at least 3 s."
+  },
+  {
+   "skill": "f4",
+   "name": "Uninstalled thrust",
+   "eq": "F = ṁ_e V_e − ṁ₀V₀ + (p_e − p₀)A_e  ≈  ṁ(V_e − V₀) + (p_e − p₀)A_e",
+   "where": "ṁ₀ air mass flow, ṁ_e = ṁ₀ + ṁ_f exit flow, V₀ flight speed, p_e, A_e nozzle exit pressure and area",
+   "use": "Momentum flux change plus pressure thrust; ṁ₀V₀ is the ram drag."
+  },
+  {
+   "skill": "f4",
+   "name": "Propulsive efficiency",
+   "eq": "η_p = 2/(1 + V_e/V₀)",
+   "where": "Single stream, ṁ_f ≪ ṁ, perfectly expanded nozzle",
+   "use": "Large mass flow at small velocity increment gives high η_p, the case for high bypass ratio."
+  },
+  {
+   "skill": "f4",
+   "name": "Ideal Brayton thermal efficiency",
+   "eq": "η_th = 1 − 1/(τ_r τ_c),  τ_r = 1 + ((γ − 1)/2)M₀²,  τ_c = π_c^((γ−1)/γ)",
+   "where": "τ_r ram temperature ratio, π_c compressor pressure ratio, calorically perfect gas",
+   "use": "Thermal efficiency rises with overall pressure ratio, including ram compression at high Mach."
+  },
+  {
+   "skill": "f4",
+   "name": "Overall efficiency and TSFC",
+   "eq": "η_o = η_th η_p = F V₀/(ṁ_f h_PR),   TSFC = ṁ_f/F",
+   "where": "h_PR fuel heating value, ṁ_f fuel mass flow",
+   "use": "Links cycle and propulsive efficiencies to fuel burn: TSFC = V₀/(η_o h_PR)."
+  },
+  {
+   "skill": "f4",
+   "name": "Component isentropic efficiency",
+   "eq": "η_c = (T_t3s − T_t2)/(T_t3 − T_t2),   η_t = (T_t4 − T_t5)/(T_t4 − T_t5s)",
+   "where": "s subscript isentropic end state at the same exit pressure, T_t3s/T_t2 = π_c^((γ−1)/γ)",
+   "use": "Actual compressors need more work and actual turbines deliver less, shown as lines slanting right on T-s."
+  },
+  {
+   "skill": "f4",
+   "name": "Stagnation relations",
+   "eq": "T_t/T = 1 + ((γ − 1)/2)M²,   p_t/p = (T_t/T)^(γ/(γ−1))",
+   "where": "Isentropic, calorically perfect gas; T_t, p_t stagnation temperature and pressure",
+   "use": "Converts static conditions to total conditions at each engine station."
+  },
+  {
+   "skill": "f5",
+   "name": "Kutta-Joukowski theorem",
+   "eq": "L' = ρ∞ V∞ Γ",
+   "where": "L' lift per unit span, Γ = −∮V·ds with the line integral taken counterclockwise (Anderson), so clockwise circulation gives positive lift",
+   "use": "Ties two-dimensional lift directly to circulation set by the Kutta condition."
+  },
+  {
+   "skill": "f5",
+   "name": "Thin airfoil theory",
+   "eq": "c_l = 2π(α − α_L0),   c_m,c/4 constant,  x_ac = c/4",
+   "where": "α_L0 zero-lift angle (negative for positive camber), α in radians",
+   "use": "Lift slope 2π per radian and aerodynamic center at the quarter chord for thin airfoils."
+  },
+  {
+   "skill": "f5",
+   "name": "Induced drag",
+   "eq": "C_Di = C_L²/(π e AR),   α_i = C_L/(πAR) for elliptic loading",
+   "where": "e span efficiency (1 for elliptic lift distribution), AR = b²/S",
+   "use": "Lifting line result: induced drag falls with aspect ratio and rises with C_L²."
+  },
+  {
+   "skill": "f5",
+   "name": "Finite wing lift slope",
+   "eq": "a = a₀/(1 + a₀/(π e₁ AR))",
+   "where": "a₀ section lift slope per rad, e₁ span efficiency factor for lift slope",
+   "use": "A finite wing has a lower lift slope than its airfoil because of downwash."
+  },
+  {
+   "skill": "f5",
+   "name": "Prandtl-Glauert correction",
+   "eq": "C_p = C_p,0/√(1 − M∞²)",
+   "where": "C_p,0 incompressible pressure coefficient, subsonic linearized flow, M∞ < about 0.7",
+   "use": "Compressibility amplifies pressure coefficients and lift slope by 1/√(1 − M²)."
+  },
+  {
+   "skill": "f5",
+   "name": "Sweep and normal Mach",
+   "eq": "M_n = M∞ cos Λ",
+   "where": "Λ sweep angle of the isobars or quarter chord line (simple sweep theory)",
+   "use": "Sweep lowers the Mach number the section feels, raising the drag-divergence Mach."
+  },
+  {
+   "skill": "f6",
+   "name": "Momentum theory hover",
+   "eq": "T = 2ρA v_i²,   v_i = √(T/(2ρA)),   far wake velocity w = 2v_i",
+   "where": "A rotor disk area, v_i induced velocity at the disk, ρ density",
+   "use": "Actuator disk result linking thrust to induced flow through the rotor."
+  },
+  {
+   "skill": "f6",
+   "name": "Ideal hover power",
+   "eq": "P_ideal = T v_i = T^(3/2)/√(2ρA)",
+   "where": "T thrust, disk loading T/A",
+   "use": "Lower disk loading means less power per thrust, and thin air demands a proportionally larger ρA."
+  },
+  {
+   "skill": "f6",
+   "name": "Figure of merit",
+   "eq": "FM = P_ideal/P_actual = T^(3/2)/(√(2ρA) P)",
+   "where": "P actual shaft power in hover",
+   "use": "Hover efficiency of a rotor; good rotors reach about 0.7 to 0.8."
+  },
+  {
+   "skill": "f6",
+   "name": "Thrust coefficient",
+   "eq": "C_T = T/(ρA(ΩR)²),   C_T = (σ a/2)(θ₀/3 − λ/2)",
+   "where": "Ω rotor speed, R radius, σ solidity, a lift slope, θ₀ collective, λ inflow ratio; untwisted, uniform inflow",
+   "use": "Blade element momentum link from collective pitch and tip speed to thrust."
+  },
+  {
+   "skill": "f6",
+   "name": "Advance ratio and tip speeds",
+   "eq": "μ = V/(ΩR),   advancing tip ΩR + V,  retreating tip ΩR − V",
+   "where": "V forward speed; ψ = 90° advancing side, ψ = 270° retreating side",
+   "use": "Advancing tip Mach and retreating blade stall bound helicopter forward speed."
+  },
+  {
+   "skill": "f6",
+   "name": "Induced velocity in fast forward flight",
+   "eq": "v_i = T/(2ρA√(V² + v_i²)) ≈ T/(2ρAV)",
+   "where": "Glauert high-speed approximation, V ≫ v_i",
+   "use": "Induced power falls with forward speed, giving the power bucket at moderate speed."
+  },
+  {
+   "skill": "f7",
+   "name": "Takeoff weight sizing",
+   "eq": "W₀ = (W_crew + W_payload)/(1 − W_f/W₀ − W_e/W₀)",
+   "where": "W_f/W₀ fuel fraction, W_e/W₀ empty weight fraction (a function of W₀)",
+   "use": "Solved by iteration on W₀, the core of Raymer conceptual sizing."
+  },
+  {
+   "skill": "f7",
+   "name": "Empty weight fraction",
+   "eq": "W_e/W₀ = A W₀^C K_vs",
+   "where": "A, C statistical constants per aircraft class (C small and negative), K_vs = 1.04 variable sweep, else 1.00",
+   "use": "Historical trend for structure and systems weight that closes the sizing loop."
+  },
+  {
+   "skill": "f7",
+   "name": "Fuel fraction",
+   "eq": "W_f/W₀ = 1.06 (1 − W_x/W₀),   W_x/W₀ = Π(Wᵢ/Wᵢ₋₁)",
+   "where": "Product of mission segment weight fractions; 6% for reserve and trapped fuel",
+   "use": "Converts the mission profile into total fuel required."
+  },
+  {
+   "skill": "f7",
+   "name": "Cruise and loiter fractions",
+   "eq": "Cruise: Wᵢ/Wᵢ₋₁ = exp(−Rc/(V L/D));  loiter: Wᵢ/Wᵢ₋₁ = exp(−Ec/(L/D))",
+   "where": "c TSFC (1/s), R range, E endurance, V speed; Breguet equations inverted",
+   "use": "Mission segment weight fractions for the long segments; short ones use historical values."
+  },
+  {
+   "skill": "f7",
+   "name": "Divergence dynamic pressure",
+   "eq": "q_D = K_θ/(e a S)",
+   "where": "Typical section: K_θ torsional stiffness, e distance from aerodynamic center aft to elastic axis, a lift slope",
+   "use": "Torsional stiffness against aerodynamic twisting moment; moving the elastic axis forward raises q_D."
+  },
+  {
+   "skill": "f7",
+   "name": "Control reversal dynamic pressure",
+   "eq": "q_R = −K_θ C_Lδ/(S c a C_Mδ)",
+   "where": "Typical section: C_Lδ, C_Mδ lift and moment per flap angle (C_Mδ < 0 about the AC), c chord",
+   "use": "At q_R the twist from the control surface cancels its lift increment; above q_R roll authority reverses."
+  },
+  {
+   "skill": "f8",
+   "name": "Tangential equation",
+   "eq": "m dV/dt = T cos(α + ε) − D − W sin γ",
+   "where": "ε thrust angle relative to the zero-lift or body line, γ flight-path angle, point mass",
+   "use": "Thrust component along the path accelerates the aircraft against drag and the weight component."
+  },
+  {
+   "skill": "f8",
+   "name": "Normal equation",
+   "eq": "mV dγ/dt = L + T sin(α + ε) − W cos γ",
+   "where": "Wings-level flight in the vertical plane",
+   "use": "Net normal force supplies the centripetal force that curves the flight path."
+  },
+  {
+   "skill": "f8",
+   "name": "Path kinematics",
+   "eq": "dh/dt = V sin γ,   dx/dt = V cos γ",
+   "where": "h altitude, x horizontal distance, still air",
+   "use": "Converts speed and flight-path angle into climb rate and ground distance."
+  },
+  {
+   "skill": "f8",
+   "name": "Level coordinated turn",
+   "eq": "n = 1/cos φ,   ω = g√(n² − 1)/V,   R = V²/(g√(n² − 1))",
+   "where": "φ bank angle, ω turn rate, R turn radius, √(n² − 1) = tan φ",
+   "use": "Lift tilted by the bank angle supplies the horizontal centripetal force."
+  },
+  {
+   "skill": "f8",
+   "name": "Vertical pull-up",
+   "eq": "n = 1 + V²/(gR)   at the bottom of the loop",
+   "where": "R radius of curvature of the path in the vertical plane",
+   "use": "Lift supports the weight plus the centripetal force mV²/R."
+  },
+  {
+   "skill": "f8",
+   "name": "Energy height and excess power",
+   "eq": "h_e = h + V²/(2g),   P_s = (T − D)V/W = dh/dt + (V/g)dV/dt",
+   "where": "P_s specific excess power with units of velocity",
+   "use": "Excess power can be spent on climb, acceleration, or a blend, the basis of energy maneuverability."
+  },
+  {
+   "skill": "f9",
+   "name": "Parabolic drag polar",
+   "eq": "C_D = C_D0 + K C_L²,   K = 1/(π e AR)",
+   "where": "C_D0 zero-lift drag, e Oswald efficiency factor",
+   "use": "Splits drag into parasite and lift-dependent parts for all performance estimates."
+  },
+  {
+   "skill": "f9",
+   "name": "Component drag buildup",
+   "eq": "C_D0 = Σ(C_f,c FF_c Q_c S_wet,c)/S_ref + C_D,misc + C_D,L&P",
+   "where": "C_f skin friction, FF form factor, Q interference factor, L&P leakage and protuberance",
+   "use": "Raymer method summing each component's friction drag corrected for shape and installation."
+  },
+  {
+   "skill": "f9",
+   "name": "Skin friction coefficients",
+   "eq": "Laminar C_f = 1.328/√Re;  turbulent C_f = 0.455/((log₁₀Re)^2.58 (1 + 0.144M²)^0.65)",
+   "where": "Re = ρVl/μ based on component length, flat plate averages",
+   "use": "Flat-plate friction baseline for the buildup; turbulent flow gives much higher C_f."
+  },
+  {
+   "skill": "f9",
+   "name": "Wing form factor",
+   "eq": "FF = [1 + (0.6/(x/c)_m)(t/c) + 100(t/c)⁴][1.34 M^0.18 (cos Λ_m)^0.28]",
+   "where": "(x/c)_m chordwise position of maximum thickness, Λ_m sweep of the max-thickness line (Raymer)",
+   "use": "Scales flat-plate friction up for thickness supervelocity and pressure drag."
+  },
+  {
+   "skill": "f9",
+   "name": "Flap lift increment",
+   "eq": "ΔC_Lmax = 0.9 ΔC_lmax (S_flapped/S_ref) cos Λ_HL",
+   "where": "ΔC_lmax airfoil increment from the device, S_flapped wing area spanned by the flap, Λ_HL hinge line sweep",
+   "use": "Raymer estimate of wing C_Lmax gain from flaps and slats."
+  },
+  {
+   "skill": "f9",
+   "name": "Stall speed",
+   "eq": "V_stall = √(2W/(ρ S C_Lmax))",
+   "where": "W weight, S wing area, C_Lmax for the configuration",
+   "use": "High-lift devices raise C_Lmax to cut stall, approach and landing speeds."
+  },
+  {
+   "skill": "f10",
+   "name": "Pitch stiffness and static margin",
+   "eq": "C_mα = C_Lα(h − h_n) = −C_Lα·SM,   SM = h_n − h",
+   "where": "h = x_cg/c̄, h_n = x_np/c̄ measured aft from the leading edge of the MAC",
+   "use": "Static stability needs C_mα < 0; trim at positive lift then needs C_m0 > 0."
+  },
+  {
+   "skill": "f10",
+   "name": "Stick-fixed neutral point",
+   "eq": "h_n = h_ac,wb + η V_H (a_t/a)(1 − dε/dα)",
+   "where": "a_t tail lift slope, a wing-body lift slope, η tail efficiency, dε/dα downwash gradient",
+   "use": "CG location for neutral stability; the tail moves it aft of the wing-body AC."
+  },
+  {
+   "skill": "f10",
+   "name": "Tail volume coefficients",
+   "eq": "V_H = l_t S_t/(c̄ S),   V_V = l_v S_v/(b S)",
+   "where": "l_t, l_v tail moment arms (Raymer: wing quarter-chord MAC to tail quarter-chord MAC; stability texts use the CG), S_t, S_v tail areas, c̄ mean chord, b span",
+   "use": "Primary sizing parameters for horizontal and vertical tails from historical values."
+  },
+  {
+   "skill": "f10",
+   "name": "Trim elevator deflection",
+   "eq": "δ_e,trim = −(C_m0 C_Lα + C_mα C_L,trim)/(C_Lα C_mδe − C_mα C_Lδe)",
+   "where": "From C_L = C_Lα α + C_Lδe δ_e and C_m = C_m0 + C_mα α + C_mδe δ_e = 0",
+   "use": "Elevator needed to fly at a given lift coefficient; forward CG demands the most."
+  },
+  {
+   "skill": "f10",
+   "name": "Lateral-directional static stability",
+   "eq": "C_nβ > 0 (weathercock),   C_lβ < 0 (dihedral effect)",
+   "where": "β sideslip angle (nose left of the wind positive), C_n yawing and C_l rolling moment",
+   "use": "Vertical tail yaws the nose into the wind; dihedral, high wing and sweep roll the wings level."
+  },
+  {
+   "skill": "f10",
+   "name": "Phugoid approximation",
+   "eq": "ω_ph ≈ √2 g/V,   T_ph = π√2 V/g",
+   "where": "Lanchester approximation, damping ratio ζ ≈ 1/(√2 L/D)",
+   "use": "Long-period exchange of speed and altitude at nearly constant α."
+  },
+  {
+   "skill": "s1",
+   "name": "Deformation gradient",
+   "eq": "F = ∂x/∂X = I + Grad u,   J = det F > 0,   dv = J dV",
+   "where": "X reference position, x = χ(X, t) current position, u = x − X displacement",
+   "use": "Maps reference line elements to current ones, dx = F dX; J is the local volume ratio."
+  },
+  {
+   "skill": "s1",
+   "name": "Cauchy-Green tensors",
+   "eq": "C = FᵀF,   B = FFᵀ,   λ_N² = N·CN",
+   "where": "C right (referential), B left (spatial), λ_N stretch of a fiber along unit vector N",
+   "use": "Rotation-free measures of deformation; their eigenvalues are the squared principal stretches."
+  },
+  {
+   "skill": "s1",
+   "name": "Green-Lagrange strain",
+   "eq": "E = ½(C − I) = ½(H + Hᵀ + HᵀH),   H = Grad u",
+   "where": "Components E_IJ = ½(u_I,J + u_J,I + u_K,I u_K,J); ds² − dS² = 2dX·E dX",
+   "use": "Exact strain for large deformations and rotations, zero for any rigid motion."
+  },
+  {
+   "skill": "s1",
+   "name": "Small strain and rotation",
+   "eq": "ε = ½(∇u + ∇uᵀ),   ω = ½(∇u − ∇uᵀ)",
+   "where": "Valid for small displacement gradients; ε_ij = ½(u_i,j + u_j,i), γ_12 = 2ε_12",
+   "use": "Linearized strain used in classical elasticity; ω is the infinitesimal rigid rotation."
+  },
+  {
+   "skill": "s1",
+   "name": "Polar decomposition",
+   "eq": "F = RU = VR,   U = √C,   V = √B,   V = RURᵀ",
+   "where": "R proper orthogonal rotation, U and V symmetric positive definite stretch tensors",
+   "use": "Separates any deformation into a pure stretch and a rigid rotation."
+  },
+  {
+   "skill": "s1",
+   "name": "2D strain compatibility",
+   "eq": "∂²ε₁₁/∂x₂² + ∂²ε₂₂/∂x₁² = 2 ∂²ε₁₂/∂x₁∂x₂",
+   "where": "Tensor shear strain ε₁₂ = γ₁₂/2, small strain, simply connected body",
+   "use": "Guarantees the strain field integrates to a single-valued continuous displacement."
+  },
+  {
+   "skill": "s2",
+   "name": "Cauchy's theorem",
+   "eq": "t = σn,   tᵢ = σᵢⱼnⱼ,   σ_n = n·σn",
+   "where": "t traction on a surface with outward unit normal n, σ Cauchy (true) stress",
+   "use": "Stress tensor gives the traction on every plane through a point."
+  },
+  {
+   "skill": "s2",
+   "name": "Equilibrium and symmetry",
+   "eq": "div σ + b = 0 (σᵢⱼ,ⱼ + bᵢ = 0),   σ = σᵀ",
+   "where": "b body force per current volume; symmetry from angular momentum with no body couples",
+   "use": "Pointwise statics that every admissible stress field satisfies, with σn = t on traction boundaries."
+  },
+  {
+   "skill": "s2",
+   "name": "Plane principal stresses",
+   "eq": "σ₁,₂ = (σ_x + σ_y)/2 ± √(((σ_x − σ_y)/2)² + τ_xy²),   tan 2θ_p = 2τ_xy/(σ_x − σ_y)",
+   "where": "Mohr circle center (σ_x + σ_y)/2, radius equal to the square root term",
+   "use": "Gives principal stresses and maximum in-plane shear (the radius) for a 2D stress state."
+  },
+  {
+   "skill": "s2",
+   "name": "Invariants and characteristic equation",
+   "eq": "s³ − I₁s² + I₂s − I₃ = 0,  I₁ = tr σ,  I₂ = ½[(tr σ)² − tr(σ²)],  I₃ = det σ",
+   "where": "Roots s are the principal stresses; I₂ = σ₁σ₂ + σ₂σ₃ + σ₃σ₁",
+   "use": "Frame-independent scalars used in yield criteria and constitutive laws."
+  },
+  {
+   "skill": "s2",
+   "name": "Von Mises stress",
+   "eq": "σ_vm = √(½[(σ₁ − σ₂)² + (σ₂ − σ₃)² + (σ₃ − σ₁)²]) = √(3J₂)",
+   "where": "J₂ = ½ s:s second invariant of the deviatoric stress s = σ − (tr σ/3)I",
+   "use": "Ductile yield occurs when σ_vm reaches the uniaxial yield stress σ_y."
+  },
+  {
+   "skill": "s2",
+   "name": "Objectivity of Cauchy stress",
+   "eq": "σ* = Q σ Qᵀ,   constitutive law: σ̂(QF) = Q σ̂(F) Qᵀ",
+   "where": "Q any proper orthogonal tensor (rigid rotation of the observer or of the deformed body)",
+   "use": "Frame indifference requirement that every admissible constitutive law satisfies."
+  },
+  {
+   "skill": "s3",
+   "name": "Generalized Hooke's law",
+   "eq": "σᵢⱼ = Cᵢⱼₖₗ εₖₗ",
+   "where": "C fourth-order stiffness with minor and major symmetry: 21 constants anisotropic, 9 orthotropic, 2 isotropic",
+   "use": "Linear elastic link between stress and small strain."
+  },
+  {
+   "skill": "s3",
+   "name": "Isotropic stiffness form",
+   "eq": "σ = λ (tr ε) I + 2μ ε",
+   "where": "λ, μ Lamé constants, μ = G shear modulus",
+   "use": "Isotropic Hooke's law with two independent constants."
+  },
+  {
+   "skill": "s3",
+   "name": "Isotropic compliance form",
+   "eq": "ε = ((1 + ν)/E) σ − (ν/E)(tr σ) I",
+   "where": "E Young's modulus, ν Poisson's ratio; ε₁₁ = [σ₁₁ − ν(σ₂₂ + σ₃₃)]/E",
+   "use": "Engineering form for strains from a known stress state."
+  },
+  {
+   "skill": "s3",
+   "name": "Elastic constant relations",
+   "eq": "G = E/(2(1 + ν)),  K = E/(3(1 − 2ν)),  λ = Eν/((1 + ν)(1 − 2ν))",
+   "where": "K bulk modulus; positive definiteness requires −1 < ν < ½",
+   "use": "Converts between any pair of isotropic constants; K grows without bound as ν → ½."
+  },
+  {
+   "skill": "s3",
+   "name": "Plane stress stiffness",
+   "eq": "[σ₁₁; σ₂₂; σ₁₂] = (E/(1 − ν²)) [[1, ν, 0],[ν, 1, 0],[0, 0, (1 − ν)/2]] [ε₁₁; ε₂₂; γ₁₂]",
+   "where": "σ₃ⱼ = 0, γ₁₂ = 2ε₁₂ engineering shear strain",
+   "use": "Constitutive matrix for thin plates and membranes loaded in plane."
+  },
+  {
+   "skill": "s3",
+   "name": "Strain energy density",
+   "eq": "W = ½ σ:ε = μ ε:ε + (λ/2)(tr ε)²,   σ = ∂W/∂ε",
+   "where": "Linear isotropic elasticity, small strain",
+   "use": "Stored elastic energy per volume, positive definite for a stable material."
+  },
+  {
+   "skill": "s4",
+   "name": "Airy stress function",
+   "eq": "σ_xx = ∂²φ/∂y²,   σ_yy = ∂²φ/∂x²,   σ_xy = −∂²φ/∂x∂y",
+   "where": "Plane stress or plane strain with zero body force",
+   "use": "Satisfies equilibrium identically, leaving compatibility to solve."
+  },
+  {
+   "skill": "s4",
+   "name": "Biharmonic equation",
+   "eq": "∇⁴φ = ∂⁴φ/∂x⁴ + 2∂⁴φ/∂x²∂y² + ∂⁴φ/∂y⁴ = 0",
+   "where": "Compatibility in terms of φ for isotropic linear elasticity, zero body force",
+   "use": "Governing equation of 2D elasticity; polynomial and Fourier φ give beam and strip solutions."
+  },
+  {
+   "skill": "s4",
+   "name": "Airy function in polar coordinates",
+   "eq": "σ_rr = (1/r)∂φ/∂r + (1/r²)∂²φ/∂θ²,  σ_θθ = ∂²φ/∂r²,  σ_rθ = −∂/∂r((1/r)∂φ/∂θ)",
+   "where": "r, θ polar coordinates, zero body force",
+   "use": "Natural form for holes, wedges, disks and curved bars."
+  },
+  {
+   "skill": "s4",
+   "name": "Plane strain out-of-plane stress",
+   "eq": "ε_zz = 0  ⟹  σ_zz = ν(σ_xx + σ_yy)",
+   "where": "Long body constrained along z, isotropic linear elastic",
+   "use": "Out-of-plane stress that holds the long body at zero axial strain."
+  },
+  {
+   "skill": "s4",
+   "name": "Plane stress to plane strain conversion",
+   "eq": "Replace E with E/(1 − ν²) and ν with ν/(1 − ν)",
+   "where": "Apply to a plane stress displacement or strain solution to obtain the plane strain one",
+   "use": "One 2D solution serves both cases since the Airy stress field is the same."
+  },
+  {
+   "skill": "s4",
+   "name": "Kirsch hole solution",
+   "eq": "σ_θθ(a, θ) = σ₀(1 − 2 cos 2θ),   max 3σ₀ at θ = ±90°",
+   "where": "Circular hole of radius a in an infinite plate under remote uniaxial σ₀ along θ = 0",
+   "use": "Stress concentration factor K_t = 3, with −σ₀ at the hole edge on the load axis."
+  },
+  {
+   "skill": "s5",
+   "name": "Thin-walled cylinder",
+   "eq": "σ_θ = pr/t,   σ_z = pr/(2t),   σ_r ≈ 0",
+   "where": "p internal gauge pressure, r mean radius, t wall thickness, r/t > about 10, closed ends",
+   "use": "Hoop stress is twice the axial stress, so longitudinal seams carry the critical load."
+  },
+  {
+   "skill": "s5",
+   "name": "Thin-walled sphere",
+   "eq": "σ_θ = σ_φ = pr/(2t)",
+   "where": "Same assumptions as the thin cylinder",
+   "use": "A sphere carries pressure at half the cylinder hoop stress, the lightest pressure vessel."
+  },
+  {
+   "skill": "s5",
+   "name": "Lamé solution (cylinder)",
+   "eq": "σ_rr = A − B/r²,   σ_θθ = A + B/r²",
+   "where": "A, B constants from the radial boundary conditions, axisymmetric, plane strain or plane stress",
+   "use": "General thick-walled cylinder stress field; σ_rr + σ_θθ = 2A is uniform."
+  },
+  {
+   "skill": "s5",
+   "name": "Thick cylinder, internal pressure",
+   "eq": "σ_θθ = p a²(1 + b²/r²)/(b² − a²),  σ_rr = p a²(1 − b²/r²)/(b² − a²)",
+   "where": "a inner, b outer radius, internal pressure p, zero external pressure",
+   "use": "Peak hoop stress at the bore: σ_θθ(a) = p(b² + a²)/(b² − a²)."
+  },
+  {
+   "skill": "s5",
+   "name": "Closed-end axial stress",
+   "eq": "σ_zz = p a²/(b² − a²)",
+   "where": "End caps carry the pressure resultant pπa² over the wall area π(b² − a²)",
+   "use": "Uniform axial stress in a thick closed cylinder, equal to A in the Lamé solution."
+  },
+  {
+   "skill": "s5",
+   "name": "Thick sphere",
+   "eq": "σ_rr = A − B/r³,   σ_θθ = A + B/(2r³)",
+   "where": "A, B from boundary pressures at the inner and outer radii, spherical symmetry",
+   "use": "Thick spherical shell field; stresses decay as 1/r³ away from the inner surface."
+  },
+  {
+   "skill": "s6",
+   "name": "Flexure formula",
+   "eq": "σ_xx = M y/I",
+   "where": "y distance from the neutral axis, positive toward the fiber the moment puts in tension; I about the neutral axis",
+   "use": "Linear bending stress across the depth, largest at the extreme fiber, zero at the centroid."
+  },
+  {
+   "skill": "s6",
+   "name": "Moment-curvature relation",
+   "eq": "M = EIκ,   κ ≈ d²w/dx²",
+   "where": "w deflection positive upward, M positive for sagging (compression on top), small slopes",
+   "use": "Integrate twice with boundary conditions to get the deflection curve."
+  },
+  {
+   "skill": "s6",
+   "name": "Euler-Bernoulli beam equation",
+   "eq": "(EI w″)″ = q",
+   "where": "w deflection and q load both positive upward; the sign linking shear V to w‴ varies by text",
+   "use": "Fourth-order equation needing two boundary conditions at each end."
+  },
+  {
+   "skill": "s6",
+   "name": "Section properties",
+   "eq": "Rectangle I = bh³/12,  circle I = πr⁴/4,  parallel axis I = I_c + A d²",
+   "where": "b width, h depth, I_c about the centroid, d distance from the centroidal axis",
+   "use": "Building blocks for built-up and thin-walled section inertias."
+  },
+  {
+   "skill": "s6",
+   "name": "Principal axes",
+   "eq": "tan 2θ_p = −2I_xy/(I_x − I_y)",
+   "where": "I_x = ∫y²dA, I_y = ∫x²dA, I_xy = ∫xy dA about centroidal axes; θ_p counterclockwise from x (Gere convention)",
+   "use": "Along principal axes I_xy = 0 and bending in each plane decouples."
+  },
+  {
+   "skill": "s6",
+   "name": "Standard deflections",
+   "eq": "Cantilever tip: PL³/(3EI), wL⁴/(8EI).  Simply supported center: PL³/(48EI), 5wL⁴/(384EI)",
+   "where": "P end or midspan point load, w uniform load per length",
+   "use": "Superposition building blocks for indeterminate beams and quick checks."
+  },
+  {
+   "skill": "s7",
+   "name": "Open-section shear flow",
+   "eq": "q(s) = (V/I) Q(s),   Q(s) = ∫₀ˢ y t ds,   τ = q/t",
+   "where": "s measured from a free edge where q = 0, y from the neutral axis, symmetric section, V through the shear center",
+   "use": "Builds the shear flow distribution and locates the shear center by moment balance."
+  },
+  {
+   "skill": "s7",
+   "name": "Bredt-Batho",
+   "eq": "T = 2 A q,   τ = q/t = T/(2At)",
+   "where": "A area enclosed by the wall median line, q constant shear flow in a single closed cell",
+   "use": "Torque carried by a closed thin-walled tube under pure torsion."
+  },
+  {
+   "skill": "s7",
+   "name": "Closed-cell twist and J",
+   "eq": "θ′ = (1/(2AG)) ∮ q ds/t,   J = 4A²/∮(ds/t)",
+   "where": "G shear modulus; the same θ′ in every cell of a multicell section",
+   "use": "Compatibility equation that fixes redundant shear flows and gives closed-section stiffness."
+  },
+  {
+   "skill": "s7",
+   "name": "Thin open-section torsion",
+   "eq": "J = Σ b t³/3,   τ_max = G t_max θ′ = T t_max/J",
+   "where": "b strip length, t strip thickness, St Venant torsion with free warping",
+   "use": "Open sections have small J, so they are far more flexible in torsion than closed ones."
+  },
+  {
+   "skill": "s7",
+   "name": "Circular shaft torsion",
+   "eq": "τ = T r/J,   θ′ = T/(GJ),   J = πd⁴/32",
+   "where": "J polar moment, d diameter; hollow J = π(d_o⁴ − d_i⁴)/32",
+   "use": "Shear stress grows linearly with radius and peaks at the outer surface."
+  },
+  {
+   "skill": "s7",
+   "name": "Prandtl stress function",
+   "eq": "∇²ψ = −2Gθ′,  τ_xz = ∂ψ/∂y,  τ_yz = −∂ψ/∂x,  T = 2∫ψ dA",
+   "where": "ψ = 0 on the boundary of a solid section; membrane analogy: slope gives τ, volume gives T/2",
+   "use": "Solves St Venant torsion for noncircular solid sections."
+  },
+  {
+   "skill": "s8",
+   "name": "Strain energy of a slender member",
+   "eq": "U = ∫M²/(2EI) dx + ∫N²/(2EA) dx + ∫T²/(2GJ) dx",
+   "where": "M bending moment, N axial force, T torque, linear elastic",
+   "use": "Energy expression for Castigliano and unit load methods; bending dominates slender members."
+  },
+  {
+   "skill": "s8",
+   "name": "Castigliano's second theorem",
+   "eq": "δᵢ = ∂U*/∂Pᵢ   (U* = U for linear elastic)",
+   "where": "U* complementary energy in terms of loads, δᵢ displacement at Pᵢ along its direction",
+   "use": "Find a deflection by differentiating energy with respect to a real or dummy load."
+  },
+  {
+   "skill": "s8",
+   "name": "Unit load method",
+   "eq": "δ = ∫ M m/(EI) dx + ∫ N n/(EA) dx",
+   "where": "M, N from real loads; m, n from a unit load at the point and direction of δ",
+   "use": "Virtual work route to any single displacement or rotation."
+  },
+  {
+   "skill": "s8",
+   "name": "Minimum total potential energy",
+   "eq": "Π = U − W_ext,   δΠ = 0,   δ²Π > 0 for stable equilibrium",
+   "where": "W_ext = Σ Pᵢuᵢ for conservative loads, U strain energy in terms of displacements",
+   "use": "Among admissible displacement fields, equilibrium makes Π stationary and a stable one minimizes it."
+  },
+  {
+   "skill": "s8",
+   "name": "Rayleigh-Ritz",
+   "eq": "w = Σ aᵢ φᵢ(x),   ∂Π/∂aᵢ = 0  ⟹  K a = f",
+   "where": "φᵢ kinematically admissible trial functions satisfying the essential boundary conditions",
+   "use": "Gives an approximate solution that is stiffer than exact, an upper bound on stiffness."
+  },
+  {
+   "skill": "s8",
+   "name": "Maxwell-Betti reciprocity",
+   "eq": "P₁ δ₁₂ = P₂ δ₂₁,   fᵢⱼ = fⱼᵢ",
+   "where": "δᵢⱼ displacement at i due to load at j, fᵢⱼ flexibility coefficients, linear elastic",
+   "use": "Flexibility and stiffness matrices are symmetric."
+  },
+  {
+   "skill": "s9",
+   "name": "Energy stability criterion",
+   "eq": "∂Π/∂qᵢ = 0 (equilibrium),   det[∂²Π/∂qᵢ∂qⱼ] = 0 at the critical load",
+   "where": "Π total potential, qᵢ generalized coordinates, conservative loading",
+   "use": "Stability is lost when the Hessian of Π stops being positive definite."
+  },
+  {
+   "skill": "s9",
+   "name": "Rigid bar with rotational spring",
+   "eq": "Π = ½Cθ² − PL(1 − cos θ),   P_cr = C/L",
+   "where": "C rotational spring stiffness at the base, L bar length, P axial load at the tip",
+   "use": "Classic stable symmetric bifurcation; the post-buckling path rises as P/P_cr = θ/sin θ."
+  },
+  {
+   "skill": "s9",
+   "name": "Rigid bar with lateral spring",
+   "eq": "Π = ½k(L sin θ)² − PL(1 − cos θ),   P_cr = kL",
+   "where": "k translational spring at the top of a pinned rigid bar of length L",
+   "use": "Equilibrium path P = kL cos θ falls after buckling, the canonical unstable symmetric bifurcation."
+  },
+  {
+   "skill": "s9",
+   "name": "Multi-DOF linear eigenproblem",
+   "eq": "det(K − P K_G) = 0,   (K − P_cr K_G)φ = 0",
+   "where": "K elastic stiffness, K_G geometric stiffness per unit load, φ buckling mode",
+   "use": "The lowest eigenvalue gives the critical load and its eigenvector the buckled shape."
+  },
+  {
+   "skill": "s9",
+   "name": "Koiter post-buckling expansion",
+   "eq": "P/P_c = 1 + a ξ + b ξ² + …",
+   "where": "ξ buckling mode amplitude; a ≠ 0 asymmetric, a = 0 with b > 0 stable symmetric, b < 0 unstable symmetric",
+   "use": "Initial post-buckling slope and curvature classify the bifurcation and its imperfection sensitivity."
+  },
+  {
+   "skill": "s9",
+   "name": "Imperfection sensitivity laws",
+   "eq": "1 − P_s/P_c ∝ ε^(2/3) (unstable symmetric),   ∝ ε^(1/2) (asymmetric)",
+   "where": "P_s limit load of the imperfect structure, ε imperfection amplitude",
+   "use": "Koiter laws: small imperfections cause large capacity loss in unstable systems."
+  },
+  {
+   "skill": "s10",
+   "name": "Degree of indeterminacy",
+   "eq": "Planar truss: m + r − 2j;   planar rigid frame: 3m + r − 3j",
+   "where": "m members, r reaction components, j joints; zero means determinate if stable",
+   "use": "Counts the redundants for the force method."
+  },
+  {
+   "skill": "s10",
+   "name": "Force method compatibility",
+   "eq": "δ₁₀ + f₁₁ X₁ = 0",
+   "where": "δ₁₀ displacement at the released redundant under real loads, f₁₁ displacement there per unit X₁",
+   "use": "Restores compatibility at the release to solve for the redundant force."
+  },
+  {
+   "skill": "s10",
+   "name": "Springs in series and parallel",
+   "eq": "Series: 1/k = Σ 1/kᵢ;   parallel: k = Σ kᵢ",
+   "where": "Series share force, parallel share displacement",
+   "use": "Reduces combined elastic supports to one equivalent stiffness."
+  },
+  {
+   "skill": "s10",
+   "name": "Member stiffnesses",
+   "eq": "Axial EA/L,   cantilever tip 3EI/L³,   torsion GJ/L,   fixed-fixed midspan 192EI/L³",
+   "where": "Force per displacement (or torque per rotation) for uniform members",
+   "use": "Model structural members as springs in an indeterminate system."
+  },
+  {
+   "skill": "s10",
+   "name": "Bar element stiffness",
+   "eq": "k_e = (EA/L) [[1, −1],[−1, 1]],   K u = f",
+   "where": "Local axial element, K assembled from all elements, u nodal displacements",
+   "use": "Displacement (stiffness) method for statically indeterminate structures."
+  },
+  {
+   "skill": "s10",
+   "name": "Classic indeterminate results",
+   "eq": "Propped cantilever, uniform w: R = 3wL/8.   Fixed-fixed, uniform w: M_end = wL²/12",
+   "where": "R prop reaction, M_end fixed-end moment magnitude, midspan moment wL²/24 for fixed-fixed",
+   "use": "Benchmarks for checking force method and slope-deflection answers."
+  },
+  {
+   "skill": "s11",
+   "name": "Curved beam bending energy",
+   "eq": "U = ∫ M² R dθ/(2EI),   δ = ∂U/∂P",
+   "where": "Thin curved beam, R ≫ depth, ds = R dθ; quarter ring fixed at one end with a radial load P at the free end gives δ = πPR³/(4EI) along P",
+   "use": "Castigliano on rings and arches; least work ∂U/∂M₀ = 0 for closed rings."
+  },
+  {
+   "skill": "s11",
+   "name": "Winkler curved beam stress",
+   "eq": "|σ(r)| = |M| |r − r_n|/(A e r),   r_n = A/∫(dA/r),   e = r̄ − r_n",
+   "where": "r radius from the center of curvature, r̄ centroid radius, r_n neutral axis radius",
+   "use": "Hyperbolic stress with the neutral axis shifted toward the center and peak stress at the inner fiber."
+  },
+  {
+   "skill": "s11",
+   "name": "Transformed section",
+   "eq": "n = E₂/E₁,   b₂,eq = n b₂,   σ₂ = n σ_transformed",
+   "where": "Material 2 widths scaled by n to equivalent material 1",
+   "use": "Turns a multi-material beam into one homogeneous section for the flexure formula."
+  },
+  {
+   "skill": "s11",
+   "name": "Modulus-weighted bending",
+   "eq": "ȳ = ΣEᵢAᵢyᵢ/ΣEᵢAᵢ,   (EI)_eff = ΣEᵢ(Iᵢ + Aᵢdᵢ²)",
+   "where": "dᵢ distance from each part's centroid to the modulus-weighted neutral axis",
+   "use": "Neutral axis moves toward the stiffer material, and stress magnitude is Eᵢ|y||M|/(EI)_eff."
+  },
+  {
+   "skill": "s11",
+   "name": "Parallel axial members",
+   "eq": "ε = P/ΣEᵢAᵢ,   Pᵢ = EᵢAᵢ ε",
+   "where": "Members bonded or rigidly connected so they share one strain",
+   "use": "Load splits in proportion to each material's axial stiffness EA."
+  },
+  {
+   "skill": "s11",
+   "name": "Sandwich bending stiffness",
+   "eq": "D ≈ E_f b t d²/2",
+   "where": "E_f face modulus, t face thickness, d distance between face centroids, core and face self-bending neglected",
+   "use": "Thin faces carry bending as a couple while the core carries shear, giving high stiffness per weight."
+  },
+  {
+   "skill": "s12",
+   "name": "Hyperelastic stresses",
+   "eq": "S = ∂W/∂E = 2∂W/∂C,   P = ∂W/∂F = FS",
+   "where": "W strain energy per reference volume, S second Piola-Kirchhoff, P first Piola-Kirchhoff",
+   "use": "All stress measures follow from one energy function."
+  },
+  {
+   "skill": "s12",
+   "name": "Stress measure conversions",
+   "eq": "σ = J⁻¹ P Fᵀ = J⁻¹ F S Fᵀ,   P = J σ F⁻ᵀ",
+   "where": "σ Cauchy stress, J = det F; from Nanson's formula n da = J F⁻ᵀN dA",
+   "use": "Pushes referential stresses to the current configuration and back."
+  },
+  {
+   "skill": "s12",
+   "name": "Invariants of C",
+   "eq": "I₁ = tr C,   I₂ = ½[(tr C)² − tr(C²)],   I₃ = det C = J²",
+   "where": "In principal stretches: I₁ = Σλᵢ², I₂ = λ₁²λ₂² + λ₂²λ₃² + λ₃²λ₁²",
+   "use": "Isotropic hyperelastic energies depend on F only through these invariants."
+  },
+  {
+   "skill": "s12",
+   "name": "Incompressible neo-Hookean",
+   "eq": "W = (μ/2)(I₁ − 3),   σ = −pI + μB,   J = 1",
+   "where": "μ small-strain shear modulus, p pressure Lagrange multiplier set by boundary conditions",
+   "use": "Simplest rubber model, reducing to linear elasticity with ν = ½ at small strain."
+  },
+  {
+   "skill": "s12",
+   "name": "Mooney-Rivlin",
+   "eq": "W = C₁(I₁ − 3) + C₂(I₂ − 3),   μ = 2(C₁ + C₂)",
+   "where": "C₁, C₂ material constants, incompressible",
+   "use": "Adds the second invariant to fit rubber data better at moderate stretch."
+  },
+  {
+   "skill": "s12",
+   "name": "Neo-Hookean uniaxial tension",
+   "eq": "σ₁₁ = μ(λ² − 1/λ),   P₁₁ = μ(λ − 1/λ²)",
+   "where": "λ axial stretch, lateral stretches λ^(−1/2), traction-free lateral faces give p = μ/λ",
+   "use": "Large-stretch uniaxial response, with initial slope 3μ = E."
+  },
+  {
+   "skill": "s13",
+   "name": "Material time derivative",
+   "eq": "Dφ/Dt = ∂φ/∂t + v·∇φ",
+   "where": "φ field in spatial description, v velocity, ∂/∂t at fixed x",
+   "use": "Rate following a particle: local rate plus convective rate."
+  },
+  {
+   "skill": "s13",
+   "name": "Velocity gradient",
+   "eq": "L = grad v = Ḟ F⁻¹ = D + W,   J̇ = J div v",
+   "where": "D = sym L rate of deformation, W = skew L spin",
+   "use": "D measures stretching rate; div v = tr D is the volumetric rate."
+  },
+  {
+   "skill": "s13",
+   "name": "Conservation of mass",
+   "eq": "∂ρ/∂t + div(ρv) = 0  ⟺  Dρ/Dt + ρ div v = 0,   ρJ = ρ₀",
+   "where": "ρ current density, ρ₀ reference density",
+   "use": "Spatial and referential statements of mass balance; isochoric motion has div v = 0."
+  },
+  {
+   "skill": "s13",
+   "name": "Reynolds transport theorem",
+   "eq": "d/dt ∫_Ω φ dv = ∫_Ω (Dφ/Dt + φ div v) dv",
+   "where": "Ω material volume moving with the body; equals ∫ ∂φ/∂t dv + ∮ φ v·n da",
+   "use": "Moves time derivatives inside integrals to localize the integral balance laws."
+  },
+  {
+   "skill": "s13",
+   "name": "Linear momentum balance",
+   "eq": "div σ + b = ρ v̇ (spatial),   Div P + b₀ = ρ₀ v̇ (referential)",
+   "where": "b body force per current volume, b₀ = J b per reference volume, Div with respect to X",
+   "use": "Cauchy's equation of motion, reducing to equilibrium when acceleration is zero."
+  },
+  {
+   "skill": "s13",
+   "name": "Energy balance (first law)",
+   "eq": "ρ ė = σ:D − div q + ρ r",
+   "where": "e internal energy per mass, q heat flux, r heat source per mass, σ:D stress power",
+   "use": "Local energy balance; σ:D = J⁻¹ S:Ė = J⁻¹ P:Ḟ."
+  },
+  {
+   "skill": "s14",
+   "name": "Euler buckling load",
+   "eq": "P_cr = π²EI/(KL)²,   σ_cr = π²E/(KL/r)²",
+   "where": "K effective length factor: 1 pinned-pinned, 2 cantilever, 0.7 fixed-pinned, 0.5 fixed-fixed; r = √(I/A)",
+   "use": "Elastic critical load of an ideal straight column."
+  },
+  {
+   "skill": "s14",
+   "name": "Beam-column equation",
+   "eq": "EI w⁗ + P w″ = 0,   k² = P/(EI)",
+   "where": "Uniform column under compressive P, small deflection; general solution w = A sin kx + B cos kx + Cx + D",
+   "use": "Applying the boundary conditions gives the buckling eigenvalue problem."
+  },
+  {
+   "skill": "s14",
+   "name": "Imperfection amplification",
+   "eq": "w_max = δ₀/(1 − P/P_cr)",
+   "where": "Pinned column with initial sinusoidal imperfection of amplitude δ₀",
+   "use": "Deflection grows without bound as P approaches P_cr; the amplification factor is 1/(1 − P/P_cr)."
+  },
+  {
+   "skill": "s14",
+   "name": "Southwell plot",
+   "eq": "δ/P = δ/P_cr + δ₀/P_cr",
+   "where": "δ added deflection measured in test, δ₀ initial imperfection",
+   "use": "Plotting δ/P against δ gives slope 1/P_cr, so tests yield P_cr and δ₀."
+  },
+  {
+   "skill": "s14",
+   "name": "Secant formula",
+   "eq": "σ_max = (P/A)[1 + (e c/r²) sec((L/(2r))√(P/(EA)))]",
+   "where": "Pinned column, load eccentricity e, c distance to the extreme fiber, r radius of gyration",
+   "use": "Peak stress for an eccentrically loaded column, used for yield-based design."
+  },
+  {
+   "skill": "s14",
+   "name": "Johnson parabola",
+   "eq": "σ_cr = σ_y − (σ_y²/(4π²E))(KL/r)²",
+   "where": "Applies for KL/r below the transition slenderness √(2π²E/σ_y)",
+   "use": "Inelastic buckling for intermediate columns, tangent to the Euler curve at σ_y/2."
+  },
+  {
+   "skill": "s15",
+   "name": "Thermoelastic Hooke's law",
+   "eq": "ε = ((1 + ν)/E)σ − (ν/E)(tr σ)I + αΔT I,   σ = λ(tr ε)I + 2με − 3KαΔT I",
+   "where": "α coefficient of thermal expansion, ΔT temperature change, K bulk modulus, isotropic",
+   "use": "Total strain equals mechanical strain plus free thermal dilatation."
+  },
+  {
+   "skill": "s15",
+   "name": "Restrained thermal stress",
+   "eq": "Bar: σ = −EαΔT;   plate restrained in plane: σ = −EαΔT/(1 − ν)",
+   "where": "Full restraint of the in-plane strain, free out-of-plane surface (σ₃₃ = 0)",
+   "use": "Heating a constrained member produces compression with no strain."
+  },
+  {
+   "skill": "s15",
+   "name": "Rule of mixtures",
+   "eq": "E₁ = V_fE_f + V_mE_m (equal strain),   1/E₂ = V_f/E_f + V_m/E_m (equal stress)",
+   "where": "V_f, V_m fiber and matrix volume fractions; Voigt upper and Reuss lower bounds",
+   "use": "Fibers govern longitudinal stiffness and the matrix governs transverse stiffness."
+  },
+  {
+   "skill": "s15",
+   "name": "Orthotropic reciprocity",
+   "eq": "ν₁₂/E₁ = ν₂₁/E₂",
+   "where": "ν₁₂ contraction in 2 per extension in 1; follows from a symmetric compliance matrix",
+   "use": "Fixes ν₂₁ from the other three in-plane constants of a lamina."
+  },
+  {
+   "skill": "s15",
+   "name": "Reduced stiffness of a ply",
+   "eq": "Q₁₁ = E₁/(1 − ν₁₂ν₂₁),  Q₂₂ = E₂/(1 − ν₁₂ν₂₁),  Q₁₂ = ν₁₂E₂/(1 − ν₁₂ν₂₁),  Q₆₆ = G₁₂",
+   "where": "Plane stress in principal material axes; Q̄ obtained by rotating to the laminate axes",
+   "use": "Ply stiffness input to classical lamination theory."
+  },
+  {
+   "skill": "s15",
+   "name": "ABD laminate relation",
+   "eq": "[N; M] = [[A, B],[B, D]] [ε⁰; κ],   (A, B, D)ᵢⱼ = ∫ Q̄ᵢⱼ (1, z, z²) dz",
+   "where": "N, M force and moment resultants per width, ε⁰ midplane strains, κ curvatures, z from midplane",
+   "use": "B = 0 for symmetric layups, so extension and bending decouple."
+  }
+ ]
+}
