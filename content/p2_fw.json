@@ -1,0 +1,405 @@
+{
+ "problems": [
+  {
+   "id": "p-f2-3",
+   "skill": "f2",
+   "title": "Catapult launch and wind over deck",
+   "setup": "A carrier strike fighter launches at W = 200 kN with S = 40 m² and C_Lmax = 1.8 in launch configuration. It must leave the catapult at an airspeed of at least 1.1V_stall. The ship steams into the wind giving wind over deck WOD = 15 m/s. The catapult stroke is 90 m. Sea level: ρ = 1.225 kg/m³, g = 9.81 m/s².",
+   "parts": [
+    {
+     "ask": "Find the 1g stall speed in launch configuration.",
+     "type": "num",
+     "a": 67.34,
+     "tol": 0.01,
+     "unit": "m/s",
+     "sol": [
+      "V_stall = √(2W/(ρSC_Lmax))",
+      "= √(400,000/(1.225·40·1.8)) = √(400,000/88.2)",
+      "= 67.3 m/s"
+     ]
+    },
+    {
+     "ask": "Find the catapult end speed relative to the deck.",
+     "type": "num",
+     "a": 59.08,
+     "tol": 0.01,
+     "unit": "m/s",
+     "sol": [
+      "Required airspeed 1.1V_stall = 74.1 m/s",
+      "Airspeed = deck speed + WOD, so V_end = 1.1V_stall − WOD",
+      "= 74.1 − 15 = 59.1 m/s"
+     ]
+    },
+    {
+     "ask": "Find the mean acceleration along the 90 m stroke, in g.",
+     "type": "num",
+     "a": 1.977,
+     "tol": 0.01,
+     "unit": "g",
+     "sol": [
+      "Constant acceleration from rest: a = V_end²/(2s)",
+      "= 59.1²/180 = 19.4 m/s²",
+      "a/g = 1.98"
+     ]
+    },
+    {
+     "ask": "The wind dies and WOD drops to 5 m/s. The catapult end speed stays at the value from part 2. What is the heaviest aircraft it can launch?",
+     "type": "num",
+     "a": 149.6,
+     "tol": 0.01,
+     "unit": "kN",
+     "sol": [
+      "Available airspeed = 59.1 + 5 = 64.1 m/s",
+      "Required airspeed scales with V_stall ∝ √W, so W ∝ V²",
+      "W_max = 200·(64.1/74.1)² = 149.6 kN"
+     ]
+    },
+    {
+     "ask": "On the launch bulletin plot of minimum end speed versus launch weight, what shape is the required curve?",
+     "type": "mc",
+     "a": "V_end = 1.1√(2W/(ρSC_Lmax)) − WOD: a √W curve shifted down by the wind over deck",
+     "w": [
+      "A straight line V_end ∝ W, shifted up by the wind over deck",
+      "A √W curve shifted up by the wind over deck",
+      "A curve V_end ∝ W², independent of wind over deck"
+     ],
+     "sol": [
+      "Required airspeed grows as √W from the lift equation",
+      "Wind over deck supplies part of that airspeed, so the deck relative curve moves down by WOD"
+     ]
+    }
+   ],
+   "x": "Wind over deck supplies airspeed for free, and because launch weight scales with airspeed squared, a few m/s of wind buys a large weight margin."
+  },
+  {
+   "id": "p-f2-4",
+   "skill": "f2",
+   "title": "Human powered aircraft power budget",
+   "setup": "A human powered aircraft (pilot included) weighs W = 1000 N, with S = 30 m², span b = 30 m, Oswald efficiency e = 0.95 and C_D0 = 0.015, so C_D = C_D0 + KC_L² with K = 1/(πeAR). The wing has C_Lmax = 1.2. Propeller efficiency η_p = 0.85. Fly at low altitude, ρ = 1.225 kg/m³, and neglect ground effect. A fit pilot can sustain about 250 W of shaft power for an hour.",
+   "parts": [
+    {
+     "ask": "Find the lift coefficient for minimum power required from the polar.",
+     "type": "num",
+     "a": 2.007,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "AR = b²/S = 30, K = 1/(π·0.95·30) = 0.01117",
+      "Minimum power: C_D0 = KC_L²/3, so C_L = √(3C_D0/K)",
+      "= √(0.045/0.01117) = 2.01"
+     ]
+    },
+    {
+     "ask": "Compare that C_L with C_Lmax = 1.2. What should the pilot do?",
+     "type": "mc",
+     "a": "The minimum power point lies beyond stall, so fly at the highest safe C_L, a little below C_Lmax",
+     "w": [
+      "Fly at the polar optimum C_L, since the polar sets the operating point",
+      "Fly at the minimum drag C_L = √(C_D0/K) instead",
+      "Fly at C_L ≈ 0.6, since minimum power always sits well above stall speed"
+     ],
+     "sol": [
+      "The polar optimum assumes C_L is free; here the stall constraint is active",
+      "Power falls as C_L rises toward the optimum, so the best feasible choice sits just below C_Lmax with a stall margin"
+     ]
+    },
+    {
+     "ask": "At C_L = 1.1, find the pilot shaft power required.",
+     "type": "num",
+     "a": 214.5,
+     "tol": 0.01,
+     "unit": "W",
+     "sol": [
+      "V = √(2W/(ρSC_L)) = √(2000/40.43) = 7.03 m/s",
+      "C_D = 0.015 + 0.01117·1.21 = 0.0285, D = W·C_D/C_L = 25.9 N",
+      "P_R = DV = 182 W; shaft P = P_R/η_p = 215 W, inside the 250 W budget"
+     ]
+    },
+    {
+     "ask": "Keep S = 30 m² and C_L = 1.1 but stretch the span to 36 m. Find the new shaft power.",
+     "type": "num",
+     "a": 183.4,
+     "tol": 0.01,
+     "unit": "W",
+     "sol": [
+      "AR = 36²/30 = 43.2, K = 0.00776",
+      "C_D = 0.015 + 0.00776·1.21 = 0.0244; V unchanged at 7.03 m/s",
+      "P_shaft = W(C_D/C_L)V/η_p = 183 W"
+     ]
+    }
+   ],
+   "x": "Human powered aircraft fly slowly near C_Lmax, where induced drag is a large share of the total, so added span cuts the pilot's power directly."
+  },
+  {
+   "id": "p-f6-3",
+   "skill": "f6",
+   "title": "The same drone on Earth and Titan",
+   "setup": "A 10 kg fixed wing drone has S = 1 m², C_Lmax = 1.6 and polar C_D = 0.03 + 0.05C_L². Earth sea level: g = 9.81 m/s², ρ = 1.225 kg/m³. Titan surface: g = 1.35 m/s², ρ = 5.3 kg/m³ (cold, dense nitrogen). Same airframe and mass on both worlds.",
+   "parts": [
+    {
+     "ask": "Find the stall speed on Earth.",
+     "type": "num",
+     "a": 10.01,
+     "tol": 0.01,
+     "unit": "m/s",
+     "sol": [
+      "W = 10·9.81 = 98.1 N",
+      "V_stall = √(2W/(ρSC_Lmax)) = √(196.2/(1.225·1.6))",
+      "= 10.01 m/s"
+     ]
+    },
+    {
+     "ask": "Find the stall speed on Titan.",
+     "type": "num",
+     "a": 1.784,
+     "tol": 0.01,
+     "unit": "m/s",
+     "sol": [
+      "W = 10·1.35 = 13.5 N",
+      "V_stall = √(27/(5.3·1.6))",
+      "= 1.78 m/s, a walking pace"
+     ]
+    },
+    {
+     "ask": "Find the minimum power required on Earth.",
+     "type": "num",
+     "a": 95.87,
+     "tol": 0.01,
+     "unit": "W",
+     "sol": [
+      "C_L,mp = √(3C_D0/K) = √1.8 = 1.342 (below C_Lmax), and C_D = 4C_D0 = 0.12",
+      "V_mp = √(2W/(ρSC_L)) = 10.93 m/s",
+      "P_min = W(C_D/C_L)V_mp = 98.1·0.0894·10.93 = 95.9 W"
+     ]
+    },
+    {
+     "ask": "Find the minimum power required on Titan.",
+     "type": "num",
+     "a": 2.353,
+     "tol": 0.01,
+     "unit": "W",
+     "sol": [
+      "Same C_L and C_D, so P_min ∝ W·√(W/ρ) = W^(3/2)/√ρ",
+      "Ratio = (1.35/9.81)^(3/2)·√(1.225/5.3) = 0.0245",
+      "P_min = 95.9·0.0245 = 2.35 W"
+     ]
+    },
+    {
+     "ask": "A rotorcraft on Titan hovers using ideal momentum theory. How does its hover power ratio, Titan over Earth, compare with the fixed wing ratio above?",
+     "type": "mc",
+     "a": "It is the same ratio, since hover power P = T^(3/2)/√(2ρA) also scales as W^(3/2)/√ρ",
+     "w": [
+      "It is the square root of the fixed wing ratio, since hover power scales as W/√ρ",
+      "It equals the weight ratio 1.35/9.81, since hover thrust equals weight",
+      "It is the inverse of the fixed wing ratio, since rotors work best in thin air"
+     ],
+     "sol": [
+      "Hover: P = T^(3/2)/√(2ρA) with T = W",
+      "Fixed wing at a fixed C_L: P ∝ W^(3/2)/√ρ",
+      "Both give the factor (g_T/g_E)^(3/2)·√(ρ_E/ρ_T) ≈ 1/41"
+     ]
+    }
+   ],
+   "x": "Power to stay aloft scales as W^(3/2)/√ρ for wings and rotors alike, so Titan's low gravity and dense air cut it by a factor of about 40."
+  },
+  {
+   "id": "p-f1-3",
+   "skill": "f1",
+   "title": "Climbing and accelerating segment",
+   "setup": "A fighter must climb at dh/dt = 50 m/s while accelerating at dV/dt = 3 m/s², passing V = 200 m/s at 5000 m (ISA ρ = 0.736 kg/m³), wings level (n = 1). Polar C_D = 0.02 + 0.1C_L². W_TO/S = 4000 Pa, weight fraction β = 0.9, thrust lapse α = 0.7. Take g = 9.81 m/s².",
+   "parts": [
+    {
+     "ask": "From the energy equation, find the specific excess power P_s the segment demands.",
+     "type": "num",
+     "a": 111.2,
+     "tol": 0.01,
+     "unit": "m/s",
+     "sol": [
+      "Energy height h_e = h + V²/(2g), so P_s = dh_e/dt = dh/dt + (V/g)dV/dt",
+      "= 50 + (200/9.81)·3",
+      "= 50 + 61.2 = 111.2 m/s"
+     ]
+    },
+    {
+     "ask": "Find T_SL/W_TO from the master equation.",
+     "type": "num",
+     "a": 0.8512,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "T_SL/W_TO = (β/α)[qC_D0/(βW_TO/S) + Kn²β(W_TO/S)/q + (1/V)dh/dt + (1/g)dV/dt]",
+      "q = ½·0.736·200² = 14,720 Pa, βW_TO/S = 3600 Pa",
+      "terms: 0.0818 + 0.0245 + 0.2500 + 0.3058 = 0.6620",
+      "× β/α = 1.2857 gives 0.851"
+     ]
+    },
+    {
+     "ask": "Which bracket term is largest?",
+     "type": "mc",
+     "a": "The acceleration term (1/g)dV/dt ≈ 0.306",
+     "w": [
+      "The climb term (1/V)dh/dt ≈ 0.250",
+      "The parasite term qC_D0/(βW_TO/S) ≈ 0.082",
+      "The acceleration term (V/g)dV/dt ≈ 61.2"
+     ],
+     "sol": [
+      "Terms: parasite 0.082, induced 0.024, climb 0.250, acceleration 0.306",
+      "Dividing P_s by V turns (V/g)dV/dt into (1/g)dV/dt, which is the largest here"
+     ]
+    },
+    {
+     "ask": "Same climb rate at constant speed (dV/dt = 0). Find T_SL/W_TO.",
+     "type": "num",
+     "a": 0.458,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "Drop the acceleration term",
+      "(β/α)(0.0818 + 0.0245 + 0.2500) = 1.2857·0.3562",
+      "= 0.458"
+     ]
+    }
+   ],
+   "x": "The master equation is the energy equation divided by βW and V: each term is a drag, climb or acceleration demand on thrust loading, scaled by β/α back to sea level takeoff."
+  },
+  {
+   "id": "p-f3-3",
+   "skill": "f3",
+   "title": "Maneuver envelope at altitude and light weight",
+   "setup": "An aerobatic trainer has W/S = 3000 Pa at design weight, C_Lmax = 1.5 and positive limit load factor n_max = 6. Sea level ρ₀ = 1.225 kg/m³; at 6000 m (ISA) ρ = 0.660 kg/m³. Equivalent airspeed V_e = V√(ρ/ρ₀).",
+   "parts": [
+    {
+     "ask": "Find the 1g stall speed in EAS.",
+     "type": "num",
+     "a": 57.14,
+     "tol": 0.01,
+     "unit": "m/s",
+     "sol": [
+      "V_S = √(2(W/S)/(ρ₀C_Lmax)) in EAS",
+      "= √(6000/1.8375) = √3265",
+      "= 57.1 m/s EAS"
+     ]
+    },
+    {
+     "ask": "Find the corner (maneuver) speed V_A in EAS.",
+     "type": "num",
+     "a": 140.0,
+     "tol": 0.01,
+     "unit": "m/s",
+     "sol": [
+      "Stall curve n = (V/V_S)² meets n_max at V_A = V_S√n_max",
+      "= 57.14·√6",
+      "= 140.0 m/s EAS"
+     ]
+    },
+    {
+     "ask": "Find V_A as a true airspeed at 6000 m.",
+     "type": "num",
+     "a": 190.7,
+     "tol": 0.01,
+     "unit": "m/s",
+     "sol": [
+      "In EAS the envelope is the same at every altitude",
+      "V = V_e/√(ρ/ρ₀) = 140.0/√(0.660/1.225)",
+      "= 140.0/0.7340 = 190.7 m/s TAS"
+     ]
+    },
+    {
+     "ask": "Where is the maneuver diagram aerodynamically limited?",
+     "type": "mc",
+     "a": "Along the stall curve n = (V/V_S)² from V_S up to V_A, where C_Lmax caps the load factor",
+     "w": [
+      "Along the n_max line from V_A to V_D, where the wing reaches C_Lmax",
+      "At V_D, where the dive speed caps the load factor",
+      "Along the gust lines, which set the lift limit at every speed"
+     ],
+     "sol": [
+      "Left of V_A the wing stalls before reaching n_max: lift limit",
+      "Right of V_A the n_max line is a structural limit, and V_D is a speed limit"
+     ]
+    },
+    {
+     "ask": "After fuel burn the weight is 80% of design weight, with n_max still 6. Find the new V_A in EAS.",
+     "type": "num",
+     "a": 125.2,
+     "tol": 0.01,
+     "unit": "m/s",
+     "sol": [
+      "V_S ∝ √(W/S), so V_A ∝ √W at fixed n_max",
+      "V_A = 140.0·√0.8",
+      "= 125.2 m/s EAS"
+     ]
+    }
+   ],
+   "x": "Drawn in equivalent airspeed the V-n envelope holds at every altitude, and the stall speed and corner speed both scale with √W as weight changes."
+  },
+  {
+   "id": "p-f4-3",
+   "skill": "f4",
+   "title": "Same thrust, more air: why bypass pays",
+   "setup": "An engine must give T = 48 kN at flight speed V₀ = 240 m/s. Option A is a turbojet with mass flow 80 kg/s. Option B adds a fan with bypass ratio 5 on the same 80 kg/s core, so 480 kg/s in total. Treat each option as one uniform exhaust stream at ambient pressure, fuel mass neglected: T = ṁ(V_e − V₀).",
+   "parts": [
+    {
+     "ask": "Find the propulsive efficiency of option A.",
+     "type": "num",
+     "a": 0.4444,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "ΔV = T/ṁ = 48,000/80 = 600 m/s, V_e = 840 m/s",
+      "η_p = 2/(1 + V_e/V₀) = 2/(1 + 3.5)",
+      "= 0.444"
+     ]
+    },
+    {
+     "ask": "Find the propulsive efficiency of option B.",
+     "type": "num",
+     "a": 0.8276,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "ΔV = 48,000/480 = 100 m/s, V_e = 340 m/s",
+      "η_p = 2/(1 + 340/240)",
+      "= 0.828"
+     ]
+    },
+    {
+     "ask": "Find the ratio of kinetic energy power left in the wake, option A over option B.",
+     "type": "num",
+     "a": 6.0,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "Wasted power = ½ṁΔV²: A = ½·80·600² = 14.4 MW",
+      "B = ½·480·100² = 2.4 MW",
+      "Ratio = 6, while useful power TV₀ = 11.52 MW for both"
+     ]
+    },
+    {
+     "ask": "Which statement explains the gain?",
+     "type": "mc",
+     "a": "For fixed thrust ṁΔV, moving more mass with a smaller ΔV leaves less kinetic energy ½ṁΔV² in the wake",
+     "w": [
+      "The fan raises the core turbine inlet temperature, which raises thermal efficiency",
+      "A larger ΔV gives more thrust per kg of air, so the wake carries less energy",
+      "Bypass air adds thrust without adding any ram drag ṁV₀"
+     ],
+     "sol": [
+      "η_p is useful power over useful plus wasted wake power",
+      "Wasted power scales as T·ΔV/2, so smaller ΔV at the same T wins"
+     ]
+    },
+    {
+     "ask": "Flight speed rises toward option B's exhaust velocity of about 340 m/s. What happens to its thrust, and what does this mean for fast aircraft?",
+     "type": "say",
+     "a": "Thrust is ṁ(V_e − V₀), so as V₀ climbs toward V_e the velocity excess and the thrust collapse while ram drag ṁV₀ grows. Fast aircraft therefore use low bypass, high jet velocity engines and accept lower propulsive efficiency.",
+     "sol": [
+      "T = ṁ(V_e − V₀) shrinks as V₀ approaches V_e (thrust lapse with speed)",
+      "High speed needs a high specific thrust, which means low bypass ratio"
+     ]
+    }
+   ],
+   "x": "High bypass engines gain propulsive efficiency by accelerating a large mass flow by a small velocity increment, which suits the speed range where exhaust velocity stays well above flight speed."
+  }
+ ]
+}

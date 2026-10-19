@@ -1,0 +1,1051 @@
+{
+ "questions": [
+  {
+   "id": "o11-1",
+   "skill": "o11",
+   "type": "mc",
+   "q": "Steepest descent sets p = −∇f(x) and steps to x + αp. Which is the Armijo sufficient decrease condition (0 < c₁ < 1)?",
+   "a": "f(x + αp) ≤ f(x) + c₁α∇f(x)ᵀp",
+   "w": [
+    "f(x + αp) ≤ f(x) − c₁α∇f(x)ᵀp",
+    "f(x + αp) ≥ f(x) + c₁α∇f(x)ᵀp",
+    "f(x + αp) ≤ f(x) + c₁∇f(x)ᵀp"
+   ],
+   "x": "Along a descent direction ∇fᵀp < 0, so f(x) + c₁α∇fᵀp lies below f(x) and the step must deliver a decrease proportional to α and the initial slope. With p = −∇f the bound reads f(x) − c₁α‖∇f‖²."
+  },
+  {
+   "id": "o11-2",
+   "skill": "o11",
+   "type": "num",
+   "q": "f(x) = x² at x = 1, steepest descent p = −f′(1) = −2, c₁ = 10⁻⁴. Backtracking tries α = 1, then 0.5, then 0.25. Give the first accepted α.",
+   "a": 0.5,
+   "tol": 0.02,
+   "unit": "",
+   "x": "α = 1 lands at x = −1 with f = 1, above the Armijo bound 1 + c₁(1)(2)(−2) = 0.9996; α = 0.5 lands at x = 0 with f = 0, below the bound 0.9998, so α = 0.5 is accepted."
+  },
+  {
+   "id": "o11-3",
+   "skill": "o11",
+   "type": "mc",
+   "q": "With φ(α) = f(x + αp) and φ′(0) < 0, the weak Wolfe curvature condition φ′(α) ≥ c₂φ′(0) rejects which steps?",
+   "a": "Steps where φ′ is still steeply negative",
+   "w": [
+    "Steps where φ′ has turned positive (overshoot)",
+    "Steps where φ lies above the Armijo line",
+    "Steps where φ′ is close to zero"
+   ],
+   "x": "The curvature condition asks the slope to rise to at least c₂ times the initial slope, which guarantees the step travels far enough along p; the strong form adds |φ′(α)| ≤ c₂|φ′(0)| to also cap positive slopes."
+  },
+  {
+   "id": "o11-4",
+   "skill": "o11",
+   "type": "cloze",
+   "q": "Complete the weak Wolfe curvature condition (0 < c₁ < c₂ < 1)",
+   "text": "∇f(x + αp)ᵀp ___ c₂∇f(x)ᵀp",
+   "a": "≥",
+   "w": [
+    "≤",
+    "=",
+    "≥ −"
+   ],
+   "x": "The new directional derivative must be at least c₂ times the initial (negative) one, which pushes the step past the steep initial descent. Self-check: at the exact line minimizer the left side is 0, which satisfies it."
+  },
+  {
+   "id": "o11-5",
+   "skill": "o11",
+   "type": "mc",
+   "q": "Armijo plus the curvature condition (the Wolfe conditions) are the acceptance tests of",
+   "a": "an inexact line search that accepts a good enough α",
+   "w": [
+    "an exact line search that finds the minimizer along p",
+    "the choice of the search direction p itself",
+    "the trust region radius update"
+   ],
+   "x": "The Wolfe conditions define an acceptable range of α for an inexact line search, giving sufficient decrease and sufficient progress at low cost; an exact line search minimizes φ(α) fully."
+  },
+  {
+   "id": "o11-6",
+   "skill": "o11",
+   "type": "num",
+   "q": "Steepest descent with exact line search on f = ½xᵀHx, H = diag(1, 4), from x₀ = (2, 1). Give the step length α (3 decimals).",
+   "a": 0.294,
+   "tol": 0.02,
+   "unit": "",
+   "x": "For a quadratic, α = gᵀg/(gᵀHg) with g = Hx₀ = (2, 4): α = 20/68 = 0.294. Units check: α scales as 1/curvature, matching 1/H."
+  },
+  {
+   "id": "o11-7",
+   "skill": "o11",
+   "type": "mc",
+   "q": "The Cauchy point of the trust region subproblem minimizes the quadratic model along which direction?",
+   "a": "−g, the steepest descent direction, within Δ",
+   "w": [
+    "−B⁻¹g, the Newton direction, clipped to Δ",
+    "The previous step direction, extended to Δ",
+    "The eigenvector of B with the smallest eigenvalue"
+   ],
+   "x": "The Cauchy point minimizes m(p) along −g subject to ‖p‖ ≤ Δ; it guarantees sufficient model decrease and anchors the dogleg path."
+  },
+  {
+   "id": "o11-8",
+   "skill": "o11",
+   "type": "cloze",
+   "q": "Complete the trust region model",
+   "text": "m_k(p) = f_k + g_kᵀp + ___, minimized subject to ‖p‖ ≤ Δ_k",
+   "a": "½pᵀB_kp",
+   "w": [
+    "pᵀB_kp",
+    "½pᵀB_k⁻¹p",
+    "½Δ_k²"
+   ],
+   "x": "The trust region model is a second-order quadratic with B_k the Hessian or an approximation to it, trusted only inside the radius Δ_k."
+  },
+  {
+   "id": "o11-9",
+   "skill": "o11",
+   "type": "num",
+   "q": "f(x) = x⁴ at x = 1 with model m(p) = 1 + 4p + 6p² (exact Hessian). Trial step p = −1/3. Compute ρ = actual reduction / predicted reduction (2 decimals).",
+   "a": 1.2,
+   "tol": 0.02,
+   "unit": "",
+   "x": "Actual reduction 1 − (2/3)⁴ = 65/81 = 0.802; predicted reduction m(0) − m(p) = 1 − 1/3 = 2/3; ρ = 0.802/0.667 = 1.20, so the model is reliable and the step is accepted."
+  },
+  {
+   "id": "o11-10",
+   "skill": "o11",
+   "type": "pair",
+   "q": "Match each method to how it builds its search direction",
+   "pairs": [
+    [
+     "Newton",
+     "p = −H⁻¹g with the exact Hessian"
+    ],
+    [
+     "Modified Newton",
+     "Exact Hessian shifted or refactored to be positive definite"
+    ],
+    [
+     "Quasi-Newton (BFGS)",
+     "Hessian approximation updated from s and y = Δg"
+    ],
+    [
+     "Nonlinear CG (Fletcher-Reeves)",
+     "p = −g + βp_prev with β = g₊ᵀg₊/(gᵀg)"
+    ]
+   ],
+   "x": "Newton uses the true Hessian, modified Newton repairs it to be positive definite, BFGS builds an approximation from gradient differences through the secant condition, and CG combines the gradient with the previous direction."
+  },
+  {
+   "id": "o11-11",
+   "skill": "o11",
+   "type": "cloze",
+   "q": "Complete the steepest descent bound (exact line search, quadratic, condition number κ)",
+   "text": "f(x_{k+1}) − f* ≤ [___]² (f(x_k) − f*)",
+   "a": "(κ − 1)/(κ + 1)",
+   "w": [
+    "(√κ − 1)/(√κ + 1)",
+    "(κ − 1)/κ",
+    "1/κ"
+   ],
+   "x": "The factor ((κ − 1)/(κ + 1))² approaches 1 as κ grows, so steepest descent slows in elongated valleys. Limiting case: κ = 1 gives 0, convergence in one step on round contours."
+  },
+  {
+   "id": "o11-12",
+   "skill": "o11",
+   "type": "mc",
+   "q": "Minimize cruise drag over wing area S and span b at fixed weight W and speed. How is level-flight lift enforced?",
+   "a": "Equality C_L = W/(qS), often substituted out",
+   "w": [
+    "Inequality C_L ≤ C_Lmax alone",
+    "C_L kept as a free design variable, unbounded",
+    "Maximize L as a second objective"
+   ],
+   "x": "Level flight requires L = W, so C_L = W/(qS) is an equality constraint that can be substituted into the drag; C_L ≤ C_Lmax enters separately as the stall inequality."
+  },
+  {
+   "id": "o11-13",
+   "skill": "o11",
+   "type": "mc",
+   "q": "Full-space (simultaneous analysis and design) formulation with design x and state u. The governing equations R(x, u) = 0 enter as",
+   "a": "equality constraints, with u as optimization variables",
+   "w": [
+    "inequality constraints R(x, u) ≤ 0, with u as variables",
+    "a penalty term added to the objective",
+    "a solve run inside every function call"
+   ],
+   "x": "In the full-space form the optimizer treats u as variables and R(x, u) = 0 as equality constraints, so the physics holds at convergence; the reduced-space form solves R = 0 inside each evaluation."
+  },
+  {
+   "id": "o11-14",
+   "skill": "o11",
+   "type": "mc",
+   "q": "Log barrier φ = f − μΣ ln(−gᵢ) for constraints g ≤ 0. Along the central path as μ → 0, the quantity μ/(−gᵢ(x(μ))) tends to",
+   "a": "the KKT multiplier λᵢ of constraint i",
+   "w": [
+    "zero for every constraint",
+    "the barrier parameter μ itself, for all i",
+    "infinity for each active constraint i"
+   ],
+   "x": "Stationarity of φ gives ∇f + Σ(μ/(−gᵢ))∇gᵢ = 0, the KKT form, so μ/(−gᵢ) estimates λᵢ. The barrier parameter μ is fixed within each subproblem and reduced toward 0 between subproblems."
+  },
+  {
+   "id": "o11-15",
+   "skill": "o11",
+   "type": "mc",
+   "q": "State convexity of f from the definition (zeroth order, no derivatives), for all x, y and θ ∈ [0, 1]:",
+   "a": "f(θx + (1−θ)y) ≤ θf(x) + (1−θ)f(y)",
+   "w": [
+    "f(θx + (1−θ)y) ≥ θf(x) + (1−θ)f(y)",
+    "f(θx + (1−θ)y) ≤ θf(y) + (1−θ)f(x)",
+    "f((x + y)/2) ≥ ½f(x) + ½f(y)"
+   ],
+   "x": "The chord lies on or above the graph: f(θx + (1−θ)y) ≤ θf(x) + (1−θ)f(y). State this first; the gradient and Hessian tests follow from it for differentiable f."
+  },
+  {
+   "id": "o11-16",
+   "skill": "o11",
+   "type": "mc",
+   "q": "Least squares e(w) = ‖Φw − y‖² with Φ of size n × m. The gradient ∇e(w) is",
+   "a": "2Φᵀ(Φw − y)",
+   "w": [
+    "Φᵀ(Φw − y)",
+    "2Φ(Φw − y)",
+    "2(Φw − y)Φᵀ"
+   ],
+   "x": "Expanding gives wᵀΦᵀΦw − 2yᵀΦw + yᵀy, so ∇e = 2ΦᵀΦw − 2Φᵀy and setting it to 0 gives ΦᵀΦw = Φᵀy. Dimension check: Φᵀ (m × n) times an n-vector is an m-vector, matching w."
+  },
+  {
+   "id": "o11-17",
+   "skill": "o11",
+   "type": "mc",
+   "q": "f = ½xᵀHx + bᵀx with H = [[2,1],[1,2]] and b = (−3, −3). The principal axes of the elliptical contours are",
+   "a": "lines through (1, 1) along (1, 1) and (1, −1)",
+   "w": [
+    "lines through the origin along (1, 1) and (1, −1)",
+    "lines through (1, 1) along (1, 0) and (0, 1)",
+    "lines through (−1, −1) along (1, 1) and (1, −1)"
+   ],
+   "x": "The contours are centred on the critical point x* = −H⁻¹b = (1, 1), and the axes point along the eigenvectors (1, 1) with λ = 3 and (1, −1) with λ = 1. Check: H(1, 1) = (3, 3) = −b."
+  },
+  {
+   "id": "o11-18",
+   "skill": "o11",
+   "type": "mc",
+   "q": "f(x, y) = (x − y)² + c(x + y). For which c does f have a minimizer?",
+   "a": "c = 0 only, with a line of minimizers x = y",
+   "w": [
+    "Every c, since H is positive semidefinite here",
+    "c > 0 only, with a unique minimizer",
+    "c = 0 only, with a unique minimizer at 0"
+   ],
+   "x": "H = [[2,−2],[−2,2]] has null direction (1, 1), and the linear term c(x + y) points along it; f stays bounded below exactly when that component is 0, giving the trough x = y of minimizers."
+  },
+  {
+   "id": "o11-19",
+   "skill": "o11",
+   "type": "mc",
+   "q": "Convention: min f subject to g(x) ≤ 0, L = f + μg. The KKT stationarity and sign conditions are",
+   "a": "∇f + μ∇g = 0 with μ ≥ 0",
+   "w": [
+    "∇f − μ∇g = 0 with μ ≥ 0",
+    "∇f + μ∇g = 0 with μ ≤ 0",
+    "∇f + μ∇g = 0 with μ of free sign"
+   ],
+   "x": "Say \"KKT conditions\" out loud, then write ∇f + μ∇g = 0, μ ≥ 0, g ≤ 0 and μg = 0; at an active constraint −∇f points along the outward normal ∇g."
+  },
+  {
+   "id": "o11-20",
+   "skill": "o11",
+   "type": "cloze",
+   "q": "Complete complementary slackness (convention g ≤ 0)",
+   "text": "μᵢ · ___ = 0 for each inequality constraint i",
+   "a": "gᵢ(x*)",
+   "w": [
+    "∇gᵢ(x*)",
+    "∇f(x*)",
+    "f(x*)"
+   ],
+   "x": "Each product μᵢgᵢ(x*) equals 0: an inactive constraint (gᵢ < 0) carries μᵢ = 0, and a positive multiplier marks an active constraint (gᵢ = 0)."
+  },
+  {
+   "id": "f11-1",
+   "skill": "f11",
+   "type": "mc",
+   "q": "Climbing from sea level (ρ = 1.225 kg/m³) to 11 km (ρ = 0.364 kg/m³) at the same true airspeed, Reynolds effects neglected. C_D0 and parasite drag D₀ = qSC_D0:",
+   "a": "C_D0 same; D₀ drops to about 0.30×",
+   "w": [
+    "C_D0 drops to 0.30×; D₀ drops too",
+    "Both stay the same at equal TAS",
+    "C_D0 same; D₀ rises as the air thins"
+   ],
+   "x": "C_D0 is a nondimensional coefficient set by shape and Reynolds number, while the force D₀ = ½ρV²SC_D0 scales with q; at equal TAS, q falls by 0.364/1.225 = 0.30."
+  },
+  {
+   "id": "f11-2",
+   "skill": "f11",
+   "type": "num",
+   "q": "W = 50,000 N, S = 25 m², ρ = 1.225 kg/m³, C_Lmax = 1.6, pull-up at n = 2. Stall speed in m/s (1 decimal)?",
+   "a": 63.9,
+   "tol": 0.02,
+   "unit": "m/s",
+   "x": "V_s = √(2nW/(ρSC_Lmax)) = √(200,000/49) = 63.9 m/s, which is √2 times the 1 g stall speed of 45.2 m/s."
+  },
+  {
+   "id": "f11-3",
+   "skill": "f11",
+   "type": "cloze",
+   "q": "Complete the stall speed scaling with load factor",
+   "text": "V_s(n) = V_s1 · ___",
+   "a": "√n",
+   "w": [
+    "n",
+    "n²",
+    "1/√n"
+   ],
+   "x": "Stall at load factor n requires ½ρV²SC_Lmax = nW, so V_s grows with √n; this curve is the stall boundary of the V-n diagram."
+  },
+  {
+   "id": "f11-4",
+   "skill": "f11",
+   "type": "mc",
+   "q": "A wing has span b = 12 m and area S = 18 m². Its aspect ratio is",
+   "a": "8, from AR = b²/S",
+   "w": [
+    "0.67, from AR = b/S",
+    "1.5, from AR = S/b",
+    "0.125, from AR = S/b²"
+   ],
+   "x": "AR = b²/S = 144/18 = 8, equal to the span divided by the mean chord S/b = 1.5 m."
+  },
+  {
+   "id": "f11-5",
+   "skill": "f11",
+   "type": "cloze",
+   "q": "Complete the induced drag force at fixed lift (K = 1/(πeAR), AR = b²/S)",
+   "text": "D_i = L²/(π e q ___)",
+   "a": "b²",
+   "w": [
+    "S",
+    "AR",
+    "b"
+   ],
+   "x": "D_i = qSKC_L² with C_L = L/(qS) and AR = b²/S gives L²/(πeqb²), so induced drag at fixed lift depends on the span loading L/b. Units check: N²/(Pa·m²) = N."
+  },
+  {
+   "id": "f11-6",
+   "skill": "f11",
+   "type": "cloze",
+   "q": "Complete Mattingly's master equation (energy form)",
+   "text": "T_SL/W_TO = (β/α)[(qS/(βW_TO))(C_D + C_DR) + (1/V)(dh/dt) + ___]",
+   "a": "(1/g)(dV/dt)",
+   "w": [
+    "(1/V)(dV/dt)",
+    "(1/g)(dh/dt)",
+    "(V/g)(dV/dt)"
+   ],
+   "x": "The specific energy rate d(h + V²/(2g))/dt divided by V gives (1/V)dh/dt + (1/g)dV/dt; both terms are dimensionless, matching T/W."
+  },
+  {
+   "id": "f11-7",
+   "skill": "f11",
+   "type": "mc",
+   "q": "The master equation comes from (T − D)V = W d(h + V²/(2g))/dt. Which weight is W?",
+   "a": "βW_TO, the weight at that point in the mission",
+   "w": [
+    "W_TO, the takeoff weight, for every mission segment",
+    "αW_TO, the lapse-scaled weight",
+    "W_TO/β, scaled up for fuel burned"
+   ],
+   "x": "W = βW_TO is the instantaneous weight, so dividing through by βW_TO and writing T = αT_SL gives the leading factor β/α."
+  },
+  {
+   "id": "f11-8",
+   "skill": "f11",
+   "type": "mc",
+   "q": "In the master equation the induced term is K₁(nβW_TO/(qS))². Doubling n at fixed q and wing loading multiplies induced drag by",
+   "a": "4",
+   "w": [
+    "2",
+    "√2",
+    "8"
+   ],
+   "x": "Induced drag scales with C_L², and C_L = nβW_TO/(qS) is proportional to n, so induced drag scales with n²."
+  },
+  {
+   "id": "f11-9",
+   "skill": "f11",
+   "type": "order",
+   "q": "Put the turbofan core stations in order from freestream to core nozzle exit",
+   "steps": [
+    "0: freestream",
+    "2: fan face (inlet exit)",
+    "3: high-pressure compressor exit",
+    "4: burner exit, turbine inlet",
+    "9: core nozzle exit"
+   ],
+   "x": "Station 0 is freestream, 2 the fan face, 3 compressor exit, 4 turbine inlet (peak T_t), 5 turbine exit and 9 core nozzle exit; the bypass stream runs 13 to 19."
+  },
+  {
+   "id": "f11-10",
+   "skill": "f11",
+   "type": "mc",
+   "q": "In standard (Mattingly) station numbering, the fan bypass stream is labeled",
+   "a": "13 at fan exit and 19 at the bypass nozzle exit",
+   "w": [
+    "25 at fan exit and 29 at the bypass nozzle exit",
+    "3 at fan exit and 9 at the bypass nozzle exit",
+    "5 at fan exit and 8 at the bypass nozzle exit"
+   ],
+   "x": "The bypass stream carries the 1x labels: the fan compresses it from 2 to 13 and it expands from 13 to 19 in its own nozzle, drawn as a separate path on the T-s diagram."
+  },
+  {
+   "id": "f11-11",
+   "skill": "f11",
+   "type": "mc",
+   "q": "For an isentropic compressor, the work per unit mass equals ∫v dp because",
+   "a": "dh = T ds + v dp with ds = 0",
+   "w": [
+    "dh = T ds − v dp with ds = 0",
+    "du = T ds + v dp with ds = 0",
+    "dh = T ds + p dv with dv = 0"
+   ],
+   "x": "The Gibbs relation dh = T ds + v dp reduces to dh = v dp along an isentrope, and the steady-flow compressor work is the total enthalpy rise."
+  },
+  {
+   "id": "f11-12",
+   "skill": "f11",
+   "type": "num",
+   "q": "An engine gives 20 kN of thrust at V₀ = 200 m/s while moving 400 kg/s of air (fuel flow neglected). Ideal propulsive efficiency η_p = 2/(1 + V_e/V₀), 3 decimals?",
+   "a": 0.889,
+   "tol": 0.01,
+   "unit": "",
+   "x": "F = ṁ(V_e − V₀) gives V_e = 250 m/s, so η_p = 2/(1 + 1.25) = 0.889. The same thrust from 100 kg/s needs V_e = 400 m/s and gives 0.667: moving more air with a smaller velocity increment raises η_p."
+  },
+  {
+   "id": "f11-13",
+   "skill": "f11",
+   "type": "num",
+   "q": "Uniform circulation Γ = 10 m²/s over a 6 m semispan, ρ = 1.225 kg/m³, V = 60 m/s. Root bending moment from one semispan, in kN·m (2 decimals)?",
+   "a": 13.23,
+   "tol": 0.02,
+   "unit": "kN·m",
+   "x": "L′ = ρVΓ = 735 N/m and M_root = ∫₀⁶ L′y dy = 735 × 36/2 = 13,230 N·m = 13.23 kN·m. Check: the semispan lift 4410 N acts at its 3 m centroid."
+  },
+  {
+   "id": "f11-14",
+   "skill": "f11",
+   "type": "cloze",
+   "q": "Complete the wing root bending moment from the spanwise lift distribution",
+   "text": "M_root = ∫₀^(b/2) L′(y) ___ dy",
+   "a": "y",
+   "w": [
+    "y²",
+    "(b/2 − y)",
+    "1"
+   ],
+   "x": "Each strip of lift L′(y)dy acts at moment arm y from the root, so M_root = ∫ L′(y) y dy, the first moment of the semispan lift."
+  },
+  {
+   "id": "f11-15",
+   "skill": "f11",
+   "type": "mc",
+   "q": "Heading equation mV cos γ dψ/dt = (L + T sin(α + ε)) sin φ. Which setting confines the motion to a vertical plane?",
+   "a": "φ = 0, so dψ/dt = 0",
+   "w": [
+    "γ = 0, so dψ/dt = 0",
+    "α + ε = 0, so dψ/dt = 0",
+    "L = W, so dψ/dt = 0"
+   ],
+   "x": "With wings level (φ = 0) the heading rate is 0, and the remaining tangential and normal equations describe flight in the vertical plane."
+  },
+  {
+   "id": "f11-16",
+   "skill": "f11",
+   "type": "mc",
+   "q": "TAS 200 m/s where ρ = 0.41 kg/m³ (ρ₀ = 1.225 kg/m³). Equivalent airspeed is about",
+   "a": "116 m/s, from V_e = V√(ρ/ρ₀)",
+   "w": [
+    "346 m/s, from V_e = V√(ρ₀/ρ)",
+    "67 m/s, from V_e = Vρ/ρ₀",
+    "200 m/s, as EAS equals TAS"
+   ],
+   "x": "EAS gives the same dynamic pressure at sea-level density: ½ρ₀V_e² = ½ρV², so V_e = V√(ρ/ρ₀) = 116 m/s, below the true airspeed at altitude."
+  },
+  {
+   "id": "f11-17",
+   "skill": "f11",
+   "type": "mc",
+   "q": "Top of an outside loop: the aircraft is upright with the loop centre below it, speed V, radius R. With n = L/W:",
+   "a": "n = 1 − V²/(gR)",
+   "w": [
+    "n = 1 + V²/(gR)",
+    "n = V²/(gR) − 1",
+    "n = V²/(gR)"
+   ],
+   "x": "The net force W − L supplies mV²/R toward the centre below, so n = 1 − V²/(gR), which becomes negative (pilot pressed toward the canopy) once V²/(gR) > 1."
+  },
+  {
+   "id": "f11-18",
+   "skill": "f11",
+   "type": "mc",
+   "q": "Top of an inside loop: the aircraft is inverted with the centre below it, V = 100 m/s, R = 500 m, g = 9.81 m/s². Load factor n = L/W?",
+   "a": "n ≈ 1.04",
+   "w": [
+    "n ≈ 3.04",
+    "n ≈ −1.04",
+    "n ≈ 2.04"
+   ],
+   "x": "Lift and weight both point toward the centre, so L + W = mV²/R and n = V²/(gR) − 1 = 2.04 − 1 = 1.04. Self-check: at V²/(gR) = 1 the aircraft floats over the top with L = 0."
+  },
+  {
+   "id": "f11-19",
+   "skill": "f11",
+   "type": "mc",
+   "q": "Hover with T = 2000 N, ρ = 1.225 kg/m³, disk area A = 10 m². Ideal induced velocity and power?",
+   "a": "v_i ≈ 9.0 m/s, P ≈ 18 kW",
+   "w": [
+    "v_i ≈ 12.8 m/s, P ≈ 26 kW",
+    "v_i ≈ 4.5 m/s, P ≈ 9 kW",
+    "v_i ≈ 18.1 m/s, P ≈ 36 kW"
+   ],
+   "x": "v_i = √(T/(2ρA)) = √81.6 = 9.0 m/s and P = Tv_i = T^(3/2)/√(2ρA) = 18.1 kW. Units check: √(N/(kg/m³ · m²)) = m/s."
+  },
+  {
+   "id": "f11-20",
+   "skill": "f11",
+   "type": "mc",
+   "q": "At fixed density and disk area, doubling hover thrust multiplies ideal induced power by",
+   "a": "2^(3/2) ≈ 2.83",
+   "w": [
+    "2^(1/2) ≈ 1.41",
+    "2² = 4",
+    "2"
+   ],
+   "x": "P = T^(3/2)/√(2ρA), so doubling T gives 2^(3/2) = 2.83 times the power, because the induced velocity also rises by √2."
+  },
+  {
+   "id": "s16-1",
+   "skill": "s16",
+   "type": "cloze",
+   "q": "Complete the Airy stress function definitions (zero body force)",
+   "text": "σ_11 = ∂²φ/∂y², σ_22 = ∂²φ/∂x², σ_12 = ___",
+   "a": "−∂²φ/∂x∂y",
+   "w": [
+    "∂²φ/∂x∂y",
+    "−∂²φ/∂x²",
+    "½∂²φ/∂x∂y"
+   ],
+   "x": "With σ_12 = −∂²φ/∂x∂y, both equilibrium equations ∂σ_11/∂x + ∂σ_12/∂y = 0 and ∂σ_12/∂x + ∂σ_22/∂y = 0 hold identically."
+  },
+  {
+   "id": "s16-2",
+   "skill": "s16",
+   "type": "mc",
+   "q": "Airy function φ = Cxy with C a constant. The stresses are",
+   "a": "σ_12 = −C, with σ_11 = σ_22 = 0",
+   "w": [
+    "σ_12 = C, with σ_11 = σ_22 = 0",
+    "σ_11 = σ_22 = −C, with σ_12 = 0",
+    "σ_11 = C, with σ_22 = σ_12 = 0"
+   ],
+   "x": "∂²φ/∂x∂y = C and σ_12 = −∂²φ/∂x∂y, so φ = Cxy is uniform shear with σ_12 = −C; φ is biharmonic, so compatibility holds too."
+  },
+  {
+   "id": "s16-3",
+   "skill": "s16",
+   "type": "mc",
+   "q": "Stresses come from an Airy function φ (zero body force) that meets every traction boundary condition, yet ∇⁴φ ≠ 0. This stress field",
+   "a": "satisfies equilibrium and violates compatibility",
+   "w": [
+    "violates equilibrium and satisfies compatibility",
+    "satisfies both equilibrium and compatibility",
+    "violates both equilibrium and compatibility"
+   ],
+   "x": "The Airy definitions satisfy equilibrium automatically; ∇⁴φ = 0 is compatibility written in stresses, and it guarantees the strains integrate to a single-valued displacement field."
+  },
+  {
+   "id": "s16-4",
+   "skill": "s16",
+   "type": "num",
+   "q": "Plane strain (ε_33 = 0), isotropic, ν = 0.3, σ_11 = 100 MPa, σ_22 = −40 MPa. Find σ_33 in MPa.",
+   "a": 18,
+   "tol": 0.02,
+   "unit": "MPa",
+   "x": "ε_33 = [σ_33 − ν(σ_11 + σ_22)]/E = 0 gives σ_33 = ν(σ_11 + σ_22) = 0.3 × 60 = 18 MPa; plane strain carries an out-of-plane stress that holds ε_33 at 0."
+  },
+  {
+   "id": "s16-5",
+   "skill": "s16",
+   "type": "mc",
+   "q": "Uniaxial σ = diag(100, 0, 0) MPa. A new observer is rotated by Q, 90° about e₃ (Qe₁ = e₂). The transformed stress σ* is",
+   "a": "diag(0, 100, 0) MPa",
+   "w": [
+    "diag(100, 0, 0) MPa",
+    "diag(0, −100, 0) MPa",
+    "diag(−100, 0, 0) MPa"
+   ],
+   "x": "Objectivity gives σ* = QσQᵀ = 100(Qe₁)(Qe₁)ᵀ, so the tension direction e₁ is carried to e₂ and the observer sees the same uniaxial state along e₂."
+  },
+  {
+   "id": "s16-6",
+   "skill": "s16",
+   "type": "pair",
+   "q": "Observer change x* = Qx + c. Match each quantity to its transformation",
+   "pairs": [
+    [
+     "Deformation gradient F",
+     "F* = QF"
+    ],
+    [
+     "Right Cauchy-Green C",
+     "C* = C"
+    ],
+    [
+     "Left Cauchy-Green B",
+     "B* = QBQᵀ"
+    ],
+    [
+     "Cauchy stress σ",
+     "σ* = QσQᵀ"
+    ]
+   ],
+   "x": "F* = QF because Q acts on the current configuration; then C* = FᵀQᵀQF = C, while B* = QFFᵀQᵀ = QBQᵀ and σ* = QσQᵀ rotate with the spatial frame."
+  },
+  {
+   "id": "s16-7",
+   "skill": "s16",
+   "type": "cloze",
+   "q": "Complete the first Piola-Kirchhoff stress in terms of Cauchy stress",
+   "text": "P = J σ ___",
+   "a": "F⁻ᵀ",
+   "w": [
+    "F⁻¹",
+    "Fᵀ",
+    "F"
+   ],
+   "x": "Equating forces, σn da = PN dA, and Nanson's formula n da = JF⁻ᵀN dA give P = JσF⁻ᵀ."
+  },
+  {
+   "id": "s16-8",
+   "skill": "s16",
+   "type": "mc",
+   "q": "Incompressible bar in uniaxial tension, stretch λ = 2, true stress σ_11 = 10 MPa. The nominal (first Piola) stress P_11 is",
+   "a": "5 MPa, from P_11 = σ_11/λ",
+   "w": [
+    "20 MPa, from P_11 = λσ_11",
+    "10 MPa, from P_11 = σ_11",
+    "2.5 MPa, from P_11 = σ_11/λ²"
+   ],
+   "x": "J = 1 and (F⁻ᵀ)_11 = 1/λ, so P_11 = σ_11/λ = 5 MPa. Check: the area shrinks to A₀/2, so the force σ_11A₀/2 spread over A₀ gives 5 MPa."
+  },
+  {
+   "id": "s16-9",
+   "skill": "s16",
+   "type": "mc",
+   "q": "Solid circular shaft of radius r under torque T. Maximum shear stress?",
+   "a": "τ = Tr/J with J = πr⁴/2",
+   "w": [
+    "τ = Tr/I with I = πr⁴/4",
+    "τ = Tr/J with J = πr⁴/4",
+    "τ = Tr/(2J) with J = πr⁴/2"
+   ],
+   "x": "Torsion uses the polar moment J = πr⁴/2, giving τ_max = 2T/(πr³); bending uses I = πr⁴/4 about a diameter, and J = 2I for a circle."
+  },
+  {
+   "id": "s16-10",
+   "skill": "s16",
+   "type": "mc",
+   "q": "Radial displacement u(r) solving the equilibrium (Navier) equation for a thick-walled sphere under pressure:",
+   "a": "u = Ar + B/r²",
+   "w": [
+    "u = Ar + B/r",
+    "u = A + B ln r",
+    "u = Ar² + B/r"
+   ],
+   "x": "Spherical symmetry gives d/dr[(1/r²) d(r²u)/dr] = 0, so u = Ar + B/r² and the stresses carry a constant and a 1/r³ term; the cylinder's version gives u = Ar + B/r."
+  },
+  {
+   "id": "s16-11",
+   "skill": "s16",
+   "type": "mc",
+   "q": "At the bore of a thick sphere under internal pressure p, the stress state is",
+   "a": "σ_rr = −p with equal tensile hoop stresses σ_θθ = σ_φφ",
+   "w": [
+    "σ_rr = −p, tensile σ_θθ and σ_φφ = 0",
+    "σ_rr = 0 with equal tensile hoop stresses σ_θθ = σ_φφ = p",
+    "σ_rr = −p with σ_φφ = σ_θθ/2"
+   ],
+   "x": "Spherical symmetry makes the two hoop stresses equal, so the bore carries equibiaxial hoop tension plus the radial compression −p."
+  },
+  {
+   "id": "s16-12",
+   "skill": "s16",
+   "type": "num",
+   "q": "Thick sphere with σ_rr = A − B/r³ and σ_θθ = A + B/(2r³). Inner radius 1 m, outer radius 2 m, internal pressure 10 MPa, outer surface free. Find σ_θθ at the bore in MPa (2 decimals).",
+   "a": 7.14,
+   "tol": 0.02,
+   "unit": "MPa",
+   "x": "σ_rr(2) = 0 gives A = B/8, and σ_rr(1) = −10 gives B = 80/7 = 11.43 and A = 1.43, so σ_θθ(1) = 1.43 + 5.71 = 7.14 MPa, with σ_φφ equal to it by symmetry."
+  },
+  {
+   "id": "s16-13",
+   "skill": "s16",
+   "type": "cloze",
+   "q": "Complete the bulk modulus in terms of the Lamé constants",
+   "text": "K = λ + ___",
+   "a": "2μ/3",
+   "w": [
+    "2μ",
+    "μ/3",
+    "3μ/2"
+   ],
+   "x": "The trace of σ = λ tr(ε)I + 2με gives tr σ = (3λ + 2μ) tr ε, so p = −K tr ε with K = λ + 2μ/3 = E/(3(1 − 2ν))."
+  },
+  {
+   "id": "s16-14",
+   "skill": "s16",
+   "type": "mc",
+   "q": "Steel with E = 210 GPa and ν = 0.3. Bulk modulus K?",
+   "a": "175 GPa, K = E/(3(1 − 2ν))",
+   "w": [
+    "81 GPa, K = E/(2(1 + ν))",
+    "100 GPa, K = E/(3(1 − ν))",
+    "350 GPa, K = 2E/(3(1 − 2ν))"
+   ],
+   "x": "K = 210/(3 × 0.4) = 175 GPa, the ratio of pressure to volumetric strain. Limiting case: K grows without bound as ν → ½ (incompressible)."
+  },
+  {
+   "id": "s16-15",
+   "skill": "s16",
+   "type": "mc",
+   "q": "Matrix A (volume fraction 1 − f) holds particles B (fraction f). Assuming the same pressure in both phases, the effective bulk modulus is",
+   "a": "1/K = (1 − f)/K_A + f/K_B, a lower bound",
+   "w": [
+    "K = (1 − f)K_A + fK_B, a lower bound",
+    "1/K = (1 − f)/K_A + f/K_B, an upper bound",
+    "K = (1 − f)K_A + fK_B, the exact value"
+   ],
+   "x": "Equal pressure (equal stress) makes the volumetric strains add by volume fraction, giving the Reuss (series) estimate 1/K = (1 − f)/K_A + f/K_B, the lower bound on K."
+  },
+  {
+   "id": "s16-16",
+   "skill": "s16",
+   "type": "num",
+   "q": "Reuss estimate: K_A = 3 GPa (matrix, fraction 0.8) and K_B = 30 GPa (particles, fraction 0.2). Effective K in GPa (2 decimals)?",
+   "a": 3.66,
+   "tol": 0.02,
+   "unit": "GPa",
+   "x": "1/K = 0.8/3 + 0.2/30 = 0.2733 GPa⁻¹, so K = 3.66 GPa; the Voigt average 8.4 GPa sits above it, and the true value lies between them."
+  },
+  {
+   "id": "s16-17",
+   "skill": "s16",
+   "type": "mc",
+   "q": "Incompressible neo-Hookean, σ = −pI + μB, simple shear x₁ = X₁ + γX₂. The faces x₃ = const are traction free. Then p and σ_11 are",
+   "a": "p = μ, σ_11 = μγ²",
+   "w": [
+    "p = 0, σ_11 = μ(1 + γ²)",
+    "p = μ(1 + γ²), σ_11 = 0",
+    "p = μγ², σ_11 = μ"
+   ],
+   "x": "p is a reaction found from a traction condition: σ_33 = −p + μB_33 = −p + μ = 0 gives p = μ, so σ_11 = μγ², σ_22 = 0 and σ_12 = μγ."
+  },
+  {
+   "id": "s16-18",
+   "skill": "s16",
+   "type": "mc",
+   "q": "Plane stress body with a traction-free edge whose outward normal is n = (1, 1)/√2. The boundary conditions there are",
+   "a": "σ_11 + σ_12 = 0 and σ_12 + σ_22 = 0",
+   "w": [
+    "σ_11 = 0 and σ_12 = 0",
+    "σ_11 + σ_22 = 0 and σ_12 = 0",
+    "σ_nn = 0 alone, with the shear free"
+   ],
+   "x": "Cauchy's formula t = σn with n = (1, 1)/√2 gives t₁ = (σ_11 + σ_12)/√2 and t₂ = (σ_12 + σ_22)/√2, and both components equal 0 on a free edge."
+  },
+  {
+   "id": "s16-19",
+   "skill": "s16",
+   "type": "cloze",
+   "q": "Complete radial equilibrium of a spinning disc (density ρ, angular speed ω), multiplied through by r",
+   "text": "d(rσ_rr)/dr − σ_θθ + ___ = 0",
+   "a": "ρω²r²",
+   "w": [
+    "ρω²r",
+    "−ρω²r²",
+    "ρωr²"
+   ],
+   "x": "The centrifugal body force ρω²r acts outward; multiplying dσ_rr/dr + (σ_rr − σ_θθ)/r + ρω²r = 0 by r gives the form shown. Units check: ρω²r² has units of stress."
+  },
+  {
+   "id": "s16-20",
+   "skill": "s16",
+   "type": "mc",
+   "q": "Solid spinning disc in plane stress. The stress solution consists of",
+   "a": "Lamé-type homogeneous terms plus a particular part ∝ ρω²r²",
+   "w": [
+    "Lamé terms A + B/r² alone, with both constants from the BCs",
+    "a uniform hoop stress ρω²b² throughout",
+    "a particular part ∝ ρω²r² alone, fitted to the rim"
+   ],
+   "x": "The body force ρω²r makes the radial equation inhomogeneous, so the solution adds a particular part (∝ ρω²r²) to the homogeneous Lamé terms; for a solid disc, finite stress at r = 0 sets the 1/r² constant to 0."
+  },
+  {
+   "id": "s17-1",
+   "skill": "s17",
+   "type": "cloze",
+   "q": "Complete the expansion used for post-buckling energy",
+   "text": "cos θ ≈ 1 − θ²/2 + ___",
+   "a": "θ⁴/24",
+   "w": [
+    "θ⁴/12",
+    "θ⁴/6",
+    "θ³/6"
+   ],
+   "x": "cos θ = 1 − θ²/2! + θ⁴/4! − ..., so 1 − cos θ ≈ θ²/2 − θ⁴/24; keep every energy term through θ⁴. Check at θ = 0.5: 1 − 0.125 + 0.0026 = 0.8776 = cos 0.5."
+  },
+  {
+   "id": "s17-2",
+   "skill": "s17",
+   "type": "mc",
+   "q": "Rigid bar, base spring C, vertical dead load P, θ from the vertical: Π = ½Cθ² − PL(1 − cos θ). Expanded to fourth order, Π ≈",
+   "a": "½(C − PL)θ² + PLθ⁴/24",
+   "w": [
+    "½(C − PL)θ² − PLθ⁴/24",
+    "½(C − PL)θ²",
+    "½(C + PL)θ² + PLθ⁴/24"
+   ],
+   "x": "−PL(1 − cos θ) ≈ −PLθ²/2 + PLθ⁴/24, so the θ⁴ coefficient is +PL/24; at P_cr = C/L it is positive, a stable symmetric bifurcation."
+  },
+  {
+   "id": "s17-3",
+   "skill": "s17",
+   "type": "mc",
+   "q": "At P = P_cr the θ² coefficient of Π vanishes. What decides whether the critical state is stable?",
+   "a": "The lowest surviving higher term, here θ⁴",
+   "w": [
+    "The sign of the θ² coefficient just below P_cr",
+    "The θ² coefficient alone, which marks a neutral state",
+    "The magnitude of P_cr relative to the yield load"
+   ],
+   "x": "The quadratic term locates P_cr and the quartic term decides the post-critical behaviour: a positive θ⁴ coefficient at P_cr gives a stable critical point and a rising post-buckling path."
+  },
+  {
+   "id": "s17-4",
+   "skill": "s17",
+   "type": "num",
+   "q": "For that bar, equilibrium gives P = Cθ/(L sin θ). Find P/P_cr at θ = 0.5 rad (3 decimals).",
+   "a": 1.043,
+   "tol": 0.002,
+   "unit": "",
+   "x": "P/P_cr = θ/sin θ = 0.5/0.4794 = 1.043, close to the θ⁴-expansion estimate 1 + θ²/6 = 1.042; the load rises with deflection, a stable post-buckling path."
+  },
+  {
+   "id": "s17-5",
+   "skill": "s17",
+   "type": "mc",
+   "q": "Two rigid bars at angles θ₁ and θ₂ from the vertical meet at a hinge with rotational spring C. The hinge spring energy is",
+   "a": "½C(θ₂ − θ₁)²",
+   "w": [
+    "½C(θ₁² + θ₂²)",
+    "½Cθ₂²",
+    "½C(θ₂ + θ₁)²"
+   ],
+   "x": "A hinge spring resists the relative rotation of the two bars, so its energy is ½C(θ₂ − θ₁)²; a rigid rotation with θ₁ = θ₂ stores 0 in it."
+  },
+  {
+   "id": "s17-6",
+   "skill": "s17",
+   "type": "mc",
+   "q": "A rigid bar of length L pinned at its base carries a vertical dead load P at its top. With θ measured from the vertical, the load drops by",
+   "a": "L(1 − cos θ) ≈ Lθ²/2",
+   "w": [
+    "L sin θ ≈ Lθ",
+    "L cos θ ≈ L − Lθ²/2",
+    "L(1 − sin θ) ≈ L − Lθ"
+   ],
+   "x": "With θ from the vertical, θ = 0 is the straight state and the top falls L(1 − cos θ), a second-order quantity; the load potential is −PL(1 − cos θ)."
+  },
+  {
+   "id": "s17-7",
+   "skill": "s17",
+   "type": "num",
+   "q": "Cantilever, L = 2000 mm, EI = 10¹² N·mm², tip load P = 10 kN. Deflection at midspan by the unit load method, in mm (2 decimals)?",
+   "a": 8.33,
+   "tol": 0.02,
+   "unit": "mm",
+   "x": "Place the unit load at midspan along the wanted deflection: m = (L/2 − x) for x < L/2 with M = P(L − x). Then Δ = ∫Mm/(EI) dx = Pa²(3L − a)/(6EI) with a = L/2, giving 8.33 mm, 5/16 of the tip value 26.67 mm."
+  },
+  {
+   "id": "s17-8",
+   "skill": "s17",
+   "type": "mc",
+   "q": "Rayleigh-Ritz for a cantilever (clamped at x = 0) whose tip rests on a spring k. The trial function must satisfy",
+   "a": "w(0) = w′(0) = 0; add ½k w(L)² to Π",
+   "w": [
+    "w(0) = w′(0) = 0 and w(L) = 0",
+    "w(0) = w′(0) = 0 and w(L) = R/k imposed",
+    "w(0) = 0; add ½k w(L)² to Π"
+   ],
+   "x": "Trial functions satisfy the kinematic conditions only; the spring enters Π as strain energy ½k w(L)², and its reaction R = k w(L) follows from the solution. Limit check: k → ∞ drives w(L) → 0, the propped cantilever."
+  },
+  {
+   "id": "s17-9",
+   "skill": "s17",
+   "type": "cloze",
+   "q": "Complete the total potential energy of a beam under distributed load q (w positive along q)",
+   "text": "Π = ∫ ½EI(w″)² dx ___ ∫ q w dx",
+   "a": "−",
+   "w": [
+    "+",
+    "+ ½",
+    "− ½"
+   ],
+   "x": "Π = U − W, and the load potential is −∫qw dx because the load does positive work as w grows along q; stationarity then gives EI w'''' = q."
+  },
+  {
+   "id": "s17-10",
+   "skill": "s17",
+   "type": "num",
+   "q": "Simply supported beam, uniform load q, one-term Ritz w = a sin(πx/L). Give a·EI/(qL⁴) to 5 decimals.",
+   "a": 0.01307,
+   "tol": 0.002,
+   "unit": "",
+   "x": "Π = (π⁴EI/(4L³))a² − (2qL/π)a, so a = 4qL⁴/(π⁵EI) = 0.01307 qL⁴/EI, within 0.4% of the exact 5/384 = 0.01302."
+  },
+  {
+   "id": "s17-11",
+   "skill": "s17",
+   "type": "mc",
+   "q": "A flange 100 mm wide and 10 mm thick has its centroid d = 100 mm from the neutral axis. Its contribution to I about that axis?",
+   "a": "bt³/12 + btd² ≈ 1.0 × 10⁷ mm⁴",
+   "w": [
+    "bt³/12 ≈ 8.3 × 10³ mm⁴",
+    "bt³/12 + btd ≈ 1.1 × 10⁵ mm⁴",
+    "bt³/3 + bd³/12 ≈ 8.4 × 10⁶ mm⁴"
+   ],
+   "x": "Parallel axis: I = bt³/12 + Ad² = 8333 + 1000 × 100² ≈ 1.0 × 10⁷ mm⁴, so the Ad² term dominates for flanges far from the neutral axis."
+  },
+  {
+   "id": "s17-12",
+   "skill": "s17",
+   "type": "mc",
+   "q": "Thin-walled open section under shear V. Where do you start integrating q(s) = (V/I)∫₀ˢ y t ds?",
+   "a": "At a free edge, where q = 0",
+   "w": [
+    "At the neutral axis, where q = 0",
+    "At the shear center, where q = 0",
+    "At the web midpoint, where q = 0"
+   ],
+   "x": "A free edge carries zero shear stress (complementary shear on a traction-free face), so q starts at 0 there and accumulates Q(s) = ∫ y t ds; q peaks where the path crosses the neutral axis."
+  },
+  {
+   "id": "s17-13",
+   "skill": "s17",
+   "type": "cloze",
+   "q": "Complete the first moment used in thin-walled shear flow",
+   "text": "Q(s) = ∫₀ˢ y ___ ds",
+   "a": "t",
+   "w": [
+    "1",
+    "t²",
+    "y"
+   ],
+   "x": "Q(s) = ∫ y t ds is the first moment of the wall area t ds swept from the free edge. Units check: mm × mm × mm = mm³."
+  },
+  {
+   "id": "s17-14",
+   "skill": "s17",
+   "type": "order",
+   "q": "Put the steps for shear flow in a thin-walled open section in order",
+   "steps": [
+    "Locate the centroid and compute I about the bending axis",
+    "Start at a free edge with q = 0",
+    "Integrate q(s) = (V/I)∫ y t ds along the wall",
+    "Integrate q(s) over each wall segment to get its force resultant",
+    "Balance the moment of those resultants with V·e to locate the shear center"
+   ],
+   "x": "Section properties come first, then integrate from the free edge where q = 0; the segment resultants (which sum to V) then give the moment balance that locates the shear center."
+  },
+  {
+   "id": "s17-15",
+   "skill": "s17",
+   "type": "mc",
+   "q": "Solid equilateral triangle in Saint-Venant torsion. Shear stress at the corners and at the mid-sides?",
+   "a": "0 at the corners; maximum at the mid-sides",
+   "w": [
+    "maximum at the corners; 0 at the mid-sides",
+    "uniform along each side, corners included",
+    "maximum at the centroid; 0 on the boundary"
+   ],
+   "x": "In the membrane analogy the slope is 0 in the corners and steepest at the boundary points closest to the centroid, the mid-sides, where τ_max = 20T/a³ for side a."
+  },
+  {
+   "id": "s17-16",
+   "skill": "s17",
+   "type": "cloze",
+   "q": "Complete the two-thirds law for an unstable symmetric bifurcation with imperfection amplitude ε",
+   "text": "1 − P_max/P_cr ∝ ε^(___)",
+   "a": "2/3",
+   "w": [
+    "1/2",
+    "3/2",
+    "1/3"
+   ],
+   "x": "For an unstable symmetric bifurcation the knockdown grows as ε^(2/3), the two-thirds power law; an asymmetric bifurcation follows ε^(1/2)."
+  },
+  {
+   "id": "s17-17",
+   "skill": "s17",
+   "type": "mc",
+   "q": "An unstable symmetric structure obeys the two-thirds law. Reducing the imperfection amplitude by a factor of 8 reduces the knockdown 1 − P_max/P_cr by",
+   "a": "a factor of 4",
+   "w": [
+    "a factor of 8",
+    "a factor of 2",
+    "a factor of 2.83"
+   ],
+   "x": "The knockdown scales as ε^(2/3), and 8^(2/3) = 4."
+  },
+  {
+   "id": "s17-18",
+   "skill": "s17",
+   "type": "mc",
+   "q": "A close-coiled helical spring (mean coil radius R) carries an axial force P. The wire is loaded mainly in",
+   "a": "torsion, with torque T = PR",
+   "w": [
+    "bending, with moment M = PR",
+    "axial tension, with force P",
+    "direct shear, with force P alone"
+   ],
+   "x": "The axial force acts at arm R from the wire centreline, twisting the wire with T = PR; the energy route then gives k = Gd⁴/(8D³n) with D = 2R."
+  },
+  {
+   "id": "s17-19",
+   "skill": "s17",
+   "type": "mc",
+   "q": "The same helical spring is instead twisted by a moment M about its own axis. The wire is loaded mainly in",
+   "a": "bending, with moment M",
+   "w": [
+    "torsion, with torque M",
+    "torsion, with torque MR",
+    "axial force M/R"
+   ],
+   "x": "A moment along the coil axis is nearly perpendicular to the wire tangent, so every turn bends with moment M (the M₃ component), and the angular stiffness is EI/(2πRN) from wire length 2πRN."
+  },
+  {
+   "id": "s17-20",
+   "skill": "s17",
+   "type": "mc",
+   "q": "Sizing a thin-walled tube of outer diameter D against a stress limit returns t = D/4. The right response is",
+   "a": "Flag the thin-wall violation; redo with thick theory",
+   "w": [
+    "Accept t = D/4, as the stress limit is satisfied",
+    "Halve t so that the section counts as thin-walled again",
+    "Keep t = D/4 and apply a safety factor of 1.5"
+   ],
+   "x": "Thin-wall theory assumes t ≪ R; t = D/4 makes the wall half the outer radius, so state that the opening assumption is violated and switch to a thick-wall or solid-section analysis."
+  }
+ ],
+ "boards": []
+}

@@ -1,0 +1,794 @@
+{
+ "problems": [
+  {
+   "id": "p-s6-1",
+   "skill": "s6",
+   "title": "T beam bending stress",
+   "setup": "A T beam has a flange 80 mm wide × 20 mm thick on top of a web 20 mm thick × 120 mm deep (total depth 140 mm). It carries a sagging bending moment M = 10 kN·m about the horizontal centroidal axis. Measure y upward from the bottom of the web; the material is linear elastic.",
+   "parts": [
+    {
+     "ask": "Height of the centroid above the bottom of the web",
+     "type": "num",
+     "a": 88.0,
+     "tol": 0.02,
+     "unit": "mm",
+     "sol": [
+      "Flange: A = 1600 mm², y = 130 mm; web: A = 2400 mm², y = 60 mm",
+      "ȳ = (1600·130 + 2400·60)/4000 = 88.0 mm"
+     ]
+    },
+    {
+     "ask": "Second moment of area about the centroidal axis, in units of 10⁶ mm⁴ (ȳ = 88 mm)",
+     "type": "num",
+     "a": 7.6373,
+     "tol": 0.02,
+     "unit": "×10⁶ mm⁴",
+     "sol": [
+      "Flange: 80·20³/12 + 1600·42² = 0.0533e6 + 2.8224e6",
+      "Web: 20·120³/12 + 2400·28² = 2.880e6 + 1.8816e6",
+      "I = 7.637e6 mm⁴ by the parallel axis theorem"
+     ]
+    },
+    {
+     "ask": "Maximum tensile bending stress (I = 7.637×10⁶ mm⁴)",
+     "type": "num",
+     "a": 115.2235,
+     "tol": 0.02,
+     "unit": "MPa",
+     "sol": [
+      "Sagging puts the bottom fiber in tension, c = 88 mm",
+      "σ = Mc/I = 10e6·88/7.637e6 = 115.2 MPa"
+     ]
+    },
+    {
+     "ask": "The same beam now carries a hogging moment of 10 kN·m. Where is the largest tensile stress and its value?",
+     "type": "mc",
+     "a": "Top of the flange, 68.1 MPa",
+     "w": [
+      "Bottom of the web, 115.2 MPa",
+      "Top of the flange, 115.2 MPa",
+      "At the centroid, 68.1 MPa"
+     ],
+     "sol": [
+      "Hogging puts the top in tension, c = 140 − 88 = 52 mm",
+      "σ = 10e6·52/7.637e6 = 68.1 MPa, while the bottom carries 115.2 MPa compression"
+     ]
+    }
+   ],
+   "x": "The centroid sits near the wide flange, so the fiber farthest from it (the web tip) carries the largest bending stress."
+  },
+  {
+   "id": "p-s6-2",
+   "skill": "s6",
+   "title": "Unsymmetric section principal axes",
+   "setup": "A thin angle section has centroidal properties I_y = 4×10⁶ mm⁴, I_z = 2×10⁶ mm⁴ and product I_yz = 1×10⁶ mm⁴. A bending moment M = 5 kN·m is applied about principal axis 1 (the axis of the larger principal moment). Point Q lies 50 mm from principal axis 1, measured along principal axis 2.",
+   "parts": [
+    {
+     "ask": "Larger principal second moment I₁, in units of 10⁶ mm⁴",
+     "type": "num",
+     "a": 4.4142,
+     "tol": 0.02,
+     "unit": "×10⁶ mm⁴",
+     "sol": [
+      "I_avg = (4 + 2)/2 = 3, R = √(((4 − 2)/2)² + 1²) = √2",
+      "I₁ = 3 + √2 = 4.414 (×10⁶ mm⁴)"
+     ]
+    },
+    {
+     "ask": "Magnitude of the angle between the y axis and principal axis 1",
+     "type": "num",
+     "a": 22.5,
+     "tol": 0.02,
+     "unit": "deg",
+     "sol": [
+      "tan 2θ_p = 2I_yz/(I_y − I_z) = 2·1/2 = 1",
+      "2θ_p = 45°, so θ_p = 22.5°"
+     ]
+    },
+    {
+     "ask": "Bending stress magnitude at Q (I₁ = 4.414×10⁶ mm⁴)",
+     "type": "num",
+     "a": 56.6352,
+     "tol": 0.02,
+     "unit": "MPa",
+     "sol": [
+      "About a principal axis the flexure formula uncouples: σ = M·d/I₁",
+      "σ = 5e6·50/4.414e6 = 56.6 MPa"
+     ]
+    },
+    {
+     "ask": "If the same moment acts about the centroidal y axis instead, the neutral axis:",
+     "type": "mc",
+     "a": "Is inclined to the y axis",
+     "w": [
+      "Coincides with the y axis",
+      "Passes through the shear centre only",
+      "Is parallel to the z axis"
+     ],
+     "sol": [
+      "With I_yz ≠ 0 a moment about y produces curvature about both y and z",
+      "The neutral axis rotates away from the moment axis and the beam deflects out of the load plane"
+     ]
+    }
+   ],
+   "x": "Resolve the moment onto principal axes, where the simple flexure formula applies to each component separately."
+  },
+  {
+   "id": "p-s7-1",
+   "skill": "s7",
+   "title": "Channel shear flow and shear centre",
+   "setup": "A thin channel has web height h = 200 mm and two flanges of width b = 100 mm, all with wall thickness t = 2 mm (dimensions to the wall midlines). It carries a vertical shear force V = 10 kN. Neglect the flanges' own second moment about their midlines.",
+   "parts": [
+    {
+     "ask": "Second moment of area I about the horizontal centroidal axis, in units of 10⁶ mm⁴",
+     "type": "num",
+     "a": 5.3333,
+     "tol": 0.02,
+     "unit": "×10⁶ mm⁴",
+     "sol": [
+      "I = th³/12 + 2bt(h/2)²",
+      "= 2·200³/12 + 2·100·2·100² = 1.333e6 + 4.0e6 = 5.333e6 mm⁴"
+     ]
+    },
+    {
+     "ask": "Shear flow at the flange to web corner",
+     "type": "num",
+     "a": 37.5,
+     "tol": 0.02,
+     "unit": "N/mm",
+     "sol": [
+      "q(s) = (V/I)·Q(s), Q = bt·h/2 = 100·2·100 = 20000 mm³",
+      "q = 1e4·20000/5.333e6 = 37.5 N/mm"
+     ]
+    },
+    {
+     "ask": "Maximum shear stress in the web (at the neutral axis)",
+     "type": "num",
+     "a": 28.125,
+     "tol": 0.02,
+     "unit": "MPa",
+     "sol": [
+      "Q_NA = 20000 + t(h/2)²/2 = 20000 + 10000 = 30000 mm³",
+      "q_max = 1e4·30000/5.333e6 = 56.25 N/mm",
+      "τ = q/t = 28.1 MPa"
+     ]
+    },
+    {
+     "ask": "Shear centre location measured from the web midline",
+     "type": "mc",
+     "a": "37.5 mm, on the side away from the flanges",
+     "w": [
+      "37.5 mm, between the web and the flange tips",
+      "50 mm, at the midpoint of the flange",
+      "0 mm, exactly on the web midline"
+     ],
+     "sol": [
+      "Flange shear force F = ½·37.5·100 = 1875 N",
+      "Moment balance: V·e = F·h, e = 1875·200/1e4 = 37.5 mm",
+      "Check: e = 3b²/(h + 6b) = 30000/800 = 37.5 mm"
+     ]
+    }
+   ],
+   "x": "The flange shear flows form a couple, so the channel's shear centre lies outside the section on the web's open back."
+  },
+  {
+   "id": "p-s7-2",
+   "skill": "s7",
+   "title": "Closed versus slit tube in torsion",
+   "setup": "A thin circular aluminum tube has mean radius R = 50 mm, wall t = 2 mm, length L = 1 m and G = 27 GPa. It carries a torque T = 1 kN·m. A second, identical tube has a full length longitudinal slit, making it an open section.",
+   "parts": [
+    {
+     "ask": "Shear stress in the closed tube",
+     "type": "num",
+     "a": 31.831,
+     "tol": 0.02,
+     "unit": "MPa",
+     "sol": [
+      "Bredt: q = T/(2A), A = πR² = 7854 mm²",
+      "τ = T/(2At) = 1e6/(2·7854·2) = 31.8 MPa"
+     ]
+    },
+    {
+     "ask": "Twist of the closed tube over its length",
+     "type": "num",
+     "a": 1.3509,
+     "tol": 0.02,
+     "unit": "deg",
+     "sol": [
+      "J = 2πR³t = 1.571e6 mm⁴",
+      "φ = TL/(GJ) = 1e6·1000/(27000·1.571e6) = 0.02358 rad = 1.35°"
+     ]
+    },
+    {
+     "ask": "Ratio of torsion constants J_closed/J_open",
+     "type": "num",
+     "a": 1875.0,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "J_open = Σbt³/3 = 2πR·t³/3 = 837.8 mm⁴",
+      "Ratio = 3(R/t)² = 3·25² = 1875"
+     ]
+    },
+    {
+     "ask": "Explain why the slit tube is so much weaker in torsion.",
+     "type": "say",
+     "a": "The closed tube carries torque by a constant shear flow circulating around the enclosed area, a lever arm of order R. The slit tube carries torque only by shear stress varying through the thickness, a lever arm of order t, so its stiffness scales with t³.",
+     "sol": [
+      "Closed: torque via q around enclosed area 2A",
+      "Open: torque via through thickness stress gradient, J ∝ bt³",
+      "Stress ratio for equal torque is 3R/t = 75"
+     ]
+    }
+   ],
+   "x": "Closing a thin section lets the shear flow act over the enclosed area, multiplying torsional stiffness by about 3(R/t)²."
+  },
+  {
+   "id": "p-s8-1",
+   "skill": "s8",
+   "title": "Castigliano on a loaded cantilever",
+   "setup": "A cantilever of length L = 2 m and EI = 4 MN·m² is clamped at x = 0. It carries a downward tip load P = 6 kN and a downward uniform load w = 3 kN/m over its full length. Use bending energy only; deflection is positive downward.",
+   "parts": [
+    {
+     "ask": "Which expression gives the tip deflection by Castigliano's second theorem?",
+     "type": "mc",
+     "a": "δ = ∫ (M/EI)(∂M/∂P) dx",
+     "w": [
+      "δ = ∫ (M/EI)(∂M/∂w) dx",
+      "δ = ∂U/∂w",
+      "δ = ∫ M²/(2EI) dx"
+     ],
+     "sol": [
+      "Write U = ∫ M²/(2EI) dx with P kept as a symbol at the point and direction of δ",
+      "δ = ∂U/∂P = ∫ (M/EI)(∂M/∂P) dx"
+     ]
+    },
+    {
+     "ask": "Tip deflection",
+     "type": "num",
+     "a": 5.5,
+     "tol": 0.02,
+     "unit": "mm",
+     "sol": [
+      "With ξ = distance from the tip: M = Pξ + wξ²/2, ∂M/∂P = ξ",
+      "δ = PL³/(3EI) + wL⁴/(8EI)",
+      "= 6000·8/12e6 + 3000·16/32e6 = 4.0 + 1.5 = 5.5 mm"
+     ]
+    },
+    {
+     "ask": "Tip rotation (add a dummy moment M₀ at the tip, then set M₀ = 0)",
+     "type": "num",
+     "a": 4.0,
+     "tol": 0.02,
+     "unit": "mrad",
+     "sol": [
+      "M = M₀ + Pξ + wξ²/2, ∂M/∂M₀ = 1",
+      "θ = PL²/(2EI) + wL³/(6EI)",
+      "= 3.0e-3 + 1.0e-3 = 4.0 mrad"
+     ]
+    },
+    {
+     "ask": "Doubling both loads changes the tip deflection by a factor of:",
+     "type": "mc",
+     "a": "2",
+     "w": [
+      "4",
+      "8",
+      "√2"
+     ],
+     "sol": [
+      "For a linear elastic beam δ is linear in the loads",
+      "U is quadratic in the loads, and δ = ∂U/∂P is linear"
+     ]
+    }
+   ],
+   "x": "Castigliano gives any displacement as ∂U/∂(force at that point and direction), with a dummy load supplying the force when none is applied."
+  },
+  {
+   "id": "p-s8-2",
+   "skill": "s8",
+   "title": "Ritz on a spring supported beam",
+   "setup": "A simply supported beam of span L = 2 m and EI = 100 kN·m² rests on a linear spring k = 600 kN/m at midspan and carries a downward point load P = 12 kN at midspan. Use the one term trial function w(x) = a sin(πx/L), which satisfies the geometric boundary conditions.",
+   "parts": [
+    {
+     "ask": "Total potential energy Π(a) for this trial function:",
+     "type": "mc",
+     "a": "Π = EIπ⁴a²/(4L³) + ½ka² − Pa",
+     "w": [
+      "Π = EIπ⁴a²/(2L³) + ka² − Pa",
+      "Π = EIπ²a²/(4L) + ½ka² − Pa·L",
+      "Π = EIπ⁴a²/(4L³) − ½ka² + Pa"
+     ],
+     "sol": [
+      "U_b = ½∫EI(w″)² dx = ½EI a²(π/L)⁴·L/2 = EIπ⁴a²/(4L³)",
+      "Spring energy ½k w(L/2)² = ½ka², load potential −P·a"
+     ]
+    },
+    {
+     "ask": "Generalized beam stiffness EIπ⁴/(2L³)",
+     "type": "num",
+     "a": 608.8068,
+     "tol": 0.02,
+     "unit": "kN/m",
+     "sol": [
+      "EIπ⁴/(2L³) = 1e5·97.41/(2·8)",
+      "= 608.8 kN/m (exact midspan stiffness 48EI/L³ = 600 kN/m)"
+     ]
+    },
+    {
+     "ask": "Midspan deflection a",
+     "type": "num",
+     "a": 9.9271,
+     "tol": 0.02,
+     "unit": "mm",
+     "sol": [
+      "dΠ/da = 0 ⇒ a(EIπ⁴/(2L³) + k) = P",
+      "a = 12000/(608807 + 600000) = 9.93 mm"
+     ]
+    },
+    {
+     "ask": "Force carried by the spring",
+     "type": "num",
+     "a": 5.9563,
+     "tol": 0.02,
+     "unit": "kN",
+     "sol": [
+      "F_s = k·a = 600000·0.009927",
+      "= 5.96 kN; the beam carries the remaining 6.04 kN"
+     ]
+    }
+   ],
+   "x": "Rayleigh-Ritz with admissible trial functions gives an upper bound on stiffness, so the Ritz deflection (9.93 mm) sits just below the exact 10 mm."
+  },
+  {
+   "id": "p-s9-1",
+   "skill": "s9",
+   "title": "Rigid bar: spring choice sets the post-buckling path",
+   "setup": "A rigid vertical bar of length L = 2 m is pinned at its base, restrained by a rotational spring k = 50 kN·m/rad, and carries a vertical dead load P at its top. Rotation θ is measured from vertical. Later the rotational spring is replaced by a horizontal translational spring k_t at the top that stays horizontal.",
+   "parts": [
+    {
+     "ask": "Critical load with the rotational spring",
+     "type": "num",
+     "a": 25.0,
+     "tol": 0.02,
+     "unit": "kN",
+     "sol": [
+      "Π = ½kθ² − PL(1 − cos θ)",
+      "d²Π/dθ² at θ = 0: k − PL = 0 ⇒ P_cr = k/L = 50/2 = 25 kN"
+     ]
+    },
+    {
+     "ask": "Load on the post-buckling path at θ = 20°",
+     "type": "num",
+     "a": 25.515,
+     "tol": 0.02,
+     "unit": "kN",
+     "sol": [
+      "Equilibrium: kθ = PL sin θ ⇒ P = (k/L)·θ/sin θ",
+      "θ = 0.3491 rad, sin θ = 0.3420, P = 25·1.0206 = 25.5 kN"
+     ]
+    },
+    {
+     "ask": "With the translational spring k_t = 12.5 kN/m, the critical load and post-buckling path are:",
+     "type": "mc",
+     "a": "P_cr = 25 kN, P = P_cr cos θ (unstable symmetric)",
+     "w": [
+      "P_cr = 25 kN, P = P_cr θ/sin θ (stable symmetric)",
+      "P_cr = 6.25 kN, P = P_cr cos θ (unstable symmetric)",
+      "P_cr = 25 kN, P = P_cr(1 + θ) (asymmetric)"
+     ],
+     "sol": [
+      "Π = ½k_t L² sin²θ − PL(1 − cos θ)",
+      "dΠ/dθ = 0 ⇒ P = k_t L cos θ, so P_cr = 12.5·2 = 25 kN",
+      "P falls with |θ|: unstable symmetric bifurcation"
+     ]
+    },
+    {
+     "ask": "Which of the two systems is imperfection sensitive, and why does it matter for design?",
+     "type": "say",
+     "a": "The translational spring system is imperfection sensitive: its post-buckling load falls, so a small initial tilt gives a limit load below P_cr. The rotational spring system has a rising path, so an imperfect bar keeps carrying more load as it tilts and passes P_cr at finite tilt.",
+     "sol": [
+      "Falling path ⇒ limit point below P_cr",
+      "Rising path ⇒ safe, stable symmetric bifurcation",
+      "Design knockdown factors apply to the unstable case"
+     ]
+    }
+   ],
+   "x": "The curvature of the post-buckling path (rising or falling) decides whether imperfections lower the load capacity below P_cr."
+  },
+  {
+   "id": "p-s9-2",
+   "skill": "s9",
+   "title": "Two DOF column with unequal springs",
+   "setup": "Two rigid links, each of length L = 0.5 m, are stacked vertically. A rotational spring 2k ties the bottom link to the ground and a rotational spring k joins the two links, with k = 20 kN·m/rad. A vertical dead load P acts at the free top. Use absolute link rotations θ₁ (bottom) and θ₂ (top) and small angle energy.",
+   "parts": [
+    {
+     "ask": "Stability matrix K (Hessian of Π about the straight state):",
+     "type": "mc",
+     "a": "[[3k − PL, −k], [−k, k − PL]]",
+     "w": [
+      "[[2k − PL, −k], [−k, k − PL]]",
+      "[[3k − PL, k], [k, k − PL]]",
+      "[[3k − 2PL, −k], [−k, k − PL]]"
+     ],
+     "sol": [
+      "U = ½(2k)θ₁² + ½k(θ₂ − θ₁)²",
+      "V = −½PL(θ₁² + θ₂²)",
+      "K₁₁ = 3k − PL, K₁₂ = −k, K₂₂ = k − PL"
+     ]
+    },
+    {
+     "ask": "Critical load P_cr",
+     "type": "num",
+     "a": 23.4315,
+     "tol": 0.02,
+     "unit": "kN",
+     "sol": [
+      "det K = (PL)² − 4k(PL) + 2k² = 0",
+      "PL/k = 2 − √2 = 0.5858",
+      "P_cr = 0.5858·20000/0.5 = 23.4 kN"
+     ]
+    },
+    {
+     "ask": "First mode ratio θ₂/θ₁",
+     "type": "num",
+     "a": 2.4142,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "Row 1: (3k − PL)θ₁ = kθ₂",
+      "θ₂/θ₁ = 3 − PL/k = 1 + √2 = 2.414"
+     ]
+    },
+    {
+     "ask": "Second mode ratio θ₂/θ₁ (second root PL/k = 2 + √2)",
+     "type": "num",
+     "a": -0.4142,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "θ₂/θ₁ = 3 − (2 + √2) = 1 − √2",
+      "= −0.414: the links rotate in opposite senses"
+     ]
+    }
+   ],
+   "x": "The critical load is the smallest root of det K = 0, and its null vector gives the buckling mode."
+  },
+  {
+   "id": "p-s10-1",
+   "skill": "s10",
+   "title": "Propped cantilever with a central load",
+   "setup": "A beam of span L = 4 m is clamped at A (x = 0) and simply supported on a prop at B (x = L). It carries a downward point load P = 32 kN at midspan; EI is constant. Take the prop reaction R as the redundant.",
+   "parts": [
+    {
+     "ask": "Prop reaction R",
+     "type": "num",
+     "a": 10.0,
+     "tol": 0.02,
+     "unit": "kN",
+     "sol": [
+      "Released cantilever tip deflection from P: P(L/2)³/(3EI) + P(L/2)²/(2EI)·(L/2) = 5PL³/(48EI)",
+      "Prop: RL³/(3EI); compatibility gives R = 5P/16 = 10 kN"
+     ]
+    },
+    {
+     "ask": "Magnitude of the fixed end moment at A",
+     "type": "num",
+     "a": 24.0,
+     "tol": 0.02,
+     "unit": "kN·m",
+     "sol": [
+      "M_A = P·L/2 − R·L = 32·2 − 10·4",
+      "= 24 kN·m (hogging) = 3PL/16"
+     ]
+    },
+    {
+     "ask": "Sagging moment under the load",
+     "type": "num",
+     "a": 20.0,
+     "tol": 0.02,
+     "unit": "kN·m",
+     "sol": [
+      "Free body from B to midspan: M = R·L/2",
+      "= 10·2 = 20 kN·m = 5PL/32"
+     ]
+    },
+    {
+     "ask": "The largest bending moment magnitude in the beam occurs at:",
+     "type": "mc",
+     "a": "The clamped end A",
+     "w": [
+      "Directly under the load",
+      "At the prop B",
+      "At the quarter span point"
+     ],
+     "sol": [
+      "|M_A| = 24 kN·m exceeds the 20 kN·m sagging moment under the load",
+      "The prop carries zero moment as a pin"
+     ]
+    }
+   ],
+   "x": "One compatibility equation at the released redundant (zero deflection at the prop) fixes all reactions of a once indeterminate beam."
+  },
+  {
+   "id": "p-s10-2",
+   "skill": "s10",
+   "title": "Strut braced wing as a beam on a spring",
+   "setup": "Model a strut braced wing as a cantilever of length L = 4 m, EI = 2 MN·m², clamped at the root and carrying an upward lift load w = 6 kN/m. A strut from the lower fuselage meets the wing tip at 30° to the wing; the strut's axial stiffness is EA/L_s = 1.125 MN/m. Neglect the wing's axial shortening.",
+   "parts": [
+    {
+     "ask": "Equivalent vertical stiffness of the strut at the tip",
+     "type": "num",
+     "a": 281.25,
+     "tol": 0.02,
+     "unit": "kN/m",
+     "sol": [
+      "A vertical tip motion v stretches the strut by v sin α",
+      "k_s = (EA/L_s) sin²α = 1125·0.25 = 281.25 kN/m"
+     ]
+    },
+    {
+     "ask": "Vertical force R exerted by the strut on the tip (k_beam = 3EI/L³ = 93.75 kN/m)",
+     "type": "num",
+     "a": 6.75,
+     "tol": 0.02,
+     "unit": "kN",
+     "sol": [
+      "Free tip deflection δ_w = wL⁴/(8EI) = 6000·256/16e6 = 96 mm",
+      "Compatibility: δ_w − R/k_b = R/k_s",
+      "R = 0.096/(1/93750 + 1/281250) = 6.75 kN"
+     ]
+    },
+    {
+     "ask": "Axial force in the strut (R = 6.75 kN)",
+     "type": "num",
+     "a": 13.5,
+     "tol": 0.02,
+     "unit": "kN",
+     "sol": [
+      "Vertical component R = F sin 30°",
+      "F = 6.75/0.5 = 13.5 kN, tension under upward lift"
+     ]
+    },
+    {
+     "ask": "Root bending moment (R = 6.75 kN)",
+     "type": "num",
+     "a": 21.0,
+     "tol": 0.02,
+     "unit": "kN·m",
+     "sol": [
+      "M_root = wL²/2 − R·L",
+      "= 6·16/2 − 6.75·4 = 48 − 27 = 21 kN·m"
+     ]
+    }
+   ],
+   "x": "A flexible support acts as a spring in series with the beam's own tip stiffness, and the rigid prop value 3wL/8 = 9 kN is its upper limit."
+  },
+  {
+   "id": "p-s11-1",
+   "skill": "s11",
+   "title": "Quarter ring: horizontal deflection and rotation",
+   "setup": "A thin quarter circle bar of radius R = 500 mm, centre O, is clamped at B, directly above O, so the arc rises from A to B. Its free end A lies on the horizontal radius. A downward vertical load P = 2 kN acts at A. EI = 5×10⁹ N·mm²; use bending energy only, with θ measured from OA so M(θ) = PR(1 − cos θ).",
+   "parts": [
+    {
+     "ask": "Vertical deflection of A (δ_v = (3π/4 − 2)PR³/EI)",
+     "type": "num",
+     "a": 17.8097,
+     "tol": 0.02,
+     "unit": "mm",
+     "sol": [
+      "PR³/EI = 2000·1.25e8/5e9 = 50 mm",
+      "δ_v = 0.3562·50 = 17.8 mm downward"
+     ]
+    },
+    {
+     "ask": "Magnitude of the horizontal deflection of A (dummy horizontal load Q at A)",
+     "type": "num",
+     "a": 25.0,
+     "tol": 0.02,
+     "unit": "mm",
+     "sol": [
+      "Dummy moment m(θ) = R sin θ",
+      "δ_h = (PR³/EI)∫₀^{π/2}(1 − cos θ) sin θ dθ = (PR³/EI)(1 − ½)",
+      "= PR³/(2EI) = 25 mm"
+     ]
+    },
+    {
+     "ask": "Direction of the horizontal motion of A:",
+     "type": "mc",
+     "a": "Toward the vertical radius OB",
+     "w": [
+      "Away from the vertical radius OB",
+      "Zero, A moves only vertically",
+      "Along the tangent at B"
+     ],
+     "sol": [
+      "Take Q at A pointing away from OB: its moment R sin θ has the opposite sense to PR(1 − cos θ)",
+      "So δ along Q equals −PR³/(2EI): A moves down and toward OB"
+     ]
+    },
+    {
+     "ask": "Rotation of the tip A (dummy moment at A)",
+     "type": "num",
+     "a": 57.0796,
+     "tol": 0.02,
+     "unit": "mrad",
+     "sol": [
+      "φ = ∫ (M/EI)·1·R dθ = (PR²/EI)∫₀^{π/2}(1 − cos θ) dθ",
+      "= (PR²/EI)(π/2 − 1) = 0.1·0.5708 = 57.1 mrad"
+     ]
+    }
+   ],
+   "x": "Each displacement component of a curved bar comes from its own dummy load placed at the point and in the direction of interest."
+  },
+  {
+   "id": "p-s11-2",
+   "skill": "s11",
+   "title": "Steel plated timber beam",
+   "setup": "A timber beam 100 mm wide × 200 mm deep (E_t = 10 GPa) has a steel plate 100 mm wide × 10 mm thick (E_s = 200 GPa) perfectly bonded to its underside. It carries a sagging moment M = 20 kN·m. Use the transformed section in timber; y is measured up from the bottom of the steel.",
+   "parts": [
+    {
+     "ask": "Height of the neutral axis above the bottom of the steel",
+     "type": "num",
+     "a": 57.5,
+     "tol": 0.02,
+     "unit": "mm",
+     "sol": [
+      "n = E_s/E_t = 20, steel widened to 2000 mm: A = 20000 mm² at y = 5",
+      "Timber: A = 20000 mm² at y = 110",
+      "ȳ = (20000·110 + 20000·5)/40000 = 57.5 mm"
+     ]
+    },
+    {
+     "ask": "Transformed second moment, in units of 10⁶ mm⁴",
+     "type": "num",
+     "a": 177.0833,
+     "tol": 0.02,
+     "unit": "×10⁶ mm⁴",
+     "sol": [
+      "Timber: 100·200³/12 + 20000·52.5² = 66.67e6 + 55.13e6",
+      "Steel: 2000·10³/12 + 20000·52.5² = 0.17e6 + 55.13e6",
+      "I_T = 177.1e6 mm⁴"
+     ]
+    },
+    {
+     "ask": "Compressive stress at the top of the timber",
+     "type": "num",
+     "a": 17.2235,
+     "tol": 0.02,
+     "unit": "MPa",
+     "sol": [
+      "c = 210 − 57.5 = 152.5 mm",
+      "σ = 20e6·152.5/177.1e6 = 17.2 MPa"
+     ]
+    },
+    {
+     "ask": "Tensile stress at the bottom of the steel",
+     "type": "num",
+     "a": 129.8824,
+     "tol": 0.02,
+     "unit": "MPa",
+     "sol": [
+      "Transformed stress at c = 57.5: 20e6·57.5/177.1e6 = 6.49 MPa",
+      "Multiply by n: σ_s = 20·6.49 = 129.9 MPa"
+     ]
+    }
+   ],
+   "x": "Strain stays linear through a bonded section, so steel stress equals n times the transformed section stress at that depth."
+  },
+  {
+   "id": "p-s14-1",
+   "skill": "s14",
+   "title": "Effective length and the Johnson transition",
+   "setup": "A solid steel rod of diameter 40 mm (E = 200 GPa, σ_y = 350 MPa, radius of gyration r = d/4 = 10 mm) has length L = 1.5 m. First it stands as a flagpole: clamped at the base and free at the top. Then the same rod is installed clamped at both ends.",
+   "parts": [
+    {
+     "ask": "Euler load of the clamped free rod",
+     "type": "num",
+     "a": 27.5611,
+     "tol": 0.02,
+     "unit": "kN",
+     "sol": [
+      "Clamped free: L_e = 2L = 3000 mm, I = πd⁴/64 = 125664 mm⁴",
+      "P_cr = π²EI/L_e² = π²·2e5·125664/3000² = 27.6 kN"
+     ]
+    },
+    {
+     "ask": "Transition slenderness between the Johnson parabola and Euler",
+     "type": "num",
+     "a": 106.2052,
+     "tol": 0.02,
+     "unit": "",
+     "sol": [
+      "(L_e/r)_c = √(2π²E/σ_y)",
+      "= √(2π²·2e5/350) = 106.2"
+     ]
+    },
+    {
+     "ask": "Critical load of the clamped clamped rod by the Johnson parabola",
+     "type": "num",
+     "a": 330.1553,
+     "tol": 0.02,
+     "unit": "kN",
+     "sol": [
+      "L_e = 0.5L = 750 mm, L_e/r = 75 < 106.2",
+      "σ_cr = σ_y − (σ_y²/(4π²E))(L_e/r)² = 350 − 87.3 = 262.7 MPa",
+      "P = 262.7·1256.6 = 330 kN"
+     ]
+    },
+    {
+     "ask": "Why is Johnson used for the clamped clamped case?",
+     "type": "mc",
+     "a": "Euler predicts 351 MPa, above σ_y",
+     "w": [
+      "Euler predicts 263 MPa, below σ_y",
+      "Johnson applies to every column with fixed ends",
+      "Euler applies only to free ends"
+     ],
+     "sol": [
+      "Euler: σ = π²E/(L_e/r)² = π²·2e5/75² = 351 MPa",
+      "At this slenderness the column yields inelastically, which the Johnson parabola captures"
+     ]
+    }
+   ],
+   "x": "Effective length sets the slenderness, and slenderness below √(2π²E/σ_y) puts the column in the inelastic Johnson range."
+  },
+  {
+   "id": "p-s14-2",
+   "skill": "s14",
+   "title": "Bowed column amplification",
+   "setup": "A pinned pinned steel bar of square section 50 mm × 50 mm, length L = 2.5 m and E = 200 GPa has an initial half sine bow with midspan amplitude w₀ = 2.5 mm. It carries an axial compressive load P = 0.6 P_cr.",
+   "parts": [
+    {
+     "ask": "Euler load P_cr",
+     "type": "num",
+     "a": 164.4934,
+     "tol": 0.02,
+     "unit": "kN",
+     "sol": [
+      "I = 50⁴/12 = 520833 mm⁴",
+      "P_cr = π²EI/L² = π²·2e5·520833/2500² = 164.5 kN"
+     ]
+    },
+    {
+     "ask": "Total midspan deflection under P = 0.6 P_cr",
+     "type": "num",
+     "a": 6.25,
+     "tol": 0.02,
+     "unit": "mm",
+     "sol": [
+      "Amplification: w_total = w₀/(1 − P/P_cr)",
+      "= 2.5/(1 − 0.6) = 6.25 mm"
+     ]
+    },
+    {
+     "ask": "Maximum compressive stress at midspan (P = 98.7 kN, w = 6.25 mm)",
+     "type": "num",
+     "a": 69.0872,
+     "tol": 0.02,
+     "unit": "MPa",
+     "sol": [
+      "Axial: P/A = 98696/2500 = 39.5 MPa",
+      "Bending: P·w·c/I = 98696·6.25·25/520833 = 29.6 MPa",
+      "σ_max = 69.1 MPa"
+     ]
+    },
+    {
+     "ask": "As P approaches P_cr, the imperfect column:",
+     "type": "mc",
+     "a": "Deflection grows without bound as P → P_cr",
+     "w": [
+      "Snaps through at about half of P_cr",
+      "Returns to the initial bow amplitude w₀ at every load",
+      "Reaches a peak load well above P_cr"
+     ],
+     "sol": [
+      "w_total = w₀/(1 − P/P_cr) grows as P/P_cr → 1",
+      "The stable symmetric Euler path makes P_cr the asymptote"
+     ]
+    }
+   ],
+   "x": "An initial bow is amplified by 1/(1 − P/P_cr), so bending stress grows rapidly well before the Euler load."
+  }
+ ]
+}

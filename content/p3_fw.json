@@ -1,0 +1,568 @@
+{
+ "problems": [
+  {
+   "id": "p-f4-4",
+   "skill": "f4",
+   "title": "Brayton cycle numbers and the bypass stream on h-s",
+   "setup": "A turbofan core is tested sea level static (ISA: T₀ = 288.15 K, p₀ = 101.3 kPa, so station 0 equals station 2). Treat the core as an ideal Brayton cycle: overall pressure ratio π_c = 30, turbine inlet T_t4 = 1600 K, isentropic compression and expansion, constant pressure heat addition, full expansion to p₀. Use γ = 1.4, c_p = 1004.5 J/(kg·K), neglect fuel mass. The fan has π_f = 1.5. Draw h-s axes with the p₀ and p₃ isobars and number the stations as you go.",
+   "parts": [
+    {
+     "ask": "Find the compressor exit total temperature T_t3.",
+     "type": "num",
+     "a": 761.5,
+     "tol": 0.01,
+     "unit": "K",
+     "sol": [
+      "τ_c = π_c^((γ−1)/γ) = 30^0.2857 = 2.6426",
+      "T_t3 = T₀τ_c = 288.15·2.6426 = 761.5 K"
+     ]
+    },
+    {
+     "ask": "Find the ideal thermal efficiency of the core cycle (3 decimals).",
+     "type": "num",
+     "a": 0.622,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "Ideal Brayton: η_th = 1 − 1/τ_c, set by the pressure ratio alone",
+      "= 1 − 1/2.6426 = 0.622"
+     ]
+    },
+    {
+     "ask": "Find the net specific work per kg of core air.",
+     "type": "num",
+     "a": 523.6,
+     "tol": 0.01,
+     "unit": "kJ/kg",
+     "sol": [
+      "Expansion to p₀ divides temperature by the same τ_c: T₉ = 1600/2.6426 = 605.5 K",
+      "w_net = c_p[(T_t4 − T_t3) − (T₉ − T₀)] = 1004.5[(838.5) − (317.3)]",
+      "= 1004.5·521.2 J/kg = 523.6 kJ/kg"
+     ]
+    },
+    {
+     "ask": "At T_t4 = 1600 K, which pressure ratio gives the most specific work, and what does π_c = 30 buy?",
+     "type": "mc",
+     "a": "π_c ≈ 20, where T_t3 = √(T₀T_t4); going to 30 gives a little less work for higher η_th",
+     "w": [
+      "π_c = 30 already sits at the work peak, since η_th and work peak together",
+      "π_c ≈ 400, where T_t3 = T_t4; going to 30 gives more work and less η_th",
+      "π_c ≈ 11, where T_t3 = 2T₀; going to 30 gives less work and less η_th"
+     ],
+     "sol": [
+      "w_net/(c_pT₀) = (θ − τ)(1 − 1/τ) with θ = T_t4/T₀ = 5.553; dw/dτ = 0 gives τ = √θ = 2.356",
+      "π = 2.356^3.5 = 20.1, w_max = c_pT₀(√θ − 1)² = 532.5 kJ/kg",
+      "π_c = 30 gives 523.6 kJ/kg (1.7% less) with η_th = 0.622 instead of 0.575: a small engine size penalty for lower fuel burn"
+     ]
+    },
+    {
+     "ask": "Now follow the bypass stream 2 → 13 → 19 on the same h-s axes. Find the ideal bypass jet velocity V₁₉ at this static condition.",
+     "type": "num",
+     "a": 266.6,
+     "tol": 0.01,
+     "unit": "m/s",
+     "sol": [
+      "T_t13 = T₀π_f^0.2857 = 288.15·1.1228 = 323.5 K",
+      "Ideal expansion to p₀ returns the static temperature to T₀ on the same isentrope",
+      "V₁₉ = √(2c_p(T_t13 − T₀)) = √(2·1004.5·35.39) = 266.6 m/s"
+     ]
+    }
+   ],
+   "x": "The ideal Brayton efficiency depends on pressure ratio alone, specific work peaks where T_t3 = √(T₀T_t4), and the bypass stream climbs to 13 and returns to p₀ at 19 on one isentrope beside the core."
+  },
+  {
+   "id": "p-f1-4",
+   "skill": "f1",
+   "title": "Four constraints and the design point for a business jet",
+   "setup": "Size a business jet on T_SL/W_TO versus W_TO/S. Landing: stall speed at landing weight (β = 0.9) at most 50 m/s at sea level, landing C_Lmax = 2.4. Takeoff: sea level, takeoff C_Lmax = 1.8, ground roll 900 m, liftoff at 1.2V_stall, drag and rolling friction neglected, so T_SL/W_TO = (β²/α)(1.2²)(W_TO/S)/(ρgC_Lmax s_G) with α = β = 1. Cruise: 11 km ISA (ρ = 0.3639 kg/m³), V = 230 m/s, α = 0.25, β = 0.95. Service ceiling: 13 km ISA (ρ = 0.2665 kg/m³), rate of climb 0.5 m/s, α = 0.19, β = 0.95, flown at the minimum drag dynamic pressure. Polar C_D = 0.02 + 0.045C_L². Sea level ρ = 1.225 kg/m³, g = 9.81 m/s².",
+   "parts": [
+    {
+     "ask": "Find the largest W_TO/S the landing constraint allows.",
+     "type": "num",
+     "a": 4083,
+     "tol": 0.01,
+     "unit": "Pa",
+     "sol": [
+      "Landing: βW_TO/S ≤ ½ρV_s²C_Lmax (landing C_Lmax)",
+      "W_TO/S ≤ 0.5·1.225·2500·2.4/0.9",
+      "= 4083 Pa, a vertical line on the diagram"
+     ]
+    },
+    {
+     "ask": "Take W_TO/S at that landing limit. Find T_SL/W_TO for takeoff (3 decimals).",
+     "type": "num",
+     "a": 0.302,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "T_SL/W_TO = 1.44·4083/(1.225·9.81·1.8·900)",
+      "= 5880/19,469 = 0.302"
+     ]
+    },
+    {
+     "ask": "Find T_SL/W_TO for cruise at the same W_TO/S (3 decimals).",
+     "type": "num",
+     "a": 0.257,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "q = ½·0.3639·230² = 9625 Pa, βW_TO/S = 3879 Pa",
+      "qC_D0/(βW/S) = 192.5/3879 = 0.0496; Kβ(W/S)/q = 0.045·3879/9625 = 0.0181",
+      "T_SL/W_TO = (0.95/0.25)(0.0677) = 0.257"
+     ]
+    },
+    {
+     "ask": "Find T_SL/W_TO for the service ceiling (3 decimals), then name the constraint that sizes the engine.",
+     "type": "num",
+     "a": 0.312,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "Flying at q* = (βW/S)√(K/C_D0) makes the drag terms sum to 2√(KC_D0) = 0.06",
+      "q* = 3879·1.5 = 5819 Pa, V = √(2·5819/0.2665) = 209 m/s, climb term 0.5/209 = 0.0024",
+      "T_SL/W_TO = (0.95/0.19)(0.0624) = 0.312",
+      "Largest of 0.302, 0.257, 0.312 is the ceiling: design point (4083 Pa, 0.312)"
+     ]
+    },
+    {
+     "ask": "The customer adds a hot and high home field: ρ = 1.0 kg/m³ for both landing and takeoff, with takeoff thrust lapse α = 0.8. Cruise and ceiling inputs are unchanged. What happens to the design point?",
+     "type": "mc",
+     "a": "W_TO/S drops to 3333 Pa and takeoff now sizes the engine at T_SL/W_TO ≈ 0.38",
+     "w": [
+      "W_TO/S stays at 4083 Pa and the ceiling still sizes the engine at 0.31",
+      "W_TO/S drops to 3333 Pa and the ceiling still sizes the engine at 0.31",
+      "W_TO/S rises to 5000 Pa and takeoff sizes the engine at T_SL/W_TO ≈ 0.30"
+     ],
+     "sol": [
+      "Landing limit scales with ρ: 4083·(1.0/1.225) = 3333 Pa",
+      "Takeoff: 1.44·3333/(1.0·9.81·1.8·900)/0.8 = 0.378 (W/S over ρ is unchanged, so only α moves it)",
+      "Cruise 0.287 and ceiling 0.313 at 3333 Pa, so takeoff at 0.378 is now the active constraint"
+     ]
+    }
+   ],
+   "x": "The landing stall limit sets the highest wing loading, and the design point is the highest thrust loading among the takeoff, cruise and ceiling curves at that wing loading."
+  },
+  {
+   "id": "p-f8-3",
+   "skill": "f8",
+   "title": "Engine failure glide, and the same glide on Mars",
+   "setup": "A single engine light aircraft loses its engine at h = 2000 m above flat terrain. W = 10,000 N, S = 16 m², C_D = 0.027 + 0.054C_L², propeller feathered and drag included in the polar. Use a constant mean density ρ = 1.112 kg/m³ (ISA at 1000 m) for the whole glide, still air, steady unpowered flight with γ the descent angle: L = W cos γ, D = W sin γ.",
+   "parts": [
+    {
+     "ask": "Find the maximum still air glide distance over the ground.",
+     "type": "num",
+     "a": 26.19,
+     "tol": 0.01,
+     "unit": "km",
+     "sol": [
+      "tan γ = D/L, so range = h(L/D)",
+      "(L/D)_max = 1/(2√(KC_D0)) = 1/(2√(0.054·0.027)) = 13.09",
+      "R = 2000·13.09 = 26.19 km"
+     ]
+    },
+    {
+     "ask": "Find the best glide airspeed.",
+     "type": "num",
+     "a": 39.87,
+     "tol": 0.01,
+     "unit": "m/s",
+     "sol": [
+      "C_L* = √(C_D0/K) = √0.5 = 0.707",
+      "V = √(2W/(ρSC_L*)) with cos γ ≈ 1 at this shallow angle",
+      "= √(2·10,000/(1.112·16·0.707)) = 39.9 m/s"
+     ]
+    },
+    {
+     "ask": "Flying best glide, how long until touchdown?",
+     "type": "num",
+     "a": 659,
+     "tol": 0.01,
+     "unit": "s",
+     "sol": [
+      "Sink rate V sin γ = 39.9·sin(4.37°) = 3.04 m/s",
+      "t = 2000/3.036 = 659 s, about 11 min",
+      "Minimum sink, at C_L = √(3C_D0/K), would stretch the time but shorten the distance"
+     ]
+    },
+    {
+     "ask": "The aircraft is instead 20% heavier. Flying its new best glide, how do distance, speed and time change?",
+     "type": "mc",
+     "a": "Same distance, speed up by √1.2, time down by √1.2",
+     "w": [
+      "Distance down by 1.2, speed up by √1.2, time down by 1.2",
+      "Same distance, same speed, time down by √1.2",
+      "Distance up by √1.2, speed up by √1.2, same time"
+     ],
+     "sol": [
+      "Glide angle depends only on L/D, which is a property of the polar",
+      "V ∝ √(W/S): 39.9 → 43.7 m/s, so the same path is flown faster: 659 → 601 s"
+     ]
+    },
+    {
+     "ask": "A Mars glider with the same polar (Reynolds number effects ignored) has W/S = 30 Pa in Mars gravity and glides from 2000 m through ρ = 0.015 kg/m³. Find its time to the ground at best glide.",
+     "type": "num",
+     "a": 349,
+     "tol": 0.01,
+     "unit": "s",
+     "sol": [
+      "Same L/D gives the same 26.2 km glide and the same γ = 4.37°",
+      "V = √(2·30/(0.015·0.707)) = 75.2 m/s, sink 75.2·sin γ = 5.73 m/s",
+      "t = 2000/5.73 = 349 s: thin air makes it glide fast, so the time is shorter"
+     ]
+    }
+   ],
+   "x": "Glide distance equals height times L/D and depends only on the polar, while weight and density set the glide speed and therefore the time aloft."
+  },
+  {
+   "id": "p-f5-3",
+   "skill": "f5",
+   "title": "Winglets or span extension for a climbing turboprop",
+   "setup": "A turboprop utility aircraft climbs at V = 70 m/s through 2000 m (ISA ρ = 1.007 kg/m³). W = 60 kN, S = 30 m², b = 16 m, Oswald efficiency e = 0.8, C_D0 = 0.025, with K = 1/(πeAR). Power available is constant: η_p·P_shaft = 0.8·900 kW = 720 kW. Option A: tip extensions to b = 18 m, which add wing area to S = 31.5 m² (same C_D0 and e on the new area). Option B: winglets at the same span, raising e to 0.88 and C_D0 to 0.0255 (still referenced to 30 m²). Use rate of climb = (P_A − P_R)/W.",
+   "parts": [
+    {
+     "ask": "Find the baseline power required at 70 m/s.",
+     "type": "num",
+     "a": 288.3,
+     "tol": 0.01,
+     "unit": "kW",
+     "sol": [
+      "AR = 256/30 = 8.53, K = 1/(π·0.8·8.53) = 0.0466",
+      "q = ½·1.007·70² = 2467 Pa, C_L = 60,000/(2467·30) = 0.811",
+      "C_D = 0.025 + 0.0466·0.657 = 0.0556, D = qSC_D = 4.12 kN, P_R = DV = 288 kW (induced share 159 kW)"
+     ]
+    },
+    {
+     "ask": "Find the baseline rate of climb.",
+     "type": "num",
+     "a": 7.195,
+     "tol": 0.01,
+     "unit": "m/s",
+     "sol": [
+      "RoC = (720 − 288.3) kW/60 kN",
+      "= 7.20 m/s"
+     ]
+    },
+    {
+     "ask": "Find the rate of climb with Option A, the span extension.",
+     "type": "num",
+     "a": 7.643,
+     "tol": 0.01,
+     "unit": "m/s",
+     "sol": [
+      "AR = 324/31.5 = 10.29, K = 0.0387; C_L = 60,000/(2467·31.5) = 0.772",
+      "C_D = 0.025 + 0.0387·0.596 = 0.0481, D = 2467·31.5·0.0481 = 3.73 kN, P_R = 261 kW",
+      "RoC = (720 − 261.4)/60 = 7.64 m/s"
+     ]
+    },
+    {
+     "ask": "Find the rate of climb with Option B, the winglets.",
+     "type": "num",
+     "a": 7.393,
+     "tol": 0.01,
+     "unit": "m/s",
+     "sol": [
+      "K = 1/(π·0.88·8.53) = 0.0424; C_L = 0.811",
+      "C_D = 0.0255 + 0.0424·0.657 = 0.0534, P_R = 276 kW",
+      "RoC = (720 − 276.4)/60 = 7.39 m/s"
+     ]
+    },
+    {
+     "ask": "At high speed cruise, V = 110 m/s at the same altitude, which wing needs the least power?",
+     "type": "mc",
+     "a": "The baseline wing, since at low C_L both changes add more parasite power than they save in induced power",
+     "w": [
+      "Option A, since the larger span always lowers total drag",
+      "Option B, since winglets cut induced drag at every speed",
+      "All three tie, since induced drag is independent of speed"
+     ],
+     "sol": [
+      "At 110 m/s C_L = 0.33 and induced power is only 101 of 604 kW",
+      "P_R: baseline 603.6, Option A 607.6, Option B 604.5 kW",
+      "Span devices pay at high C_L (climb, loiter, hot and high); span extension also raises root bending moment, and winglets suit a gate limited span"
+     ]
+    }
+   ],
+   "x": "Induced drag scales as W²/(qb²), so added span pays most at low speed and high C_L, as in climb."
+  },
+  {
+   "id": "p-f10-3",
+   "skill": "f10",
+   "title": "CG travel with fuel burn and a tail trim tank",
+   "setup": "A twin jet transport has its mean aerodynamic chord leading edge (LEMAC) at x = 10.0 m from the nose datum, with c̄ = 2.5 m. Zero fuel weight 150 kN with CG at x = 10.9 m. Wing fuel 40 kN with centroid at x = 10.4 m. Stick fixed neutral point h_n = 0.48c̄. In landing configuration C_m = C_m0 + (h − h_n)C_L + C_mδe δe with C_m0 = −0.10, C_mδe = −1.2 /rad (δe positive trailing edge down), elevator travel to δe = −20° (trailing edge up), trimmed landing C_L = 1.8; neglect the tail lift change in C_L and ground effect. Minimum allowed static margin 0.05.",
+   "parts": [
+    {
+     "ask": "Find the CG position at full fuel, as a fraction of c̄ from LEMAC (3 decimals).",
+     "type": "num",
+     "a": 0.318,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "x_cg = (150·10.9 + 40·10.4)/190 = 2051/190 = 10.795 m",
+      "h = (10.795 − 10.0)/2.5 = 0.318"
+     ]
+    },
+    {
+     "ask": "Find the static margin after all wing fuel is burned (3 decimals).",
+     "type": "num",
+     "a": 0.12,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "Zero fuel: h = (10.9 − 10.0)/2.5 = 0.360",
+      "SM = h_n − h = 0.48 − 0.36 = 0.120",
+      "The wing tank sits ahead of the zero fuel CG, so the CG moves aft as fuel burns (SM 0.162 → 0.120)"
+     ]
+    },
+    {
+     "ask": "Find the forward CG limit set by elevator authority at the landing C_L (3 decimals).",
+     "type": "num",
+     "a": 0.303,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "Trim at full nose up elevator: C_m0 + (h − h_n)C_L + C_mδe δe = 0",
+      "−0.10 + 1.8(h − 0.48) + (−1.2)(−0.349) = 0, so 1.8(h − 0.48) = −0.319",
+      "h_fwd = 0.48 − 0.177 = 0.303"
+     ]
+    },
+    {
+     "ask": "The aft limit is h_n − 0.05 = 0.43. Which flight condition has the smallest CG margin?",
+     "type": "mc",
+     "a": "A return landing right after takeoff at full fuel: CG 0.318 is 0.015c̄ aft of the forward limit",
+     "w": [
+      "Cruise at zero fuel: CG 0.360 is 0.015c̄ ahead of the aft limit",
+      "Takeoff at full fuel: CG 0.318 is 0.015c̄ ahead of the aft limit",
+      "Landing at zero fuel: CG 0.360 is 0.015c̄ aft of the forward limit"
+     ],
+     "sol": [
+      "The CG path runs 0.318 → 0.360 as fuel burns, inside the band 0.303 to 0.43",
+      "Margins: 0.318 − 0.303 = 0.015 to the forward limit at full fuel; 0.43 − 0.36 = 0.07 to the aft limit at zero fuel",
+      "The forward limit is a landing (elevator authority) limit, so the heavy early return is the tight case"
+     ]
+    },
+    {
+     "ask": "Twist: in cruise at full fuel, the airline wants SM = 0.10 to cut trim drag, using a tail trim tank at x = 24.0 m. How much wing fuel must be pumped aft?",
+     "type": "num",
+     "a": 2.169,
+     "tol": 0.01,
+     "unit": "kN",
+     "sol": [
+      "Target h = 0.38, so x_cg = 10.0 + 0.38·2.5 = 10.95 m",
+      "Moment needed: 190·(10.95 − 10.795) = 29.5 kN·m",
+      "ΔW = 29.5/(24.0 − 10.4) = 2.17 kN, about 220 kg of fuel"
+     ]
+    }
+   ],
+   "x": "The CG must stay between the forward limit set by elevator authority at landing and the aft limit set by the minimum static margin, and fuel placement sets how the CG travels between them."
+  },
+  {
+   "id": "p-f6-4",
+   "skill": "f6",
+   "title": "Tiltrotor disk loading: hover price of a cruise airplane",
+   "setup": "A tiltrotor transport weighs W = 200 kN and hovers on two proprotors of radius R = 5.8 m each (wingtip mounted, so radius is capped by the fuselage clearance). Sea level ISA ρ = 1.225 kg/m³. Use momentum theory per rotor, P_ideal = T^(3/2)/√(2ρA), with figure of merit FM = 0.75, and neglect download on the wing. For comparison, a conventional helicopter of the same weight uses one main rotor of R = 10 m with the same FM (tail rotor neglected).",
+   "parts": [
+    {
+     "ask": "Find the tiltrotor disk loading T/A per rotor.",
+     "type": "num",
+     "a": 946.2,
+     "tol": 0.01,
+     "unit": "Pa",
+     "sol": [
+      "T = W/2 = 100 kN, A = π·5.8² = 105.7 m²",
+      "DL = 100,000/105.7 = 946 Pa"
+     ]
+    },
+    {
+     "ask": "Find the total hover shaft power for the tiltrotor.",
+     "type": "num",
+     "a": 5.241,
+     "tol": 0.01,
+     "unit": "MW",
+     "sol": [
+      "Per rotor: P_ideal = T^(3/2)/√(2ρA) = 3.162×10⁷/√(258.9) = 1.965 MW",
+      "Two rotors, divide by FM: 2·1.965/0.75 = 5.24 MW",
+      "Induced velocity v_i = √(T/(2ρA)) = 19.7 m/s, a strong downwash"
+     ]
+    },
+    {
+     "ask": "Find the helicopter hover shaft power.",
+     "type": "num",
+     "a": 4.299,
+     "tol": 0.01,
+     "unit": "MW",
+     "sol": [
+      "A = π·10² = 314.2 m², DL = 637 Pa",
+      "P = (200,000)^(3/2)/√(2·1.225·314.2)/0.75 = 4.30 MW",
+      "The tiltrotor needs 22% more hover power, since P/T ∝ √(DL)"
+     ]
+    },
+    {
+     "ask": "Why does the tiltrotor accept the higher disk loading?",
+     "type": "mc",
+     "a": "The rotors must fit the wingtips and also work as propellers in fast cruise, where a smaller disk suits",
+     "w": [
+      "Higher disk loading lowers hover power, so the small rotor wins in both modes",
+      "A larger rotor raises the induced velocity, so the downwash would be stronger",
+      "Disk loading only matters in cruise, so hover sets nothing in the sizing"
+     ],
+     "sol": [
+      "Hover favors a large, lightly loaded disk: P/T = √(DL/(2ρ))/FM",
+      "Cruise thrust is about W/(L/D), a small fraction of W, so a hover sized disk is oversized for cruise, with blade twist and tip Mach set by the helical tip speed",
+      "Rotor radius is capped by the fuselage clearance and the wingtip mounting: the tiltrotor sits between helicopter and propeller disk loadings"
+     ]
+    },
+    {
+     "ask": "Twist: hover at a hot and high site with ρ = 1.0 kg/m³. Find the new tiltrotor hover power.",
+     "type": "num",
+     "a": 5.8,
+     "tol": 0.01,
+     "unit": "MW",
+     "sol": [
+      "At fixed T and A, P ∝ 1/√ρ",
+      "P = 5.24·√(1.225/1.0) = 5.80 MW, 11% more"
+     ]
+    }
+   ],
+   "x": "Hover power per unit thrust grows as the square root of disk loading over density, so a tiltrotor pays extra hover power for rotors sized to fit the wingtips and suit cruise."
+  },
+  {
+   "id": "p-f7-3",
+   "skill": "f7",
+   "title": "Loiter: propeller versus jet endurance for a patrol UAV",
+   "setup": "A patrol UAV loiters at 6000 m (ISA ρ = 0.660 kg/m³) from W_i = 45 kN down to W_f = 36 kN. S = 24 m², polar C_D = 0.025 + 0.04C_L². Turboprop version: η_p = 0.8, power specific fuel consumption 0.3 kg/(kW·h), which is c = 8.175×10⁻⁷ 1/m in weight units. Breguet propeller endurance: E = (η_p/c)(C_L^(3/2)/C_D)√(2ρS)(W_f^(−1/2) − W_i^(−1/2)). A jet version of the same airframe has TSFC c_t = 0.6 1/h, with E = (1/c_t)(L/D)ln(W_i/W_f). Each flies at its own best endurance C_L.",
+   "parts": [
+    {
+     "ask": "Find the jet endurance.",
+     "type": "num",
+     "a": 5.88,
+     "tol": 0.01,
+     "unit": "h",
+     "sol": [
+      "Jet endurance is best at (L/D)_max: C_L = √(C_D0/K) = 0.791",
+      "(L/D)_max = 1/(2√(0.04·0.025)) = 15.81",
+      "E = (15.81/0.6)·ln(1.25) = 5.88 h"
+     ]
+    },
+    {
+     "ask": "Find the best endurance C_L for the turboprop (3 decimals).",
+     "type": "num",
+     "a": 1.369,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "Propeller endurance is best at minimum power, max C_L^(3/2)/C_D",
+      "This sets C_D0 = KC_L²/3, so C_L = √(3C_D0/K) = √1.875 = 1.369"
+     ]
+    },
+    {
+     "ask": "Find the turboprop endurance.",
+     "type": "num",
+     "a": 13.64,
+     "tol": 0.01,
+     "unit": "h",
+     "sol": [
+      "C_L^(3/2)/C_D = 1.602/0.100 = 16.02; √(2ρS) = √(31.68) = 5.629",
+      "W_f^(−1/2) − W_i^(−1/2) = 0.0052705 − 0.0047140 = 5.565×10⁻⁴",
+      "E = (0.8/8.175×10⁻⁷)·16.02·5.629·5.565×10⁻⁴ = 4.91×10⁴ s = 13.6 h"
+     ]
+    },
+    {
+     "ask": "The mission planner asks whether to loiter lower. What does altitude do to each endurance (constant c and c_t)?",
+     "type": "mc",
+     "a": "Propeller E grows as √ρ, so loiter low; jet E is set by L/D, so altitude is free",
+     "w": [
+      "Both grow as √ρ, so both loiter low",
+      "Propeller E grows as 1/√ρ, so loiter high; jet E grows as √ρ",
+      "Both are set by L/D alone, so altitude is free for both"
+     ],
+     "sol": [
+      "Propeller: power required ∝ √(1/ρ) at fixed C_L, so E ∝ √ρ: at sea level 13.6·√(1.225/0.660) = 18.6 h",
+      "Jet: fuel flow ∝ thrust = W/(L/D), independent of ρ; real jets loiter high because TSFC falls in the cold air"
+     ]
+    },
+    {
+     "ask": "Sizing twist: the turboprop must loiter 30 h at 6000 m starting from W_i = 45 kN. Find the loiter weight fraction W_f/W_i (3 decimals).",
+     "type": "num",
+     "a": 0.63,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "W_f^(−1/2) = W_i^(−1/2) + Ec/((η_p)(C_L^(3/2)/C_D)√(2ρS))",
+      "= 0.0047140 + 108,000·8.175×10⁻⁷/(0.8·16.02·5.629) = 0.0047140 + 0.0012238 = 0.0059378",
+      "W_f = 28.36 kN, so W_f/W_i = 0.630: 37% of the loiter start weight is fuel, which feeds back into the sizing loop"
+     ]
+    }
+   ],
+   "x": "A propeller aircraft loiters at maximum C_L^(3/2)/C_D and a jet at maximum L/D, and the loiter weight fraction from Breguet endurance feeds the takeoff weight sizing loop."
+  },
+  {
+   "id": "p-f9-3",
+   "skill": "f9",
+   "title": "Flap setting for takeoff: ground roll versus engine out climb",
+   "setup": "A twin jet regional transport takes off at W/S = 4000 Pa with all engine T/W = 0.30, sea level ISA (ρ = 1.225 kg/m³), g = 9.81 m/s². Ground roll: s_G = 1.44(W/S)/(ρgC_Lmax(T/W)) (liftoff at 1.2V_stall, drag and friction neglected). Climb after liftoff at V₂ = 1.2V_stall, gear up, gradient = T/W − C_D/C_L with C_D = C_D0 + 0.045C_L². Flaps 5: C_Lmax = 1.8, C_D0 = 0.030. Flaps 20: C_Lmax = 2.3, C_D0 = 0.060. With one engine out T/W halves, and the certification minimum engine out gradient is 2.4%.",
+   "parts": [
+    {
+     "ask": "Find the ground roll with flaps 5.",
+     "type": "num",
+     "a": 887.6,
+     "tol": 0.01,
+     "unit": "m",
+     "sol": [
+      "s_G = 1.44·4000/(1.225·9.81·1.8·0.30)",
+      "= 5760/6.489 = 888 m"
+     ]
+    },
+    {
+     "ask": "Find the ground roll with flaps 20.",
+     "type": "num",
+     "a": 694.7,
+     "tol": 0.01,
+     "unit": "m",
+     "sol": [
+      "s_G ∝ 1/C_Lmax: 887.6·1.8/2.3",
+      "= 695 m, 22% shorter"
+     ]
+    },
+    {
+     "ask": "Find the engine out climb gradient at V₂ with flaps 20 (as a fraction, 4 decimals).",
+     "type": "num",
+     "a": 0.0406,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "C_L at V₂ = C_Lmax/1.44 = 1.597",
+      "C_D = 0.060 + 0.045·2.551 = 0.1748, C_D/C_L = 0.1094",
+      "Gradient = 0.15 − 0.1094 = 0.0406 (4.1%), above 2.4%; flaps 5 gives 0.15 − 0.0803 = 0.0698"
+     ]
+    },
+    {
+     "ask": "Hot and high field: ρ = 1.0 kg/m³ and all engine T/W falls to 0.24. Find the engine out gradient with flaps 20 (4 decimals).",
+     "type": "num",
+     "a": 0.01056,
+     "tol": 0.01,
+     "unit": "",
+     "sol": [
+      "C_D/C_L at V₂ depends only on C_L, so it stays 0.1094",
+      "Gradient = 0.12 − 0.1094 = 0.0106 (1.06%), below the 2.4% minimum"
+     ]
+    },
+    {
+     "ask": "Which flap setting should the crew pick at the hot and high field, and at what cost?",
+     "type": "mc",
+     "a": "Flaps 5: engine out gradient 4.0%, with a longer ground roll of about 1360 m",
+     "w": [
+      "Flaps 20: shortest roll, and the gradient rule applies only at sea level",
+      "Flaps 5: gradient 7.0% with the same 888 m ground roll as at sea level",
+      "Flaps 20: gradient 4.1% and roll 695 m, as at sea level"
+     ],
+     "sol": [
+      "Flaps 5 hot and high: 0.12 − 0.0803 = 0.0398 (4.0%), meets 2.4%",
+      "s_G = 1.44·4000/(1.0·9.81·1.8·0.24) = 1359 m, so the runway must be long enough",
+      "More flap trades climb gradient (drag) for shorter ground roll (C_Lmax)"
+     ]
+    }
+   ],
+   "x": "More flap raises C_Lmax and shortens the ground roll, while its extra drag lowers the engine out climb gradient, so hot and high fields favor the smaller flap setting."
+  }
+ ]
+}

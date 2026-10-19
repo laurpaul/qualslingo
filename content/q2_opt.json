@@ -1,0 +1,1135 @@
+{
+ "questions": [
+  {
+   "id": "o1-17",
+   "skill": "o1",
+   "type": "mc",
+   "q": "Find and classify the stationary points of f(x, y) = x² − y² + y⁴.",
+   "a": "(0, 0) saddle; (0, ±1/√2) strict local minima",
+   "w": [
+    "(0, 0) strict local minimum; (0, ±1/√2) saddles",
+    "(0, 0) saddle, the only stationary point",
+    "(0, 0) saddle; (0, ±1/√2) strict local maxima"
+   ],
+   "x": "∂f/∂y = −2y + 4y³ vanishes at y = 0 and y² = ½; f_yy = −2 + 12y² is −2 at the origin (a saddle, since f_xx = 2) and 4 at y = ±1/√2, so those two points are minima."
+  },
+  {
+   "id": "o1-18",
+   "skill": "o1",
+   "type": "mc",
+   "q": "For f(x) = xᵀAx with a non-symmetric square matrix A, the gradient is",
+   "a": "(A + Aᵀ)x",
+   "w": [
+    "2Ax",
+    "Aᵀx",
+    "½(A + Aᵀ)x"
+   ],
+   "x": "Only the symmetric part of A contributes to xᵀAx, so ∇f = (A + Aᵀ)x, which reduces to 2Ax for symmetric A."
+  },
+  {
+   "id": "o1-19",
+   "skill": "o1",
+   "type": "mc",
+   "q": "f = ½xᵀHx + bᵀx + c with H ≻ 0. If b is doubled, how do the minimizer x* and f* − c change?",
+   "a": "x* doubles and f* − c is multiplied by 4",
+   "w": [
+    "x* doubles and f* − c doubles",
+    "x* halves and f* − c is multiplied by 4",
+    "x* stays fixed and f* − c doubles"
+   ],
+   "x": "x* = −H⁻¹b is linear in b, and f* − c = −½bᵀH⁻¹b is quadratic in b."
+  },
+  {
+   "id": "o1-20",
+   "skill": "o1",
+   "type": "mc",
+   "q": "f(x, y) = x³ + y². The origin is a critical point with Hessian diag(0, 2). What is it?",
+   "a": "A degenerate critical point that is neither a minimum nor a maximum",
+   "w": [
+    "A strict local minimum, since H is positive semidefinite",
+    "A local maximum along x",
+    "A minimum, since f ≥ 0 near the origin"
+   ],
+   "x": "Along y = 0, f = x³ takes both signs near 0, so the cubic term decides and the origin is a degenerate saddle."
+  },
+  {
+   "id": "o1-21",
+   "skill": "o1",
+   "type": "num",
+   "q": "f = ½xᵀHx with H = [[6,2],[2,3]]. Compute the condition number κ = λ_max/λ_min.",
+   "a": 3.5,
+   "tol": 0.01,
+   "unit": "",
+   "x": "Trace 9 and determinant 14 give λ = 7 and 2, so κ = 3.5 and the contour aspect ratio is √κ ≈ 1.87."
+  },
+  {
+   "id": "o1-22",
+   "skill": "o1",
+   "type": "cloze",
+   "q": "Complete Sylvester's criterion for H = [[a,b],[b,c]]",
+   "text": "H ≻ 0 exactly when a > 0 and ___ > 0",
+   "a": "ac − b²",
+   "w": [
+    "a + c",
+    "ac + b²",
+    "b² − ac"
+   ],
+   "x": "Both leading principal minors, a and det H = ac − b², are positive for a positive definite 2 × 2 matrix."
+  },
+  {
+   "id": "o1-23",
+   "skill": "o1",
+   "type": "pair",
+   "q": "Match each Hessian of f = ½xᵀHx to the direction along which its elliptical contours are most elongated",
+   "pairs": [
+    [
+     "H = diag(1, 4)",
+     "Along x₁"
+    ],
+    [
+     "H = diag(4, 1)",
+     "Along x₂"
+    ],
+    [
+     "H = [[2,1],[1,2]]",
+     "Along (1, −1)"
+    ],
+    [
+     "H = [[2,−1],[−1,2]]",
+     "Along (1, 1)"
+    ]
+   ],
+   "x": "Contours stretch along the eigenvector of the smallest eigenvalue: [[2,1],[1,2]] has λ = 1 on (1, −1) and [[2,−1],[−1,2]] has λ = 1 on (1, 1)."
+  },
+  {
+   "id": "o1-24",
+   "skill": "o1",
+   "type": "order",
+   "q": "Put the board analysis of f = ½xᵀHx + bᵀx in order",
+   "steps": [
+    "Write the gradient ∇f = Hx + b",
+    "Solve Hx* = −b for the critical point",
+    "Draw the principal axes along the eigenvectors of H through x*",
+    "Sketch the contours on those axes, longest along the smallest eigenvalue's eigenvector"
+   ],
+   "x": "The gradient gives x*, the eigenvectors anchored at x* give the principal axes, and the contours stretch along the axis of the smallest eigenvalue."
+  },
+  {
+   "id": "o2-17",
+   "skill": "o2",
+   "type": "mc",
+   "q": "Compared with the weak Wolfe conditions, the strong Wolfe conditions additionally reject steps where",
+   "a": "φ′(α) is large and positive, far past the one-dimensional minimizer",
+   "w": [
+    "φ(α) lies above the Armijo line",
+    "φ′(α) is still steeply negative",
+    "α exceeds 1"
+   ],
+   "x": "The bound |φ′(α)| ≤ c₂|φ′(0)| caps the slope on both sides, so accepted steps sit near a stationary point of φ."
+  },
+  {
+   "id": "o2-18",
+   "skill": "o2",
+   "type": "mc",
+   "q": "Which curvature constant c₂ is typical for the line search inside nonlinear conjugate gradient?",
+   "a": "c₂ = 0.1",
+   "w": [
+    "c₂ = 0.9",
+    "c₂ = 10⁻⁴",
+    "c₂ = 1"
+   ],
+   "x": "Nonlinear CG needs a fairly accurate line search to keep its directions descent directions, so it uses c₂ = 0.1, while Newton-type methods use 0.9."
+  },
+  {
+   "id": "o2-19",
+   "skill": "o2",
+   "type": "mc",
+   "q": "An exact line search along p from x stops at the step α* where",
+   "a": "∇f(x + α*p)ᵀp = 0",
+   "w": [
+    "∇f(x + α*p) = 0",
+    "f(x + α*p) = 0",
+    "∇f(x + α*p)ᵀp = ∇f(x)ᵀp"
+   ],
+   "x": "α* minimizes φ(α) = f(x + αp), so φ′(α*) = ∇f(x + α*p)ᵀp = 0: the new gradient is orthogonal to the search direction."
+  },
+  {
+   "id": "o2-20",
+   "skill": "o2",
+   "type": "mc",
+   "q": "Steepest descent with exact line search on f = ½xᵀHx with H = cI, c > 0, converges in",
+   "a": "One iteration from any start",
+   "w": [
+    "n iterations",
+    "Two iterations",
+    "A number of iterations that grows with c"
+   ],
+   "x": "With κ = 1 the contours are circles, −∇f points straight at the minimizer, and the rate factor ((κ − 1)/(κ + 1))² equals 0."
+  },
+  {
+   "id": "o2-21",
+   "skill": "o2",
+   "type": "mc",
+   "q": "B is symmetric positive definite and ∇f(x) ≠ 0. The direction p = −B∇f(x) is a descent direction because",
+   "a": "∇fᵀp = −∇fᵀB∇f < 0",
+   "w": [
+    "‖p‖ < ‖∇f‖",
+    "p is parallel to ∇f",
+    "Bp = ∇f"
+   ],
+   "x": "Positive definiteness gives ∇fᵀB∇f > 0, so the directional derivative ∇fᵀp is negative; this covers steepest descent (B = I) and quasi-Newton directions (B the inverse Hessian approximation)."
+  },
+  {
+   "id": "o2-22",
+   "skill": "o2",
+   "type": "num",
+   "q": "Inside a line search, fit a quadratic q(α) to φ(0) = 1, φ′(0) = −2 and φ(1) = 2, then minimize q. Give α₁ to 3 decimals.",
+   "a": 0.3333,
+   "tol": 0.01,
+   "unit": "",
+   "x": "The data give q(α) = 1 − 2α + 3α², and q′(α) = −2 + 6α = 0 gives α₁ = 1/3."
+  },
+  {
+   "id": "o2-23",
+   "skill": "o2",
+   "type": "cloze",
+   "q": "Complete the exact steepest descent step on f = ½xᵀHx + bᵀx, with g = Hx + b",
+   "text": "α* = gᵀg / ___",
+   "a": "gᵀHg",
+   "w": [
+    "gᵀH⁻¹g",
+    "‖g‖",
+    "2gᵀHg"
+   ],
+   "x": "φ(α) = f − αgᵀg + ½α²gᵀHg is a parabola in α with its minimum at α* = gᵀg/(gᵀHg)."
+  },
+  {
+   "id": "o2-24",
+   "skill": "o2",
+   "type": "pair",
+   "q": "Match each line search test to what it rules out (minimization)",
+   "pairs": [
+    [
+     "Descent condition ∇fᵀp < 0",
+     "Directions that point uphill"
+    ],
+    [
+     "Armijo",
+     "Long steps with too little decrease"
+    ],
+    [
+     "Weak curvature",
+     "Short steps where φ′ is still steeply negative"
+    ],
+    [
+     "Strong curvature",
+     "Steps where |φ′| is large, of either sign"
+    ]
+   ],
+   "x": "Armijo caps the step from above, the curvature conditions bound it from below, and the strong form also limits overshoot past the one-dimensional minimizer."
+  },
+  {
+   "id": "o3-17",
+   "skill": "o3",
+   "type": "mc",
+   "q": "Under a linear change of variables x = Ay with A invertible, Newton's method",
+   "a": "Produces the same iterates mapped through A (affine invariance)",
+   "w": [
+    "Converges faster, since A rescales the Hessian",
+    "Produces the same iterates only when A is orthogonal",
+    "Turns into steepest descent in y"
+   ],
+   "x": "The Newton step transforms with the Hessian, so Newton's iterates are affine invariant and independent of scaling, while steepest descent depends on the coordinates."
+  },
+  {
+   "id": "o3-18",
+   "skill": "o3",
+   "type": "mc",
+   "q": "Pure Newton on f(x) = x⁴ converges to x* = 0",
+   "a": "Linearly with ratio 2/3, since f″(x*) = 0",
+   "w": [
+    "Quadratically, as for any smooth function",
+    "In one step",
+    "Superlinearly, since f is convex"
+   ],
+   "x": "x_{k+1} = x_k − 4x_k³/(12x_k²) = (2/3)x_k; quadratic convergence relies on a nonsingular Hessian at x*, and here f″(0) = 0."
+  },
+  {
+   "id": "o3-19",
+   "skill": "o3",
+   "type": "mc",
+   "q": "The Polak-Ribière choice of β in nonlinear CG is",
+   "a": "g_{k+1}ᵀ(g_{k+1} − g_k)/(g_kᵀg_k)",
+   "w": [
+    "g_{k+1}ᵀg_{k+1}/(g_kᵀg_k)",
+    "g_{k+1}ᵀ(g_{k+1} − g_k)/(p_kᵀ(g_{k+1} − g_k))",
+    "g_kᵀg_k/(g_{k+1}ᵀg_{k+1})"
+   ],
+   "x": "Polak-Ribière uses the gradient change g_{k+1} − g_k, which pulls the direction back toward −g when progress stalls; Fletcher-Reeves uses the ratio of squared gradient norms."
+  },
+  {
+   "id": "o3-20",
+   "skill": "o3",
+   "type": "mc",
+   "q": "Linear CG directions for Ax = b with A symmetric positive definite satisfy",
+   "a": "p_iᵀAp_j = 0 for i ≠ j (A-conjugacy)",
+   "w": [
+    "p_iᵀp_j = 0 for i ≠ j",
+    "Ap_i = p_i",
+    "p_iᵀAp_i = 0"
+   ],
+   "x": "Conjugacy lets each step minimize along a new direction while preserving the minimization along earlier ones, giving termination in at most n steps."
+  },
+  {
+   "id": "o3-21",
+   "skill": "o3",
+   "type": "num",
+   "q": "In one variable BFGS reduces to the secant method, B₁ = (g₁ − g₀)/(x₁ − x₀). With x₀ = 0, g₀ = −3 and x₁ = 1, g₁ = 1, compute x₂ = x₁ − g₁/B₁.",
+   "a": 0.75,
+   "tol": 0.01,
+   "unit": "",
+   "x": "B₁ = 4/1 = 4 and x₂ = 1 − 1/4 = 0.75; the secant slope stands in for f″."
+  },
+  {
+   "id": "o3-22",
+   "skill": "o3",
+   "type": "cloze",
+   "q": "Complete the BFGS update of the Hessian approximation B",
+   "text": "B₊ = B − (BssᵀB)/(sᵀBs) + ___",
+   "a": "yyᵀ/(yᵀs)",
+   "w": [
+    "ssᵀ/(yᵀs)",
+    "yyᵀ/(sᵀBs)",
+    "(y − Bs)(y − Bs)ᵀ/((y − Bs)ᵀs)"
+   ],
+   "x": "The rank-two BFGS update removes the old curvature along s and inserts yyᵀ/(yᵀs), so B₊s = y."
+  },
+  {
+   "id": "o3-23",
+   "skill": "o3",
+   "type": "pair",
+   "q": "Match each method to the curvature information it uses",
+   "pairs": [
+    [
+     "Newton",
+     "Exact Hessian ∇²f, factorized every iteration"
+    ],
+    [
+     "BFGS",
+     "Rank-two update of B from s and y"
+    ],
+    [
+     "SR1",
+     "Rank-one update of B from s and y"
+    ],
+    [
+     "Nonlinear CG",
+     "Only the previous direction and gradients"
+    ]
+   ],
+   "x": "Newton uses exact second derivatives, BFGS and SR1 build curvature from gradient differences, and nonlinear CG keeps just a few vectors in memory."
+  },
+  {
+   "id": "o3-24",
+   "skill": "o3",
+   "type": "order",
+   "q": "Put one linear CG iteration in order (residual r = b − Ax)",
+   "steps": [
+    "α = rᵀr/(pᵀAp)",
+    "x₊ = x + αp and r₊ = r − αAp",
+    "β = r₊ᵀr₊/(rᵀr)",
+    "p₊ = r₊ + βp"
+   ],
+   "x": "The step length uses the current residual and direction, the residual update reuses Ap, and β builds the next A-conjugate direction from the new residual."
+  },
+  {
+   "id": "o4-17",
+   "skill": "o4",
+   "type": "mc",
+   "q": "How do line search and trust region methods differ in the order of their choices?",
+   "a": "Line search fixes the direction, then the length; trust region fixes a maximum length Δ, then the step",
+   "w": [
+    "Line search fixes a maximum length, then the direction; trust region fixes the direction, then the length",
+    "Both fix the direction first and then the length",
+    "Trust region runs an exact line search along −g, then sets Δ"
+   ],
+   "x": "A trust region method chooses Δ first and then solves the subproblem, so direction and length come out together inside the region."
+  },
+  {
+   "id": "o4-18",
+   "skill": "o4",
+   "type": "mc",
+   "q": "The hard case of the trust region subproblem arises when B is indefinite and",
+   "a": "g is orthogonal to the eigenvector of B's most negative eigenvalue",
+   "w": [
+    "The Cauchy point lies inside the region",
+    "B is positive definite with ‖B⁻¹g‖ > Δ",
+    "ρ is negative"
+   ],
+   "x": "Then λ = −λ_min leaves (B + λI)p = −g free along that eigenvector, and a multiple of the eigenvector is added to reach ‖p‖ = Δ."
+  },
+  {
+   "id": "o4-19",
+   "skill": "o4",
+   "type": "mc",
+   "q": "The Cauchy point when gᵀBg ≤ 0 (nonpositive curvature along −g) is",
+   "a": "The boundary step −Δg/‖g‖",
+   "w": [
+    "The origin p = 0",
+    "−(gᵀg/gᵀBg)g",
+    "The Newton step −B⁻¹g"
+   ],
+   "x": "Along −g the model keeps decreasing as the step grows, so τ = 1 and the step runs to the trust region boundary."
+  },
+  {
+   "id": "o4-20",
+   "skill": "o4",
+   "type": "mc",
+   "q": "Global convergence of trust region methods rests on each step achieving",
+   "a": "At least a fixed fraction of the Cauchy point's model decrease",
+   "w": [
+    "An exact solution of the subproblem",
+    "ρ = 1 at every iteration",
+    "A step along −g"
+   ],
+   "x": "Dogleg, Steihaug-CG and exact solutions all reduce m by at least a fraction of the Cauchy decrease, which suffices for convergence to a stationary point."
+  },
+  {
+   "id": "o4-21",
+   "skill": "o4",
+   "type": "mc",
+   "q": "Near a strict local minimizer with B = ∇²f ≻ 0, a trust region Newton method eventually",
+   "a": "Has an inactive bound, takes full Newton steps and converges quadratically",
+   "w": [
+    "Shrinks Δ to 0 and stalls",
+    "Takes only Cauchy steps and converges linearly",
+    "Keeps ‖p‖ = Δ at every iteration"
+   ],
+   "x": "Once the model is accurate, ρ ≈ 1 keeps Δ bounded away from zero while the Newton step shrinks, so the Newton step fits inside the region."
+  },
+  {
+   "id": "o4-22",
+   "skill": "o4",
+   "type": "num",
+   "q": "g = (3, 4), B = I, Δ = 2. Compute the Cauchy point p_C and give its predicted reduction m(0) − m(p_C).",
+   "a": 8,
+   "tol": 0.01,
+   "unit": "",
+   "x": "‖g‖³/(Δ·gᵀBg) = 125/50 = 2.5, so τ = 1 and p_C = −(2/5)(3, 4) = (−1.2, −1.6); then −gᵀp_C − ½p_Cᵀp_C = 10 − 2 = 8."
+  },
+  {
+   "id": "o4-23",
+   "skill": "o4",
+   "type": "cloze",
+   "q": "Complete the radius update after a very successful step (ρ > ¾ and ‖p‖ = Δ)",
+   "text": "Δ_{k+1} = ___",
+   "a": "min(2Δ_k, Δ_max)",
+   "w": [
+    "Δ_k/4",
+    "‖p_k‖/2",
+    "max(2Δ_k, Δ_max)"
+   ],
+   "x": "A trusted model with a step on the boundary earns a doubled radius, capped by the overall bound Δ_max."
+  },
+  {
+   "id": "o4-24",
+   "skill": "o4",
+   "type": "pair",
+   "q": "Rules: shrink Δ if ρ < ¼, expand if ρ > ¾ with ‖p‖ = Δ, accept if ρ > η = 0.1. Match each outcome to the action",
+   "pairs": [
+    [
+     "ρ = −0.5",
+     "Reject the step and shrink Δ"
+    ],
+    [
+     "ρ = 0.15",
+     "Accept the step and shrink Δ"
+    ],
+    [
+     "ρ = 0.5",
+     "Accept the step and keep Δ"
+    ],
+    [
+     "ρ = 0.9 with ‖p‖ = Δ",
+     "Accept the step and expand Δ"
+    ]
+   ],
+   "x": "Acceptance depends on ρ > η and the radius update on the ¼ and ¾ thresholds, so ρ = 0.15 is accepted while Δ still shrinks."
+  },
+  {
+   "id": "o5-17",
+   "skill": "o5",
+   "type": "mc",
+   "q": "With L = f + λᵀh + μᵀg (minimize, h = 0, g ≤ 0), the sign rules for the multipliers are",
+   "a": "λ free in sign, μ ≥ 0",
+   "w": [
+    "λ ≥ 0 and μ ≥ 0",
+    "λ free, μ ≤ 0",
+    "λ ≤ 0, μ free"
+   ],
+   "x": "An equality constraint can push either way, so λ takes any sign, while an inequality g ≤ 0 pushes the solution back toward the feasible side, so μ ≥ 0."
+  },
+  {
+   "id": "o5-18",
+   "skill": "o5",
+   "type": "mc",
+   "q": "Minimize cruise drag over span b and area S at fixed weight, with b ≤ b_max and a stall constraint. Before any KKT algebra, why expect b ≤ b_max to be active?",
+   "a": "Induced drag falls as span grows, so drag keeps decreasing toward larger b",
+   "w": [
+    "Parasite drag falls as span grows",
+    "The stall constraint forces b to its upper limit",
+    "Every inequality is active at a KKT point"
+   ],
+   "x": "Induced drag scales as W²/(qπeb²), so the unconstrained optimum runs to infinite span and the span limit sets b* = b_max."
+  },
+  {
+   "id": "o5-19",
+   "skill": "o5",
+   "type": "mc",
+   "q": "For a convex problem (f and every gᵢ convex, every hⱼ affine), a point satisfying the KKT conditions is",
+   "a": "A global minimizer",
+   "w": [
+    "Only a local minimizer",
+    "A saddle of f",
+    "A minimizer only when LICQ holds"
+   ],
+   "x": "Convexity makes the KKT conditions sufficient, so any KKT point is a global minimizer."
+  },
+  {
+   "id": "o5-20",
+   "skill": "o5",
+   "type": "mc",
+   "q": "min f subject to one equality h(x) = 0 in two variables. Geometrically, at the optimum",
+   "a": "The f contour is tangent to the constraint curve, with ∇f = −λ∇h",
+   "w": [
+    "∇f is perpendicular to ∇h",
+    "∇f = 0",
+    "The f contour crosses the constraint curve at a right angle"
+   ],
+   "x": "Tangency makes ∇f and ∇h parallel, and stationarity ∇f + λ∇h = 0 sets the multiplier as the ratio between them."
+  },
+  {
+   "id": "o5-21",
+   "skill": "o5",
+   "type": "num",
+   "q": "min (x − 3)² + (y − 2)² subject to g = x + y − 2 ≤ 0, with L = f + μg. Find μ.",
+   "a": 3,
+   "tol": 0.01,
+   "unit": "",
+   "x": "The unconstrained minimizer (3, 2) is infeasible, so g is active; projecting onto x + y = 2 gives (1.5, 0.5), and ∇f = (−3, −3) = −μ(1, 1) gives μ = 3 ≥ 0."
+  },
+  {
+   "id": "o5-22",
+   "skill": "o5",
+   "type": "cloze",
+   "q": "Complete the Hessian of the Lagrangian L = f + Σᵢμᵢgᵢ",
+   "text": "∇²ₓₓL = ∇²f + Σᵢ ___ ∇²gᵢ",
+   "a": "μᵢ",
+   "w": [
+    "∇gᵢ",
+    "μᵢ²",
+    "1/μᵢ"
+   ],
+   "x": "Each constraint's curvature enters weighted by its multiplier, and the second-order test uses ∇²ₓₓL on the tangent space of the active constraints."
+  },
+  {
+   "id": "o5-23",
+   "skill": "o5",
+   "type": "pair",
+   "q": "Match each element of a wing sizing optimization to its role",
+   "pairs": [
+    [
+     "Cruise drag",
+     "Objective"
+    ],
+    [
+     "Span b and area S",
+     "Design variables"
+    ],
+    [
+     "C_L = W/(qS), lift equals weight",
+     "Equality constraint"
+    ],
+    [
+     "V_stall ≤ V_stall,max",
+     "Inequality constraint"
+    ]
+   ],
+   "x": "Lift balance is an equality enforced exactly, while the stall speed limit is an inequality that is active or inactive depending on the design."
+  },
+  {
+   "id": "o5-24",
+   "skill": "o5",
+   "type": "order",
+   "q": "Put the hand solution of a small KKT problem in order",
+   "steps": [
+    "Reason physically about which constraints each variable pushes against",
+    "Guess an active set and set μᵢ = 0 for inactive constraints",
+    "Solve stationarity with the active constraints as equalities",
+    "Check μᵢ ≥ 0 on active constraints and feasibility of inactive ones"
+   ],
+   "x": "Physical reasoning picks a likely active set, the equations give x and μ, and the sign and feasibility checks confirm the guess."
+  },
+  {
+   "id": "o6-17",
+   "skill": "o6",
+   "type": "mc",
+   "q": "Two standard remedies for the Maratos effect in SQP are",
+   "a": "A second-order correction step, or a nonmonotone (watchdog) strategy",
+   "w": [
+    "Increasing the penalty parameter to infinity",
+    "Switching to steepest descent near x*",
+    "Dropping the merit function and taking α = 0.5"
+   ],
+   "x": "A second-order correction restores the constraint curvature lost by linearization, and a watchdog strategy tolerates a temporary rise in the merit function, so full steps survive and fast local convergence returns."
+  },
+  {
+   "id": "o6-18",
+   "skill": "o6",
+   "type": "num",
+   "q": "min x² subject to h = x − 1 = 0 by the quadratic penalty φ = x² + (μ/2)h² with μ = 20. Minimize φ, then estimate the multiplier as λ ≈ μh(x_μ). Give λ to 3 decimals.",
+   "a": -1.818,
+   "tol": 0.01,
+   "unit": "",
+   "x": "x_μ = μ/(2 + μ) = 20/22 = 0.909, so μh = 20(−0.0909) = −1.818, approaching the exact λ* = −2 as μ grows."
+  },
+  {
+   "id": "o6-19",
+   "skill": "o6",
+   "type": "mc",
+   "q": "SQP applied to an equality constrained problem is equivalent to",
+   "a": "Newton's method on the KKT conditions ∇ₓL = 0, h = 0",
+   "w": [
+    "Steepest descent on the ℓ1 merit function",
+    "A quadratic penalty method with μ fixed",
+    "Newton's method on f alone, ignoring h"
+   ],
+   "x": "Linearizing ∇ₓL = 0 and h = 0 about (x_k, λ_k) gives exactly the KKT system of the QP, so SQP inherits Newton's quadratic local convergence."
+  },
+  {
+   "id": "o6-20",
+   "skill": "o6",
+   "type": "mc",
+   "q": "A log barrier method for constraints g ≤ 0 needs a starting point with",
+   "a": "gᵢ(x₀) < 0 for every i (strictly feasible)",
+   "w": [
+    "gᵢ(x₀) = 0 for every i",
+    "gᵢ(x₀) > 0 for some i",
+    "Any x₀, since the barrier repairs infeasibility"
+   ],
+   "x": "ln(−gᵢ) is defined only for gᵢ < 0, so the iterates start and stay in the strict interior."
+  },
+  {
+   "id": "o6-21",
+   "skill": "o6",
+   "type": "mc",
+   "q": "The exact ℓ1 penalty recovers x* with a finite ρ. What is the price of that exactness?",
+   "a": "The penalty function has kinks at feasibility, exactly where x* lies",
+   "w": [
+    "Its Hessian becomes ill-conditioned as ρ → ∞",
+    "x* must be strictly feasible",
+    "It needs a multiplier update every iteration"
+   ],
+   "x": "The terms |hⱼ| and max(0, gᵢ) bend sharply at hⱼ = 0 and gᵢ = 0, so the minimizer of the penalty function sits on a kink and calls for nonsmooth or SQP-type handling."
+  },
+  {
+   "id": "o6-22",
+   "skill": "o6",
+   "type": "cloze",
+   "q": "Complete the SQP Newton-KKT system for min f subject to h(x) = 0, with W = ∇²ₓₓL and A = ∇hᵀ",
+   "text": "[[W, Aᵀ],[A, 0]] (p, λ₊) = (−∇f, ___)",
+   "a": "−h",
+   "w": [
+    "h",
+    "0",
+    "−∇h"
+   ],
+   "x": "The second block row is the linearized constraint h + Ap = 0, so its right side is −h."
+  },
+  {
+   "id": "o6-23",
+   "skill": "o6",
+   "type": "order",
+   "q": "Put one line search SQP iteration in order",
+   "steps": [
+    "Form the QP: quadratic model of L and linearized constraints at x_k",
+    "Solve the QP for the step p and new multipliers",
+    "Line search on a merit function to choose α",
+    "Set x_{k+1} = x_k + αp and update the BFGS approximation of ∇²L"
+   ],
+   "x": "The QP supplies a Newton-like step and multipliers, the merit function balances objective and feasibility, and the BFGS update refreshes the curvature of L."
+  },
+  {
+   "id": "o6-24",
+   "skill": "o6",
+   "type": "mc",
+   "q": "For min x subject to x ≥ 1, the quadratic penalty and log barrier minimizers approach x* = 1 from",
+   "a": "Penalty from x < 1 (infeasible side), barrier from x > 1 (feasible side)",
+   "w": [
+    "Both from x > 1",
+    "Both from x < 1",
+    "Penalty from x > 1, barrier from x < 1"
+   ],
+   "x": "The penalty charges only for violation, so its minimizer x = 1 − 1/μ sits outside, while the barrier grows to infinity at the boundary, so its minimizer x = 1 + μ sits inside."
+  },
+  {
+   "id": "o7-17",
+   "skill": "o7",
+   "type": "mc",
+   "q": "n samples, m basis functions, n = m and Φ invertible. The least squares surrogate",
+   "a": "Interpolates the data: w = Φ⁻¹y with zero training error",
+   "w": [
+    "Is underdetermined and needs ridge regression",
+    "Averages the data, leaving a residual equal to the noise",
+    "Has w = ΦᵀΦy"
+   ],
+   "x": "A square invertible Φ solves Φw = y exactly, so the surrogate passes through every sample."
+  },
+  {
+   "id": "o7-18",
+   "skill": "o7",
+   "type": "mc",
+   "q": "n < m with Φ of full row rank. The minimum norm weights are",
+   "a": "w = Φᵀ(ΦΦᵀ)⁻¹y",
+   "w": [
+    "w = (ΦᵀΦ)⁻¹Φᵀy",
+    "w = Φ⁻¹y",
+    "w = (ΦΦᵀ)⁻¹Φᵀy"
+   ],
+   "x": "Minimizing ‖w‖² subject to Φw = y gives w = Φᵀa with ΦΦᵀa = y, and the n × n matrix ΦΦᵀ is invertible for full row rank Φ."
+  },
+  {
+   "id": "o7-19",
+   "skill": "o7",
+   "type": "mc",
+   "q": "Ridge regression solves (ΦᵀΦ + λI)w = Φᵀy. As λ → ∞",
+   "a": "w → 0 and the fit flattens",
+   "w": [
+    "w → the least squares solution",
+    "w → Φ⁻¹y",
+    "The training error falls to zero"
+   ],
+   "x": "The penalty λ‖w‖² dominates the squared error and shrinks every weight toward zero; λ → 0 recovers ordinary least squares."
+  },
+  {
+   "id": "o7-20",
+   "skill": "o7",
+   "type": "mc",
+   "q": "Adding a nugget (regularization) term to the kriging correlation matrix",
+   "a": "Lets the model smooth noisy data instead of interpolating it",
+   "w": [
+    "Forces exact interpolation of every sample",
+    "Removes the need to estimate θ",
+    "Makes the prediction variance zero everywhere"
+   ],
+   "x": "The nugget adds a constant to the diagonal of the correlation matrix, which acts like ridge regularization, improves conditioning and treats part of each sample as noise."
+  },
+  {
+   "id": "o7-21",
+   "skill": "o7",
+   "type": "num",
+   "q": "Fit the least squares line ŷ = w₀ + w₁x to the points (0, 1), (1, 3) and (2, 4). Give the prediction ŷ(3) to 3 decimals.",
+   "a": 5.6667,
+   "tol": 0.005,
+   "unit": "",
+   "x": "x̄ = 1 and ȳ = 8/3 give w₁ = Σ(x − x̄)(y − ȳ)/Σ(x − x̄)² = 3/2 and w₀ = 8/3 − 3/2 = 7/6, so ŷ(3) = 7/6 + 9/2 = 17/3."
+  },
+  {
+   "id": "o7-22",
+   "skill": "o7",
+   "type": "cloze",
+   "q": "Complete the dual (kernel) form of the ridge solution for n samples and m basis functions",
+   "text": "w = Φᵀ(ΦΦᵀ + ___)⁻¹y",
+   "a": "λI_n",
+   "w": [
+    "λI_m",
+    "λΦ",
+    "λ²I_n"
+   ],
+   "x": "The identity (ΦᵀΦ + λI_m)⁻¹Φᵀ = Φᵀ(ΦΦᵀ + λI_n)⁻¹ makes the dual form invert an n × n matrix, convenient when n < m."
+  },
+  {
+   "id": "o7-23",
+   "skill": "o7",
+   "type": "pair",
+   "q": "With n samples and m basis functions, match each quantity to its size",
+   "pairs": [
+    [
+     "Φ",
+     "n × m"
+    ],
+    [
+     "w",
+     "m × 1"
+    ],
+    [
+     "ΦᵀΦ",
+     "m × m"
+    ],
+    [
+     "ΦΦᵀ",
+     "n × n"
+    ]
+   ],
+   "x": "Rows of Φ are samples and columns are basis functions, which fixes every other size in the normal equations."
+  },
+  {
+   "id": "o7-24",
+   "skill": "o7",
+   "type": "order",
+   "q": "Put the first-principles surrogate derivation in order",
+   "steps": [
+    "Choose basis functions φⱼ(x) so that ŷ = Σⱼ wⱼφⱼ(x)",
+    "Write the error E = Σᵢ (yᵢ − Σⱼ wⱼφⱼ(xᵢ))²",
+    "Set ∂E/∂wₖ = 0 for every k",
+    "Solve the normal equations ΦᵀΦw = Φᵀy",
+    "Check the fit by cross-validation"
+   ],
+   "x": "The fit is an optimization problem: define the error, make it stationary in w, solve, then validate on held-out data."
+  },
+  {
+   "id": "o8-17",
+   "skill": "o8",
+   "type": "mc",
+   "q": "f₁ and f₂ are convex. Which function is guaranteed convex?",
+   "a": "max(f₁, f₂)",
+   "w": [
+    "min(f₁, f₂)",
+    "f₁ − f₂",
+    "f₁f₂"
+   ],
+   "x": "The epigraph of max(f₁, f₂) is the intersection of two convex epigraphs, so it is convex."
+  },
+  {
+   "id": "o8-18",
+   "skill": "o8",
+   "type": "mc",
+   "q": "In a convex optimization problem, the equality constraints h(x) = 0 must be",
+   "a": "Affine, h = Ax − b",
+   "w": [
+    "Convex",
+    "Concave",
+    "Quadratic with a positive definite Hessian"
+   ],
+   "x": "h = 0 is the pair h ≤ 0 and −h ≤ 0, which needs both h and −h convex, so h is affine."
+  },
+  {
+   "id": "o8-19",
+   "skill": "o8",
+   "type": "mc",
+   "q": "Cruise drag D = aV²S + c/(V²S) with a, c > 0. Which change of variables makes it convex?",
+   "a": "Log variables V = eᵘ, S = eᵛ, giving a sum of exponentials",
+   "w": [
+    "Substituting q = ½ρV²",
+    "Dividing D by S",
+    "Using V² and S as the variables"
+   ],
+   "x": "Each term becomes an exponential of an affine function of (u, v), and a sum of such exponentials is convex, the basis of geometric programming."
+  },
+  {
+   "id": "o8-20",
+   "skill": "o8",
+   "type": "mc",
+   "q": "The first-order convexity condition f(y) ≥ f(x) + ∇f(x)ᵀ(y − x) says geometrically that",
+   "a": "Every tangent plane lies on or below the graph of f",
+   "w": [
+    "Every chord lies on or below the graph",
+    "The gradient is constant",
+    "Every tangent plane lies on or above the graph of f"
+   ],
+   "x": "The linearization at any x is a global underestimator, so ∇f(x*) = 0 certifies a global minimizer."
+  },
+  {
+   "id": "o8-21",
+   "skill": "o8",
+   "type": "mc",
+   "q": "Describe the feasible set of g(x, y) = 1 − x² − y² ≤ 0.",
+   "a": "The region on and outside the unit circle, a nonconvex set",
+   "w": [
+    "The closed unit disk, a convex set",
+    "The unit circle alone",
+    "The whole plane"
+   ],
+   "x": "g is concave, and its sublevel set x² + y² ≥ 1 contains (1, 0) and (−1, 0) while their midpoint (0, 0) lies outside the set."
+  },
+  {
+   "id": "o8-22",
+   "skill": "o8",
+   "type": "num",
+   "q": "f(x, y) = x² + kxy + y². Find the largest k > 0 for which f is convex.",
+   "a": 2,
+   "tol": 0.01,
+   "unit": "",
+   "x": "H = [[2,k],[k,2]] has eigenvalues 2 ± k, which stay nonnegative up to k = 2."
+  },
+  {
+   "id": "o8-23",
+   "skill": "o8",
+   "type": "cloze",
+   "q": "Complete the definition of a convex set S",
+   "text": "θx + (1 − θ)y ∈ S for all x, y ∈ S and all θ ∈ ___",
+   "a": "[0, 1]",
+   "w": [
+    "[−1, 1]",
+    "(1, ∞)",
+    "{0, 1}"
+   ],
+   "x": "Every point on the segment joining two members of S belongs to S."
+  },
+  {
+   "id": "o8-24",
+   "skill": "o8",
+   "type": "pair",
+   "q": "A model has n inputs and m outputs computed from residuals R(x, u) = 0. Match each gradient method to its cost",
+   "pairs": [
+    [
+     "Forward finite difference",
+     "n + 1 function evaluations"
+    ],
+    [
+     "Central finite difference",
+     "2n function evaluations"
+    ],
+    [
+     "Direct (forward) method",
+     "n linear solves with ∂R/∂u"
+    ],
+    [
+     "Adjoint method",
+     "m linear solves with (∂R/∂u)ᵀ"
+    ]
+   ],
+   "x": "Finite differences and the direct method scale with the inputs n, while the adjoint scales with the outputs m, which favours it for many design variables and few functions."
+  },
+  {
+   "id": "o9-17",
+   "skill": "o9",
+   "type": "mc",
+   "q": "min w·f₁ + (1 − w)·f₂ with 0 < w < 1 reaches a point on a smooth convex Pareto front. The slope df₂/df₁ of the front there is",
+   "a": "−w/(1 − w)",
+   "w": [
+    "w/(1 − w)",
+    "−(1 − w)/w",
+    "−1 for every w"
+   ],
+   "x": "The level lines w·f₁ + (1 − w)·f₂ = const have slope −w/(1 − w) and touch the front tangentially at the optimum."
+  },
+  {
+   "id": "o9-18",
+   "skill": "o9",
+   "type": "mc",
+   "q": "Evenly spaced weights in a weighted-sum sweep generally give Pareto points that are",
+   "a": "Unevenly spaced along the front",
+   "w": [
+    "Evenly spaced along the front",
+    "Spaced in proportion to w",
+    "Dominated by one another"
+   ],
+   "x": "Each weight picks the point where the front has slope −w/(1 − w), so the spacing follows the front's curvature; the ε-constraint method controls the spacing in f₂ directly."
+  },
+  {
+   "id": "o9-19",
+   "skill": "o9",
+   "type": "mc",
+   "q": "Why do population methods such as NSGA-II suit multi-objective problems?",
+   "a": "One run returns a set of nondominated designs spread along the front",
+   "w": [
+    "They guarantee the exact Pareto front",
+    "They reduce the problem to one objective",
+    "They need gradients of every objective"
+   ],
+   "x": "A population holds many designs at once, and nondominated sorting plus a diversity measure spreads them along the front."
+  },
+  {
+   "id": "o9-20",
+   "skill": "o9",
+   "type": "mc",
+   "q": "In Nelder-Mead, when reflection, expansion and contraction all fail to improve on the worst vertex, the method",
+   "a": "Shrinks every vertex toward the best vertex",
+   "w": [
+    "Restarts from a random simplex",
+    "Expands about the centroid",
+    "Replaces the best vertex with the centroid"
+   ],
+   "x": "The shrink step halves each vertex's distance to the best vertex, keeping the best point and tightening the search around it."
+  },
+  {
+   "id": "o9-21",
+   "skill": "o9",
+   "type": "num",
+   "q": "Simulated annealing with geometric cooling T_{k+1} = 0.9T_k starts at T₀ = 10. Give T after 10 cooling steps to 3 decimals.",
+   "a": 3.4868,
+   "tol": 0.002,
+   "unit": "",
+   "x": "T₁₀ = 10(0.9)¹⁰ = 3.487; gradual cooling keeps uphill moves likely early and makes the search greedy late."
+  },
+  {
+   "id": "o9-22",
+   "skill": "o9",
+   "type": "cloze",
+   "q": "Complete the normalization of objective i using its utopia value fᵢᵁ and nadir value fᵢᴺ",
+   "text": "f̄ᵢ = (fᵢ − fᵢᵁ)/(___)",
+   "a": "fᵢᴺ − fᵢᵁ",
+   "w": [
+    "fᵢᵁ",
+    "fᵢᴺ + fᵢᵁ",
+    "fᵢ"
+   ],
+   "x": "Subtracting the utopia value and dividing by the nadir minus utopia range maps each objective onto [0, 1] across the Pareto set."
+  },
+  {
+   "id": "o9-23",
+   "skill": "o9",
+   "type": "pair",
+   "q": "Match each gradient-free method to its inspiration",
+   "pairs": [
+    [
+     "Genetic algorithm",
+     "Natural selection and inheritance"
+    ],
+    [
+     "Particle swarm",
+     "Bird flocking"
+    ],
+    [
+     "Simulated annealing",
+     "Slow cooling of a metal"
+    ],
+    [
+     "Nelder-Mead",
+     "A geometric simplex that reflects and shrinks"
+    ]
+   ],
+   "x": "Each heuristic borrows a physical, biological or geometric process: evolution, flocking, annealing or a moving simplex."
+  },
+  {
+   "id": "o9-24",
+   "skill": "o9",
+   "type": "order",
+   "q": "Put one genetic algorithm generation in order",
+   "steps": [
+    "Evaluate the fitness of every member",
+    "Select parents, favouring fitness",
+    "Cross over parents to form offspring",
+    "Mutate offspring genes",
+    "Form the next population, keeping elites"
+   ],
+   "x": "Fitness drives selection, crossover mixes good genes, mutation keeps diversity and elitism carries the best designs forward."
+  },
+  {
+   "id": "o10-17",
+   "skill": "o10",
+   "type": "mc",
+   "q": "Two linear disciplines: y₁ = a·y₂ + c₁ and y₂ = b·y₁ + c₂. Gauss-Seidel MDA converges from any start when",
+   "a": "|ab| < 1",
+   "w": [
+    "|a| + |b| < 2",
+    "ab > 0",
+    "|a| < 1 or |b| < 1"
+   ],
+   "x": "One Gauss-Seidel pass multiplies the error in y₁ by ab, so the iteration contracts when |ab| < 1."
+  },
+  {
+   "id": "o10-18",
+   "skill": "o10",
+   "type": "num",
+   "q": "Gauss-Seidel MDA with y₁ = 0.5y₂ + 1 and y₂ = 0.4y₁ + 2. Give the converged y₁.",
+   "a": 2.5,
+   "tol": 0.01,
+   "unit": "",
+   "x": "Substituting y₂ gives y₁ = 0.2y₁ + 2, so y₁ = 2.5 and y₂ = 3, with contraction factor 0.5 × 0.4 = 0.2 per pass."
+  },
+  {
+   "id": "o10-19",
+   "skill": "o10",
+   "type": "mc",
+   "q": "The defining property of an n-point Latin hypercube in k variables is",
+   "a": "Each variable's range splits into n equal bins, each holding exactly one sample",
+   "w": [
+    "Samples sit at all 2ᵏ corners",
+    "Samples lie on a uniform grid with n levels per variable",
+    "Every pair of samples is equally spaced"
+   ],
+   "x": "Each one-dimensional projection is stratified, so n samples cover every variable's range evenly at any k."
+  },
+  {
+   "id": "o10-20",
+   "skill": "o10",
+   "type": "mc",
+   "q": "How many runs does a 2^(5−2) fractional factorial design use?",
+   "a": "8",
+   "w": [
+    "32",
+    "10",
+    "4"
+   ],
+   "x": "A 2^(k−p) design runs 2^(k−p) = 2³ = 8 of the 32 full factorial corners."
+  },
+  {
+   "id": "o10-21",
+   "skill": "o10",
+   "type": "mc",
+   "q": "Why are runs replicated in a wind tunnel test but rarely in a deterministic CFD study?",
+   "a": "Repeated CFD runs return identical outputs, so replication informs only noisy experiments",
+   "w": [
+    "CFD is cheaper per run",
+    "Replication removes aliasing",
+    "CFD outputs are random"
+   ],
+   "x": "Replicates estimate pure experimental error, which is present in physical tests and zero for a deterministic code, so computer experiments spend runs on space-filling coverage."
+  },
+  {
+   "id": "o10-22",
+   "skill": "o10",
+   "type": "cloze",
+   "q": "Complete the main effect of factor A in a two-level design",
+   "text": "Effect_A = ȳ(A+) − ___",
+   "a": "ȳ(A−)",
+   "w": [
+    "ȳ(B+)",
+    "ȳ",
+    "½ȳ(A−)"
+   ],
+   "x": "The main effect is the average response at A's high level minus the average response at its low level."
+  },
+  {
+   "id": "o10-23",
+   "skill": "o10",
+   "type": "pair",
+   "q": "Match each MDO variable or constraint type to its meaning",
+   "pairs": [
+    [
+     "Shared design variable",
+     "Used by several disciplines, such as wing span"
+    ],
+    [
+     "Local design variable",
+     "Used by one discipline, such as spar thickness"
+    ],
+    [
+     "Coupling variable",
+     "Output of one discipline used as input by another"
+    ],
+    [
+     "Consistency constraint",
+     "Equates a coupling target with the matching output in IDF"
+    ]
+   ],
+   "x": "Design variables are local or shared by where they act, coupling variables carry data between disciplines, and IDF closes the loop with consistency constraints."
+  },
+  {
+   "id": "o10-24",
+   "skill": "o10",
+   "type": "order",
+   "q": "Put one MDF optimizer iteration in order",
+   "steps": [
+    "Optimizer proposes design variables x",
+    "Run the MDA until the coupling variables converge",
+    "Evaluate the objective and constraints at the consistent state",
+    "Compute coupled total derivatives",
+    "Optimizer updates x"
+   ],
+   "x": "MDF keeps every iterate consistent across disciplines by converging the MDA before evaluating f, g and their total derivatives."
+  }
+ ]
+}

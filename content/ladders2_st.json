@@ -1,0 +1,289 @@
+{
+ "ladders": [
+  {
+   "id": "lad-34",
+   "exam": "SMM",
+   "chair": "Stability",
+   "skill": "s9",
+   "title": "Guided two-bar column: the 4C₂ factor, free bodies and a lumped column",
+   "freq": "L-frame stability geometry asked 2007, 2020 and 2023, with P_cr = (C₁ + 4C₂)/H",
+   "figure": "Two rigid bars of length H/2 stacked vertically, a rotational spring C₁ at the base pin, a rotational spring C₂ at the middle hinge, the top pinned to a roller in a vertical guide, and a vertical dead load P at the top.",
+   "rungs": [
+    {
+     "ask": "How many degrees of freedom?",
+     "answer": "One. The guide keeps the top on the vertical through the base, so the upper bar mirrors the lower one: bar angles θ and −θ from the vertical.",
+     "say": "The guide ties the bars together, so this is a one degree of freedom system"
+    },
+    {
+     "ask": "Write the total potential with every term.",
+     "answer": "Π = ½C₁θ² + ½C₂(2θ)² − PH(1 − cos θ), each bar of length H/2, so the top drops H(1 − cos θ).",
+     "say": "The mid spring sees the relative angle 2θ, so it stores ½C₂(2θ)²"
+    },
+    {
+     "ask": "Why a factor of four on C₂?",
+     "answer": "The relative rotation at the middle hinge is θ − (−θ) = 2θ, and spring energy goes with the square of its rotation, so ½C₂(2θ)² = ½(4C₂)θ².",
+     "say": "Doubling the hinge angle quadruples the spring energy"
+    },
+    {
+     "ask": "Equilibrium.",
+     "answer": "dΠ/dθ = (C₁ + 4C₂)θ − PH sin θ = 0: the trivial path θ = 0 for every P, and the buckled path P = (C₁ + 4C₂)θ/(H sin θ).",
+     "say": "Stationary Π gives the trivial path and the buckled path"
+    },
+    {
+     "ask": "Critical load?",
+     "answer": "The paths meet as θ → 0, where θ/sin θ → 1: P_cr = (C₁ + 4C₂)/H.",
+     "say": "P_cr equals C₁ plus 4C₂, over H"
+    },
+    {
+     "ask": "Check P_cr with free bodies instead of energy.",
+     "answer": "Moments about the base pin for the whole column give the horizontal guide reaction R = C₁θ/(H cos θ), pointing toward the side the middle hinge moves. Moments about the middle hinge for the top bar give (H/2)(P sin θ − R cos θ) = 2C₂θ. Eliminating R gives (C₁ + 4C₂)θ = PH sin θ, the energy result.",
+     "say": "Moments about the base and about the middle hinge reproduce the energy result"
+    },
+    {
+     "ask": "Remove the guide so the top is free, with C₁ = C₂ = C.",
+     "answer": "The top bar then rotates independently: two degrees of freedom, a 2 × 2 Hessian, and a sway mode with P_cr = (3 − √5)C/H ≈ 0.76C/H, compared with 5C/H for the guided column. The guide forces the middle hinge to turn through 2θ and raises P_cr more than sixfold.",
+     "say": "Freeing the top adds a degree of freedom and a sway mode with a much lower P_cr"
+    },
+    {
+     "ask": "Use it as a lumped model of a pinned-pinned column of stiffness EI.",
+     "answer": "The pinned base gives C₁ = 0, and the hinge stands for a segment of length H/2, so C₂ = EI/(H/2) = 2EI/H. Then P_cr = 4C₂/H = 8EI/H², about 81% of Euler's π²EI/H²; more hinges converge to π²EI/H² from below.",
+     "say": "Two lumped segments give 8EI over H², and more hinges converge to Euler from below"
+    },
+    {
+     "ask": "Post-buckling in one line, and classify it.",
+     "answer": "The path is exact here: P = P_cr θ/sin θ ≈ P_cr(1 + θ²/6), rising on both sides of P_cr, a stable symmetric bifurcation.",
+     "say": "The exact path P_cr θ over sin θ rises with |θ|, so it is stable symmetric"
+    }
+   ],
+   "trap": "Use the guide to tie the bars into one degree of freedom with angles θ and −θ, so the mid spring turns through 2θ and contributes 4C₂ to P_cr = (C₁ + 4C₂)/H."
+  },
+  {
+   "id": "lad-35",
+   "exam": "SMM",
+   "chair": "Structural analysis",
+   "skill": "s7",
+   "title": "Shear flow: open channel to multicell box",
+   "freq": "Shear flow starting at zero at a free edge, with t inside Q, is on the repeat slips list from many mocks",
+   "figure": "A thin channel of web height h, flange width b and uniform thickness t under a vertical shear V; beside it the same walls closed into a single-cell box, then a two-cell box with a middle web.",
+   "rungs": [
+    {
+     "ask": "Vertical shear V on the open channel. Where does the shear flow start?",
+     "answer": "At a free flange tip, where q = 0; then q(s) = (V/I)Q(s) with Q(s) = ∫₀ˢ y t ds.",
+     "say": "Shear flow starts at zero at the free edge, with t inside Q"
+    },
+    {
+     "ask": "Second moment of area?",
+     "answer": "Thin walls: I ≈ th³/12 + 2bt(h/2)² = th²(h + 6b)/12.",
+     "say": "Web term plus the flange parallel axis terms, keeping terms linear in t"
+    },
+    {
+     "ask": "Flange and web distributions.",
+     "answer": "Flange: linear, q = Vths/(2I), reaching q₁ = Vthb/(2I) at the corner. Web: parabolic, peaking at the neutral axis at q₁ + Vth²/(8I).",
+     "say": "Linear in the flanges, parabolic in the web, peak at the neutral axis"
+    },
+    {
+     "ask": "Where is the shear centre?",
+     "answer": "Each flange carries F = q₁b/2 = Vthb²/(4I), and the pair forms a couple Fh. Moments about the web: Ve = Fh, so e = th²b²/(4I) = 3b²/(h + 6b), outside the section beyond the web.",
+     "say": "I take moments of the shear flow about the web to find e"
+    },
+    {
+     "ask": "So what happens if the load goes through the centroid?",
+     "answer": "The load line is offset from the shear centre, so the channel bends and twists: replace the load by V through the shear centre plus a torque equal to V times the offset.",
+     "say": "Off the shear centre, the section twists as well as bends"
+    },
+    {
+     "ask": "Close the flanges into a single-cell box. What changes?",
+     "answer": "Cut one wall, compute the open flow q_b from the cut, and set q = q_b + q₀; find q₀ from moment equivalence of the shear flows with the applied shear about any point.",
+     "say": "A closed cell adds one unknown constant shear flow q₀"
+    },
+    {
+     "ask": "Twist rate of the box, and its shear centre.",
+     "answer": "dθ/dz = (1/(2AG))∮ q ds/t with A the enclosed area; the shear centre is the load line that makes dθ/dz = 0.",
+     "say": "The shear centre is the load line with zero twist rate"
+    },
+    {
+     "ask": "Pure torque on the single cell.",
+     "answer": "Bredt: q = T/(2A) and J = 4A²/∮ ds/t.",
+     "say": "For pure torque I use Bredt, q equals T over 2A"
+    },
+    {
+     "ask": "Add a middle web: two cells. Count unknowns and equations.",
+     "answer": "Unknowns q₀₁, q₀₂ and dθ/dz; equations: moment equivalence plus one twist rate equation per cell, with both cells sharing the same dθ/dz. In general n cells give n + 1 unknowns and n + 1 equations.",
+     "say": "Every cell twists at the same rate, and that compatibility closes the multicell problem"
+    }
+   ],
+   "trap": "Start the open flow at zero at a free edge, then give each closed cell a constant q₀ fixed by moment equivalence and the shared twist rate."
+  },
+  {
+   "id": "lad-36",
+   "exam": "SMM",
+   "chair": "Structural analysis",
+   "skill": "s11",
+   "title": "Unit load: curved bar to a propped L-frame",
+   "freq": "Unit load sign convention is a repeat slip; energy methods drive the coil spring (Fall 2025, Spring 2026) and member-as-spring questions (2020, 2021)",
+   "figure": "Left: a slender quarter-circle bar of radius R and stiffness EI, clamped at its lower end A, free end B at the top, vertical load P at B, centre O. Right: an L-frame with a column of height h clamped at its base, a rigid corner D, a horizontal beam of length L ending on a roller at C, a horizontal load P at the corner, same EI throughout.",
+   "rungs": [
+    {
+     "ask": "Deflection of B along the load. Which method?",
+     "answer": "Castigliano's second theorem with bending energy for a slender bar: δ = ∂U/∂P = ∫ M(∂M/∂P) ds/(EI), with ds = R dφ.",
+     "say": "I will use Castigliano's second theorem with bending energy, ds equals R dφ"
+    },
+    {
+     "ask": "Write M.",
+     "answer": "With φ measured at O from the radius OB, the lever arm of P is R sin φ, so M = PR sin φ.",
+     "say": "The lever arm of P is the horizontal distance, R sin φ"
+    },
+    {
+     "ask": "Vertical deflection at B.",
+     "answer": "δ_v = (PR³/EI)∫₀^(π/2) sin²φ dφ = πPR³/(4EI).",
+     "say": "δ_v equals π P R³ over 4EI"
+    },
+    {
+     "ask": "Now the horizontal deflection at B, where no load acts.",
+     "answer": "Put a unit load at B along the wanted displacement, pointing away from the clamp: m = R(1 − cos φ). δ_h = ∫ M m ds/(EI) = (PR³/EI)∫₀^(π/2)(sin φ − sin φ cos φ) dφ = PR³/(2EI), positive, so B moves in the unit load direction.",
+     "say": "I put a unit load at B along the displacement I want"
+    },
+    {
+     "ask": "And the rotation at B?",
+     "answer": "A unit couple at B gives m = 1, so θ_B = ∫ M ds/(EI) = (PR²/EI)∫₀^(π/2) sin φ dφ = PR²/EI.",
+     "say": "For a rotation I apply a unit couple"
+    },
+    {
+     "ask": "When is bending energy alone too crude?",
+     "answer": "For a thick curved bar, R/h below about 10: add N²/(2EA) and αV²/(2GA) and use curved beam (Winkler) stresses.",
+     "say": "Bending energy suits slender bars; thick bars add axial and shear energy"
+    },
+    {
+     "ask": "Right figure. How indeterminate is the frame?",
+     "answer": "Three reactions at the clamp plus one at the roller give four unknowns against three equilibrium equations: one redundant, the roller reaction R_C, positive upward.",
+     "say": "Four reactions, three equations: one redundant, the roller force"
+    },
+    {
+     "ask": "Write the compatibility condition with energy.",
+     "answer": "Least work: ∂U/∂R_C = 0. Beam, x from C: M = R_C x. Column, y down from the corner: M = R_C L − Py. So R_C L³/3 + R_C L²h − PLh²/2 = 0.",
+     "say": "The roller holds C vertically, so ∂U over ∂R_C equals zero"
+    },
+    {
+     "ask": "Solve it and check.",
+     "answer": "R_C = 3Ph²/(2L(L + 3h)), giving 3P/8 for h = L, and R_C → 0 as h → 0, where the load sits on the clamp.",
+     "say": "R_C equals 3P h² over 2L(L + 3h), and h equal to L gives 3P over 8"
+    }
+   ],
+   "trap": "Place the unit load at the point and along the direction of the wanted displacement, and for the frame set ∂U/∂R_C = 0 at the support that holds C."
+  },
+  {
+   "id": "lad-37",
+   "exam": "SMM",
+   "chair": "Stability",
+   "skill": "s9",
+   "title": "Stability vocabulary: paths, laws and follower loads",
+   "freq": "The Stability chair opens with these definitions, with a recent trend toward conceptual questions such as bifurcation vs snap-through",
+   "figure": "Four small sketches: a rigid bar on a pin with a base rotational spring C, a rigid bar pinned at the base with a horizontal spring k at the top, the same bar with a long spring inclined at α = 45°, and a shallow two-bar truss under an apex load; beside them a cantilever column whose end load stays tangent to the tip, and empty load versus amplitude axes.",
+   "rungs": [
+    {
+     "ask": "What does stable mean for a conservative system?",
+     "answer": "An equilibrium is stable when Π is a strict local minimum there: the second variation is positive definite (Lagrange-Dirichlet), so a small disturbance stays small.",
+     "say": "Stable means a local minimum of the total potential energy"
+    },
+    {
+     "ask": "Bifurcation versus limit point.",
+     "answer": "Bifurcation: a second equilibrium path branches from the fundamental path at P_cr. Limit point: a single path reaches a load maximum, dP/da = 0, and the structure snaps through dynamically to a distant configuration, as in the shallow truss.",
+     "say": "Bifurcation is a branching of paths; a limit point is a load maximum on one path"
+    },
+    {
+     "ask": "Sketch and name the path of the base spring bar.",
+     "answer": "P = Cθ/(L sin θ) rises on both sides of P_cr = C/L: stable symmetric bifurcation.",
+     "say": "Rising on both sides: stable symmetric"
+    },
+    {
+     "ask": "The horizontal spring bar.",
+     "answer": "With the spring staying horizontal, Π = ½kL² sin²θ − PL(1 − cos θ) gives P = kL cos θ, falling on both sides of P_cr = kL: unstable symmetric bifurcation.",
+     "say": "Falling on both sides: unstable symmetric"
+    },
+    {
+     "ask": "The inclined spring.",
+     "answer": "The spring extension carries a θ² term, so Π gains a θ³ term: for a long spring at angle α from the horizontal, P ≈ P_cr(1 − (3/2)θ tan α) with P_cr = kL cos²α and θ positive away from the spring anchor. The load rises on one side and falls on the other: asymmetric bifurcation.",
+     "say": "A path linear in amplitude is an asymmetric bifurcation"
+    },
+    {
+     "ask": "Now add imperfections. Give me the laws.",
+     "answer": "Stable symmetric: imperfection insensitive. Unstable symmetric: the maximum load drops as the 2/3 power of the imperfection, P_max/P_cr ≈ 1 − cε^(2/3), the two-thirds law. Asymmetric: the drop goes as the 1/2 power, larger for small ε.",
+     "say": "The two-thirds power belongs to unstable symmetric, the one-half power to asymmetric"
+    },
+    {
+     "ask": "Which real structures behave like the dangerous ones?",
+     "answer": "Axially compressed thin cylindrical shells: unstable post-buckling makes test loads fall well below the classical value, so design applies knockdown factors.",
+     "say": "Imperfection sensitive structures get knockdown factors"
+    },
+    {
+     "ask": "The tip load stays tangent to the column. Use your energy method.",
+     "answer": "A follower load is non-conservative, so Π is undefined and the static method finds only the straight state for every load. Use the kinetic method: write the equations of motion, assume e^(iωt), and find the load where two frequencies coalesce into flutter, P_cr ≈ 20.05EI/L² for the tangentially loaded cantilever (Beck's column).",
+     "say": "A follower load is non-conservative, so I use the kinetic method"
+    },
+    {
+     "ask": "And a suddenly applied load?",
+     "answer": "A step load is a dynamic problem: a linear spring reaches twice the static deflection, and a snap-through structure can jump at a dynamic critical load below its static limit load; energy balance or the equations of motion give it.",
+     "say": "A sudden load is a dynamic problem, so I use energy balance or the equations of motion"
+    }
+   ],
+   "trap": "Classify each path by how P varies with amplitude near P_cr (rising on both sides, falling on both sides, or linear), attach the matching imperfection law, and switch to the kinetic method for follower loads."
+  },
+  {
+   "id": "lad-38",
+   "exam": "SMM",
+   "chair": "Stability",
+   "skill": "s14",
+   "title": "Column: Euler to Southwell to Johnson",
+   "freq": "Newer topic list; pairs with this chair's imperfection sensitivity rung",
+   "figure": "A pinned-pinned column of length L and stiffness EI under axial P, a clamped-free column of the same length beside it, the pinned column again with an initial bow of amplitude a, and empty σ_cr versus L_e/r axes.",
+   "rungs": [
+    {
+     "ask": "Governing equation.",
+     "answer": "Equilibrium in the deflected shape: EI w⁗ + P w″ = 0 with k² = P/EI, so w = A sin kx + B cos kx + Cx + D.",
+     "say": "I write equilibrium in the deflected shape, EI w⁗ plus P w″ equals zero"
+    },
+    {
+     "ask": "Pinned-pinned.",
+     "answer": "w = w″ = 0 at both ends leaves A sin kL = 0, so kL = π: P_cr = π²EI/L² with mode sin(πx/L).",
+     "say": "Pinned ends mean zero deflection and zero moment"
+    },
+    {
+     "ask": "Clamped base, free top.",
+     "answer": "Base: w = w′ = 0. Top: zero moment w″ = 0 and zero transverse shear EI w‴ + P w′ = 0. Then cos kL = 0, P_cr = π²EI/(4L²), L_e = 2L.",
+     "say": "A free end carries zero moment and zero shear, with the P w′ term in the shear"
+    },
+    {
+     "ask": "Other effective lengths.",
+     "answer": "Clamped-clamped L_e = 0.5L (4π²EI/L²), clamped-pinned L_e ≈ 0.7L (20.19EI/L²), pinned-pinned L_e = L; in general P_cr = π²EI/L_e².",
+     "say": "P_cr equals π² EI over L_e²"
+    },
+    {
+     "ask": "Give the pinned column an initial bow w₀ = a sin(πx/L).",
+     "answer": "The total amplitude becomes a/(1 − P/P_cr), so the added deflection δ = a(P/P_cr)/(1 − P/P_cr) grows from the first load and rises steeply as P approaches P_cr.",
+     "say": "The bow is amplified by one over one minus P over P_cr"
+    },
+    {
+     "ask": "Get P_cr from a test.",
+     "answer": "Southwell: rearrange to δ/P = δ/P_cr + a/P_cr and plot δ/P against δ; the slope is 1/P_cr and the δ intercept is −a.",
+     "say": "I plot δ over P against δ; the inverse slope is P_cr"
+    },
+    {
+     "ask": "Peak stress in the bowed column.",
+     "answer": "σ_max = (P/A)[1 + (ac/r²)/(1 − P/P_cr)] with r² = I/A and c the extreme fibre distance; setting σ_max = σ_y gives the first yield load (Perry-Robertson).",
+     "say": "Axial stress plus bending from the amplified bow"
+    },
+    {
+     "ask": "A short column: Euler gives σ_cr above σ_y. Now what?",
+     "answer": "Johnson parabola: σ_cr = σ_y − (σ_y²/(4π²E))(L_e/r)², tangent to Euler at σ_y/2, used for L_e/r below √(2π²E/σ_y).",
+     "say": "Below the transition slenderness I use the Johnson parabola"
+    },
+    {
+     "ask": "Why a parabola there, physically?",
+     "answer": "Above the proportional limit the column buckles inelastically with the tangent modulus, P_t = π²E_tI/L_e²; the Johnson parabola fits that inelastic range, including residual stress and imperfection effects.",
+     "say": "Inelastic buckling uses the tangent modulus"
+    }
+   ],
+   "trap": "State each boundary condition as a physical statement (a free end has zero moment and zero shear EI w‴ + P w′), work in L_e/r, and pick Euler or Johnson from the transition slenderness √(2π²E/σ_y)."
+  }
+ ]
+}

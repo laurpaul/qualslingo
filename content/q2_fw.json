@@ -1,0 +1,1120 @@
+{
+ "questions": [
+  {
+   "id": "f1-17",
+   "skill": "f1",
+   "type": "mc",
+   "q": "A jet's cruise constraint moves to a higher altitude at the same Mach number. Its bucket on the T_SL/W_TO vs W_TO/S diagram moves:",
+   "a": "Up by 1/α and toward lower W_TO/S, since q falls",
+   "w": [
+    "Down, since the air is thinner and drag falls",
+    "Right, since true airspeed rises at altitude",
+    "Up only, with the bucket wing loading fixed"
+   ],
+   "x": "At fixed Mach q = ½γpM² falls with altitude, so the bucket W/S = (q/β)√(C_D0/K) moves left, while the falling thrust lapse α lifts the whole curve."
+  },
+  {
+   "id": "f1-18",
+   "skill": "f1",
+   "type": "mc",
+   "q": "With a parabolic polar, the minimum T_SL/W_TO on the level cruise constraint curve equals:",
+   "a": "(β/α)/(L/D)_max",
+   "w": [
+    "(β/α)·(L/D)_max",
+    "(β/α)·C_D0",
+    "(β/α)·2KC_D0"
+   ],
+   "x": "The bucket value is (β/α)·2√(KC_D0), and 2√(KC_D0) is exactly 1/(L/D)_max, so level flight at best L/D needs thrust equal to weight over (L/D)_max."
+  },
+  {
+   "id": "f1-19",
+   "skill": "f1",
+   "type": "mc",
+   "q": "A twin must meet a climb gradient with one engine inoperative. Plotted as total installed T_SL/W_TO, the thrust loading the live engine must supply is:",
+   "a": "Multiplied by N/(N − 1) = 2",
+   "w": [
+    "Multiplied by 1/2",
+    "Left unchanged",
+    "Multiplied by √2"
+   ],
+   "x": "The remaining engine supplies all the thrust, so the installed total is N/(N − 1) times the live engine requirement, which is 2 for a twin."
+  },
+  {
+   "id": "f1-20",
+   "skill": "f1",
+   "type": "mc",
+   "q": "For a propeller aircraft, the constraint diagram vertical axis is usually:",
+   "a": "Power loading P_SL/W_TO",
+   "w": [
+    "Thrust loading T_SL/W_TO",
+    "Disk loading T/A",
+    "Specific excess power P_s"
+   ],
+   "x": "A propeller engine is rated by shaft power, so each constraint is written as P_SL/W_TO = (T/W)V/η_p versus W_TO/S."
+  },
+  {
+   "id": "f1-21",
+   "skill": "f1",
+   "type": "num",
+   "q": "Cruise constraint: q = 12,000 Pa, β = 0.9, C_D0 = 0.02, K = 0.05. At what W_TO/S does the curve reach its minimum (bucket), in Pa?",
+   "a": 8432.7,
+   "tol": 0.01,
+   "unit": "Pa",
+   "x": "The bucket sits where parasite and induced terms are equal, βW_TO/S = q√(C_D0/K), so W_TO/S = (12,000/0.9)·√0.4 ≈ 8433 Pa."
+  },
+  {
+   "id": "f1-22",
+   "skill": "f1",
+   "type": "cloze",
+   "q": "Complete the stall constraint, a maximum wing loading",
+   "text": "W_TO/S ≤ ρV_stall²C_Lmax/(2___)",
+   "a": "β",
+   "w": [
+    "α",
+    "n",
+    "g"
+   ],
+   "x": "Stall lift balances the current weight βW_TO, so ½ρV_stall²C_Lmax = βW_TO/S gives the wing loading limit."
+  },
+  {
+   "id": "f1-23",
+   "skill": "f1",
+   "type": "pair",
+   "q": "Match each master equation term to the requirement that makes it nonzero or large",
+   "pairs": [
+    [
+     "K₁n²(βW_TO/(qS))² with n > 1",
+     "Sustained turn"
+    ],
+    [
+     "(1/V)dh/dt",
+     "Climb rate or service ceiling"
+    ],
+    [
+     "(1/g)dV/dt",
+     "Level acceleration"
+    ],
+    [
+     "C_DR",
+     "Gear, flaps, stores or drag chute"
+    ]
+   ],
+   "x": "A turn raises n in the induced term, climb adds the potential energy rate, acceleration adds the kinetic energy rate, and C_DR carries extra drag items."
+  },
+  {
+   "id": "f1-24",
+   "skill": "f1",
+   "type": "order",
+   "q": "Put the master equation derivation steps in order",
+   "steps": [
+    "Write the power balance (T − D − R)V = W d/dt(h + V²/(2g))",
+    "Divide through by WV",
+    "Expand D/W with the polar, using C_L = nW/(qS)",
+    "Substitute T = αT_SL and W = βW_TO and solve for T_SL/W_TO"
+   ],
+   "x": "The energy balance divided by WV gives thrust over weight, the polar fills in drag, and α and β refer everything to sea-level thrust and takeoff weight."
+  },
+  {
+   "id": "f2-17",
+   "skill": "f2",
+   "type": "mc",
+   "q": "A jet climbs to a higher altitude at the same weight. Its minimum thrust required and the speed where it occurs:",
+   "a": "Same D_min = W/(L/D)_max, at a speed higher by √(ρ₀/ρ)",
+   "w": [
+    "D_min falls, at the same speed",
+    "D_min rises by ρ₀/ρ, at the same speed",
+    "D_min falls by √(ρ/ρ₀), at a lower speed"
+   ],
+   "x": "Minimum drag occurs at the fixed C_L for (L/D)_max, so its value W/(L/D)_max stays put while the speed holding that C_L scales as 1/√ρ."
+  },
+  {
+   "id": "f2-18",
+   "skill": "f2",
+   "type": "mc",
+   "q": "At the same weight, minimum power required at altitude compared with sea level:",
+   "a": "Rises by √(ρ₀/ρ)",
+   "w": [
+    "Falls by √(ρ/ρ₀)",
+    "Stays the same",
+    "Rises by ρ₀/ρ"
+   ],
+   "x": "At fixed C_L, drag is unchanged and speed scales as 1/√ρ, so P = DV grows by √(ρ₀/ρ)."
+  },
+  {
+   "id": "f2-19",
+   "skill": "f2",
+   "type": "mc",
+   "q": "For a jet with thrust independent of speed, the steepest climb angle occurs at:",
+   "a": "The minimum drag speed, at (L/D)_max",
+   "w": [
+    "The minimum power speed",
+    "The stall speed",
+    "The maximum level speed"
+   ],
+   "x": "sin γ = (T − D)/W, and with T flat the excess thrust peaks where D is smallest, at (L/D)_max."
+  },
+  {
+   "id": "f2-20",
+   "skill": "f2",
+   "type": "mc",
+   "q": "In a steady unpowered glide, the minimum sink rate occurs at:",
+   "a": "Maximum C_L^(3/2)/C_D, where 3C_D0 = KC_L²",
+   "w": [
+    "Maximum C_L/C_D, where C_D0 = KC_L²",
+    "Maximum √C_L/C_D, where C_D0 = 3KC_L²",
+    "Maximum C_L, at the stall speed"
+   ],
+   "x": "Sink rate equals power required over weight, DV/W, so it is smallest at the minimum power condition, the same point as propeller maximum endurance."
+  },
+  {
+   "id": "f2-21",
+   "skill": "f2",
+   "type": "mc",
+   "q": "Battery electric aircraft range, R = (e*/g)η(L/D)(m_battery/m), differs from the Breguet fuel range because:",
+   "a": "Mass stays constant, so range is linear in battery mass fraction",
+   "w": [
+    "Mass falls, so range has a logarithm",
+    "Range is independent of L/D",
+    "Range grows with flight speed V"
+   ],
+   "x": "A battery keeps its mass as it discharges, so the weight integral collapses to a straight product, and the best range is flown at (L/D)_max."
+  },
+  {
+   "id": "f2-22",
+   "skill": "f2",
+   "type": "num",
+   "q": "W/S = 4000 Pa, ρ = 0.9 kg/m³, C_D0 = 0.02, K = 0.05. Find the minimum drag speed V_md in m/s (1 decimal).",
+   "a": 118.55,
+   "tol": 0.01,
+   "unit": "m/s",
+   "x": "C_L* = √(C_D0/K) = 0.632, then V_md = √(2(W/S)/(ρC_L*)) = √(8000/0.569) ≈ 118.6 m/s."
+  },
+  {
+   "id": "f2-23",
+   "skill": "f2",
+   "type": "cloze",
+   "q": "Complete the maximum lift to drag ratio for C_D = C_D0 + KC_L²",
+   "text": "(L/D)_max = 1/(2√(___))",
+   "a": "KC_D0",
+   "w": [
+    "K/C_D0",
+    "C_D0/K",
+    "πeAR"
+   ],
+   "x": "At C_L = √(C_D0/K) the two drag terms are equal, C_D = 2C_D0, giving (L/D)_max = 1/(2√(KC_D0))."
+  },
+  {
+   "id": "f2-24",
+   "skill": "f2",
+   "type": "pair",
+   "q": "At fixed C_L and altitude, match each quantity to how it scales with weight W",
+   "pairs": [
+    [
+     "Flight speed V",
+     "W^(1/2)"
+    ],
+    [
+     "Drag D",
+     "W"
+    ],
+    [
+     "Power required DV",
+     "W^(3/2)"
+    ],
+    [
+     "Takeoff ground roll at fixed S and T",
+     "W²"
+    ]
+   ],
+   "x": "Holding C_L fixes L/D, so D ∝ W, V ∝ √(W/S), power ∝ W^(3/2), and ground roll ∝ V²/(T/W) gives W²."
+  },
+  {
+   "id": "f3-17",
+   "skill": "f3",
+   "type": "mc",
+   "q": "The same aircraft flies heavier with the same limit load factor. On its EAS V-n diagram the corner speed V_A:",
+   "a": "Rises as √W",
+   "w": [
+    "Falls as 1/√W",
+    "Stays the same",
+    "Rises in proportion to W"
+   ],
+   "x": "V_A = √(2n_limit W/(ρ₀SC_Lmax)), so more weight needs more dynamic pressure to reach the limit load on the stall curve."
+  },
+  {
+   "id": "f3-18",
+   "skill": "f3",
+   "type": "mc",
+   "q": "At 10 km, ρ/ρ₀ = 0.34. In true airspeed, the corner speed there compared with sea level is:",
+   "a": "About 1.7 times larger",
+   "w": [
+    "About 0.58 times as large",
+    "The same",
+    "About 2.9 times larger"
+   ],
+   "x": "The corner speed is fixed in EAS, and V = V_e/√(ρ/ρ₀) = V_e/√0.34 ≈ 1.71V_e."
+  },
+  {
+   "id": "f3-19",
+   "skill": "f3",
+   "type": "mc",
+   "q": "FAR 25 sets the negative limit maneuvering load factor at:",
+   "a": "−1.0",
+   "w": [
+    "−0.4 n_max",
+    "−2.5",
+    "−1.52"
+   ],
+   "x": "Transports must reach n = −1.0 up to V_C, tapering linearly to zero at V_D."
+  },
+  {
+   "id": "f3-20",
+   "skill": "f3",
+   "type": "mc",
+   "q": "Where on the V-n diagram is the aircraft aerodynamically limited?",
+   "a": "Along the stall curves, at speeds below V_A",
+   "w": [
+    "Along the limit load lines, between V_A and V_D",
+    "Along the V_D line",
+    "Along the gust lines above V_C"
+   ],
+   "x": "Below the corner speed the wing reaches C_Lmax before the limit load, so lift capacity, set by aerodynamics, bounds the envelope."
+  },
+  {
+   "id": "f3-21",
+   "skill": "f3",
+   "type": "num",
+   "q": "Sustained level turn: q = 9000 Pa, W/S = 3000 Pa, T/W = 0.40, C_D0 = 0.02, K = 0.1. Find the sustained load factor n (3 decimals).",
+   "a": 3.194,
+   "tol": 0.01,
+   "unit": "",
+   "x": "T/W = qC_D0/(W/S) + Kn²(W/S)/q gives n² = (q/(K·W/S))(T/W − qC_D0/(W/S)) = 30·0.34 = 10.2, so n ≈ 3.194."
+  },
+  {
+   "id": "f3-22",
+   "skill": "f3",
+   "type": "cloze",
+   "q": "Complete the gust alleviation factor in terms of the airplane mass ratio μ_g",
+   "text": "K_g = 0.88μ_g/(___ + μ_g)",
+   "a": "5.3",
+   "w": [
+    "1",
+    "0.88",
+    "2π"
+   ],
+   "x": "K_g = 0.88μ_g/(5.3 + μ_g) scales the sharp-edged gust down for the aircraft's finite response time; it rises toward 0.88 for heavy, highly loaded wings."
+  },
+  {
+   "id": "f3-23",
+   "skill": "f3",
+   "type": "pair",
+   "q": "Match each certification category to its positive limit load factor",
+   "pairs": [
+    [
+     "FAR 23 normal",
+     "3.8"
+    ],
+    [
+     "FAR 23 utility",
+     "4.4"
+    ],
+    [
+     "FAR 23 aerobatic",
+     "6.0"
+    ],
+    [
+     "FAR 25 transport (heavy)",
+     "2.5"
+    ]
+   ],
+   "x": "FAR 23 sets 3.8, 4.4 and 6.0 for normal, utility and aerobatic; FAR 25 uses 2.1 + 24000/(W + 10000) bounded between 2.5 and 3.8, so heavy transports sit at 2.5."
+  },
+  {
+   "id": "f3-24",
+   "skill": "f3",
+   "type": "order",
+   "q": "Put the V-n diagram design speeds of a typical transport in increasing order",
+   "steps": [
+    "V_S1, the 1 g stall speed",
+    "V_A, the corner speed",
+    "V_C, the design cruise speed",
+    "V_D, the design dive speed"
+   ],
+   "x": "V_A = V_S1√n_limit, about 1.6V_S1 for n_limit = 2.5, cruise follows, and the dive speed closes the envelope on the right."
+  },
+  {
+   "id": "f4-17",
+   "skill": "f4",
+   "type": "mc",
+   "q": "The thermal efficiency of an ideal turbojet depends only on:",
+   "a": "The total compression temperature ratio τ_rτ_c",
+   "w": [
+    "The turbine inlet temperature T_t4",
+    "The fuel heating value",
+    "The nozzle exit velocity"
+   ],
+   "x": "η_th = 1 − 1/(τ_rτ_c): heat is added and rejected along isobars between the same pressure levels, so the overall pressure ratio sets the efficiency."
+  },
+  {
+   "id": "f4-18",
+   "skill": "f4",
+   "type": "mc",
+   "q": "Ideal turbojet at fixed compressor pressure ratio: raising T_t4 makes specific thrust and TSFC:",
+   "a": "Both rise",
+   "w": [
+    "Both fall",
+    "Specific thrust rise, TSFC fall",
+    "Specific thrust fall, TSFC rise"
+   ],
+   "x": "More heat per unit air raises the jet velocity and specific thrust, while η_th stays fixed and η_p falls with the faster jet, so TSFC rises."
+  },
+  {
+   "id": "f4-19",
+   "skill": "f4",
+   "type": "mc",
+   "q": "Ideal turbojet at fixed T_t4: specific thrust versus compressor pressure ratio:",
+   "a": "Peaks at an intermediate value, where τ_c = √τ_λ/τ_r",
+   "w": [
+    "Rises steadily with π_c",
+    "Falls steadily with π_c",
+    "Is independent of π_c"
+   ],
+   "x": "Low π_c gives poor thermal efficiency and high π_c leaves little room for heat addition below T_t4, so the work peaks at τ_rτ_c = √τ_λ."
+  },
+  {
+   "id": "f4-20",
+   "skill": "f4",
+   "type": "mc",
+   "q": "The compressor and turbine span similar pressure ratios. Why does the Brayton cycle still deliver net work?",
+   "a": "Isobars diverge on T-s, so the hot turbine drop exceeds the compressor rise",
+   "w": [
+    "The turbine has a higher isentropic efficiency",
+    "The combustor raises the pressure",
+    "The nozzle adds work to the shaft"
+   ],
+   "x": "Along an isobar dT/ds = T/c_p, so the isobars spread apart at high temperature and the same pressure ratio spans a larger ΔT at the turbine."
+  },
+  {
+   "id": "f4-21",
+   "skill": "f4",
+   "type": "num",
+   "q": "An engine flies at V₀ = 250 m/s with overall efficiency η_o = 0.35 on fuel with h_PR = 43 MJ/kg. Find TSFC in mg/(N·s), 2 decimals.",
+   "a": 16.61,
+   "tol": 0.01,
+   "unit": "mg/(N·s)",
+   "x": "η_o = FV₀/(ṁ_f h_PR) gives TSFC = V₀/(η_o h_PR) = 250/(0.35·43×10⁶) = 1.661×10⁻⁵ kg/(N·s)."
+  },
+  {
+   "id": "f4-22",
+   "skill": "f4",
+   "type": "cloze",
+   "q": "Complete the isobar slope on a T-s diagram, from T ds = dh − v dp",
+   "text": "(∂T/∂s)_p = T/___",
+   "a": "c_p",
+   "w": [
+    "c_v",
+    "R",
+    "γ"
+   ],
+   "x": "At constant pressure T ds = c_p dT, so isobars climb with slope T/c_p and spread apart as T rises."
+  },
+  {
+   "id": "f4-23",
+   "skill": "f4",
+   "type": "pair",
+   "q": "Match each engine performance measure to its definition",
+   "pairs": [
+    [
+     "Thermal efficiency",
+     "Rate of jet kinetic energy gain over fuel heat rate"
+    ],
+    [
+     "Propulsive efficiency",
+     "Thrust power FV₀ over rate of jet kinetic energy gain"
+    ],
+    [
+     "Overall efficiency",
+     "Thrust power FV₀ over fuel heat rate"
+    ],
+    [
+     "TSFC",
+     "Fuel mass flow over thrust"
+    ]
+   ],
+   "x": "The overall efficiency is the product η_th·η_p, and TSFC = V₀/(η_o h_PR) ties fuel burn to it."
+  },
+  {
+   "id": "f4-24",
+   "skill": "f4",
+   "type": "order",
+   "q": "Order these engines from highest to lowest specific thrust F/ṁ at the same T_t4",
+   "steps": [
+    "Afterburning turbojet",
+    "Dry turbojet",
+    "Low bypass turbofan",
+    "High bypass turbofan"
+   ],
+   "x": "Specific thrust tracks the jet velocity increment, which is largest with reheat and smallest when the energy is spread over a large bypass mass flow."
+  },
+  {
+   "id": "f5-17",
+   "skill": "f5",
+   "type": "mc",
+   "q": "The Kutta condition states that:",
+   "a": "Flow leaves a sharp trailing edge smoothly, fixing the circulation",
+   "w": [
+    "Circulation is constant around any closed curve",
+    "Lift per span equals ρVΓ",
+    "Downwash is uniform over an elliptic wing"
+   ],
+   "x": "Among the infinitely many potential flows around an airfoil, the one with smooth flow off the trailing edge selects a single Γ, and with it the lift."
+  },
+  {
+   "id": "f5-18",
+   "skill": "f5",
+   "type": "mc",
+   "q": "For an elliptic spanwise lift distribution, the induced angle of attack along the span is:",
+   "a": "Uniform, α_i = C_L/(πAR)",
+   "w": [
+    "Largest at the tips",
+    "Largest at the root",
+    "Zero at the root"
+   ],
+   "x": "Elliptic loading gives constant downwash w = Γ₀/(2b), so every section sees the same α_i = C_L/(πAR)."
+  },
+  {
+   "id": "f5-19",
+   "skill": "f5",
+   "type": "mc",
+   "q": "In thin airfoil theory, the aerodynamic center of a cambered airfoil lies at:",
+   "a": "The quarter chord",
+   "w": [
+    "The half chord",
+    "The point of maximum camber",
+    "The center of pressure"
+   ],
+   "x": "Thin airfoil theory gives c_m,c/4 independent of α for any camber, so the quarter chord is the aerodynamic center."
+  },
+  {
+   "id": "f5-20",
+   "skill": "f5",
+   "type": "mc",
+   "q": "Adding aft sweep to a wing at fixed AR tends to:",
+   "a": "Raise M_crit, lower lift slope, and promote tip stall",
+   "w": [
+    "Lower M_crit and raise lift slope",
+    "Raise lift slope and C_Lmax",
+    "Move the stall inboard and raise C_Lmax"
+   ],
+   "x": "Only the normal Mach component M cos Λ drives compressibility, while spanwise flow thickens the outboard boundary layer and loads the tips."
+  },
+  {
+   "id": "f5-21",
+   "skill": "f5",
+   "type": "mc",
+   "q": "In linearized supersonic theory, a thin flat plate has lift slope:",
+   "a": "dc_l/dα = 4/√(M∞² − 1) per rad",
+   "w": [
+    "dc_l/dα = 2π per rad",
+    "dc_l/dα = 2π/√(1 − M∞²) per rad",
+    "dc_l/dα = 4/(M∞² − 1) per rad"
+   ],
+   "x": "Ackeret theory gives c_l = 4α/√(M∞² − 1), which falls as Mach rises."
+  },
+  {
+   "id": "f5-22",
+   "skill": "f5",
+   "type": "num",
+   "q": "Sears-Haack body: A_max = 4 m², length l = 40 m. Find the wave drag area D/q = 9πA_max²/(2l²) in m² (4 decimals).",
+   "a": 0.14137,
+   "tol": 0.01,
+   "unit": "m²",
+   "x": "D/q = 9π·16/(2·1600) = 0.1414 m²; wave drag falls as 1/l², so a longer, slimmer body pays far less."
+  },
+  {
+   "id": "f5-23",
+   "skill": "f5",
+   "type": "cloze",
+   "q": "Complete the Prandtl-Glauert correction for subsonic lift coefficient",
+   "text": "c_l = c_l,0/___",
+   "a": "√(1 − M∞²)",
+   "w": [
+    "(1 − M∞²)",
+    "√(M∞² − 1)",
+    "(1 − M∞)"
+   ],
+   "x": "Linearized compressible flow stretches the incompressible solution, multiplying pressure coefficients and c_l by 1/√(1 − M∞²)."
+  },
+  {
+   "id": "f5-24",
+   "skill": "f5",
+   "type": "pair",
+   "q": "Match each part of the lifting line vortex system to its role",
+   "pairs": [
+    [
+     "Bound vortex",
+     "Carries Γ(y) and produces lift, L' = ρVΓ"
+    ],
+    [
+     "Trailing vortices",
+     "Induce downwash and hence induced drag"
+    ],
+    [
+     "Starting vortex",
+     "Left behind with circulation equal and opposite to the bound vortex"
+    ],
+    [
+     "Horseshoe vortex",
+     "One bound segment plus two trailing legs"
+    ]
+   ],
+   "x": "Helmholtz's theorems keep each filament's strength constant, so the bound vortex continues as trailing legs and closes through the starting vortex."
+  },
+  {
+   "id": "f6-17",
+   "skill": "f6",
+   "type": "mc",
+   "q": "In ideal hover momentum theory, the far-wake velocity and area relative to the disk are:",
+   "a": "Velocity 2v_i, area A/2",
+   "w": [
+    "Velocity v_i, area A",
+    "Velocity 2v_i, area 2A",
+    "Velocity √2 v_i, area A/√2"
+   ],
+   "x": "Energy gives a far-wake speed of 2v_i, and continuity then halves the slipstream area."
+  },
+  {
+   "id": "f6-18",
+   "skill": "f6",
+   "type": "mc",
+   "q": "Compared with a helicopter, a tiltrotor's much higher disk loading T/A in hover means:",
+   "a": "Higher induced velocity and more power per unit thrust",
+   "w": [
+    "Lower induced velocity and better power loading",
+    "The same hover power at equal weight",
+    "Lower downwash on the ground"
+   ],
+   "x": "v_i = √((T/A)/(2ρ)) and T/P = 1/v_i, so small rotors sized for cruise pay in hover power."
+  },
+  {
+   "id": "f6-19",
+   "skill": "f6",
+   "type": "mc",
+   "q": "In forward flight at advance ratio μ, the reverse flow region on the retreating side is:",
+   "a": "A circle of diameter μR touching the hub",
+   "w": [
+    "An annulus at the blade tips",
+    "A circle of radius μR centered on the hub",
+    "A sector on the advancing side"
+   ],
+   "x": "Local blade speed Ωr + V sin ψ is negative where r < −μR sin ψ, which traces a circle of diameter μR on the retreating side."
+  },
+  {
+   "id": "f6-20",
+   "skill": "f6",
+   "type": "mc",
+   "q": "Vortex ring state is entered in:",
+   "a": "Powered vertical descent at a rate near the hover induced velocity",
+   "w": [
+    "Fast forward flight at high advance ratio",
+    "Hover in ground effect",
+    "Steady autorotation"
+   ],
+   "x": "Descending into its own downwash, the rotor recirculates its wake into a toroidal vortex, giving thrust fluctuations and high power."
+  },
+  {
+   "id": "f6-21",
+   "skill": "f6",
+   "type": "num",
+   "q": "A rotor gives T = 10,000 N at sea level (ρ = 1.225 kg/m³) with disk area A = 50 m² and absorbs 140 kW. Find the figure of merit (3 decimals).",
+   "a": 0.6454,
+   "tol": 0.01,
+   "unit": "",
+   "x": "P_ideal = T^(3/2)/√(2ρA) = 10⁶/√122.5 ≈ 90.4 kW, so FM = 90.4/140 ≈ 0.645."
+  },
+  {
+   "id": "f6-22",
+   "skill": "f6",
+   "type": "cloze",
+   "q": "Complete the ideal hover power loading",
+   "text": "T/P_ideal = 1/___",
+   "a": "v_i",
+   "w": [
+    "2v_i",
+    "v_i²",
+    "ΩR"
+   ],
+   "x": "P_ideal = Tv_i, so thrust per unit power equals 1/v_i, and lower disk loading gives more thrust per watt."
+  },
+  {
+   "id": "f6-23",
+   "skill": "f6",
+   "type": "pair",
+   "q": "Match each unusual vehicle to the driver that sizes it",
+   "pairs": [
+    [
+     "Mars rotorcraft",
+     "Very thin air: large fast rotors capped by tip Mach"
+    ],
+    [
+     "Titan rotorcraft",
+     "Dense air and low gravity make hover cheap"
+    ],
+    [
+     "Solar aircraft",
+     "Daily energy balance, with batteries for the night"
+    ],
+    [
+     "Carrier aircraft",
+     "Approach speed, catapult and arresting loads"
+    ]
+   ],
+   "x": "Each environment changes which constraint binds: density for rotors, energy closure for solar, and deck operations for carrier aircraft."
+  },
+  {
+   "id": "f6-24",
+   "skill": "f6",
+   "type": "order",
+   "q": "Order these VTOL vehicles from lowest to highest disk loading",
+   "steps": [
+    "Human powered helicopter",
+    "Conventional helicopter",
+    "Tiltrotor",
+    "Jet lift VTOL fighter"
+   ],
+   "x": "Hover power per unit thrust grows as √(T/A), so the power starved human powered helicopter uses huge rotors and jet lift uses tiny, fast jets."
+  },
+  {
+   "id": "f7-17",
+   "skill": "f7",
+   "type": "mc",
+   "q": "Why does a forward swept wing have a low divergence speed?",
+   "a": "Upward bending twists the streamwise tip nose up, adding lift and more bending",
+   "w": [
+    "Its aerodynamic center sits aft of the elastic axis",
+    "Its tips stall first at low speed",
+    "Its skins are thinner than an aft swept wing"
+   ],
+   "x": "Bending torsion coupling gives wash-in on a forward swept wing, a self-reinforcing loop that composite aeroelastic tailoring can counter."
+  },
+  {
+   "id": "f7-18",
+   "skill": "f7",
+   "type": "mc",
+   "q": "A standard flutter remedy is:",
+   "a": "Mass balance that moves the section CG forward toward the elastic axis",
+   "w": [
+    "Moving the section CG aft of the elastic axis",
+    "Lowering the torsional stiffness",
+    "Raising the dive speed V_D"
+   ],
+   "x": "With the CG at or ahead of the elastic axis, inertial coupling between bending and torsion weakens and the flutter speed rises."
+  },
+  {
+   "id": "f7-19",
+   "skill": "f7",
+   "type": "mc",
+   "q": "Transport aircraft keep roll control at high speed, above outboard aileron reversal, by using:",
+   "a": "Inboard ailerons and spoilers",
+   "w": [
+    "Larger outboard ailerons",
+    "Softer wing torsion boxes",
+    "Higher dihedral"
+   ],
+   "x": "Inboard the wing is torsionally stiff, and spoilers reduce lift directly, so both keep their sense where outboard ailerons twist the wing."
+  },
+  {
+   "id": "f7-20",
+   "skill": "f7",
+   "type": "mc",
+   "q": "In the sizing loop, as required range grows, W_0:",
+   "a": "Rises faster than linearly, diverging as W_e/W_0 + W_f/W_0 approaches 1",
+   "w": [
+    "Rises linearly with range",
+    "Rises with the square root of range",
+    "Stays about constant"
+   ],
+   "x": "The fuel fraction grows exponentially with range through Breguet, and W_0 = W_payload/(1 − W_e/W_0 − W_f/W_0) amplifies it."
+  },
+  {
+   "id": "f7-21",
+   "skill": "f7",
+   "type": "mc",
+   "q": "Typical section: moving the aerodynamic center closer to the elastic axis (smaller e) makes the divergence dynamic pressure:",
+   "a": "Rise, since q_D = K_θ/(eaS)",
+   "w": [
+    "Fall, since q_D ∝ e",
+    "Stay the same, since q_D depends on K_θ alone",
+    "Fall to zero"
+   ],
+   "x": "A shorter moment arm e means lift produces less twist for the same torsional stiffness, so divergence moves to a higher q."
+  },
+  {
+   "id": "f7-22",
+   "skill": "f7",
+   "type": "num",
+   "q": "Typical section: K_θ = 50,000 N·m/rad, e = 0.1 m, a = 5 /rad, S = 4 m². Find the sea level divergence speed (ρ = 1.225 kg/m³) in m/s, 1 decimal.",
+   "a": 202.03,
+   "tol": 0.01,
+   "unit": "m/s",
+   "x": "q_div = K_θ/(eaS) = 50,000/2 = 25,000 Pa, then V_div = √(2q_div/ρ) = √40,816 ≈ 202.0 m/s."
+  },
+  {
+   "id": "f7-23",
+   "skill": "f7",
+   "type": "cloze",
+   "q": "Complete the takeoff gross weight equation",
+   "text": "W_0 = (W_crew + W_payload)/(1 − W_f/W_0 − ___)",
+   "a": "W_e/W_0",
+   "w": [
+    "W_payload/W_0",
+    "W_x/W_0",
+    "W_i/W_f"
+   ],
+   "x": "Takeoff weight splits into crew and payload, fuel and empty weight, so fixed weights over the leftover fraction gives W_0."
+  },
+  {
+   "id": "f7-24",
+   "skill": "f7",
+   "type": "pair",
+   "q": "Match each aeroelastic problem to a design remedy",
+   "pairs": [
+    [
+     "Divergence of a straight wing",
+     "Raise torsional stiffness or bring the AC toward the elastic axis"
+    ],
+    [
+     "Aileron reversal",
+     "Use inboard ailerons or spoilers"
+    ],
+    [
+     "Flutter",
+     "Mass balance the section CG forward"
+    ],
+    [
+     "Forward sweep divergence",
+     "Aeroelastic tailoring of composite skins"
+    ]
+   ],
+   "x": "Each remedy cuts the coupling that drives the instability: stiffness and arm for divergence, control location for reversal, inertia for flutter, ply layup for forward sweep."
+  },
+  {
+   "id": "f8-17",
+   "skill": "f8",
+   "type": "mc",
+   "q": "In wings-level flight in still air, the pitch attitude θ, angle of attack α and flight path angle γ are related by:",
+   "a": "θ = α + γ",
+   "w": [
+    "γ = α + θ",
+    "α = θ + γ",
+    "θ = α − γ"
+   ],
+   "x": "Rotating up from the horizon by γ reaches the velocity vector, and a further α reaches the body axis, so θ = α + γ."
+  },
+  {
+   "id": "f8-18",
+   "skill": "f8",
+   "type": "mc",
+   "q": "In a level coordinated turn at load factor n and speed V, the turn radius is:",
+   "a": "R = V²/(g√(n² − 1))",
+   "w": [
+    "R = V²/(gn)",
+    "R = V²/(g(n − 1))",
+    "R = V/(g√(n² − 1))"
+   ],
+   "x": "The horizontal lift component W√(n² − 1) supplies the centripetal force mV²/R."
+  },
+  {
+   "id": "f8-19",
+   "skill": "f8",
+   "type": "mc",
+   "q": "On an energy maneuverability chart, the minimum time to climb path passes through:",
+   "a": "Points where h_e lines are tangent to P_s contours",
+   "w": [
+    "Points of maximum Mach on each altitude",
+    "Points of constant P_s",
+    "Points of minimum drag at each altitude"
+   ],
+   "x": "Each energy level is gained fastest where P_s = dh_e/dt is largest, which is the tangency point on that h_e line."
+  },
+  {
+   "id": "f8-20",
+   "skill": "f8",
+   "type": "mc",
+   "q": "The point mass equations of motion are written in wind axes because:",
+   "a": "Lift and drag are defined relative to the velocity vector",
+   "w": [
+    "Gravity acts along the velocity vector",
+    "Thrust always aligns with the wind",
+    "Body axes give singular equations"
+   ],
+   "x": "With x along V, drag appears along the path and lift normal to it, so the tangential and normal equations stay simple."
+  },
+  {
+   "id": "f8-21",
+   "skill": "f8",
+   "type": "num",
+   "q": "Zoom climb with T = D: an aircraft at 250 m/s pulls up and slows to 100 m/s (g = 9.81 m/s²). Altitude gained in m (nearest 1)?",
+   "a": 2675.8,
+   "tol": 0.01,
+   "unit": "m",
+   "x": "Energy height is conserved, so Δh = (V₁² − V₂²)/(2g) = 52,500/19.62 ≈ 2676 m."
+  },
+  {
+   "id": "f8-22",
+   "skill": "f8",
+   "type": "cloze",
+   "q": "Complete the horizontal kinematic equation (heading ψ, flight path angle γ)",
+   "text": "dx/dt = V cos γ ___",
+   "a": "cos ψ",
+   "w": [
+    "sin ψ",
+    "cos φ",
+    "sin γ"
+   ],
+   "x": "The horizontal speed V cos γ projects onto the x axis by the heading, so dx/dt = V cos γ cos ψ and dy/dt = V cos γ sin ψ."
+  },
+  {
+   "id": "f8-23",
+   "skill": "f8",
+   "type": "pair",
+   "q": "Match each flight angle to its definition",
+   "pairs": [
+    [
+     "α",
+     "From the velocity vector to the body x axis"
+    ],
+    [
+     "γ",
+     "From the horizon to the velocity vector"
+    ],
+    [
+     "θ",
+     "From the horizon to the body x axis"
+    ],
+    [
+     "φ",
+     "Bank, rotation about the velocity vector"
+    ]
+   ],
+   "x": "α and γ together make up θ in the vertical plane, and φ tilts the lift vector out of that plane."
+  },
+  {
+   "id": "f8-24",
+   "skill": "f8",
+   "type": "order",
+   "q": "Put the steps reducing the point mass EOM to a steady climb in order",
+   "steps": [
+    "Write the wind axis point mass equations along and normal to V",
+    "Set φ = 0, dV/dt = 0 and dγ/dt = 0, and take α + ε small",
+    "Read off T = D + W sin γ and L = W cos γ",
+    "Multiply by V/W to get the climb rate V sin γ = (T − D)V/W"
+   ],
+   "x": "The steady wings-level assumptions remove the rates and align thrust with the path, and the along-path balance times V/W gives the climb rate as specific excess power."
+  },
+  {
+   "id": "f9-17",
+   "skill": "f9",
+   "type": "mc",
+   "q": "A natural laminar flow airfoil gets low profile drag by:",
+   "a": "A long favorable pressure gradient that delays transition",
+   "w": [
+    "A sharp leading edge that trips turbulence",
+    "A thicker section that raises supervelocity",
+    "Suction slots near the trailing edge"
+   ],
+   "x": "Accelerating flow keeps the boundary layer stable, holding the lower laminar skin friction over more of the chord."
+  },
+  {
+   "id": "f9-18",
+   "skill": "f9",
+   "type": "mc",
+   "q": "For drag buildup, a wing's wetted area is about:",
+   "a": "Twice the exposed planform area, slightly more for thicker sections",
+   "w": [
+    "Equal to the reference area",
+    "Four times the exposed area",
+    "Half the exposed area"
+   ],
+   "x": "Both upper and lower surfaces are wetted, with curvature adding a little: S_wet ≈ S_exposed(1.977 + 0.52t/c)."
+  },
+  {
+   "id": "f9-19",
+   "skill": "f9",
+   "type": "mc",
+   "q": "A typical Oswald efficiency for a conventional subsonic aircraft is:",
+   "a": "0.7 to 0.85",
+   "w": [
+    "0.95 to 1.0",
+    "0.4 to 0.5",
+    "1.1 to 1.3"
+   ],
+   "x": "Real span loading, fuselage interference and the lift dependent part of viscous drag pull e below the elliptic value of 1."
+  },
+  {
+   "id": "f9-20",
+   "skill": "f9",
+   "type": "mc",
+   "q": "The hump in a seaplane takeoff is:",
+   "a": "The peak in water drag just before the hull rises onto the step to plane",
+   "w": [
+    "The airspeed where the floats leave the water",
+    "The stall at rotation",
+    "The peak in induced drag near liftoff"
+   ],
+   "x": "At low speed the hull displaces water and drag climbs steeply, then once planing begins the wetted area shrinks and drag falls."
+  },
+  {
+   "id": "f9-21",
+   "skill": "f9",
+   "type": "mc",
+   "q": "Scaling a design up at the same speed raises Reynolds number. Its turbulent skin friction coefficient:",
+   "a": "Falls slowly, roughly as (log₁₀Re)^(−2.58)",
+   "w": [
+    "Rises in proportion to Re",
+    "Stays exactly constant",
+    "Falls as 1/Re"
+   ],
+   "x": "C_f falls gently as Re rises, so large aircraft enjoy somewhat lower skin friction coefficients and C_D0."
+  },
+  {
+   "id": "f9-22",
+   "skill": "f9",
+   "type": "num",
+   "q": "Double slotted flap: Δc_lmax = 1.6c'/c with c'/c = 1.25, S_flapped/S_ref = 0.6, hinge line sweep 20°. ΔC_Lmax = 0.9Δc_lmax(S_flapped/S_ref)cos Λ_HL (3 decimals)?",
+   "a": 1.0149,
+   "tol": 0.01,
+   "unit": "",
+   "x": "Δc_lmax = 1.6·1.25 = 2.0, then ΔC_Lmax = 0.9·2.0·0.6·cos 20° ≈ 1.015."
+  },
+  {
+   "id": "f9-23",
+   "skill": "f9",
+   "type": "cloze",
+   "q": "Complete the flat plate transition Reynolds number",
+   "text": "Re_x,tr ≈ ___",
+   "a": "5 × 10⁵",
+   "w": [
+    "5 × 10³",
+    "5 × 10⁷",
+    "2300"
+   ],
+   "x": "Transition near Re_x ≈ 5 × 10⁵ means full scale wings, at Re in the millions, are mostly turbulent."
+  },
+  {
+   "id": "f9-24",
+   "skill": "f9",
+   "type": "order",
+   "q": "Order these trailing edge devices by increasing airfoil Δc_lmax",
+   "steps": [
+    "Plain flap",
+    "Single slotted flap",
+    "Double slotted flap",
+    "Triple slotted flap"
+   ],
+   "x": "Each slot re-energizes the boundary layer on the next element, so typical increments climb from 0.9 to 1.3, 1.6 and 1.9 times c'/c."
+  },
+  {
+   "id": "f10-17",
+   "skill": "f10",
+   "type": "mc",
+   "q": "The stick-free neutral point lies, relative to the stick-fixed neutral point:",
+   "a": "Forward, giving a smaller static margin",
+   "w": [
+    "Aft, giving a larger static margin",
+    "At the same point",
+    "At the wing aerodynamic center"
+   ],
+   "x": "A free elevator floats with the local flow and weakens the tail's restoring lift, which moves the neutral point forward."
+  },
+  {
+   "id": "f10-18",
+   "skill": "f10",
+   "type": "mc",
+   "q": "A stable canard configuration is designed so that:",
+   "a": "The canard stalls first, dropping the nose before the wing stalls",
+   "w": [
+    "The wing stalls first",
+    "Both surfaces stall together",
+    "The canard carries a download"
+   ],
+   "x": "The canard runs at a higher lift coefficient, so it reaches C_Lmax first and the nose drops while the wing still has margin."
+  },
+  {
+   "id": "f10-19",
+   "skill": "f10",
+   "type": "mc",
+   "q": "On an aft tail aircraft, trim drag grows as the CG moves forward because:",
+   "a": "The tail download rises, so the wing lifts more and induced drag grows",
+   "w": [
+    "The tail lift rises, unloading the wing",
+    "The static margin falls",
+    "Elevator hinge moments fall"
+   ],
+   "x": "A forward CG needs more nose-up moment, so the tail pushes down harder and the wing carries weight plus that download."
+  },
+  {
+   "id": "f10-20",
+   "skill": "f10",
+   "type": "mc",
+   "q": "The forward CG limit is usually set by:",
+   "a": "Elevator power to rotate at takeoff or flare at C_Lmax in landing",
+   "w": [
+    "The stick-free neutral point",
+    "Directional stability",
+    "Aileron reversal"
+   ],
+   "x": "With flaps down and ground effect the nose-down moment is largest, so the elevator must still trim to C_Lmax with the CG forward."
+  },
+  {
+   "id": "f10-21",
+   "skill": "f10",
+   "type": "mc",
+   "q": "Aft wing sweep contributes to the dihedral effect C_lβ:",
+   "a": "A negative (stabilizing) value that grows with C_L",
+   "w": [
+    "A positive (destabilizing) value",
+    "A value independent of C_L",
+    "A contribution only to C_nβ"
+   ],
+   "x": "In sideslip the windward wing sees less effective sweep and more lift, rolling the aircraft away from the slip in proportion to C_L."
+  },
+  {
+   "id": "f10-22",
+   "skill": "f10",
+   "type": "num",
+   "q": "C_m0 = 0.05, C_mα = −0.8 /rad, C_mδe = −1.2 /rad (δe positive trailing edge down). Elevator angle to trim at α = 0.1 rad, in degrees (2 decimals)?",
+   "a": -1.4324,
+   "tol": 0.01,
+   "unit": "deg",
+   "x": "C_m0 + C_mα α + C_mδe δe = 0 gives δe = −(0.05 − 0.08)/(−1.2) = −0.025 rad ≈ −1.43°, a trailing edge up deflection that holds the higher α."
+  },
+  {
+   "id": "f10-23",
+   "skill": "f10",
+   "type": "cloze",
+   "q": "Complete the stick-fixed neutral point for a wing plus aft tail",
+   "text": "h_n = h_ac,wb + η_t V_H (a_t/a)(1 − ___)",
+   "a": "dε/dα",
+   "w": [
+    "dα/dε",
+    "ε₀",
+    "a_t/a"
+   ],
+   "x": "Downwash from the wing reduces the tail's angle of attack change by the factor (1 − dε/dα), so the tail contributes less stability."
+  },
+  {
+   "id": "f10-24",
+   "skill": "f10",
+   "type": "order",
+   "q": "Order these points along the fuselage from forward to aft (typical stable design)",
+   "steps": [
+    "Forward CG limit",
+    "Aft CG limit",
+    "Stick-free neutral point",
+    "Stick-fixed neutral point"
+   ],
+   "x": "Elevator power fixes the forward limit, the aft limit keeps a margin ahead of the stick-free neutral point, and the stick-fixed neutral point lies furthest aft."
+  }
+ ]
+}

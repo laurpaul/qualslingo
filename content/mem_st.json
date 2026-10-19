@@ -1,0 +1,508 @@
+{
+ "items": [
+  {
+   "id": "m-s6-1",
+   "skill": "s6",
+   "kind": "list",
+   "ask": "List the assumptions of Euler-Bernoulli beam theory.",
+   "answer": "1) Plane sections stay plane. 2) Sections stay perpendicular to the deformed axis (transverse shear strain zero). 3) Small strains and small slopes. 4) Linear elastic, homogeneous material. 5) Slender beam, L ≫ h. 6) Transverse normal stresses negligible.",
+   "cue": "Picture a deck of cards drawn on the side of a beam: each card line stays straight and square to the bent axis."
+  },
+  {
+   "id": "m-s6-2",
+   "skill": "s6",
+   "kind": "definition",
+   "ask": "Where is the neutral axis of a homogeneous beam in pure bending, and which equation puts it there?",
+   "answer": "Through the centroid of the cross section. Pure bending has zero net axial force, ∫σ dA = (E/ρ)∫y dA = 0, so the first moment of area about the neutral axis is zero.",
+   "cue": "Zero axial force means tension and compression areas balance like a seesaw about the centroid."
+  },
+  {
+   "id": "m-s6-3",
+   "skill": "s6",
+   "kind": "list",
+   "ask": "State the boundary conditions for a clamped, a pinned and a free end of an Euler-Bernoulli beam.",
+   "answer": "Clamped: w = 0, w′ = 0. Pinned (simple support): w = 0, M = EIw″ = 0. Free: M = EIw″ = 0, V = (EIw″)′ = 0. Two conditions at every end.",
+   "cue": "Clamped grips the geometry, free releases the forces, pinned takes one of each."
+  },
+  {
+   "id": "m-s6-4",
+   "skill": "s6",
+   "kind": "convention",
+   "ask": "With q positive downward, sagging moment positive and shear positive when it turns the element clockwise, state the load, shear and moment relations.",
+   "answer": "dV/dx = −q and dM/dx = V, so d²M/dx² = −q. The moment is extreme where the shear is zero.",
+   "cue": "Moment slope equals shear: the peak of the moment diagram sits where the shear diagram crosses zero."
+  },
+  {
+   "id": "m-s6-5",
+   "skill": "s6",
+   "kind": "formula",
+   "ask": "Give the transverse shear stress in a beam and its peak value for a rectangular section.",
+   "answer": "τ = VQ/(It), with Q the first moment of the area beyond the cut. For a rectangle the distribution is parabolic, zero at the top and bottom, peak at the neutral axis: τ_max = 3V/(2A).",
+   "cue": "Bending stress peaks at the skin, shear stress peaks at the middle: the two share the job across the depth."
+  },
+  {
+   "id": "m-s6-6",
+   "skill": "s6",
+   "kind": "definition",
+   "ask": "Define principal axes of a cross section and name one quick way to identify one.",
+   "answer": "Centroidal axes about which the product of inertia I_xy = 0, so bending about each one decouples. Any axis of symmetry is a principal axis, and the axis perpendicular to it is the other.",
+   "cue": "A mirror line of the section always lies along a principal axis: the products from each side cancel."
+  },
+  {
+   "id": "m-s6-7",
+   "skill": "s6",
+   "kind": "formula",
+   "ask": "Define the section modulus and give the peak bending stress in terms of it.",
+   "answer": "S = I/c, with c the distance from the neutral axis to the extreme fiber. σ_max = M/S. For a rectangle S = bh²/6.",
+   "cue": "Rectangle: bh³/12 divided by h/2 gives bh²/6. Depth squared rewards deep beams."
+  },
+  {
+   "id": "m-s7-1",
+   "skill": "s7",
+   "kind": "definition",
+   "ask": "Define the shear center.",
+   "answer": "The point in the cross section through which a transverse load causes bending with zero twist. The resultant of the shear flow from bending always acts through it. It lies on every axis of symmetry.",
+   "cue": "Push a channel through its shear center and it bends straight down, keeping its face square to you."
+  },
+  {
+   "id": "m-s7-2",
+   "skill": "s7",
+   "kind": "sequence",
+   "ask": "List the steps to locate the shear center of a thin-walled open section.",
+   "answer": "1) Find the centroid and I. 2) Apply shear V at an unknown point e. 3) Build q(s) = (V/I)∫y t ds starting at a free edge where q = 0. 4) Integrate q into wall resultants. 5) Moments about a convenient point equal V e. 6) Solve for e.",
+   "cue": "Free edge first, flow builds, walls become forces, moments balance V e."
+  },
+  {
+   "id": "m-s7-3",
+   "skill": "s7",
+   "kind": "number",
+   "ask": "Give the shear center offset of a channel with uniform thickness, flange width b and web height h.",
+   "answer": "e = 3b²/(h + 6b), measured from the web centerline, on the side opposite the flanges (outside the section). It follows from e = b²h²t/(4I).",
+   "cue": "The flange shear forces form a couple about the web; V acts behind the web, away from the flanges, to cancel it."
+  },
+  {
+   "id": "m-s7-4",
+   "skill": "s7",
+   "kind": "definition",
+   "ask": "Where is the shear center of a section made of thin straight walls meeting at a single point, such as an angle or a T?",
+   "answer": "At the intersection of the wall centerlines. Every wall shear flow resultant passes through that point, so their moment about it is zero.",
+   "cue": "All forces aim through one corner, so that corner is the twist-free load point."
+  },
+  {
+   "id": "m-s7-5",
+   "skill": "s7",
+   "kind": "list",
+   "ask": "State the assumptions behind the Bredt-Batho formula for a single closed cell.",
+   "answer": "Thin wall, shear stress uniform through the thickness and tangent to the wall, pure torsion with zero axial stress (free warping), so axial equilibrium makes the shear flow q constant around the cell; cross section shape preserved.",
+   "cue": "Thin wall, uniform τ, free warping: then q is constant, like a current flowing around a single loop."
+  },
+  {
+   "id": "m-s7-6",
+   "skill": "s7",
+   "kind": "sequence",
+   "ask": "How do you solve an n-cell closed section in pure torsion?",
+   "answer": "Unknowns: one shear flow per cell, q₁ to qₙ. Equations: torque T = Σ 2Aᵢqᵢ, plus n − 1 compatibility equations setting the twist rate θ′ = (1/(2AᵢG))∮q ds/t equal in every cell. Shared walls carry the difference of adjacent flows.",
+   "cue": "One torque equation plus equal twist in every cell: the cells are welded together, so they rotate as one."
+  },
+  {
+   "id": "m-s7-7",
+   "skill": "s7",
+   "kind": "number",
+   "ask": "For a thin circular tube of radius R and thickness t, compare torsion constants of the closed tube and the same tube slit lengthwise.",
+   "answer": "Closed: J = 2πR³t. Slit (open): J = 2πRt³/3. Ratio closed/open = 3(R/t)², about 30,000 for R/t = 100.",
+   "cue": "Closed gets R², open gets t²: a slit drinking straw twists like paper."
+  },
+  {
+   "id": "m-s7-8",
+   "skill": "s7",
+   "kind": "definition",
+   "ask": "State the membrane analogy for torsion.",
+   "answer": "A membrane stretched over the section outline and inflated: deflection corresponds to the stress function ψ, the slope magnitude to the shear stress, contour lines give the stress direction (tangent), and twice the enclosed volume gives the torque T.",
+   "cue": "Soap bubble on the section: steepest slope, highest stress; bigger bubble volume, bigger torque."
+  },
+  {
+   "id": "m-s7-9",
+   "skill": "s7",
+   "kind": "trend",
+   "ask": "In a solid noncircular section under torsion, where is the shear stress largest and where is it zero?",
+   "answer": "Largest on the boundary at the point closest to the centroid (mid-side of the long side of a rectangle, mid-sides of a triangle). Zero at convex (outward) corners.",
+   "cue": "Membrane is steepest where the wall is nearest the center and flat in the corners."
+  },
+  {
+   "id": "m-s8-1",
+   "skill": "s8",
+   "kind": "definition",
+   "ask": "State Castigliano's first and second theorems.",
+   "answer": "First: Pᵢ = ∂U/∂δᵢ, with strain energy U written in terms of displacements. Second: δᵢ = ∂U*/∂Pᵢ, with complementary energy U* written in terms of loads; U* = U for linear elastic structures.",
+   "cue": "First: displacement in, force out. Second: force in, displacement out. Each derivative swaps to the conjugate."
+  },
+  {
+   "id": "m-s8-2",
+   "skill": "s8",
+   "kind": "sequence",
+   "ask": "List the steps of the unit load method for one deflection.",
+   "answer": "1) Real loads: find M(x) (and N, T). 2) Remove them; apply a unit load at the point, along the wanted displacement: find m(x). 3) δ = ∫Mm/(EI) dx plus axial and torsion terms. 4) A positive δ acts in the direction of the unit load.",
+   "cue": "Point the unit load where you want to look; the answer comes out in that direction."
+  },
+  {
+   "id": "m-s8-3",
+   "skill": "s8",
+   "kind": "definition",
+   "ask": "State the principles of virtual displacements and virtual forces, and what each one yields.",
+   "answer": "Virtual displacements: δW_int = δW_ext for every kinematically admissible virtual displacement; this is equivalent to equilibrium. Virtual forces: complementary virtual work balances for every statically admissible virtual force system; this is equivalent to compatibility.",
+   "cue": "Virtual displacement tests forces, giving equilibrium. Virtual force tests geometry, giving compatibility. Each probes the opposite."
+  },
+  {
+   "id": "m-s8-4",
+   "skill": "s8",
+   "kind": "definition",
+   "ask": "Contrast the total potential energy (TPE) and total complementary potential energy (TCPE) principles.",
+   "answer": "TPE: Π = U − W, varied over kinematically admissible displacements; stationarity gives equilibrium. TCPE: Π* = U* − Σ R ū, varied over statically admissible forces; stationarity gives compatibility. Both are minima at the stable solution.",
+   "cue": "TPE picks displacements and enforces forces; TCPE picks forces and enforces fit. Least work is TCPE."
+  },
+  {
+   "id": "m-s8-5",
+   "skill": "s8",
+   "kind": "definition",
+   "ask": "Distinguish essential and natural boundary conditions in a Ritz analysis.",
+   "answer": "Essential (kinematic): prescribed displacements and slopes; the trial functions must satisfy them. Natural (force): prescribed moment, shear and spring reactions; they emerge from δΠ = 0. A spring support adds ½ku² to Π and is a natural condition.",
+   "cue": "Essential is built into the shape; natural arrives on its own from minimizing energy."
+  },
+  {
+   "id": "m-s8-6",
+   "skill": "s8",
+   "kind": "sequence",
+   "ask": "List the steps of a Rayleigh-Ritz analysis of a beam.",
+   "answer": "1) Choose w = Σaᵢφᵢ satisfying the essential BCs. 2) Write Π = ∫½EIw″² dx + spring energies − ∫qw dx − ΣPw. 3) Substitute and integrate. 4) Set ∂Π/∂aᵢ = 0. 5) Solve Ka = f. 6) Recover w, M and check.",
+   "cue": "Shape, energy, integrate, differentiate, solve. Loads enter Π with a minus sign because they lose potential as they move."
+  },
+  {
+   "id": "m-s8-7",
+   "skill": "s8",
+   "kind": "trend",
+   "ask": "Which way do Ritz results err, and what happens as you add trial terms?",
+   "answer": "The Ritz model is stiffer than the true structure: Π_Ritz ≥ Π_exact, the deflection under a single point load is a lower bound, and the buckling load is an upper bound. Adding terms lowers Π monotonically toward the exact value.",
+   "cue": "A restricted shape is a constraint, and constraints stiffen: smaller deflection, higher buckling load."
+  },
+  {
+   "id": "m-s8-8",
+   "skill": "s8",
+   "kind": "definition",
+   "ask": "Define strain energy density and complementary energy density, and state when they are equal.",
+   "answer": "U₀ = ∫₀^ε σ dε (area under the σ-ε curve). U₀* = ∫₀^σ ε dσ (area to the left of it). Equal for linear elastic material, where each is ½σε.",
+   "cue": "Two triangles splitting the rectangle σε: below the curve is U, beside it is U*."
+  },
+  {
+   "id": "m-s8-9",
+   "skill": "s8",
+   "kind": "formula",
+   "ask": "State Clapeyron's theorem.",
+   "answer": "For a linear elastic structure loaded gradually from zero, U = ½ΣPᵢδᵢ, with δᵢ the displacement at load Pᵢ along its direction.",
+   "cue": "Spring with force growing linearly from zero: area of the triangle is half of force times stretch."
+  },
+  {
+   "id": "m-s9-1",
+   "skill": "s9",
+   "kind": "definition",
+   "ask": "Distinguish a bifurcation point from a limit point.",
+   "answer": "Bifurcation: two equilibrium paths intersect; the primary path continues and a secondary (buckled) path branches off. Limit point: a single path reaches a load maximum, dP/dq = 0; under load control the structure snaps through to a distant configuration.",
+   "cue": "Bifurcation is a fork in the road; a limit point is the summit of a single hill road."
+  },
+  {
+   "id": "m-s9-2",
+   "skill": "s9",
+   "kind": "definition",
+   "ask": "Define a stable symmetric bifurcation and give an example.",
+   "answer": "The post-buckling path is symmetric in ±ξ and rises: P/P_c ≈ 1 + bξ², b > 0. Imperfect structures deform smoothly and keep carrying load above P_c. Examples: rigid bar with a base rotational spring (P/P_cr = θ/sin θ), Euler column, flat plate.",
+   "cue": "Smiling parabola: b positive, the load path curves up both ways."
+  },
+  {
+   "id": "m-s9-3",
+   "skill": "s9",
+   "kind": "definition",
+   "ask": "Define an unstable symmetric bifurcation and give an example.",
+   "answer": "The post-buckling path is symmetric in ±ξ and falls: P/P_c ≈ 1 + bξ², b < 0. The imperfect structure reaches a limit load below P_c, reduced by the two-thirds law. Example: pinned rigid bar with a horizontal spring at the top, P = kL cos θ.",
+   "cue": "Frowning parabola: b negative, the load path droops both ways."
+  },
+  {
+   "id": "m-s9-4",
+   "skill": "s9",
+   "kind": "definition",
+   "ask": "Define an asymmetric bifurcation and give an example.",
+   "answer": "The post-buckling path crosses P_c with a finite slope: P/P_c ≈ 1 + aξ, a ≠ 0. It rises (stable) on one side and falls (unstable) on the other. Imperfections toward the falling side give a limit load reduced by the one-half power law. Example: L-shaped (Roorda) frame.",
+   "cue": "A tilted line through the fork: one side climbs, the other slides down."
+  },
+  {
+   "id": "m-s9-5",
+   "skill": "s9",
+   "kind": "definition",
+   "ask": "State the two-thirds power law.",
+   "answer": "For an unstable symmetric bifurcation, the limit load P_s of the imperfect structure satisfies 1 − P_s/P_c ∝ ε^(2/3), with ε the imperfection amplitude. The asymmetric case follows the one-half power: 1 − P_s/P_c ∝ ε^(1/2).",
+   "cue": "Symmetric has two equal sides: two-thirds. Asymmetric has one bad side: one-half, the square root."
+  },
+  {
+   "id": "m-s9-6",
+   "skill": "s9",
+   "kind": "definition",
+   "ask": "When does the static method give the critical load, and when is the kinetic method required?",
+   "answer": "Static (adjacent equilibrium or energy) method: conservative loads, where it matches the kinetic result. Kinetic method: nonconservative loads such as follower loads; study small vibrations about equilibrium. Instability is divergence (a frequency reaches zero) or flutter (two frequencies coalesce). Beck's column: P_cr ≈ 20.05EI/L².",
+   "cue": "A follower force has a moving target, so check if it shakes apart: watch the frequencies."
+  },
+  {
+   "id": "m-s9-7",
+   "skill": "s9",
+   "kind": "definition",
+   "ask": "Define a conservative load and a follower load.",
+   "answer": "Conservative: the work done depends only on the end configuration, so the load has a potential; a dead load keeps a fixed direction and magnitude. Follower load: its direction turns with the deforming structure (a thrust along a bent tip), making it path dependent and nonconservative.",
+   "cue": "Dead weight always points down; a rocket on a bending tip pushes along the tip."
+  },
+  {
+   "id": "m-s9-8",
+   "skill": "s9",
+   "kind": "list",
+   "ask": "Name the methods of elastic stability analysis.",
+   "answer": "1) Equilibrium (adjacent equilibrium, Euler) method. 2) Energy method: δΠ = 0 and the sign of δ²Π. 3) Kinetic (dynamic) method: small vibrations about equilibrium. 4) Imperfection method: follow the load-deflection path of a slightly imperfect structure.",
+   "cue": "Four ways to ask if the ball stays in the bowl: balance it, weigh energy, shake it, or tilt it slightly."
+  },
+  {
+   "id": "m-s9-9",
+   "skill": "s9",
+   "kind": "sequence",
+   "ask": "State the seven-rung ladder for a rigid-bar spring stability problem.",
+   "answer": "1) Write Π = U − PΔ with every term. 2) Equilibrium: dΠ/dθ = 0. 3) Linearize about θ = 0. 4) Solve for P_cr. 5) Stability of the trivial path from d²Π/dθ². 6) Post-buckling: expand to θ⁴. 7) Imperfection sensitivity.",
+   "cue": "Energy, equilibrium, linearize, critical, check, post-buckle, imperfect: E-E-L-C-C-P-I."
+  },
+  {
+   "id": "m-s9-10",
+   "skill": "s9",
+   "kind": "list",
+   "ask": "For the rigid-bar ladder, give the small-angle expansions and the role of each order in Π.",
+   "answer": "cos θ ≈ 1 − θ²/2 + θ⁴/24, sin θ ≈ θ − θ³/6. Keep every term in Π to θ⁴. The θ² terms locate P_cr; the θ⁴ terms decide the post-buckling curvature (stable or unstable symmetric); a θ³ term signals an asymmetric bifurcation.",
+   "cue": "Quadratic finds the cliff edge; quartic tells which way the ground slopes beyond it."
+  },
+  {
+   "id": "m-s9-11",
+   "skill": "s9",
+   "kind": "convention",
+   "ask": "How do you test stability of an equilibrium when d²Π/dq² = 0 at that point?",
+   "answer": "The second-order test is inconclusive, so go to higher derivatives. The first nonzero derivative decides: even order and positive means stable; odd order means unstable. At a stable symmetric critical point d⁴Π/dq⁴ > 0.",
+   "cue": "Flat-bottomed bowl: look further out. Even and positive curls up both sides; odd tips one side down."
+  },
+  {
+   "id": "m-s9-12",
+   "skill": "s9",
+   "kind": "formula",
+   "ask": "Give the small-θ post-buckling paths of the rigid bar with a base rotational spring and with a top lateral spring.",
+   "answer": "Rotational spring: P/P_cr = θ/sin θ ≈ 1 + θ²/6, rising, stable symmetric, P_cr = C/L. Lateral spring: P/P_cr = cos θ ≈ 1 − θ²/2, falling, unstable symmetric, P_cr = kL.",
+   "cue": "θ/sin θ grows from 1, cos θ shrinks from 1: rotational spring climbs, lateral spring sags."
+  },
+  {
+   "id": "m-s9-13",
+   "skill": "s9",
+   "kind": "trend",
+   "ask": "Sketch in words the load-deflection behaviour of the imperfect structure for each bifurcation type.",
+   "answer": "Stable symmetric: deflection grows smoothly and the load rises past P_c. Unstable symmetric: a limit point below P_c, reduction ∝ ε^(2/3). Asymmetric: on the falling side a limit point below P_c, reduction ∝ ε^(1/2); on the other side a smooth rising path.",
+   "cue": "Imperfect paths hug the perfect ones: they follow a rising branch up and peel off below a falling one."
+  },
+  {
+   "id": "m-s9-14",
+   "skill": "s9",
+   "kind": "definition",
+   "ask": "Define snap-through and give an example.",
+   "answer": "Under load control at a limit point, the structure jumps dynamically to a distant stable equilibrium on another part of the path. Examples: shallow arch, two-bar (von Mises) truss, inflating balloon. Displacement control traces the descending branch.",
+   "cue": "Press a jar lid or a shallow dome: it pops through all at once."
+  },
+  {
+   "id": "m-s9-15",
+   "skill": "s9",
+   "kind": "number",
+   "ask": "A load is applied suddenly (as a step, held constant) to an undamped linear elastic system. What is the peak displacement?",
+   "answer": "Twice the static displacement, δ_max = 2P/k. Energy balance: Pδ = ½kδ² at the turning point. The dynamic amplification factor is 2.",
+   "cue": "Drop a weight onto a spring from contact: it overshoots to double, then oscillates about the static point."
+  },
+  {
+   "id": "m-s10-1",
+   "skill": "s10",
+   "kind": "sequence",
+   "ask": "List the steps of the force (flexibility) method.",
+   "answer": "1) Count the degree of indeterminacy. 2) Release redundants to get a stable determinate primary structure. 3) Find release displacements δᵢ₀ under the real loads. 4) Find flexibilities fᵢⱼ from unit redundants. 5) Compatibility: δᵢ₀ + Σfᵢⱼ Xⱼ = 0. 6) Solve, then superpose.",
+   "cue": "Cut, see the gap, find how hard each redundant closes it, then close it."
+  },
+  {
+   "id": "m-s10-2",
+   "skill": "s10",
+   "kind": "sequence",
+   "ask": "List the steps of the displacement (stiffness) method.",
+   "answer": "1) Choose nodal displacement unknowns. 2) Form each element stiffness. 3) Assemble the global K. 4) Apply the displacement boundary conditions. 5) Solve Ku = f. 6) Recover member forces from element displacements.",
+   "cue": "Unknown motions first, forces follow: the method a finite element code runs."
+  },
+  {
+   "id": "m-s10-3",
+   "skill": "s10",
+   "kind": "definition",
+   "ask": "How do you tell whether two elastic elements act in series or in parallel?",
+   "answer": "Parallel: both undergo the same displacement and their forces add, so stiffnesses add. Series: both carry the same force and their displacements add, so compliances add.",
+   "cue": "Same motion means side by side; same force means end to end, like links of a chain."
+  },
+  {
+   "id": "m-s10-4",
+   "skill": "s10",
+   "kind": "trend",
+   "ask": "How does a spring support of stiffness k behave in its two limits, and what does a flexible clamp need?",
+   "answer": "Support displacement u = R/k. As k → ∞ it becomes a rigid support; as k → 0 the end becomes free. A flexible clamp is modelled by both a translational spring and a rotational spring.",
+   "cue": "Turn the stiffness dial from zero to infinity and the end slides from free to fixed."
+  },
+  {
+   "id": "m-s10-5",
+   "skill": "s10",
+   "kind": "convention",
+   "ask": "How do you treat a rope or cable in an indeterminate structure?",
+   "answer": "It carries tension only. Assume it taut, solve, and check the force is tensile. A compressive result means the rope is slack: re-solve with the rope removed.",
+   "cue": "You can pull a rope; push it and it folds. Check the sign before trusting the answer."
+  },
+  {
+   "id": "m-s10-6",
+   "skill": "s10",
+   "kind": "number",
+   "ask": "Fixed-fixed beam with a central point load P: give the end moment, midspan moment and midspan deflection.",
+   "answer": "End moments PL/8 (hogging), midspan moment PL/8 (sagging), midspan deflection PL³/(192EI), one quarter of the simply supported value PL³/(48EI).",
+   "cue": "Fixing the ends splits PL/4 evenly: half at the ends, half at the middle. 192 = 4 × 48."
+  },
+  {
+   "id": "m-s10-7",
+   "skill": "s10",
+   "kind": "formula",
+   "ask": "Give the stiffness of a close-coiled helical spring under axial load and under an end moment, and the wire loading in each.",
+   "answer": "Axial: wire in torsion, k = Gd⁴/(8D³n). Moment (torsion spring): wire in bending, k_θ = Ed⁴/(64Dn) per radian. d wire diameter, D mean coil diameter, n active coils; wire length πDn.",
+   "cue": "Pull a coil and the wire twists (G); twist a coil and the wire bends (E). Swap the loads, swap the modulus."
+  },
+  {
+   "id": "m-s11-1",
+   "skill": "s11",
+   "kind": "trend",
+   "ask": "In a curved beam under bending, where does the neutral axis move and where is the stress largest?",
+   "answer": "The neutral axis shifts from the centroid toward the center of curvature. The stress distribution is hyperbolic and peaks at the inner fiber.",
+   "cue": "Inner fibers are shorter, so the same rotation strains them more."
+  },
+  {
+   "id": "m-s11-2",
+   "skill": "s11",
+   "kind": "number",
+   "ask": "When is the straight-beam flexure formula adequate for a curved beam?",
+   "answer": "When the radius of curvature is large compared with the depth, R/h above about 10; the flexure formula is then within a few percent. For sharper curvature (hooks, links) use the Winkler formula.",
+   "cue": "Ten depths of radius and the beam barely knows it is curved."
+  },
+  {
+   "id": "m-s11-3",
+   "skill": "s11",
+   "kind": "sequence",
+   "ask": "How do you analyze a closed thin ring with Castigliano and least work?",
+   "answer": "1) Cut at a section of symmetry. 2) Symmetry fixes the shear there; statics fixes the normal force; the moment M₀ is the redundant. 3) Write M(θ) and U = ∫M²R dθ/(2EI). 4) Set ∂U/∂M₀ = 0. 5) Differentiate U by P for deflections.",
+   "cue": "A closed ring is one big redundant loop: symmetry cuts it, least work closes it."
+  },
+  {
+   "id": "m-s11-4",
+   "skill": "s11",
+   "kind": "number",
+   "ask": "Thin ring of radius R under equal and opposite diametral loads P: give the moments and the diametral change along the load.",
+   "answer": "|M| = PR/π at the load points, |M| = PR(1/2 − 1/π) ≈ 0.18PR at 90° from them, of opposite sign. Change of diameter along P: (π/4 − 2/π)PR³/(EI) ≈ 0.149PR³/(EI).",
+   "cue": "π shows up from integrating around the ring: 1/π ≈ 0.32 at the loads, the remainder of one half at the sides."
+  },
+  {
+   "id": "m-s11-5",
+   "skill": "s11",
+   "kind": "sequence",
+   "ask": "List the steps of the transformed section method for a two-material beam.",
+   "answer": "1) Pick the reference material 1. 2) Scale material 2 widths by n = E₂/E₁, depths unchanged. 3) Find the centroid and I of the transformed section. 4) σ = My/I in the reference material. 5) Multiply by n for stress in material 2.",
+   "cue": "Widen, solve as one material, then convert the stress back."
+  },
+  {
+   "id": "m-s11-6",
+   "skill": "s11",
+   "kind": "trend",
+   "ask": "Describe strain and stress across a bonded two-material beam in bending.",
+   "answer": "Strain stays linear and continuous through the depth (perfect bond, plane sections). Stress = E × strain, so it jumps at the interface, higher in the stiffer material. The neutral axis moves toward the stiffer material.",
+   "cue": "Strain is the shared ruler; stress is the ruler times each material's stiffness."
+  },
+  {
+   "id": "m-s11-7",
+   "skill": "s11",
+   "kind": "definition",
+   "ask": "Contrast a rigid joint and a pinned joint in a frame.",
+   "answer": "A rigid joint transmits force and moment and keeps the angle between members fixed, so the members rotate together. A pinned joint transmits force only, carries zero moment and lets the members rotate relative to each other.",
+   "cue": "Welded corner keeps its right angle; a hinge swings freely."
+  },
+  {
+   "id": "m-s14-1",
+   "skill": "s14",
+   "kind": "list",
+   "ask": "List the assumptions of Euler column buckling.",
+   "answer": "Perfectly straight prismatic column; axial load through the centroid; linear elastic material below the proportional limit; small deflections (curvature ≈ w″); conservative dead load; ideal end conditions.",
+   "cue": "Straight, centred, elastic, small, dead load, ideal ends: a perfect column in a perfect world."
+  },
+  {
+   "id": "m-s14-2",
+   "skill": "s14",
+   "kind": "number",
+   "ask": "Give the effective length factor K for the four classic end conditions.",
+   "answer": "Pinned-pinned K = 1. Fixed-free (cantilever) K = 2. Fixed-pinned K ≈ 0.7 (0.699). Fixed-fixed K = 0.5.",
+   "cue": "K is the gap between inflection points over L: a cantilever is half a pinned column of length 2L; fixed-fixed squeezes the sine to the middle half."
+  },
+  {
+   "id": "m-s14-3",
+   "skill": "s14",
+   "kind": "number",
+   "ask": "Give the characteristic equation and critical load of a fixed-pinned column.",
+   "answer": "tan kL = kL, smallest root kL = 4.493, so P_cr = 20.19EI/L² = 2.046π²EI/L², matching K = π/4.493 ≈ 0.7.",
+   "cue": "4.493 is where the tangent curve meets the 45° line on its second branch; squared, about 20."
+  },
+  {
+   "id": "m-s14-4",
+   "skill": "s14",
+   "kind": "formula",
+   "ask": "Give the buckling modes and loads of a pinned-pinned column.",
+   "answer": "w = A sin(nπx/L), P_n = n²π²EI/L², n = 1, 2, 3, …. The first mode governs; a lateral brace at midspan forces mode 2 and quadruples P_cr.",
+   "cue": "Guitar string harmonics: n half sine waves, load scales as n²."
+  },
+  {
+   "id": "m-s14-5",
+   "skill": "s14",
+   "kind": "sequence",
+   "ask": "List the steps to find a column's critical load from the differential equation.",
+   "answer": "1) Write EIw⁗ + Pw″ = 0, k² = P/(EI). 2) General solution w = A sin kx + B cos kx + Cx + D. 3) Apply four boundary conditions. 4) Homogeneous system: set the determinant to zero. 5) Smallest root gives P_cr; its eigenvector gives the mode.",
+   "cue": "Four constants, four BCs, a zero determinant for a nonzero shape."
+  },
+  {
+   "id": "m-s14-6",
+   "skill": "s14",
+   "kind": "convention",
+   "ask": "Define the slenderness ratio and state about which axis a column buckles.",
+   "answer": "Slenderness KL/r, with r = √(I/A) the radius of gyration. The column buckles about the axis with the largest KL/r, which for equal K and L is the axis of smallest I.",
+   "cue": "A ruler under compression bows the floppy way, about its weak axis."
+  },
+  {
+   "id": "m-s14-7",
+   "skill": "s14",
+   "kind": "number",
+   "ask": "Give the transition slenderness between the Johnson and Euler curves and the stress there.",
+   "answer": "(KL/r)_t = √(2π²E/σ_y). There σ_cr = σ_y/2 and the Johnson parabola is tangent to the Euler hyperbola. Use Euler above it, Johnson below.",
+   "cue": "Set π²E/s² equal to σ_y/2 and solve: s² = 2π²E/σ_y."
+  },
+  {
+   "id": "m-s14-8",
+   "skill": "s14",
+   "kind": "definition",
+   "ask": "Contrast the tangent modulus load, the reduced modulus load and Shanley's result for inelastic buckling.",
+   "answer": "Tangent modulus: P_t = π²E_tI/(KL)², using the local slope E_t. Reduced modulus: P_r, using E_r between E_t and E, with P_t < P_r. Shanley: buckling begins at P_t, and the load rises toward P_r as bending grows; design uses P_t.",
+   "cue": "Tangent is the doorway where bending starts; reduced is the ceiling the load climbs toward."
+  },
+  {
+   "id": "m-s14-9",
+   "skill": "s14",
+   "kind": "trend",
+   "ask": "Describe the load-deflection curves of pinned columns with different initial imperfections δ₀.",
+   "answer": "Deflection grows from the start, w_max = δ₀/(1 − P/P_cr). Larger δ₀ gives larger deflection at every load. All curves approach P = P_cr asymptotically; the perfect column follows the bifurcation path.",
+   "cue": "Every curve bends toward the same horizontal ceiling P_cr; a bigger initial bow just starts bending sooner."
+  }
+ ]
+}
